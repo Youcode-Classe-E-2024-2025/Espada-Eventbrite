@@ -1,24 +1,17 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-session_start();
-require_once "../vendor/autoload.php";
+require_once __DIR__ . '/../vendor/autoload.php';
 
-use app\core\Router;
-use app\models\Article;
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+$dotenv->load();
 
-$controllerRouter = new Router();
-$routes = require_once "../app/config/routes.php";
+require_once __DIR__ . '/../app/config/routes.php';
+$requestMethod = $_SERVER['REQUEST_METHOD'];
+$requestPath = $_SERVER['REQUEST_URI'];
 
-foreach ($routes as $path => $controller) {
-    $controllerRouter->add('GET', $path, $controller);
-    $controllerRouter->add('POST', $path, $controller);
+try {
+
+    echo $router->dispatch($requestMethod, $requestPath);
+} catch (Exception $e) {
+    echo 'Page not found';
 }
-
-
-
-
-
-$controllerRouter->dispatch(strtok($_SERVER['REQUEST_URI'], "?"));
-?>

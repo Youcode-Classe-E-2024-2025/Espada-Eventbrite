@@ -1,7 +1,6 @@
 <?php
 
-return [
-    // Public routes
-    '' => ['app\controllers\HomeController', 'index'],
+use App\Core\Router;
 
-];
+$router = new Router();
+$router->addRoute('GET', '/', [HomeController::class, 'index']);
