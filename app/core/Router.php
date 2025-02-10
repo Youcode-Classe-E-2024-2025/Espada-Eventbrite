@@ -1,98 +1,84 @@
 <?php
-namespace app\core;
 
-class Router {
+namespace App\Core;
+
+class Router
+{
     private array $routes = [];
-    private array $middleware = [];
 
-    // '' => 
-    // array (size=2)
-    //   0 => string 'app\controllers\HomeController' (length=30)
-    //   1 => string 'index' (length=5)
-    public function add(string $method, string $path, $controller) {
-        $path = $this->normalizePath($path);
-        $path = preg_replace('/{([^}]+)}/', '(?<\\1>[^/]+)', $path);
+    /**
+     * Adds a new route to the routing table
+     * 
+     * @param string $method HTTP method (GET, POST, etc.)
+     * @param string $path URL path pattern
+     * @param array $handler Controller and method to handle the route
+     * @return void
+     */
+    public function addRoute(string $method, string $path, array $handler)
+    {
         $this->routes[] = [
+            'method' => $method,
             'path' => $path,
-            'method' => strtoupper($method),
-            'controller' => $controller
+            'handler' => $handler
         ];
     }
 
+    /**
+     * Extracts parameters from URL based on route pattern
+     * 
+     * @param string $routePath Original route pattern
+     * @param string $requestPath Actual request URL
+     * @return array|null Matched parameters or null if no match
+     */
+    // private function extractParams(string $routePath, string $requestPath)
+    // {
+    //     $pattern = preg_replace('/\{(\w+)\}/', '(?P<$1>[^/]+)', $routePath);
+    //     $pattern = "#^{$pattern}$#";
 
-    public function setMiddleware($middleware) {
-        if (is_callable($middleware)) {
-            $this->middleware[] = $middleware;
-        } elseif (is_array($middleware)) {
-            foreach ($middleware as $m) {
-                if (is_callable($m)) {
-                    $this->middleware[] = $m;
-                }
-            }
-        }
-    }
-    
-    public function group(array $options, callable $callback) {
-        $this->setMiddleware($options['middleware']);
-        call_user_func($callback, $this);
-    }
+    //     if (preg_match($pattern, $requestPath, $matches)) {
+    //         return array_filter($matches, fn($key) => !is_numeric($key), ARRAY_FILTER_USE_KEY);
+    //     }
 
-    private function runMiddleware() {
-        foreach ($this->middleware as $middleware) {
-            
-            $result = $middleware();
-            if ($result === false) {
-                return false;
-            }
-        }
-        return true;
-    }
+    //     return null;
+    // }
 
-    private function normalizePath(string $path): string {
-        $path = trim($path, '/');
-        $path = "/{$path}/";
-        $path = preg_replace('#[/]{2,}#', '/', $path);
-        return $path;
-    
-    }
+    /**
+     * Dispatches request to appropriate controller
+     * 
+     * @param string $method HTTP request method
+     * @param string $uri Request URI
+     * @return mixed Controller response
+     * @throws \Exception When route not found
+     */
+    public function dispatch($method, $uri)
+    {
+        $uri = explode('?', $uri)[0];
 
-    public function dispatch(string $path) {
-        // Run middleware stack
-        if (!$this->runMiddleware()) {
-            return;
-        }
-
-
-        $path = $this->normalizePath($path);
-        $method = strtoupper($_SERVER['REQUEST_METHOD']);
-        
         foreach ($this->routes as $route) {
-            $pattern = "#^{$route['path']}$#";
-            
-            if ($route['method'] !== $method) {
-                continue;
-            }
-            
-            if (preg_match($pattern, $path, $matches)) {
-                $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
-                
-                if (is_array($route['controller'])) {
-                    [$class, $function] = $route['controller'];
-                    $controllerInstance = new $class();
-                    
-                    if (!empty($params)) {
-                        call_user_func_array([$controllerInstance, $function], array_values($params));
-                    } else {
-                        $controllerInstance->{$function}();
-                    
-                    }
-                    return;
+            if ($route['method'] === $method) {
+                $pattern = $this->convertPattern($route['path']);
+                if (preg_match($pattern, $uri, $params)) {
+                    $handler = $route['handler'];
+                    $controller = new $handler[0]();
+                    $action = $handler[1];
+                    array_shift($params);
+                    return $controller->$action(array_values($params));
                 }
             }
         }
-        
-        // No route found
-        http_response_code(404);
-        echo "404 - Page not found";
+        throw new \Exception('Route not found');
+    }
+
+
+    /**
+     * Converts route pattern to regex pattern
+     * 
+     * @param string $path Route path pattern
+     * @return string Regex pattern for matching
+     */
+    private function convertPattern($path)
+    {
+        $pattern = str_replace('/', '\/', $path);
+        return "#^" . preg_replace('/\{(\w+)\}/', '([^/]+)', $pattern) . "$#";
     }
 }
