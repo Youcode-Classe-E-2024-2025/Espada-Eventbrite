@@ -10,7 +10,7 @@ class HomeController extends controller{
           if($res->role_id== '1'){ //user
             $this->redirect('/auth');
           }else if($res->role_id == '2'){ //particepant
-            $this->redirect('/auth');
+            $this->redirect('/organiser/dash');
           }else{ // admin
             $this->redirect('/auth');
           }
