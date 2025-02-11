@@ -6,18 +6,20 @@ use App\services\UserService;
 use App\core\Session;
 use App\core\Validator;
 use App\core\View;
+use App\core\Controller;
 use Google_Client;
 use Google_Service_Oauth2;
+use Exception;
 
-class AuthController
+class AuthController extends Controller
 {
-    private UserService $userService;
-    private Session $session;
+    // private UserService $userService;
+    protected $session;
     private Validator $validator;
 
     public function __construct()
     {
-        $this->userService = new UserService();
+        // $this->userService = new UserService();
         $this->session = new Session();
         $this->validator = new Validator();
     }
@@ -26,7 +28,6 @@ class AuthController
     {
         $view = new View();
         echo $view->render('front/auth.twig',[]);
-        echo $view->render('base.html.twig',[]);
     }
     // Handle the registration process
     public function register(array $requestData)
@@ -49,7 +50,7 @@ class AuthController
             ];
         }
 
-        // Check if passwords match
+        //Check if passwords match
         if ($requestData['password'] !== $requestData['confirm_password']) {
             return [
                 'success' => false,
@@ -73,7 +74,7 @@ class AuthController
         return ['success' => false, 'errors' => ['general' => 'Registration failed']];
     }
 
-    // Handle the login process
+    //Handle the login process
     public function login(array $requestData)
     {
         // Validation rules
@@ -109,69 +110,87 @@ class AuthController
         $this->session->destroy();
     }
 
-    public function loginWithGougle()
-    {
-        var_dump("hi");
-        die();
-        // Load environment variables for Google OAuth credentials
-        $dotenv = \Dotenv\Dotenv::createImmutable(dirname(__DIR__, 3));
-        $dotenv->load();
-        // Configure Google OAuth Client
+    public function loginWithGoogle(){
+        $clientId = $_ENV['GOOGLE_CLIENT_ID'];
+        $clientSecret = $_ENV['GOOGLE_CLIENT_SECRET'];
+        $redirectUri = $_ENV['GOOGLE_REDIRECT_URI'];
+
         $client = new Google_Client();
-        $client->setClientId($_ENV['GOOGLE_CLIENT_ID']);
-        $client->setClientSecret($_ENV['GOOGLE_CLIENT_SECRET']);
-        $client->setRedirectUri($_ENV['GOOGLE_REDIRECT_URI']);
+        $client->setClientId($clientId);
+        $client->setClientSecret($clientSecret);
+        $client->setRedirectUri($redirectUri);
         $client->addScope('email');
         $client->addScope('profile');
 
-        // If the code is not set, redirect to Google OAuth consent screen
-        if (!isset($_GET['code'])) {
-            $authUrl = $client->createAuthUrl();
-            header('Location: ' . $authUrl);
-            exit();
-        }
+        // Generate and redirect to Google OAuth URL
+        $authUrl = $client->createAuthUrl();
+        header('Location: ' . $authUrl);
+        exit();
+    }
 
-        // Exchange authorization code for access token
+    public function handleGoogleCallback() {
         try {
-            $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
+            $clientId = $_ENV['GOOGLE_CLIENT_ID'];
+            $clientSecret = $_ENV['GOOGLE_CLIENT_SECRET'];
+            $redirectUri = $_ENV['GOOGLE_REDIRECT_URI'];
+
+            // Validate environment variables
+            if (empty($clientId) || empty($clientSecret) || empty($redirectUri)) {
+                throw new Exception('Missing Google OAuth configuration');
+            }
+
+            $client = new Google_Client();
+            $client->setClientId($clientId);
+            $client->setClientSecret($clientSecret);
+            $client->setRedirectUri($redirectUri);
+
+            // Exchange authorization code for access token
+            $code = $_GET['code'] ?? null;
+            if (!$code) {
+                throw new Exception('No authorization code found');
+            }
+
+            $token = $client->fetchAccessTokenWithAuthCode($code);
+            
+            // Detailed error logging for token fetch
+            if (isset($token['error'])) {
+                error_log('Google Token Error: ' . json_encode($token['error']));
+                throw new Exception('Google OAuth Token Error: ' . $token['error']);
+            }
+
             $client->setAccessToken($token);
 
-            // Get user profile information
-            $oauth2Service = new Google_Service_Oauth2($client);
-            $googleUser = $oauth2Service->userinfo->get();
+            // Fetch user info
+            $oauth2 = new Google_Service_Oauth2($client);
+            $userInfo = $oauth2->userinfo->get();
 
-            // Prepare user data for registration/login
-            $userData = [
-                'email' => $googleUser->email,
-                'first_name' => $googleUser->givenName,
-                'last_name' => $googleUser->familyName,
-                'role' => 'participant', // Default role, adjust as needed
-                'google_id' => $googleUser->id
-            ];
-
-            // Check if user exists, if not, register
-            if (!$this->userService->isEmailRegistered($userData['email'])) {
-                $this->userService->register($userData);
+            // Validate user info
+            if (!$userInfo || !$userInfo->email) {
+                throw new Exception('Unable to retrieve user information');
             }
 
-            // Login the user
-            $user = $this->userService->loginWithGoogle($userData['email'], $userData['google_id']);
-            
-            if ($user) {
-                $this->session->set('user', $user);
-                // Redirect to dashboard or home page
-                header('Location: /');
-                exit();
-            } else {
-                // Handle login failure
-                $this->session->set('error', 'Google Sign-In failed');
-                header('Location: /auth');
-                exit();
-            }
-        } catch (\Exception $e) {
-            // Handle exceptions
-            $this->session->set('error', 'An error occurred during Google Sign-In: ' . $e->getMessage());
-            header('Location: /auth');
+            // Check if user exists or create new user
+            $userService = new UserService();
+            $user = $userService->findOrCreateGoogleUser([
+                'email' => $userInfo->email,
+                'name' => $userInfo->name,
+                'avatar' => $userInfo->picture
+            ]);
+
+            // Set user session
+            $this->session->set('user', $user);
+
+            // Redirect to profile or dashboard
+            header('Location: /profile');
+            exit();
+
+        } catch (Exception $e) {
+            // Comprehensive error logging
+            error_log('Google OAuth Error: ' . $e->getMessage());
+            error_log('Error Trace: ' . $e->getTraceAsString());
+
+            // Redirect to login with error
+            header('Location: /login?error=google_auth_failed');
             exit();
         }
     }
