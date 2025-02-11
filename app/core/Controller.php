@@ -2,8 +2,6 @@
 
 namespace App\core;
 
-
-
 abstract class Controller
 {
     protected $db;
