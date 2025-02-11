@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core;
+namespace App\core;
 
 class Router
 {
@@ -60,6 +60,7 @@ class Router
                 if (preg_match($pattern, $uri, $params)) {
                     $handler = $route['handler'];
                     $controller = new $handler[0]();
+                    // echo $controller;
                     $action = $handler[1];
                     array_shift($params);
                     return $controller->$action(array_values($params));
