@@ -25,6 +25,7 @@ $router->addRoute('GET', '/events/search', [App\controllers\front\EventControlle
 
 $router->addRoute('GET', '/admin/users', [App\controllers\back\AdminUserController::class, 'index']);
 $router->addRoute('GET', '/admin/users/search', [App\controllers\back\AdminUserController::class, 'search']);
+$router->addRoute('GET', '/admin/users/filter', [App\controllers\back\AdminUserController::class, 'filter']);
 $router->addRoute('POST', '/admin/users/status', [App\controllers\back\AdminUserController::class, 'updateStatus']);
 
 

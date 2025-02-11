@@ -119,6 +119,12 @@ class UserService
         return $this->userRepository->searchUsersWithFilters($keyword, $roleId, $status);
     }
 
+    public function filterUsers($roleId, $status)
+    {
+        return $this->userRepository->filterByRoleAndStatus($roleId, $status);
+    }
+
+
     public function updateUserStatus($userId, $status)
     {
         switch ($status) {

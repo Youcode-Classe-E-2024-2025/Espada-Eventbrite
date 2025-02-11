@@ -156,4 +156,27 @@ class UserRepository
 
         return $results;
     }
+
+    public function filterByRoleAndStatus($roleId, $status)
+    {
+        $sql = "SELECT * FROM users WHERE 1=1";
+        $params = [];
+
+        if (!empty($roleId)) {
+            $sql .= " AND role_id = :role_id";
+            $params['role_id'] = $roleId;
+        }
+
+        if (isset($status)) {
+            if ($status === User::BANNED) {
+                $sql .= " AND banned = 1";
+            } elseif ($status === User::ARCHIVED) {
+                $sql .= " AND archived = 1";
+            } else {
+                $sql .= " AND banned = 0 AND archived = 0";
+            }
+        }
+
+        return $this->DB->query($sql, $params)->fetchAll(PDO::FETCH_OBJ);
+    }
 }

@@ -38,6 +38,20 @@ class AdminUserController extends Controller
         ]);
     }
 
+    public function filter()
+    {
+        $roleId = isset($_GET['role_id']) ? (int)$_GET['role_id'] : null;
+        $status = isset($_GET['status']) ? (int)$_GET['status'] : null;
+
+        $results = $this->userService->filterUsers($roleId, $status);
+
+        return $this->render('back/admin-users.html.twig', [
+            'users' => $results,
+            'role_id' => $roleId,
+            'status' => $status
+        ]);
+    }
+
     public function updateStatus()
     {
         $userId = isset($_POST['user_id']) ? (int)$_POST['user_id'] : null;
