@@ -1,0 +1,170 @@
+{% extends "base.html.twig" %}
+{% block content %}
+                <div id="event-details" class="bg-gray-50">
+  <header id="header" class="sticky top-0 z-50 bg-white shadow-sm">
+    <div class="container mx-auto px-4 py-4">
+      <nav class="flex items-center justify-between">
+        <div class="text-2xl font-bold text-indigo-600">EventHub</div>
+        <div class="flex items-center space-x-6">
+          <span  class="text-gray-600 hover:text-indigo-600 cursor-pointer"><i class="fa-regular fa-heart"></i></span>
+          <span  class="text-gray-600 hover:text-indigo-600 cursor-pointer"><i class="fa-regular fa-user"></i></span>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <main id="main-content" class="container mx-auto px-4 py-8">
+    <section id="event-hero" class="mb-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="space-y-4">
+          <span class="inline-block px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">Available</span>
+          <h1 class="text-4xl font-bold text-gray-900">Tech Conference 2025</h1>
+          <p class="text-gray-600">Join us for the biggest tech conference of the year featuring industry leaders and innovative workshops.</p>
+          <div class="flex items-center space-x-4">
+            <div class="flex items-center text-gray-600">
+              <i class="fa-regular fa-calendar mr-2"></i>
+              <span>March 15-17, 2025</span>
+            </div>
+            <div class="flex items-center text-gray-600">
+              <i class="fa-solid fa-location-dot mr-2"></i>
+              <span>Convention Center, New York</span>
+            </div>
+          </div>
+        </div>
+        <div class="rounded-xl overflow-hidden">
+          <img class="w-full h-[400px] object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/afc6dbb14c-4c83c08a83d2a682383f.png" alt="modern tech conference hall with people networking, professional event photography style" >
+        </div>
+      </div>
+    </section>
+    <section id="ticket-options" class="mb-12">
+      <h2 class="text-2xl font-bold mb-6">Select Your Ticket</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:border-indigo-600 transition">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="font-bold text-xl">Early Bird</h3>
+            <span class="text-indigo-600 font-bold">$299</span>
+          </div>
+          <ul class="space-y-3 mb-6">
+            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> General admission</li>
+            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Conference materials</li>
+            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Coffee breaks</li>
+          </ul>
+          <button class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700">Select Ticket</button>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:border-indigo-600 transition">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="font-bold text-xl">Regular</h3>
+            <span class="text-indigo-600 font-bold">$499</span>
+          </div>
+          <ul class="space-y-3 mb-6">
+            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> All Early Bird features</li>
+            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Lunch included</li>
+            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Networking event</li>
+          </ul>
+          <button class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700">Select Ticket</button>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:border-indigo-600 transition">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="font-bold text-xl">VIP</h3>
+            <span class="text-indigo-600 font-bold">$899</span>
+          </div>
+          <ul class="space-y-3 mb-6">
+            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> All Regular features</li>
+            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> VIP lounge access</li>
+            <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Speaker dinner</li>
+          </ul>
+          <button class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700">Select Ticket</button>
+        </div>
+      </div>
+    </section>
+    <section id="event-details-content" class="mb-12">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="md:col-span-2 space-y-6">
+          <div>
+            <h2 class="text-2xl font-bold mb-4">About the Event</h2>
+            <p class="text-gray-600">Join industry leaders and innovators for three days of cutting-edge technology discussions, workshops, and networking opportunities. The conference will cover AI, blockchain, cloud computing, and more.</p>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold mb-4">What to Expect</h3>
+            <ul class="space-y-3">
+              <li class="flex items-center"><i class="fa-solid fa-microphone text-indigo-600 mr-3"></i> Keynote speakers</li>
+              <li class="flex items-center"><i class="fa-solid fa-users text-indigo-600 mr-3"></i> Interactive workshops</li>
+              <li class="flex items-center"><i class="fa-solid fa-rocket text-indigo-600 mr-3"></i> Startup showcase</li>
+              <li class="flex items-center"><i class="fa-solid fa-handshake text-indigo-600 mr-3"></i> Networking sessions</li>
+            </ul>
+          </div>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow-sm">
+          <h3 class="text-xl font-bold mb-4">Event Details</h3>
+          <div class="space-y-4">
+            <div>
+              <p class="text-gray-500 text-sm">Date & Time</p>
+              <p class="font-medium">March 15-17, 2025</p>
+              <p class="font-medium">9:00 AM - 6:00 PM</p>
+            </div>
+            <div>
+              <p class="text-gray-500 text-sm">Location</p>
+              <p class="font-medium">Convention Center</p>
+              <p class="text-gray-600">123 Tech Avenue, New York, NY</p>
+            </div>
+            <div>
+              <p class="text-gray-500 text-sm">Capacity</p>
+              <p class="font-medium">1000 attendees</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="gallery" class="mb-12">
+      <h2 class="text-2xl font-bold mb-6">Event Gallery</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <img class="w-full h-48 object-cover rounded-lg" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/e257354127-bbd1e8b4f88fd3660b25.png" alt="tech conference presentation, professional event photography" >
+        <img class="w-full h-48 object-cover rounded-lg" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/5c78235d29-c324af1f0df5409dc17d.png" alt="networking event at tech conference, candid photography" >
+        <img class="w-full h-48 object-cover rounded-lg" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/83eb44af0c-b5c5d03c030605cc2e0b.png" alt="workshop session at tech conference, educational setting" >
+        <img class="w-full h-48 object-cover rounded-lg" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/1cc69861c0-88ebf370f62b16784d90.png" alt="tech exhibition booth setup, professional event photography" >
+      </div>
+    </section>
+    <section id="location" class="mb-12">
+      <h2 class="text-2xl font-bold mb-6">Location</h2>
+      <div class="h-[400px] bg-gray-200 rounded-xl">
+        <iframe class="w-full h-full rounded-xl" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387193.30596552044!2d-74.25986548248684!3d40.69714941932609!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2s!4v1647043435129!5m2!1sen!2s" loading="lazy"></iframe>
+      </div>
+    </section>
+    <section id="reviews" class="mb-12">
+      <h2 class="text-2xl font-bold mb-6">Attendee Reviews</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white p-6 rounded-xl shadow-sm">
+          <div class="flex items-center mb-4">
+            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Reviewer" class="w-12 h-12 rounded-full mr-4">
+            <div>
+              <h4 class="font-bold">Sarah Johnson</h4>
+              <div class="flex text-yellow-400">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+              </div>
+            </div>
+          </div>
+          <p class="text-gray-600">"Amazing conference! The speakers were excellent and the networking opportunities were invaluable."</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow-sm">
+          <div class="flex items-center mb-4">
+            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="Reviewer" class="w-12 h-12 rounded-full mr-4">
+            <div>
+              <h4 class="font-bold">Michael Chen</h4>
+              <div class="flex text-yellow-400">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+              </div>
+            </div>
+          </div>
+          <p class="text-gray-600">"Great organization and valuable content. Looking forward to next year's event!"</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  {% endblock %}
