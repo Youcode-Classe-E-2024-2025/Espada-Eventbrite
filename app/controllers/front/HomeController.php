@@ -1,18 +1,19 @@
 <?php
 namespace app\controllers\front;
-use App\core\View;
+use App\core\Controller;
 
-use App\core\Session;
-use App\core\Database;
+class HomeController extends controller{
 
-class HomeController extends View{
-
-    private $db;
-    public function index(){
-          $s =new Session();
-          $res=$s->get('user');
-          echo $res->email;
-        
+        public function index(){
+          $res=$this->session->get('user');
+    
+          if($res->role_id== '1'){ //user
+            $this->redirect('/auth');
+          }else if($res->role_id == '2'){ //particepant
+            $this->redirect('/auth');
+          }else{ // admin
+            $this->redirect('/auth');
+          }
     }
 }
 ?>
