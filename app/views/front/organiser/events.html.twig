@@ -1,0 +1,169 @@
+{% extends "dashboard.twig" %}
+{% block content %}
+            <div class="p-6">
+                <div class="mb-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900">All Events</h2>
+                            <p class="text-gray-500 mt-1">Manage and monitor your events</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button class="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+                                <i class="fa-solid fa-filter"></i>
+                                <span>Filter</span>
+                            </button>
+                            <button class="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+                                <i class="fa-solid fa-plus"></i>
+                                <span>New Event</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                        <div class="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+                            <div class="relative">
+                                <img class="w-full h-48 object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/9cf97f89d2-d1682aaf3d6a2aa091f1.png" alt="music festival stage with lights and crowd, professional event photography style" >
+                                <span class="absolute top-3 right-3 px-2 py-1 bg-green-500 text-white text-xs rounded-full">Active</span>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-gray-900">Summer Music Festival</h3>
+                                <div class="flex items-center gap-2 text-sm text-gray-500 mt-2">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <span>Los Angeles, CA</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-sm text-gray-500 mt-1">
+                                    <i class="fa-regular fa-calendar"></i>
+                                    <span>Aug 15, 2025</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-sm text-gray-500 mt-1">
+                                    <i class="fa-solid fa-ticket"></i>
+                                    <span>1,200 tickets sold</span>
+                                </div>
+                                <div class="mt-4 flex items-center justify-between">
+                                    <span class="text-indigo-600 font-semibold">$4,200</span>
+                                    <div class="flex items-center gap-2">
+                                        <button class="p-2 hover:bg-gray-100 rounded-lg">
+                                            <i class="fa-solid fa-pen-to-square text-gray-400"></i>
+                                        </button>
+                                        <button class="p-2 hover:bg-gray-100 rounded-lg">
+                                            <i class="fa-solid fa-ellipsis-vertical text-gray-400"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+                            <div class="relative">
+                                <img class="w-full h-48 object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/11d52fb07b-3aba9e0fd4154ae2ad03.png" alt="tech conference stage with speakers and audience, professional event photography style" >
+                                <span class="absolute top-3 right-3 px-2 py-1 bg-yellow-500 text-white text-xs rounded-full">Pending</span>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-gray-900">Tech Conference 2025</h3>
+                                <div class="flex items-center gap-2 text-sm text-gray-500 mt-2">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <span>San Francisco, CA</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-sm text-gray-500 mt-1">
+                                    <i class="fa-regular fa-calendar"></i>
+                                    <span>Sep 20, 2025</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-sm text-gray-500 mt-1">
+                                    <i class="fa-solid fa-ticket"></i>
+                                    <span>800 tickets sold</span>
+                                </div>
+                                <div class="mt-4 flex items-center justify-between">
+                                    <span class="text-indigo-600 font-semibold">$8,250</span>
+                                    <div class="flex items-center gap-2">
+                                        <button class="p-2 hover:bg-gray-100 rounded-lg">
+                                            <i class="fa-solid fa-pen-to-square text-gray-400"></i>
+                                        </button>
+                                        <button class="p-2 hover:bg-gray-100 rounded-lg">
+                                            <i class="fa-solid fa-ellipsis-vertical text-gray-400"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+                            <div class="relative">
+                                <img class="w-full h-48 object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/43c1ab5fca-8d6d56fee469cf4d50bd.png" alt="food festival with various food stalls and people, professional event photography style" >
+                                <span class="absolute top-3 right-3 px-2 py-1 bg-green-500 text-white text-xs rounded-full">Active</span>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-gray-900">Food & Wine Festival</h3>
+                                <div class="flex items-center gap-2 text-sm text-gray-500 mt-2">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <span>New York, NY</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-sm text-gray-500 mt-1">
+                                    <i class="fa-regular fa-calendar"></i>
+                                    <span>Oct 5, 2025</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-sm text-gray-500 mt-1">
+                                    <i class="fa-solid fa-ticket"></i>
+                                    <span>600 tickets sold</span>
+                                </div>
+                                <div class="mt-4 flex items-center justify-between">
+                                    <span class="text-indigo-600 font-semibold">$3,600</span>
+                                    <div class="flex items-center gap-2">
+                                        <button class="p-2 hover:bg-gray-100 rounded-lg">
+                                            <i class="fa-solid fa-pen-to-square text-gray-400"></i>
+                                        </button>
+                                        <button class="p-2 hover:bg-gray-100 rounded-lg">
+                                            <i class="fa-solid fa-ellipsis-vertical text-gray-400"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+                            <div class="relative">
+                                <img class="w-full h-48 object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/fb96efc8dc-cbf538c4f28c9da6a12b.png" alt="art gallery exhibition with paintings and visitors, professional event photography style" >
+                                <span class="absolute top-3 right-3 px-2 py-1 bg-red-500 text-white text-xs rounded-full">Draft</span>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-gray-900">Modern Art Exhibition</h3>
+                                <div class="flex items-center gap-2 text-sm text-gray-500 mt-2">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <span>Chicago, IL</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-sm text-gray-500 mt-1">
+                                    <i class="fa-regular fa-calendar"></i>
+                                    <span>Nov 15, 2025</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-sm text-gray-500 mt-1">
+                                    <i class="fa-solid fa-ticket"></i>
+                                    <span>0 tickets sold</span>
+                                </div>
+                                <div class="mt-4 flex items-center justify-between">
+                                    <span class="text-indigo-600 font-semibold">$0</span>
+                                    <div class="flex items-center gap-2">
+                                        <button class="p-2 hover:bg-gray-100 rounded-lg">
+                                            <i class="fa-solid fa-pen-to-square text-gray-400"></i>
+                                        </button>
+                                        <button class="p-2 hover:bg-gray-100 rounded-lg">
+                                            <i class="fa-solid fa-ellipsis-vertical text-gray-400"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between bg-white p-4 rounded-lg border border-gray-200">
+                    <div class="flex items-center gap-2">
+                        <span class="text-sm text-gray-500">Showing 1-4 of 24 events</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button class="px-3 py-1 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50" disabled>
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <button class="px-3 py-1 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">1</button>
+                        <button class="px-3 py-1 border border-gray-300 rounded-lg hover:bg-gray-50">2</button>
+                        <button class="px-3 py-1 border border-gray-300 rounded-lg hover:bg-gray-50">3</button>
+                        <button class="px-3 py-1 border border-gray-300 rounded-lg hover:bg-gray-50">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+{% endblock %}

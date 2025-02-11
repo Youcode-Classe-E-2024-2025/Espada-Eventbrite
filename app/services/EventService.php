@@ -4,16 +4,17 @@ namespace App\services;
 
 use App\repository\EventRepository;
 use App\models\Event;
+use App\core\Database;
 
 class EventService
 {
     private EventRepository $eventRepository;
     private Event $event;
 
-    public function __construct(EventRepository $eventRepository, Event $event)
+    public function __construct()
     {
-        $this->eventRepository = $eventRepository;
-        $this->event = $event;
+        $this->event = new Event();
+        $this->eventRepository = new EventRepository(new Database(), $this->event);
     }
 
     public function searchEvents(string $keyword, int $page, int $limit): array

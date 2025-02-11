@@ -1,0 +1,39 @@
+{% extends "base.html.twig" %}
+{% block content %}
+    <div class="flex h-[100vh] pt-[68px]">
+        <aside id="sidebar" class="hidden lg:flex flex-col w-64 border-r border-gray-200 bg-white">
+            <div class="p-4 space-y-4">
+                <button class="w-full bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Create New Event</span>
+                </button>
+                <nav class="space-y-1">
+                    <a href="#" class="flex items-center gap-3 px-3 py-2 text-gray-900 bg-gray-100 rounded-lg">
+                        <i class="fa-solid fa-chart-line w-5"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:bg-gray-50 rounded-lg">
+                        <i class="fa-solid fa-calendar w-5"></i>
+                        <span>Events</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:bg-gray-50 rounded-lg">
+                        <i class="fa-solid fa-ticket w-5"></i>
+                        <span>Tickets</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:bg-gray-50 rounded-lg">
+                        <i class="fa-solid fa-tag w-5"></i>
+                        <span>Promotions</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:bg-gray-50 rounded-lg">
+                        <i class="fa-solid fa-gear w-5"></i>
+                        <span>Settings</span>
+                    </a>
+                </nav>
+            </div>
+        </aside>
+        <main id="main-content" class="flex-1 overflow-auto">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</div>
+{% endblock %}

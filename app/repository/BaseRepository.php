@@ -7,7 +7,7 @@ use App\core\Database;
 abstract class BaseRepository
 {
     protected Database $db;
-    protected string $table;
+    protected $table;
 
     public function __construct(Database $database)
     {

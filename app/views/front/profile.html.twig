@@ -1,0 +1,163 @@
+{% extends "base.html.twig" %}
+{% block content %}
+<div id="profile-page" class="bg-gray-50">
+    <header id="header" class="bg-white border-b">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-8">
+                    <h1 class="text-xl font-semibold">My Profile</h1>
+                    <nav class="hidden md:flex space-x-6">
+                        <span  class="text-gray-600 hover:text-gray-900 cursor-pointer">Dashboard</span>
+                        <span  class="text-blue-600 font-medium cursor-pointer">Profile</span>
+                        <span  class="text-gray-600 hover:text-gray-900 cursor-pointer">Events</span>
+                        <span  class="text-gray-600 hover:text-gray-900 cursor-pointer">Settings</span>
+                    </nav>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="text-gray-600 hover:text-gray-900">
+                        <i class="fa-regular fa-bell text-xl"></i>
+                    </button>
+                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Profile" class="w-10 h-10 rounded-full">
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div id="personal-info" class="md:col-span-1">
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <div class="text-center mb-6">
+                        <div class="relative inline-block">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Profile" class="w-24 h-24 rounded-full mx-auto">
+                            <button class="absolute bottom-0 right-0 bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700">
+                                <i class="fa-solid fa-camera"></i>
+                            </button>
+                        </div>
+                        <h2 class="mt-4 text-xl font-semibold">John Doe</h2>
+                        <p class="text-gray-600">Event Organizer</p>
+                    </div>
+                    <form class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                            <input type="text" class="w-full px-3 py-2 border rounded-lg" value="John Doe">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input type="email" class="w-full px-3 py-2 border rounded-lg" value="john@example.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                            <input type="tel" class="w-full px-3 py-2 border rounded-lg" value="+1 234 567 890">
+                        </div>
+                        <button class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
+                            Save Changes
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div id="events-history" class="md:col-span-2">
+                <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-lg font-semibold">My Events</h3>
+                        <div class="flex space-x-2">
+                            <button class="px-4 py-2 text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100">
+                                <i class="fa-solid fa-filter mr-2"></i>Filter
+                            </button>
+                            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                                <i class="fa-solid fa-plus mr-2"></i>Create Event
+                            </button>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="border rounded-lg p-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="bg-blue-50 p-3 rounded-lg">
+                                        <i class="fa-solid fa-calendar-days text-blue-600 text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-medium">Tech Conference 2025</h4>
+                                        <p class="text-sm text-gray-600">March 15, 2025 • 9:00 AM</p>
+                                    </div>
+                                </div>
+                                <span class="px-3 py-1 bg-green-50 text-green-600 rounded-full text-sm">Active</span>
+                            </div>
+                        </div>
+                        <div class="border rounded-lg p-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="bg-blue-50 p-3 rounded-lg">
+                                        <i class="fa-solid fa-music text-blue-600 text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-medium">Music Festival</h4>
+                                        <p class="text-sm text-gray-600">April 5, 2025 • 7:00 PM</p>
+                                    </div>
+                                </div>
+                                <span class="px-3 py-1 bg-gray-50 text-gray-600 rounded-full text-sm">Past</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="notifications" class="bg-white rounded-xl shadow-sm p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-lg font-semibold">Notifications</h3>
+                        <button class="text-blue-600 hover:text-blue-700">Mark all as read</button>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-4 p-3 bg-blue-50 rounded-lg">
+                            <i class="fa-solid fa-ticket text-blue-600 mt-1"></i>
+                            <div>
+                                <p class="font-medium">New Ticket Purchase</p>
+                                <p class="text-sm text-gray-600">Someone purchased a ticket for Tech Conference 2025</p>
+                                <p class="text-sm text-gray-500 mt-1">2 hours ago</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4 p-3 rounded-lg">
+                            <i class="fa-solid fa-envelope text-gray-600 mt-1"></i>
+                            <div>
+                                <p class="font-medium">Email Confirmation</p>
+                                <p class="text-sm text-gray-600">Your event listing has been approved</p>
+                                <p class="text-sm text-gray-500 mt-1">1 day ago</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="reserved-tickets" class="mt-8">
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-lg font-semibold">Reserved Tickets</h3>
+                    <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        <i class="fa-solid fa-qrcode mr-2"></i>View All Tickets
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="border rounded-lg p-4">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-medium">Tech Conference 2025</h4>
+                                <p class="text-sm text-gray-600">VIP Pass</p>
+                                <p class="text-sm text-gray-600 mt-2">March 15, 2025 • 9:00 AM</p>
+                            </div>
+                            <i class="fa-solid fa-qrcode text-2xl text-gray-400"></i>
+                        </div>
+                    </div>
+                    <div class="border rounded-lg p-4">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-medium">Music Festival</h4>
+                                <p class="text-sm text-gray-600">General Admission</p>
+                                <p class="text-sm text-gray-600 mt-2">April 5, 2025 • 7:00 PM</p>
+                            </div>
+                            <i class="fa-solid fa-qrcode text-2xl text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}
+          

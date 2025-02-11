@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -9,9 +13,4 @@ require_once __DIR__ . '/../app/config/routes.php';
 $requestMethod = $_SERVER['REQUEST_METHOD'];
 $requestPath = $_SERVER['REQUEST_URI'];
 
-try {
-
-    echo $router->dispatch($requestMethod, $requestPath);
-} catch (Exception $e) {
-    echo 'Page not found';
-}
+echo $router->dispatch($requestMethod, $requestPath);

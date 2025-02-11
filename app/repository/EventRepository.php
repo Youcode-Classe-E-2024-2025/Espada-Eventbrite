@@ -7,7 +7,7 @@ use App\core\Database;
 
 class EventRepository extends BaseRepository
 {
-    protected $table = 'events';
+    protected $table = 'evenments';
     private Event $eventModel;
 
     public function __construct(Database $database, Event $event)
@@ -23,13 +23,13 @@ class EventRepository extends BaseRepository
         $params = [];
 
         if (!empty($keyword)) {
-            $sql .= " WHERE title ILIKE :keyword OR description ILIKE :keyword";
+            $sql .= " WHERE title LIKE :keyword OR description LIKE :keyword";
             $params['keyword'] = "%{$keyword}%";
         }
 
-        $sql .= " ORDER BY created_at DESC LIMIT :limit OFFSET :offset";
-        $params['limit'] = $limit;
-        $params['offset'] = $offset;
+        // $sql .= " ORDER BY created_at DESC LIMIT :limit OFFSET :offset";
+        // $params['limit'] = $limit;
+        // $params['offset'] = $offset;
 
         return $this->db->findAll($sql, $params);
     }
@@ -46,10 +46,5 @@ class EventRepository extends BaseRepository
 
         $result = $this->db->find($sql, $params);
         return (int) $result['count'];
-    }
-
-    public function search(string $keyword, int $page, int $limit)
-    {
-        return $this->searchEvents($keyword, $page, $limit);
     }
 }

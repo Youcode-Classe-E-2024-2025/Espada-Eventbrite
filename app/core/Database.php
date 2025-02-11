@@ -16,7 +16,7 @@ class Database
             throw new \Exception('Database configuration is missing');
         }
 
-        $dsn = "pgsql:host={$config['db']['host']};dbname={$config['db']['name']}";
+        $dsn = "pgsql:host={$config['db']['host']};dbname={$config['db']['name']};port={$config['db']['port']}";
 
         $options = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -32,6 +32,7 @@ class Database
 
             // Verify connection
             $this->connection->query('SELECT 1');
+       
         } catch (PDOException $e) {
             throw new \Exception("Database connection error: " . $e->getMessage());
         }

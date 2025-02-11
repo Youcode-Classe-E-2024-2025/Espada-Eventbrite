@@ -1,10 +1,11 @@
  {% extends "base.html.twig" %}
+ {% block title %}ESPADA{% endblock %}
 {% block content %}
   <header id="header" class="bg-white shadow-sm fixed w-full z-50">
     <div class="container mx-auto px-4 py-4">
       <div class="flex items-center justify-between">
         <div class="flex items-center space-x-8">
-          <h1 class="text-2xl font-bold text-indigo-600">EventHub</h1>
+          <h1 class="text-2xl font-bold text-indigo-600">ESPADA</h1>
           <nav class="hidden md:flex space-x-6">
             <span  class="text-gray-700 hover:text-indigo-600 cursor-pointer">Browse Events</span>
             <span  class="text-gray-700 hover:text-indigo-600 cursor-pointer">Categories</span>
@@ -28,10 +29,10 @@
         <div class="bg-white rounded-xl shadow-lg p-4">
           <div class="flex flex-col md:flex-row gap-4">
             <div class="flex-1">
-              <div class="relative">
+              <form action='events/search' method='get' class="relative">
                 <i class="fa-solid fa-search absolute left-3 top-3 text-gray-400"></i>
-                <input type="text" placeholder="Search events..." class="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-              </div>
+                <input type="text" name="keyword" placeholder="Search events..." class="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+              </form>
             </div>
             <div class="flex gap-2">
               <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">
@@ -203,4 +204,3 @@
     </div>
   </section>
 {% endblock %}
-{% block footer %}{% endblock %}
