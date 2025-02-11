@@ -1,6 +1,6 @@
 <?php
 
-use App\Core\Router;
+use App\core\Router;
 
 $router = new Router();
-$router->addRoute('GET', '/', [HomeController::class, 'index']);
+$router->addRoute('GET', '/', [App\controllers\front\HomeController::class, 'index']);
