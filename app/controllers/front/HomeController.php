@@ -15,6 +15,6 @@ class HomeController extends Controller
 
     public function index()
     {
-        return $this->render('front/home.html.twig');
+        return $this->render('back/index.html.twig');
     }
 }

@@ -1,3 +1,5 @@
+{% extends 'base.html.twig' %}
+{% block content %}
 
                 <div id="admin-dashboard" class="flex h-full bg-gray-100">
     <aside id="sidebar" class="w-64 bg-gray-900 text-white h-full fixed left-0">
@@ -11,7 +13,7 @@
                     <i class="fa-solid fa-gauge-high"></i>
                     <span>Dashboard</span>
                 </a>
-                <a href="#" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
+                <a href="/admin/users" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
                     <i class="fa-solid fa-users"></i>
                     <span>Users</span>
                 </a>
@@ -46,7 +48,8 @@
                 </div>
             </div>
         </header>
-      {% block content %}   {% endblock %}
+      {% block maincontent %}   {% endblock %}
     </main>
 </div>
           
+     {% endblock %}    

@@ -4,33 +4,38 @@ namespace App\repository;
 
 use App\core\Database;
 use PDO;
+use App\models\User;
 
-class UserRepository {
+class UserRepository
+{
     private Database $DB;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->DB = new Database();
     }
 
     // Get user by email
-    public function getUserByEmail(string $email): ?object {
+    public function getUserByEmail(string $email): ?object
+    {
         $query = "SELECT * FROM users WHERE email = :email";
         $stmt = $this->DB->getConnection()->prepare($query);
         $stmt->execute([':email' => $email]);
         return $stmt->fetch(PDO::FETCH_OBJ) ?: null;
     }
 
-   
-    public function createUser($userData): bool {
+
+    public function createUser($userData): bool
+    {
 
         $query = "INSERT INTO users (role_id, email, password, username, avatar, banned, archived) 
                   VALUES (:role_id, :email, :password, :username, :avatar, 0, 0)";
-        
+
         $stmt = $this->DB->getConnection()->prepare($query);
-        
+
 
         //  var_dump($userData);
-         $stmt->execute([
+        $stmt->execute([
             ':role_id' => $userData['role_id'],
             ':email' => $userData['email'],
             ':password' => $userData['password'],
@@ -38,14 +43,15 @@ class UserRepository {
             ':avatar' => $userData['avatar'],
         ]);
 
-    
+
 
         return true;
     }
-    
+
 
     // Ban a user
-    public function banUser(int $userId): bool {
+    public function banUser(int $userId): bool
+    {
         $query = "UPDATE users SET banned = 1 WHERE id = :id";
         $stmt = $this->DB->getConnection()->prepare($query);
         return $stmt->execute(['id' => $userId]);
@@ -53,29 +59,33 @@ class UserRepository {
 
     //unban user
 
-    public function unbanUser(int $userId): bool {
+    public function unbanUser(int $userId): bool
+    {
         $query = "UPDATE users SET banned = 0 WHERE id = :id";
         $stmt = $this->DB->getConnection()->prepare($query);
         return $stmt->execute(['id' => $userId]);
     }
-    
+
 
     // Archive a user
-    public function archiveUser(int $userId): bool {
+    public function archiveUser(int $userId): bool
+    {
         $query = "UPDATE users SET archived = 1 WHERE id = :id";
         $stmt = $this->DB->getConnection()->prepare($query);
         return $stmt->execute(['id' => $userId]);
     }
 
     // Get all banned users
-    public function getBannedUsers(): array {
+    public function getBannedUsers(): array
+    {
         $query = "SELECT * FROM users WHERE banned = 1";
         $stmt = $this->DB->getConnection()->query($query);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
     // Get the total number of users
-    public function getNumberOfUsers(): int {
+    public function getNumberOfUsers(): int
+    {
         $query = "SELECT COUNT(*) as total FROM users";
         $stmt = $this->DB->getConnection()->query($query);
         $result = $stmt->fetch(PDO::FETCH_OBJ);
@@ -83,14 +93,16 @@ class UserRepository {
     }
 
     // Get all users
-    public function getAll(): array {
+    public function getAll(): array
+    {
         $query = "SELECT * FROM users";
         $stmt = $this->DB->getConnection()->query($query);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
     // Update user (only name and avatar URL)
-    public function updateUser(int $userId, string $name, string $avatar): bool {
+    public function updateUser(int $userId, string $name, string $avatar): bool
+    {
         $query = "UPDATE users SET username = :username, avatar = :avatar WHERE id = :id";
         $stmt = $this->DB->getConnection()->prepare($query);
         return $stmt->execute([
@@ -98,5 +110,50 @@ class UserRepository {
             'avatar' => $avatar,
             'id' => $userId,
         ]);
+    }
+
+    public function filterByRole(int $roleId)
+    {
+        $sql = "SELECT * FROM users WHERE role_id = :role_id";
+        $stmt = $this->DB->query($sql, ['role_id' => $roleId]);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function filterByStatus(int $status)
+    {
+        if ($status === User::BANNED) {
+            $sql = "SELECT * FROM users WHERE banned = 1";
+        } elseif ($status === User::ARCHIVED) {
+            $sql = "SELECT * FROM users WHERE archived = 1";
+        } else {
+            $sql = "SELECT * FROM users WHERE banned = 0 AND archived = 0";
+        }
+        $stmt = $this->DB->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function searchUsers($keyword)
+    {
+        $sql = "SELECT * FROM users WHERE username LIKE :keyword or email LIKE :keyword";
+        $stmt = $this->DB->query($sql, ['keyword' => "%$keyword%"]);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function searchUsersWithFilters($keyword, $roleId, $status)
+    {
+        $results = $this->getAll();
+        if (!empty($keyword)) {
+            $results = $this->searchUsers($keyword);
+        }
+
+        if (!empty($roleId)) {
+            $results = $this->filterByRole($roleId);
+        }
+
+        if (!empty($status)) {
+            $results = $this->filterByStatus($status);
+        }
+
+        return $results;
     }
 }
