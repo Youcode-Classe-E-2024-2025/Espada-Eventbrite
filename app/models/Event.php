@@ -19,4 +19,10 @@ class Event extends Model
     {
         parent::__construct();
     }
+
+    public function validateSearchKeyword($keyword)
+    {
+        $validator = new \App\core\Validator();
+        return $validator->validate(['keyword' => $keyword], []);
+    }
 }
