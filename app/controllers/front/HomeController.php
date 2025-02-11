@@ -1,9 +1,9 @@
 <?php
 namespace app\controllers\front;
-use App\core\View;
-class HomeController extends View{
+use App\core\Controller;
+class HomeController extends Controller{
     public function index(){
-        echo $this->render("/front/auth.twig");
+        echo $this->render("/front/home.html.twig");
     }
 }
 ?>
