@@ -7,7 +7,7 @@ use App\core\Session;
 use App\core\Validator;
 use App\core\View;
 
-class AuthController
+class AuthController extends View
 {
     private UserService $userService;
     private Session $session;
@@ -23,8 +23,8 @@ class AuthController
     public function index(): void
     {
         $view = new View();
-        echo $view->render('front/auth.twig',[]);
-        echo $view->render('base.html.twig',[]);
+        echo $view->render('/front/auth.twig');
+        // echo $view->render('base.html.twig',[]);
     }
     // Handle the registration process
     public function register(array $requestData)
