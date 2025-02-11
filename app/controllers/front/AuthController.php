@@ -13,13 +13,13 @@ use Exception;
 
 class AuthController extends Controller
 {
-    // private UserService $userService;
+    private UserService $userService;
     protected $session;
     private Validator $validator;
 
     public function __construct()
     {
-        // $this->userService = new UserService();
+        $this->userService = new UserService();
         $this->session = new Session();
         $this->validator = new Validator();
     }
