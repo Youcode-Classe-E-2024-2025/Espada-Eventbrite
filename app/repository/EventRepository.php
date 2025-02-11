@@ -1,9 +1,9 @@
 <?php
 
-namespace app\repository;
+namespace App\repository;
 
-use app\models\Event;
-use app\core\Database;
+use App\models\Event;
+use App\core\Database;
 
 class EventRepository extends BaseRepository
 {

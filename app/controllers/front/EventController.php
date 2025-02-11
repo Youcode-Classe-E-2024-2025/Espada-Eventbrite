@@ -1,9 +1,9 @@
 <?php
 
-namespace app\controllers\front;
+namespace App\controllers\front;
 
-use app\core\Controller;
-use app\repository\EventRepository;
+use App\core\Controller;
+use App\repository\EventRepository;
 
 class EventController extends Controller
 {

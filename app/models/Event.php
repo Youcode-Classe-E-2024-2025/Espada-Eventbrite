@@ -1,8 +1,8 @@
 <?php
 
-namespace app\models;
+namespace App\models;
 
-use app\core\Model;
+use App\core\Model;
 
 class Event extends Model
 {
