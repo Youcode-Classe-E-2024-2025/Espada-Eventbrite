@@ -16,17 +16,33 @@ class UserRepository {
     public function getUserByEmail(string $email): ?object {
         $query = "SELECT * FROM users WHERE email = :email";
         $stmt = $this->DB->getConnection()->prepare($query);
-        $stmt->execute(['email' => $email]);
+        $stmt->execute([':email' => $email]);
         return $stmt->fetch(PDO::FETCH_OBJ) ?: null;
     }
 
-    // Create a new user
-    public function createUser(array $userData): bool {
+   
+    public function createUser($userData): bool {
+
         $query = "INSERT INTO users (role_id, email, password, username, avatar, banned, archived) 
                   VALUES (:role_id, :email, :password, :username, :avatar, 0, 0)";
+        
         $stmt = $this->DB->getConnection()->prepare($query);
-        return $stmt->execute($userData);
+        
+
+        //  var_dump($userData);
+         $stmt->execute([
+            ':role_id' => $userData['role_id'],
+            ':email' => $userData['email'],
+            ':password' => $userData['password'],
+            ':username' => $userData['username'],
+            ':avatar' => $userData['avatar'],
+        ]);
+
+    
+
+        return true;
     }
+    
 
     // Ban a user
     public function banUser(int $userId): bool {
