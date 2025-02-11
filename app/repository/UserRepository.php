@@ -83,4 +83,34 @@ class UserRepository {
             'id' => $userId,
         ]);
     }
+
+    // Find user by email and Google ID
+    public function findByEmailAndGoogleId(string $email, string $googleId)
+    {
+        try {
+            $query = "SELECT * FROM users WHERE email = :email AND google_id = :google_id";
+            $stmt = $this->DB->getConnection()->prepare($query);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':google_id', $googleId);
+            $stmt->execute();
+            
+            return $stmt->fetch(\PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            error_log('Find User by Email and Google ID Error: ' . $e->getMessage());
+            return null;
+        }
+    }
+
+    // Update last login
+    public function updateLastLogin(int $userId)
+    {
+        try {
+            $query = "UPDATE users SET last_login = NOW() WHERE id = :user_id";
+            $stmt = $this->DB->getConnection()->prepare($query);
+            $stmt->bindParam(':user_id', $userId, \PDO::PARAM_INT);
+            $stmt->execute();
+        } catch (\PDOException $e) {
+            error_log('Update Last Login Error: ' . $e->getMessage());
+        }
+    }
 }

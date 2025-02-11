@@ -50,4 +50,25 @@ class UserService {
     public function isEmailRegistered(string $email): bool {
         return $this->userRepository->getUserByEmail($email) !== null;
     }
+
+    // Handle Google Sign-In
+    public function loginWithGoogle(string $email, string $googleId)
+    {
+        try {
+            $userRepository = new UserRepository();
+            $user = $userRepository->findByEmailAndGoogleId($email, $googleId);
+            
+            if ($user) {
+                // Update last login timestamp if needed
+                $userRepository->updateLastLogin($user['id']);
+                return $user;
+            }
+            
+            return false;
+        } catch (\Exception $e) {
+            // Log the error
+            error_log('Google Login Error: ' . $e->getMessage());
+            return false;
+        }
+    }
 }
