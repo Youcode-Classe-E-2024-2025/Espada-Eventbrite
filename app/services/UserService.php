@@ -72,4 +72,35 @@ public function register(array $userData): bool {
     public function isEmailRegistered(string $email): bool {
         return $this->userRepository->getUserByEmail($email) !== null;
     }
+
+    public function findOrCreateGoogleUser(array $googleUserData): ?object {
+        // Check if user exists by email
+        $existingUser = $this->userRepository->getUserByEmail($googleUserData['email']);
+
+        if ($existingUser) {
+            // Update user's avatar if it has changed
+            if ($existingUser->avatar !== $googleUserData['avatar']) {
+                $this->userRepository->updateUser(
+                    $existingUser->id, 
+                    $googleUserData['name'], 
+                    $googleUserData['avatar']
+                );
+            }
+            return $existingUser;
+        }
+
+        // Create new user with Google data
+        $newUserData = [
+            'first_name' => explode(' ', $googleUserData['name'])[0],
+            'last_name' => explode(' ', $googleUserData['name'])[1] ?? '',
+            'email' => $googleUserData['email'],
+            'avatar' => $googleUserData['avatar'],
+            'password' => password_hash(bin2hex(random_bytes(16)), PASSWORD_BCRYPT), // Random secure password
+            'role' => 'user', // Default role for Google-authenticated users
+            'google_id' => true // Flag to indicate Google-authenticated user
+        ];
+
+        $this->userRepository->createUser($newUserData);
+        return $this->userRepository->getUserByEmail($googleUserData['email']);
+    }
 }

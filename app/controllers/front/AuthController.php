@@ -13,6 +13,7 @@ use Google_Service_Oauth2;
 use Exception;
 
 class AuthController extends Controller
+class AuthController extends Controller
 {
     private UserService $userService;
     private Validator $validator;
@@ -81,7 +82,7 @@ class AuthController extends Controller
             echo $view->render('front/auth.twig',['messege'=>'all feilds should are required ']);
         }
 
-        // Check if passwords match
+        //Check if passwords match
         if ($requestData['password'] !== $requestData['confirm_password']) {
 
         $view = new View();

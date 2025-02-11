@@ -1,6 +1,7 @@
 <?php
 
 namespace App\core;
+use App\controllers\ErrorController;
 
 class Router
 {
@@ -67,7 +68,8 @@ class Router
                 }
             }
         }
-        throw new \Exception('Route not found');
+        $error = new ErrorController();
+        $error->notfound();
     }
 
 

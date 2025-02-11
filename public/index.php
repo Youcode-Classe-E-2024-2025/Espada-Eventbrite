@@ -12,9 +12,4 @@ require_once __DIR__ . '/../app/config/routes.php';
 $requestMethod = $_SERVER['REQUEST_METHOD'];
 $requestPath = $_SERVER['REQUEST_URI'];
 
-try {
-
     echo $router->dispatch($requestMethod, $requestPath);
-} catch (Exception $e) {
-    echo 'Page not found';
-}
