@@ -1,5 +1,37 @@
-{% extends "dashboard.html.twig"%}
-{% block content %}   
+{% extends "back/dashboard.html.twig"%}
+{% block aside %} 
+<aside id="sidebar" class="w-64 bg-gray-900 text-white h-full fixed left-0">
+        <div class="p-4">
+            <div class="flex items-center space-x-2 mb-6">
+                <i class="fa-solid fa-bolt text-yellow-400 text-2xl"></i>
+                <span class="text-xl font-bold">AdminPanel</span>
+            </div>
+            <nav class="space-y-2">
+                <a href="/admin/dashboard" class="flex items-center space-x-2 bg-gray-800 p-3 rounded-lg">
+                    <i class="fa-solid fa-gauge-high"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="/admin/users" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Users</span>
+                </a>
+                <a href="/admin/events" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span>Events</span>
+                </a>
+                <a href="/admin/comments" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
+                    <i class="fa-solid fa-comments"></i>
+                    <span>Comments</span>
+                </a>
+                <a href="#" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Reports</span>
+                </a>
+            </nav>
+        </div>
+    </aside>
+{% endblock %}
+{% block mainContent %}   
 <div id="stats-grid" class="grid grid-cols-4 gap-6 mb-8">
             <div class="bg-white p-6 rounded-xl shadow">
                 <div class="flex items-center justify-between mb-4">
