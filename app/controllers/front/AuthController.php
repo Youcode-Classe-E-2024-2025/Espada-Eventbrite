@@ -19,7 +19,7 @@ class AuthController
         $this->validator = new Validator();
     }
 
-    public function index(): void
+  public function index(): void
     {
         $view = new View();
         echo $view->render('front/auth.twig',[]);
