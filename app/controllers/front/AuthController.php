@@ -13,7 +13,7 @@ use Google_Service_Oauth2;
 use Exception;
 
 class AuthController extends Controller
-class AuthController extends Controller
+
 {
     private UserService $userService;
     private Validator $validator;
