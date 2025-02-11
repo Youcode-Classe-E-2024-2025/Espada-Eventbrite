@@ -30,6 +30,7 @@ class Database {
             
             // Verify connection
             $this->connection->query('SELECT 1');
+       
         } catch (PDOException $e) {
             throw new \Exception("Database connection error: " . $e->getMessage());
         }

@@ -12,24 +12,46 @@ class UserService {
         $this->userRepository = new UserRepository();
     }
 
-    // Handle user login
-    public function login(string $email, string $password): ?object {
-        $user = $this->userRepository->getUserByEmail($email);
+ // Handle user login
+public function login(string $email, string $password): ?object {
+    // Fetch user by email
+    $user = $this->userRepository->getUserByEmail($email);
 
-        if ($user && password_verify($password, $user->password)) {
-            return $user;
+    if ($user) {
+        // Check if the user is banned or archived
+        if ($user->banned == 1 || $user->archived == 1) {
+            // If banned or archived, return null
+            return null;
         }
 
-        return null;
+        // Check if the password matches
+        if (password_verify($password, $user->password)) {
+            return $user;
+        }
     }
 
-    // Handle user registration
-    public function register(array $userData): bool {
-        // Hash the password before storing it
-        // $userData['password'] = password_hash($userData['password'], PASSWORD_BCRYPT);
+    return null;
+}
 
-        return $this->userRepository->createUser($userData);
+
+// Handle user registration
+public function register(array $userData): bool {
+    // Check if email already exists
+    $existingUser = $this->userRepository->getUserByEmail($userData['email']);
+    
+    if ($existingUser) {
+        // If the user exists, return false or some error
+        return false; // You can replace this with a more descriptive error message if needed
     }
+
+    // If the email does not exist, proceed with registration
+    $roles = ['organizer' => 1, 'participant' => 2];
+    
+    // Add role_id to user data
+    $userData['role_id'] = $roles[$userData['role']] ?? null; // Add default if the role doesn't exist
+    
+    return $this->userRepository->createUser($userData);
+}
 
     // Handle banning a user
     public function banUser(int $userId): bool {
