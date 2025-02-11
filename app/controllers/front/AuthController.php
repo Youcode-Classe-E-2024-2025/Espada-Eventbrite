@@ -1,5 +1,4 @@
 <?php
-
 namespace App\controllers\front;
 
 use App\services\UserService;
@@ -26,55 +25,13 @@ class AuthController
         echo $view->render('front/auth.twig',[]);
         echo $view->render('base.html.twig',[]);
     }
-    // Handle the registration process
-    public function register(array $requestData)
-    {
-        
-        $rules = [
-            'first_name' => ['required'],
-            'last_name' => ['required'],
-            'email' => ['required', 'email'],
-            'password' => ['required', 'min:8'],
-            'confirm_password' => ['required'],
-            'role' => ['required']
-        ];
 
-        // Validate the data
-        if (!$this->validator->validate($requestData, $rules)) {
-            return [
-                'success' => false,
-                'errors' => $this->validator->getErrors()
-            ];
-        }
+    // Handle user login
+    public function login(): void
+    { return;
+        $requestData = $this->getJsonInput();
 
-        // Check if passwords match
-        if ($requestData['password'] !== $requestData['confirm_password']) {
-            return [
-                'success' => false,
-                'errors' => ['password' => 'Passwords do not match']
-            ];
-        }
-
-        // Check if email is already registered
-        if ($this->userService->isEmailRegistered($requestData['email'])) {
-            return [
-                'success' => false,
-                'errors' => ['email' => 'Email is already registered']
-            ];
-        }
-
-        // Attempt to register the user
-        if ($this->userService->register($requestData)) {
-            return ['success' => true];
-        }
-
-        return ['success' => false, 'errors' => ['general' => 'Registration failed']];
-    }
-
-    // Handle the login process
-    public function login(array $requestData)
-    {
-        // Validation rules
+        // Define validation rules
         $rules = [
             'email' => ['required', 'email'],
             'password' => ['required']
@@ -82,28 +39,70 @@ class AuthController
 
         // Validate the data
         if (!$this->validator->validate($requestData, $rules)) {
-            return [
-                'success' => false,
-                'errors' => $this->validator->getErrors()
-            ];
+            $this->respond(false, $this->validator->getErrors(), 422);
+            return;
         }
 
         // Attempt to authenticate the user
         $user = $this->userService->login($requestData['email'], $requestData['password']);
         if ($user) {
             $this->session->set('user', $user);
-            return ['success' => true];
+           header('Location: /');
+            return;
         }
 
-        return [
-            'success' => false,
-            'errors' => ['general' => 'Invalid email or password']
-        ];
+        $this->respond(false, ['Invalid email or password'], 401);
     }
 
-    // Handle logout
-    public function logout()
+    // Handle user registration
+    public function register(): void
     {
-        $this->session->destroy();
+        $requestData = $this->getJsonInput();
+
+        // Define validation rules
+        $rules = [
+            'email' => ['required', 'email'],
+            'password' => ['required', 'min:8'],
+            'confirm_password' => ['required'],
+            'role_id' => ['required'], // Assuming roles are managed
+            'username' => ['required']
+        ];
+
+        // Validate the data
+        if (!$this->validator->validate($requestData, $rules)) {
+            $this->respond(false, $this->validator->getErrors(), 422);
+            return;
+        }
+
+        // Check if passwords match
+        if ($requestData['password'] !== $requestData['confirm_password']) {
+            $this->respond(false, ['Passwords do not match'], 422);
+            return;
+        }
+
+        // Hash the password
+        $requestData['password'] = password_hash($requestData['password'], PASSWORD_BCRYPT);
+        unset($requestData['confirm_password']); // Remove confirm_password before storing
+
+        // Attempt to register the user
+        if ($this->userService->register($requestData)) {
+            $this->respond(true, ['Registration successful']);
+            return;
+        }
+
+        $this->respond(false, ['Registration failed'], 500);
+    }
+
+    // Helper method to get JSON input
+    private function getJsonInput(): array
+    {
+        return json_decode(file_get_contents('php://input'), true) ?? [];
+    }
+
+    // Helper method to standardize responses
+    private function respond(bool $success, array $message, int $statusCode = 200): void
+    {
+        http_response_code($statusCode);
+        echo json_encode(['success' => $success, 'message' => $message]);
     }
 }

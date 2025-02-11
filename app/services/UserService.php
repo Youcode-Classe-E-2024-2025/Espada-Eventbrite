@@ -26,7 +26,7 @@ class UserService {
     // Handle user registration
     public function register(array $userData): bool {
         // Hash the password before storing it
-        $userData['password'] = password_hash($userData['password'], PASSWORD_BCRYPT);
+        // $userData['password'] = password_hash($userData['password'], PASSWORD_BCRYPT);
 
         return $this->userRepository->createUser($userData);
     }
