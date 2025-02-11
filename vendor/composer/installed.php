@@ -3,7 +3,7 @@
         'name' => 'mvc/app',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '1f363b5ac79d97a0a231721b47cb993ce80c042e',
+        'reference' => 'a266aa91e960f947a03e0db9ac8b7522573b8091',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -22,7 +22,7 @@
         'mvc/app' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '1f363b5ac79d97a0a231721b47cb993ce80c042e',
+            'reference' => 'a266aa91e960f947a03e0db9ac8b7522573b8091',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
