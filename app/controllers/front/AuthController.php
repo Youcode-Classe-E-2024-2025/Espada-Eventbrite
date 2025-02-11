@@ -8,6 +8,10 @@ use App\core\Validator;
 
 use App\core\Session;
 
+use Google_Client;
+use Google_Service_Oauth2;
+use Exception;
+
 class AuthController extends Controller
 {
     private UserService $userService;
@@ -44,7 +48,7 @@ class AuthController extends Controller
             echo $view->render('front/auth.twig',['messege'=>'all feilds should are required ']);
         }
 
-        $user = $this->userService->login($requestData['email'], $requestData['password']);
+        $user = $this->userService->loginuser($requestData['email'], $requestData['password']);
         if ($user) {
              $this->session->set('user', $user);
              header('Location: /');
@@ -115,7 +119,9 @@ class AuthController extends Controller
     return $parsedData;  // This will be an associative array
 }
 
-
-    // Helper method to standardize responses
-    
+public function logout()
+{
+    $this->session->destroy();
+    header('Location: / ');
+}
 }

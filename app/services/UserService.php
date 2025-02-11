@@ -13,7 +13,7 @@ class UserService {
     }
 
  // Handle user login
-public function login(string $email, string $password): ?object {
+public function loginuser(string $email, string $password): ?object {
     // Fetch user by email
     $user = $this->userRepository->getUserByEmail($email);
 
