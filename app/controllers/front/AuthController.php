@@ -13,13 +13,13 @@ use Exception;
 
 class AuthController extends Controller
 {
-    // private UserService $userService;
+    private UserService $userService;
     protected $session;
     private Validator $validator;
 
     public function __construct()
     {
-        // $this->userService = new UserService();
+        $this->userService = new UserService();
         $this->session = new Session();
         $this->validator = new Validator();
     }
@@ -133,8 +133,7 @@ class AuthController extends Controller
         
         // Generate a secure random state
         $state = bin2hex(random_bytes(16));
-        var_dump($state);
-        die();
+       
         
         // Generate and redirect to Google OAuth URL
         $authUrl = $client->createAuthUrl() . '&state=' . $state;
@@ -236,8 +235,8 @@ class AuthController extends Controller
             unset($_SESSION['oauth_state']);
             
             // Redirect back to login with error message
-            echo $_SESSION['error'] = $e->getMessage();
-            // header('Location: /login');
+            $_SESSION['error'] = $e->getMessage();
+            header('Location: /login');
             exit();
         }
     }
