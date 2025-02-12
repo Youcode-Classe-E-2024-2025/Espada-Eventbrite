@@ -1,4 +1,5 @@
 {% extends "base.html.twig" %}
+{% block header %} {% include "layouts/header.html.twig" %}  {% endblock %}
 {% block content %}
 <div id="profile-page" class="bg-gray-50">
     <header id="header" class="bg-white border-b">
@@ -160,4 +161,4 @@
     </main>
 </div>
 {% endblock %}
-          
+{% block footer %} {% include "layouts/footer.html.twig" %}  {% endblock %}

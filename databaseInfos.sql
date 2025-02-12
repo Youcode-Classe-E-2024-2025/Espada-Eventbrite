@@ -7,7 +7,7 @@ CREATE TABLE role (
 
 
 CREATE TABLE users (
-    id serial  PRIMARY KEY,
+    id serial PRIMARY KEY,
     role_id INT NOT NULL,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
@@ -16,10 +16,6 @@ CREATE TABLE users (
     banned INT DEFAULT 0,
     archived INT DEFAULT 0
 );
-
-
-
-
 
 
 CREATE TABLE evenments (

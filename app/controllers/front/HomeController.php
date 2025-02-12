@@ -1,19 +1,23 @@
 <?php
+
 namespace app\controllers\front;
+
 use App\core\Controller;
 
-class HomeController extends controller{
+class HomeController extends controller
+{
 
-        public function index(){
-          $res=$this->session->get('user');
-    
-          if($res->role_id== '1'){ //user
-            $this->redirect('/auth');
-          }else if($res->role_id == '2'){ //particepant
-            $this->redirect('/auth');
-          }else{ // admin
-            $this->redirect('/auth');
-          }
+  public function index()
+  {
+    $res = $this->session->get('user');
+
+
+    if ($res->role_id == '1') { //organiser
+      $this->redirect('/dashboard');
+    } else if ($res->role_id == '2') { //user
+      $this->redirect('/dashboard');
+    } else { // admin
+      $this->redirect('/dashboard');
     }
+  }
 }
-?>
