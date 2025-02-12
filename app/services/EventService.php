@@ -76,4 +76,9 @@ class EventService {
             'pages' => ceil($totalCount / $limit)
         ];
     }
+
+
+    public function getEvents(){
+        return $this->evenmentRepo->getAll();
+    }
 }
