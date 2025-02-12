@@ -15,3 +15,5 @@ class HomeController extends controller{
             $this->redirect('/auth');
           }
 
+        }
+    }
