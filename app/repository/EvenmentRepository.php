@@ -45,32 +45,28 @@ class EvenmentRepository
     }
 
 
-    public function validate(int $evenmentId): bool
+    public function validate(int $evenmentId)
     {
         $query = "UPDATE evenments SET validation = 1 WHERE id = :id";
-        $stmt = $this->DB->getConnection()->prepare($query);
-        return $stmt->execute([':id' => $evenmentId]);
+        return $this->DB->query($query, [':id' => $evenmentId]);
     }
 
-    public function unValidate(int $evenmentId): bool
+    public function unValidate(int $evenmentId)
     {
         $query = "UPDATE evenments SET validation = 0 WHERE id = :id";
-        $stmt = $this->DB->getConnection()->prepare($query);
-        return $stmt->execute([':id' => $evenmentId]);
+        return $this->DB->query($query, [':id' => $evenmentId]);
     }
 
-    public function archive(int $evenmentId): bool
+    public function archive(int $evenmentId)
     {
         $query = "UPDATE evenments SET archived = 1 WHERE id = :id";
-        $stmt = $this->DB->getConnection()->prepare($query);
-        return $stmt->execute([':id' => $evenmentId]);
+        return $this->DB->query($query, [':id' => $evenmentId]);
     }
 
-    public function unArchive(int $evenmentId): bool
+    public function unArchive(int $evenmentId)
     {
         $query = "UPDATE evenments SET archived = 0 WHERE id = :id";
-        $stmt = $this->DB->getConnection()->prepare($query);
-        return $stmt->execute([':id' => $evenmentId]);
+        return $this->DB->query($query, [':id' => $evenmentId]);
     }
 
     public function changeType(int $evenmentId, string $type): bool
@@ -82,7 +78,7 @@ class EvenmentRepository
 
     public function getAll(): array
     {
-        $query = "SELECT e.*, u.username as owner, c.*, cat.name as category, cat.icon as icon
+        $query = "SELECT e.id as event_id, e.*, u.username as owner, c.*, cat.name as category, cat.icon as icon
         FROM evenments e 
         LEFT JOIN capacity c ON e.id = c.evenment_id
         LEFT JOIN users u ON e.owner_id = u.id

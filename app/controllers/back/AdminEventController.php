@@ -25,17 +25,37 @@ class AdminEventController extends Controller
     public function search()
     {
         $keyword = isset($_GET['keyword']) ? trim($_GET['keyword']) : '';
-        // $owner = isset($_GET['owner_id']) ? (int)$_GET['owner_id'] : null;
-        // $status = isset($_GET['status']) ? $_GET['status'] : null;
 
         $events = $this->eventService->searchEvents($keyword);
 
         return $this->render('back/events.html.twig', [
             'events' => $events,
             'keyword' => $keyword,
-            // 'owner' => $owner,
-            // 'status' => $status
         ]);
+    }
+
+    public function updateStatus()
+    {
+        $eventId = isset($_POST['event_id']) ? (int)$_POST['event_id'] : null;
+        $status = isset($_POST['status']) ? (int)$_POST['status'] : null;
+        // var_dump($eventId);
+        // var_dump($status);
+        // exit;
+        if ($eventId && isset($status)) {
+            $this->eventService->updateEventStatus($eventId, $status);
+            // $this->redirect('/admin/events');
+        }
+
+        $this->redirect('/admin/events');
+        exit;
+    }
+
+    public function delete()
+    {
+        $eventId = isset($_POST['event_id']) ? (int)$_POST['event_id'] : null;
+        if ($eventId) {
+            $this->eventService->deleteEvent($eventId);
+        }
     }
 
     // public function filter()

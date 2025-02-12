@@ -65,9 +65,24 @@ class EventService
         return $this->evenmentRepo->searchEvents($keyword);
     }
 
-
     public function getEvents()
     {
         return $this->evenmentRepo->getAll();
+    }
+
+    public function updateEventStatus($eventId, $status)
+    {
+        switch ($status) {
+            case Event::VALIDATED:
+                return $this->evenmentRepo->validate($eventId);
+            case Event::UNVALIDATED:
+                return $this->evenmentRepo->unValidate($eventId);
+            case Event::ARCHIVED:
+                return $this->evenmentRepo->archive($eventId);
+            case Event::UNARCHIVED:
+                return $this->evenmentRepo->unArchive($eventId);
+            default:
+                throw new \Exception("Invalid status");
+        }
     }
 }

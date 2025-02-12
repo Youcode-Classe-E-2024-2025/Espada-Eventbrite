@@ -62,26 +62,63 @@
                                         <p class="text-gray-500">{{ event.category }}</p>
                                     </div>
                                 </div>
-                                <div class="flex items-center space-x-6">
-                                    <div class="text-right">
-                                        <p class="font-medium">Date</p>
-                                        <p class="text-gray-500">{{ event.date | date('d/m/Y') }}</p>
-                                    </div>
-                                    <div class="text-right">
-                                        <p class="font-medium">Tickets Sold</p>
-                                        <p class="text-gray-500">{{ event.vip_tickets_sold + event.standard_tickets_sold + event.gratuit_tickets_sold }}/{{ event.vip_tickets_number + event.standard_tickets_number + event.gratuit_tickets_number }}</p>
-                                    </div>
-                                    <div class="text-right">
-                                        <p class="font-medium">Revenue</p>
-                                        <p class="text-green-500">${{ (event.vip_tickets_sold * event.vip_price) + (event.standard_tickets_sold * event.standard_price) }}</p>
+                                <div class="flex items-center space-x-20">
+                                    <div class="flex space-x-8">
+                                        <div class="text-right">
+                                            <p class="font-medium">Date</p>
+                                            <p class="text-gray-500">{{ event.date | date('d/m/Y') }}</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="font-medium">Tickets Sold</p>
+                                            <p class="text-gray-500">{{ event.vip_tickets_sold + event.standard_tickets_sold + event.gratuit_tickets_sold }}/{{ event.vip_tickets_number + event.standard_tickets_number + event.gratuit_tickets_number }}</p>
+                                        </div>
+                                        <div class="text-right ">
+                                            <p class="font-medium">Revenue</p>
+                                            <p class="text-green-500">${{ (event.vip_tickets_sold * event.vip_price) + (event.standard_tickets_sold * event.standard_price) }}</p>
+                                        </div>
                                     </div>
                                     <div class="flex space-x-2">
-                                        <button class="p-2 text-blue-500 hover:bg-blue-50 rounded-lg">
+                                        <button class="p-2 text-blue-500 hover:bg-blue-50 rounded-lg" title="Edit Event">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </button>
-                                        <button class="p-2 text-red-500 hover:bg-red-50 rounded-lg">
+                                        <button class="p-2 text-red-500 hover:bg-red-50 rounded-lg" title="Delete Event">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
+                                        {% if event.validation == 0 %}
+                                            <form action="/admin/events/status" method="POST" class="inline">
+                                                <input type="hidden" name="event_id" value="{{ event.event_id }}">
+                                                <input type="hidden" name="status" value="0">
+                                                <button type="submit" class="p-2 text-gray-500 hover:text-green-500 rounded-lg" title="Approve Event">
+                                                    <i class="fa-solid fa-check-circle"></i>
+                                                </button>
+                                            </form>
+                                        {% else %}
+                                            <form action="/admin/events/status" method="POST" class="inline">
+                                                <input type="hidden" name="event_id" value="{{ event.event_id }}">
+                                                <input type="hidden" name="status" value="1">
+                                                <button type="submit" class="p-2 text-gray-500 hover:text-red-500 rounded-lg" title="Disapprove Event">
+                                                    <i class="fa-solid fa-xmark-circle"></i>
+                                                </button>
+                                            </form>
+                                        {% endif %}
+                                        {% if event.archived == 0 %}
+                                            <form action="/admin/events/status" method="POST" class="inline">
+                                                <input type="hidden" name="event_id" value="{{ event.event_id }}">
+                                                <input type="hidden" name="status" value="2">
+                                                <button type="submit" class="p-2 text-gray-500 hover:text-red-500 rounded-lg" title="Archive Event">
+                                                    <i class="fa-solid fa-box-archive"></i>
+                                                </button>
+                                            </form>
+                                            
+                                        {% else %}
+                                            <form action="/admin/events/status" method="POST" class="inline">
+                                                <input type="hidden" name="event_id" value="{{ event.event_id }}">
+                                                <input type="hidden" name="status" value="3">
+                                                <button type="submit" class="p-2 text-gray-500 hover:text-green-500 rounded-lg" title="Unarchive Event">
+                                                    <i class="fa-solid fa-box-open"></i>
+                                                </button>
+                                            </form>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
