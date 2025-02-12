@@ -15,9 +15,11 @@ $router->addRoute('POST', '/auth/register', [App\controllers\front\AuthControlle
 $router->addRoute('POST', '/auth/login', [App\controllers\front\AuthController::class, 'login']);
 
 
-$router->addRoute('POST', '/auth/logout', [App\controllers\front\AuthController::class, 'logout']);
+$router->addRoute('GET', '/auth/logout', [App\controllers\front\AuthController::class, 'logout']);
 
-$router->addRoute('POST', '/auth/login', [App\controllers\front\OrganiserDashController::class, 'index']);
+
+$router->addRoute('GET', '/Organiser/dash', [App\controllers\front\OrganiserDashController::class, 'index']);
+$router->addRoute('GET', '/Organiser/test', [App\controllers\front\OrganiserDashController::class, 'serviceTest']);
 
 
 // $router->addRoute('GET', '/auth/login/google', [App\controllers\front\AuthController::class, 'loginWithGoogle']);
