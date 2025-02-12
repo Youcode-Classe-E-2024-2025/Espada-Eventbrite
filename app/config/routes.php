@@ -42,8 +42,6 @@ $router->addRoute('POST', '/admin/users/status', [App\controllers\back\AdminUser
 $router->addRoute('POST', '/admin/users/banUser', [App\controllers\back\AdminUserController::class, 'updateStatus']);
 
 
-$router->addRoute('GET', '/profile', [App\controllers\front\ProfileController::class, 'index']);
-
 
 
 // $router->addRoute('GET', '/auth/login/google', [App\controllers\front\AuthController::class, 'loginWithGoogle']);
