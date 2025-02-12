@@ -19,7 +19,7 @@ class EventController extends Controller
 
     public function index()
     {
-        $this->render('front/event/event-list.html.twig');
+      echo $this->render('front/event/event-list.html.twig');
     }
 
     public function search()
