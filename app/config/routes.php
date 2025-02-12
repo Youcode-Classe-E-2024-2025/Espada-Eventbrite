@@ -17,10 +17,19 @@ $router->addRoute('POST', '/auth/register', [App\controllers\front\AuthControlle
 $router->addRoute('POST', '/auth/login', [App\controllers\front\AuthController::class, 'login']);
 
 
-$router->addRoute('POST', '/auth/logout', [App\controllers\front\AuthController::class, 'logout']);
+$router->addRoute('GET', '/auth/logout', [App\controllers\front\AuthController::class, 'logout']);
 
+<<<<<<< HEAD
 $router->addRoute('POST', '/organiser/dash', [App\controllers\front\OrganiserDashController::class, 'index']);
 $router->addRoute('GET', '/reservation', [App\controllers\front\ReservationController::class, 'getBooking']);
+=======
+
+$router->addRoute('GET', '/Organiser/dash', [App\controllers\front\OrganiserDashController::class, 'index']);
+$router->addRoute('GET', '/Organiser/test', [App\controllers\front\OrganiserDashController::class, 'serviceTest']);
+
+
+$router->addRoute('GET', '/events/search', [App\controllers\front\EventController::class, 'search']);
+>>>>>>> 3a5edaace40b231a13096523939d454e33009328
 
 
 // $router->addRoute('GET', '/auth/login/google', [App\controllers\front\AuthController::class, 'loginWithGoogle']);

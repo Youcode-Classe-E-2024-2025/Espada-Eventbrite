@@ -14,6 +14,6 @@ class HomeController extends controller{
           }else{ // admin
             $this->redirect('/admin/dashboard');
           }
+
+        }
     }
-}
-?>

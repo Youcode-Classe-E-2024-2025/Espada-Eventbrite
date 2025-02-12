@@ -1,6 +1,7 @@
 <?php
 
 namespace App\core;
+
 use App\controllers\ErrorController;
 
 class Router

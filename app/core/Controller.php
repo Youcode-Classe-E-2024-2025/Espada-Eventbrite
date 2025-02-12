@@ -17,7 +17,7 @@ abstract class Controller
         $this->session = new Session();
     }
 
-    
+
     /**
      * Renders a view template with provided data
      * 
@@ -31,7 +31,8 @@ abstract class Controller
         return $this->view->render($template, $data);
     }
 
-    protected function redirect($url) {
+    protected function redirect($url)
+    {
         header('Location: ' . $url);
         exit();
     }
