@@ -1,6 +1,6 @@
 <?php
-namespace App\Controllers\Back;
-use App\Core\Controller;
+namespace App\controllers\back;
+use App\core\Controller;
 class DashboardController extends Controller{
     public function __construct(){
         parent::__construct();
