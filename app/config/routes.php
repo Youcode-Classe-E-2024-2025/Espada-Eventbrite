@@ -8,7 +8,7 @@ $router->addRoute('GET', '/', [App\controllers\front\HomeController::class, 'ind
 
 $router->addRoute('GET', '/auth', [App\controllers\front\AuthController::class, 'index']);
 $router->addRoute('GET', '/dashboard', [App\controllers\back\DashboardController::class, 'index']);
-$router->addRoute('GET', '/admin/users', [App\controllers\back\DashboardController::class, 'showUsers']);
+// $router->addRoute('GET', '/admin/users', [App\controllers\back\DashboardController::class, 'showUsers']);
 $router->addRoute('GET', '/admin/events', [App\controllers\back\DashboardController::class, 'showEvents']);
 $router->addRoute('GET', '/admin/comments', [App\controllers\back\DashboardController::class, 'showComments']);
 $router->addRoute('POST', '/auth/register', [App\controllers\front\AuthController::class, 'register']);
@@ -35,7 +35,7 @@ $router->addRoute('GET', '/reservation', [App\controllers\front\ReservationContr
 $router->addRoute('GET', '/admin/users', [App\controllers\back\AdminUserController::class, 'index']);
 $router->addRoute('GET', '/admin/users/search', [App\controllers\back\AdminUserController::class, 'search']);
 $router->addRoute('GET', '/admin/users/filter', [App\controllers\back\AdminUserController::class, 'filter']);
-$router->addRoute('POST', '/admin/users/status', [App\controllers\back\AdminUserController::class, 'updateStatus']);
+// $router->addRoute('POST', '/admin/users/status', [App\controllers\back\AdminUserController::class, 'updateStatus']);
 $router->addRoute('POST', '/admin/users/banUser', [App\controllers\back\AdminUserController::class, 'updateStatus']);
 
 

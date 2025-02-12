@@ -19,18 +19,18 @@ class AdminUserController extends Controller
     {
         $users = $this->userService->getAllUsers();
 
-        return $this->render('back/admin-users.html.twig', ['users' => $users]);
+        return $this->render('back/users.html.twig', ['users' => $users]);
     }
 
     public function search()
     {
         $keyword = isset($_GET['keyword']) ? trim($_GET['keyword']) : '';
         $roleId = isset($_GET['role_id']) ? (int)$_GET['role_id'] : null;
-        $status = isset($_GET['status']) ? (int)$_GET['status'] : null;
+        $status = isset($_GET['status']) ? $_GET['status'] : null;
 
         $results = $this->userService->searchFilterUsers($keyword, $roleId, $status);
 
-        return $this->render('back/admin-users.html.twig', [
+        return $this->render('back/users.html.twig', [
             'users' => $results,
             'keyword' => $keyword,
             'role_id' => $roleId,
@@ -45,7 +45,7 @@ class AdminUserController extends Controller
 
         $results = $this->userService->filterUsers($roleId, $status);
 
-        return $this->render('back/admin-users.html.twig', [
+        return $this->render('back/users.html.twig', [
             'users' => $results,
             'role_id' => $roleId,
             'status' => $status
@@ -59,10 +59,10 @@ class AdminUserController extends Controller
 
         if ($userId && $status) {
             $this->userService->updateUserStatus($userId, $status);
-            $this->redirect('/back/admin-users.html.twig');
+            $this->redirect('/back/users.html.twig');
         }
 
-        $this->redirect('/back/admin-users.html.twig');
+        $this->redirect('/back/users.html.twig');
         exit;
     }
 }

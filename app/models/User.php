@@ -16,9 +16,9 @@ class User extends Model
     public $avater;
     public $banned;
     public $archived;
-    public const ADMIN = 1;
-    public const ORGANIZER = 2;
-    public const USER = 3;
+    public const ADMIN = 3;
+    public const ORGANIZER = 1;
+    public const USER = 2;
 
     public const ACTIVE = 0;
     public const BANNED = 1;

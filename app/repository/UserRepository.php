@@ -95,7 +95,7 @@ class UserRepository
     // Get all users
     public function getAll(): array
     {
-        $query = "SELECT * FROM users";
+        $query = "SELECT users.* FROM users";
         $stmt = $this->DB->getConnection()->query($query);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
@@ -114,7 +114,13 @@ class UserRepository
 
     public function filterByRole(int $roleId)
     {
-        $sql = "SELECT * FROM users WHERE role_id = :role_id";
+        if ($roleId === User::ADMIN) {
+            $sql = "SELECT * FROM users WHERE role_id = :role_id";
+        } elseif ($roleId === User::ORGANIZER) {
+            $sql = "SELECT * FROM users WHERE role_id = :role_id";
+        } else {
+            $sql = "SELECT * FROM users WHERE role_id = :role_id";
+        }
         $stmt = $this->DB->query($sql, ['role_id' => $roleId]);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
@@ -167,12 +173,12 @@ class UserRepository
             $params['role_id'] = $roleId;
         }
 
-        if (isset($status)) {
+        if ($status !== '' && $status !== null) {
             if ($status === User::BANNED) {
                 $sql .= " AND banned = 1";
             } elseif ($status === User::ARCHIVED) {
                 $sql .= " AND archived = 1";
-            } else {
+            } elseif ($status === User::ACTIVE) {
                 $sql .= " AND banned = 0 AND archived = 0";
             }
         }

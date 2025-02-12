@@ -1,0 +1,170 @@
+{% extends "back/dashboard.html.twig"%}
+{% block aside %} 
+<aside id="sidebar" class="w-64 bg-gray-900 text-white h-full fixed left-0">
+        <div class="p-4">
+            <div class="flex items-center space-x-2 mb-6">
+                <i class="fa-solid fa-bolt text-yellow-400 text-2xl"></i>
+                <span class="text-xl font-bold">AdminPanel</span>
+            </div>
+            <nav class="space-y-2">
+                <a href="/admin/dashboard" class="flex items-center space-x-2 bg-gray-800 p-3 rounded-lg">
+                    <i class="fa-solid fa-gauge-high"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="/admin/users" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Users</span>
+                </a>
+                <a href="/admin/events" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span>Events</span>
+                </a>
+                <a href="/admin/comments" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
+                    <i class="fa-solid fa-comments"></i>
+                    <span>Comments</span>
+                </a>
+                <a href="#" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Reports</span>
+                </a>
+            </nav>
+        </div>
+    </aside>
+{% endblock %}
+{% block mainContent %}   
+<div id="stats-grid" class="grid grid-cols-4 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-xl shadow">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-gray-500">Total Users</h3>
+                    <i class="fa-solid fa-users text-blue-500 text-xl"></i>
+                </div>
+                <p class="text-2xl font-bold">24,521</p>
+                <span class="text-green-500 text-sm"><i class="fa-solid fa-arrow-up"></i> +12.5%</span>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-gray-500">Active Events</h3>
+                    <i class="fa-solid fa-calendar text-purple-500 text-xl"></i>
+                </div>
+                <p class="text-2xl font-bold">1,482</p>
+                <span class="text-green-500 text-sm"><i class="fa-solid fa-arrow-up"></i> +8.1%</span>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-gray-500">Tickets Sold</h3>
+                    <i class="fa-solid fa-ticket text-orange-500 text-xl"></i>
+                </div>
+                <p class="text-2xl font-bold">85,245</p>
+                <span class="text-green-500 text-sm"><i class="fa-solid fa-arrow-up"></i> +23.4%</span>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-gray-500">Revenue</h3>
+                    <i class="fa-solid fa-dollar-sign text-green-500 text-xl"></i>
+                </div>
+                <p class="text-2xl font-bold">$542,895</p>
+                <span class="text-green-500 text-sm"><i class="fa-solid fa-arrow-up"></i> +18.2%</span>
+            </div>
+        </div>
+        <div id="activity-section" class="grid grid-cols-2 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-xl shadow">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold">Recent Activity</h2>
+                    <button class="text-blue-500 hover:text-blue-600">View all</button>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-4 p-3 hover:bg-gray-50 rounded-lg">
+                        <div class="bg-blue-100 p-2 rounded-lg">
+                            <i class="fa-solid fa-user-plus text-blue-500"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium">New user registration</p>
+                            <p class="text-sm text-gray-500">Sarah Johnson joined the platform</p>
+                        </div>
+                        <span class="text-sm text-gray-400 ml-auto">2m ago</span>
+                    </div>
+                    <div class="flex items-center space-x-4 p-3 hover:bg-gray-50 rounded-lg">
+                        <div class="bg-green-100 p-2 rounded-lg">
+                            <i class="fa-solid fa-calendar-plus text-green-500"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium">New event created</p>
+                            <p class="text-sm text-gray-500">Summer Music Festival 2025</p>
+                        </div>
+                        <span class="text-sm text-gray-400 ml-auto">15m ago</span>
+                    </div>
+                    <div class="flex items-center space-x-4 p-3 hover:bg-gray-50 rounded-lg">
+                        <div class="bg-red-100 p-2 rounded-lg">
+                            <i class="fa-solid fa-flag text-red-500"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium">Reported comment</p>
+                            <p class="text-sm text-gray-500">Comment reported for inappropriate content</p>
+                        </div>
+                        <span class="text-sm text-gray-400 ml-auto">1h ago</span>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold">Pending Actions</h2>
+                    <button class="text-blue-500 hover:text-blue-600">View all</button>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg">
+                        <div class="flex items-center space-x-4">
+                            <div class="bg-yellow-100 p-2 rounded-lg">
+                                <i class="fa-solid fa-clock text-yellow-500"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium">Event Approval Required</p>
+                                <p class="text-sm text-gray-500">Tech Conference 2025</p>
+                            </div>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="p-2 text-green-500 hover:bg-green-50 rounded-lg">
+                                <i class="fa-solid fa-check"></i>
+                            </button>
+                            <button class="p-2 text-red-500 hover:bg-red-50 rounded-lg">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg">
+                        <div class="flex items-center space-x-4">
+                            <div class="bg-orange-100 p-2 rounded-lg">
+                                <i class="fa-solid fa-user-shield text-orange-500"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium">User Verification</p>
+                                <p class="text-sm text-gray-500">Event organizer application</p>
+                            </div>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="p-2 text-green-500 hover:bg-green-50 rounded-lg">
+                                <i class="fa-solid fa-check"></i>
+                            </button>
+                            <button class="p-2 text-red-500 hover:bg-red-50 rounded-lg">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="export-section" class="bg-white p-6 rounded-xl shadow">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold">Data Export</h2>
+            </div>
+            <div class="flex space-x-4">
+                <button class="flex items-center space-x-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+                    <i class="fa-solid fa-file-csv"></i>
+                    <span>Export as CSV</span>
+                </button>
+                <button class="flex items-center space-x-2 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
+                    <i class="fa-solid fa-file-pdf"></i>
+                    <span>Export as PDF</span>
+                </button>
+            </div>
+        </div>
+{% endblock %}

@@ -18,7 +18,7 @@ class DashboardController extends Controller
         } else if ($_SESSION['user']->role_id == 2) {
             echo $this->render("/front/profile.html.twig");
         } else if ($_SESSION['user']->role_id == 3) {
-            echo $this->render("/back/dashboard.html.twig");
+            echo $this->render("/back/index.html.twig");
         } else {
             echo $this->render("/back/404.html.twig");
         }
