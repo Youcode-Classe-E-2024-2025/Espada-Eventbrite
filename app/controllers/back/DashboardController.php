@@ -4,8 +4,10 @@ namespace App\controllers\back;
 
 use App\core\Controller;
 
-class DashboardController extends Controller{
-    public function __construct(){
+class DashboardController extends Controller
+{
+    public function __construct()
+    {
         parent::__construct();
     }
 
