@@ -85,4 +85,9 @@ class EventService
                 throw new \Exception("Invalid status");
         }
     }
+
+    public function deleteEvent($eventId)
+    {
+        return $this->evenmentRepo->delete($eventId);
+    }
 }

@@ -75,7 +75,6 @@ class EvenmentRepository
         $stmt = $this->DB->getConnection()->prepare($query);
         return $stmt->execute([':type' => $type, ':id' => $evenmentId]);
     }
-
     public function getAll(): array
     {
         $query = "SELECT e.id as event_id, e.*, u.username as owner, c.*, cat.name as category, cat.icon as icon
@@ -87,6 +86,12 @@ class EvenmentRepository
         ";
         $stmt = $this->DB->query($query);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function delete(int $eventId)
+    {
+        $query = "DELETE FROM evenments WHERE id = :id";
+        return $this->DB->query($query, [':id' => $eventId]);
     }
 
     public function searchEvents($keyword)

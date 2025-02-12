@@ -56,6 +56,7 @@ class AdminEventController extends Controller
         if ($eventId) {
             $this->eventService->deleteEvent($eventId);
         }
+        $this->redirect('/admin/events');
     }
 
     // public function filter()

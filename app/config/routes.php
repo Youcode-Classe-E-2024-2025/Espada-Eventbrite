@@ -12,6 +12,7 @@ $router->addRoute('GET', '/dashboard', [App\controllers\back\DashboardController
 $router->addRoute('GET', '/admin/events', [App\controllers\back\AdminEventController::class, 'index']);
 $router->addRoute('GET', '/admin/events/search', [App\controllers\back\AdminEventController::class, 'search']);
 $router->addRoute('POST', '/admin/events/status', [App\controllers\back\AdminEventController::class, 'updateStatus']);
+$router->addRoute('POST', '/admin/events/delete', [App\controllers\back\AdminEventController::class, 'delete']);
 $router->addRoute('GET', '/admin/comments', [App\controllers\back\DashboardController::class, 'showComments']);
 $router->addRoute('POST', '/auth/register', [App\controllers\front\AuthController::class, 'register']);
 
