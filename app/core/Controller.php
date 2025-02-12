@@ -1,9 +1,6 @@
 <?php
 
 namespace App\core;
-namespace App\core;
-
-
 
 abstract class Controller
 {
