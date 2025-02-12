@@ -23,7 +23,6 @@
             <span class="block sm:inline">There was an issue logging in with Google. Please try again or contact support.</span>
           </div>
         {% endif %}
-
         <!-- Sign In Form -->
         <form id="signin-form" action='/auth/login' method='post' class="space-y-6">
           <div>
@@ -138,28 +137,79 @@
 {% endblock %}
 {% block scripts %}
 <script>
-    function toggleForm(formType) {
-      const signinForm = document.getElementById('signin-form');
-      const signupForm = document.getElementById('signup-form');
-      const signinTab = document.getElementById('signin-tab');
-      const signupTab = document.getElementById('signup-tab');
-
-      if (formType === 'signin') {
-        signinForm.classList.remove('hidden');
-        signupForm.classList.add('hidden');
-        signinTab.classList.add('text-indigo-600', 'border-b-2', 'border-indigo-600');
-        signinTab.classList.remove('text-gray-500', 'hover:text-gray-700');
-        signupTab.classList.remove('text-indigo-600', 'border-b-2', 'border-indigo-600');
-        signupTab.classList.add('text-gray-500', 'hover:text-gray-700');
-      } else {
-        signinForm.classList.add('hidden');
-        signupForm.classList.remove('hidden');
-        signupTab.classList.add('text-indigo-600', 'border-b-2', 'border-indigo-600');
-        signupTab.classList.remove('text-gray-500', 'hover:text-gray-700');
-        signinTab.classList.remove('text-indigo-600', 'border-b-2', 'border-indigo-600');
-        signinTab.classList.add('text-gray-500', 'hover:text-gray-700');
-      }
+  document.addEventListener('DOMContentLoaded', function() {
+    // Check URL hash on page load
+    const hash = window.location.hash;
+    if (hash === '#signup-form') {
+      toggleForm('signup');
     }
-  </script>
+
+    // Handle form validation
+    const signinForm = document.getElementById('signin-form');
+    const signupForm = document.getElementById('signup-form');
+
+    signinForm.addEventListener('submit', function(e) {
+      const email = this.querySelector('input[name="email"]').value;
+      const password = this.querySelector('input[name="password"]').value;
+      
+      if (!email || !password) {
+        e.preventDefault();
+        alert('Please fill in all required fields');
+      }
+    });
+
+    signupForm.addEventListener('submit', function(e) {
+      const email = this.querySelector('input[name="email"]').value;
+      const username = this.querySelector('input[name="username"]').value;
+      const password = this.querySelector('input[name="password"]').value;
+      const confirmPassword = this.querySelector('input[name="confirm_password"]').value;
+      const role = this.querySelector('select[name="role"]').value;
+      const agreeTerms = this.querySelector('input[type="checkbox"]').checked;
+
+      if (!email || !username || !password || !confirmPassword || !role) {
+        e.preventDefault();
+        alert('Please fill in all required fields');
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        e.preventDefault();
+        alert('Passwords do not match');
+        return;
+      }
+
+      if (!agreeTerms) {
+        e.preventDefault();
+        alert('Please agree to the Terms of Service and Privacy Policy');
+        return;
+      }
+    });
+  });
+
+  function toggleForm(formType) {
+    const signinForm = document.getElementById('signin-form');
+    const signupForm = document.getElementById('signup-form');
+    const signinTab = document.getElementById('signin-tab');
+    const signupTab = document.getElementById('signup-tab');
+
+    if (formType === 'signup') {
+      signinForm.classList.add('hidden');
+      signupForm.classList.remove('hidden');
+      signinTab.classList.remove('text-indigo-600', 'border-b-2', 'border-indigo-600');
+      signinTab.classList.add('text-gray-500');
+      signupTab.classList.remove('text-gray-500');
+      signupTab.classList.add('text-indigo-600', 'border-b-2', 'border-indigo-600');
+      window.location.hash = 'signup-form';
+    } else {
+      signupForm.classList.add('hidden');
+      signinForm.classList.remove('hidden');
+      signupTab.classList.remove('text-indigo-600', 'border-b-2', 'border-indigo-600');
+      signupTab.classList.add('text-gray-500');
+      signinTab.classList.remove('text-gray-500');
+      signinTab.classList.add('text-indigo-600', 'border-b-2', 'border-indigo-600');
+      window.location.hash = 'signin-form';
+    }
+  }
+</script>
 {% endblock %}
 {% block footer %} {% include "layouts/footer.html.twig" %}  {% endblock %}
