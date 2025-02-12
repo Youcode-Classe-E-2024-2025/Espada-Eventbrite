@@ -14,11 +14,11 @@ class DashboardController extends Controller
     public function index()
     {
         if ($_SESSION['user']->role_id == 1) {
-            echo $this->render("/front/organiser/dashboard.html.twig");
+            echo $this->render("/front/organiser/dashboard.twig");
         } else if ($_SESSION['user']->role_id == 2) {
             echo $this->render("/front/profile.html.twig");
         } else if ($_SESSION['user']->role_id == 3) {
-            echo $this->render("/back/index.html.twig");
+            echo $this->render("/back/dashboard.html.twig");
         } else {
             echo $this->render("/back/404.html.twig");
         }
