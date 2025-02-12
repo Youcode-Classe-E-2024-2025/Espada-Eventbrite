@@ -35,26 +35,35 @@
 
         <div id="users-controls" class="flex justify-between items-center mb-6">
             <div class="flex space-x-4">
-                <div class="relative">
-                    <input type="text" placeholder="Search users..." class="pl-10 pr-4 py-2 border rounded-lg w-64">
+                <form action="/admin/users/search" method="get" class="relative">
+                    <input type="text" name="keyword" placeholder="Search users..." class="pl-10 pr-4 py-2 border rounded-lg w-64">
                     <i class="fa-solid fa-search absolute left-3 top-3 text-gray-400"></i>
-                </div>
-                <select class="border rounded-lg px-4 py-2">
-                    <option>All Roles</option>
-                    <option>Admin</option>
-                    <option>User</option>
-                    <option>Moderator</option>
-                </select>
-                <select class="border rounded-lg px-4 py-2">
-                    <option>Status</option>
-                    <option>Active</option>
-                    <option>Inactive</option>
-                    <option>Suspended</option>
-                </select>
+                </form>
+                <form action="/admin/users/filter" method="get" class="flex space-x-4">
+                    <select name="role_id" class="border rounded-lg px-4 py-2">
+                        <option value="">All Roles</option>
+                        <option value="1">Admin</option>
+                        <option value="2">Organizer</option>
+                        <option value="3">User</option>
+                    </select>
+                    
+                    <select name="status" class="border rounded-lg px-4 py-2">
+                        <option value="">Status</option>
+                        <option value="0">Active</option>
+                        <option value="1">Banned</option>
+                        <option value="2">Archived</option>
+                    </select>
+
+                    <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+                        Apply Filters
+                    </button>
+                </form>
             </div>
-            <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
-                <i class="fa-solid fa-plus mr-2"></i>Add New User
-            </button>
+            <form action="/users/create" method="get" class="flex items-center space-x-4">
+                <button type='submit' class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+                    <i class="fa-solid fa-plus mr-2"></i>Add New User
+                </button>
+            </form>
         </div>
         <div id="users-table" class="bg-white rounded-xl shadow overflow-hidden">
             <table class="w-full">
@@ -63,36 +72,65 @@
                         <th class="px-6 py-4 text-left text-sm font-medium text-gray-500">User</th>
                         <th class="px-6 py-4 text-left text-sm font-medium text-gray-500">Role</th>
                         <th class="px-6 py-4 text-left text-sm font-medium text-gray-500">Status</th>
-                        <th class="px-6 py-4 text-left text-sm font-medium text-gray-500">Last Login</th>
                         <th class="px-6 py-4 text-left text-sm font-medium text-gray-500">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200">
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-6 py-4">
-                            <div class="flex items-center space-x-3">
-                                <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" class="w-8 h-8 rounded-full">
-                                <div>
-                                    <p class="font-medium">Sarah Johnson</p>
-                                    <p class="text-sm text-gray-500">sarah@example.com</p>
+                    {% for user in users %}
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center space-x-3">
+                                    <img src="{{ user.avatar }}" class="w-8 h-8 rounded-full">
+                                    <div>
+                                        <p class="font-medium">{{ user.username }}</p>
+                                        <p class="text-sm text-gray-500">{{ user.email }}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4">
-                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm">Admin</span>
-                        </td>
-                        <td class="px-6 py-4">
-                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm">Active</span>
-                        </td>
-                        <td class="px-6 py-4 text-sm text-gray-500">2 minutes ago</td>
-                        <td class="px-6 py-4">
-                            <div class="flex space-x-2">
-                                <button class="text-gray-400 hover:text-blue-500"><i class="fa-solid fa-pen-to-square"></i></button>
-                                <button class="text-gray-400 hover:text-red-500"><i class="fa-solid fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="hover:bg-gray-50">
+                            </td>
+                            <td class="px-6 py-4">
+                                {% if user.role_id == 1 %}
+                                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm">Admin</span>
+                                {% elseif user.role_id == 2 %}
+                                    <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded-full text-sm">Organizer</span>
+                                {% else %}
+                                    <span class="bg-gray-100 text-gray-800 px-2 py-1 rounded-full text-sm">User</span>
+                                {% endif %}
+                            </td>
+                            <td class="px-6 py-4">
+                                {% if user.banned == 1 %}
+                                    <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-sm">Banned</span>
+                                {% elseif user.archived == 1 %}
+                                    <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-sm">Archived</span>
+                                {% else %}
+                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm">Active</span>
+                                {% endif %}
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="flex space-x-2">
+                                    {% if user.banned == 0 and user.archived == 0 %}
+                                        <form action="/admin/users/banUser" method="POST" class="inline">
+                                            <input type="hidden" name="user_id" value="{{ user.id }}">
+                                            <input type="hidden" name="status" value="1">
+                                            <button type="submit" class="text-gray-400 hover:text-red-500" title="Ban User">
+                                                <i class="fa-solid fa-ban"></i>
+                                            </button>
+                                        </form>
+                                    {% else %}
+                                        <form action="/admin/users/status" method="POST" class="inline">
+                                            <input type="hidden" name="user_id" value="{{ user.id }}">
+                                            <input type="hidden" name="status" value="0">
+                                            <button type="submit" class="text-gray-400 hover:text-green-500" title="Activate User">
+                                                <i class="fa-solid fa-check"></i>
+                                            </button>
+                                        </form>
+                                    {% endif %}
+                                    <button class="text-gray-400 hover:text-blue-500"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    {# <button class="text-gray-400 hover:text-red-500"><i class="fa-solid fa-trash"></i></button> #}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    {# <tr class="hover:bg-gray-50">
                         <td class="px-6 py-4">
                             <div class="flex items-center space-x-3">
                                 <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg" class="w-8 h-8 rounded-full">
@@ -139,7 +177,7 @@
                                 <button class="text-gray-400 hover:text-red-500"><i class="fa-solid fa-trash"></i></button>
                             </div>
                         </td>
-                    </tr>
+                    </tr> #}
                 </tbody>
             </table>
         </div>
