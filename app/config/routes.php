@@ -24,6 +24,9 @@ $router->addRoute('GET', '/Organiser/dash', [App\controllers\front\OrganiserDash
 $router->addRoute('GET', '/Organiser/test', [App\controllers\front\OrganiserDashController::class, 'serviceTest']);
 
 
+$router->addRoute('GET', '/events/search', [App\controllers\front\EventController::class, 'search']);
+
+
 // $router->addRoute('GET', '/auth/login/google', [App\controllers\front\AuthController::class, 'loginWithGoogle']);
 // $router->addRoute('GET', '/auth/google/login', [App\controllers\front\AuthController::class, 'loginWithGoogle']);
 // $router->addRoute('GET', '/auth/google/callback', [App\controllers\front\AuthController::class, 'handleGoogleCallback']);

@@ -14,6 +14,4 @@ class HomeController extends controller{
           }else{ // admin
             $this->redirect('/auth');
           }
-    }
-}
-?>
+

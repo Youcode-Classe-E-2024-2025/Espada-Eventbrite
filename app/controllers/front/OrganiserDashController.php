@@ -1,13 +1,14 @@
 <?php
 
 
-namespace App\controllers\front ; 
 
+namespace App\controllers\front ; 
 use App\core\Controller;
 use App\core\View;
 use App\services\EventService;
 
-class OrganiserDashController extends Controller{
+class OrganiserDashController extends Controller
+{
 
     protected EventService $evsdn;
 
@@ -20,6 +21,7 @@ class OrganiserDashController extends Controller{
     public function index(): void
     {
         $view = new View();
+<<<<<<< HEAD
         echo $view->render('front/organiser/dashboard.twig',[]);
     }
 
@@ -56,6 +58,8 @@ class OrganiserDashController extends Controller{
 
 
 
+=======
+        echo $view->render('front/orgniser/dashboard.twig', []);
+    }
+>>>>>>> 76fc5e8253e36e5776f6cee45989e41e6dc92ef0
 }
-
-
