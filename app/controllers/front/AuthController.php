@@ -8,7 +8,7 @@ use App\core\View;
 use App\core\Validator;
 
 use App\core\Session;
-
+use App\models\User;
 use Google_Client;
 use Google_Service_Oauth2;
 use Exception;
@@ -18,10 +18,11 @@ class AuthController extends Controller
 {
     // private UserService $userService;
     private Validator $validator;
+    private UserService $userService;
 
     public function __construct()
     {
-        // $this->userService = new UserService();
+        $this->userService = new UserService();
         $this->session = new Session();
         $this->validator = new Validator();
     }

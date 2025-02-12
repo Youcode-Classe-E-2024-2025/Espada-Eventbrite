@@ -7,7 +7,7 @@ $router->addRoute('GET', '/', [App\controllers\front\HomeController::class, 'ind
 
 
 $router->addRoute('GET', '/auth', [App\controllers\front\AuthController::class, 'index']);
-$router->addRoute('GET', '/admin/dashboard', [App\controllers\Back\DashboardController::class, 'index']);
+$router->addRoute('GET', '/dashboard', [App\controllers\Back\DashboardController::class, 'index']);
 $router->addRoute('GET', '/admin/users', [App\controllers\Back\DashboardController::class, 'showUsers']);
 $router->addRoute('GET', '/admin/events', [App\controllers\Back\DashboardController::class, 'showEvents']);
 $router->addRoute('GET', '/admin/comments', [App\controllers\Back\DashboardController::class, 'showComments']);
