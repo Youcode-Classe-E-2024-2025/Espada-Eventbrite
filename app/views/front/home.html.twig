@@ -1,5 +1,6 @@
  {% extends "base.html.twig" %}
- {% block title %}ESPADA{% endblock %}
+{% block title %}ESPADA{% endblock %}
+{% block header %} {% include "layouts/header.html.twig" %}  {% endblock %}
 {% block content %}
   <header id="header" class="bg-white shadow-sm fixed w-full z-50">
     <div class="container mx-auto px-4 py-4">
@@ -204,3 +205,4 @@
     </div>
   </section>
 {% endblock %}
+{% block footer %} {% include "layouts/footer.html.twig" %}  {% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+{% block header %} {% include "layouts/header.html.twig" %}  {% endblock %}
+
+{% block content %}
+    <div class="flex min-h-screen bg-gray-50">
+        {% block aside %}{% endblock %}
+        <main id="main-content" class="flex-1 overflow-auto">
+            {% block dashcontent %}{% endblock %}
+        </main>
+    </div>
+{% endblock %}
+
+{% block footer %} {% include "layouts/footer.html.twig" %}  {% endblock %}
