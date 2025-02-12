@@ -1,7 +1,4 @@
 <?php
-
-
-
 namespace App\controllers\front ; 
 use App\core\Controller;
 use App\core\View;
@@ -61,4 +58,3 @@ class OrganiserDashController extends Controller
 
 
 }
-
