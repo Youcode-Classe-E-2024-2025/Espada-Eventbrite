@@ -57,12 +57,12 @@ class AdminUserController extends Controller
         $userId = isset($_POST['user_id']) ? (int)$_POST['user_id'] : null;
         $status = isset($_POST['status']) ? (int)$_POST['status'] : null;
 
-        if ($userId && $status) {
+        if ($userId && isset($status)) {
             $this->userService->updateUserStatus($userId, $status);
-            $this->redirect('/back/users.html.twig');
+            $this->redirect('/admin/users');
         }
 
-        $this->redirect('/back/users.html.twig');
+        // $this->redirect('/back/users');
         exit;
     }
 }

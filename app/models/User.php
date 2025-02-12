@@ -23,6 +23,7 @@ class User extends Model
     public const ACTIVE = 0;
     public const BANNED = 1;
     public const ARCHIVED = 2;
+    public const UNARCHIVED = 3;
 
     public function __construct()
     {
