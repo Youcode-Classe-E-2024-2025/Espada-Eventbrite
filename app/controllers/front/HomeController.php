@@ -8,11 +8,11 @@ class HomeController extends controller{
           $res=$this->session->get('user');
     
           if($res->role_id== '1'){ //user
-            $this->redirect('/auth');
+            $this->redirect('/admin/dashboard');
           }else if($res->role_id == '2'){ //particepant
-            $this->redirect('/auth');
+            $this->redirect('/admin/dashboard');
           }else{ // admin
-            $this->redirect('/auth');
+            $this->redirect('/admin/dashboard');
           }
 
         }

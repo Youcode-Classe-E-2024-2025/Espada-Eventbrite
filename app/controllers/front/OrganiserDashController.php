@@ -1,6 +1,10 @@
 <?php
 
 
+<<<<<<< HEAD
+namespace App\controllers\front ; 
+=======
+>>>>>>> 3a5edaace40b231a13096523939d454e33009328
 
 namespace App\controllers\front ; 
 use App\core\Controller;
@@ -20,8 +24,13 @@ class OrganiserDashController extends Controller
 
     public function index(): void
     {
+<<<<<<< HEAD
+        
+        echo $this->view->render('front/orgniser/dashboard.twig',[]);
+=======
         $view = new View();
         echo $view->render('front/organiser/dashboard.twig',[]);
+>>>>>>> 3a5edaace40b231a13096523939d454e33009328
     }
 
     public function serviceTest(){
