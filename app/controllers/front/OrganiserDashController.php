@@ -20,8 +20,15 @@ class OrganiserDashController extends Controller
 
     public function index(): void
     {
-        $view = new View();
-        echo $view->render('front/organiser/dashboard.twig',[]);
+        echo $this->render('front/organiser/dashboard.twig',[]);
+    }
+    public function events(): void
+    {
+        echo $this->render('front/organiser/events.html.twig',[]);
+    }
+    public function tickets(): void
+    {
+        echo $this->render('front/organiser/tickets.html.twig',[]);
     }
 
     public function serviceTest(){

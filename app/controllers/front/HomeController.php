@@ -11,6 +11,7 @@ class HomeController extends controller
   {
     $res = $this->session->get('user');
 
+
     if ($res->role_id == '1') { //organiser
       $this->redirect('/dashboard');
     } else if ($res->role_id == '2') { //user
