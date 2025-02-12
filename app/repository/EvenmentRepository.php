@@ -80,5 +80,56 @@ class EvenmentRepository {
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
+
+    public function getOrganiserEvent($id): array {
+        $query = 
+
+       " SELECT                      
+    e.id AS event_id,
+    e.title,
+    e.description,
+    e.visual_content,
+    e.lieu,
+    e.validation,
+    e.archived,
+    e.owner_id,
+    e.category_id,
+    c.name AS category_name,
+    e.date,
+    e.type,
+    cap.total_tickets,
+    cap.vip_tickets_number,
+    cap.vip_price,
+    cap.standard_tickets_number,
+    cap.standard_price,
+    cap.gratuit_tickets_number,
+    cap.early_bird_discount,
+    Array_agg(DISTINCT t.title) AS tags
+FROM evenments e
+LEFT JOIN categories c ON e.category_id = c.id
+LEFT JOIN capacity cap ON e.id = cap.evenment_id
+LEFT JOIN envenment_tag et ON e.id = et.envenment_id
+LEFT JOIN tags t ON et.tag_id = t.id
+WHERE e.owner_id = 1
+GROUP BY 
+    e.id, c.name, 
+    cap.total_tickets, cap.vip_tickets_number, cap.vip_price,
+    cap.standard_tickets_number, cap.standard_price, cap.gratuit_tickets_number, cap.early_bird_discount;
+
+
+        ";
+        $stmt = $this->DB->getConnection()->query($query);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
    
 }
+
+
+
+// SELECT 
+//     b.*, 
+//     u.username 
+// FROM booking b
+// INNER JOIN users u ON b.user_id = u.id
+// WHERE b.envenment_id = $id;
