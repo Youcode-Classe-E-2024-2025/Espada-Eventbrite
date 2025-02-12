@@ -1,7 +1,22 @@
 const notifBtn = document.getElementById('notif_btn');
-const mainContainer = document.getElementById('main-container');
-const notifpopup = document.getElementById('notifications-popup');
-notifBtn.addEventListener('click',(event) =>{
-    event.preventDefault();
-    notifpopup.classList.toggle('hidden');
-})
+const notifPopup = document.getElementById('notifications-popup');
+
+if (notifBtn && notifPopup) {
+    // Toggle notification popup
+    notifBtn.addEventListener('click', (event) => {
+        event.stopPropagation();
+        notifPopup.classList.toggle('hidden');
+    });
+
+    // Close notification popup when clicking outside
+    document.addEventListener('click', (event) => {
+        if (!notifPopup.contains(event.target) && !notifBtn.contains(event.target)) {
+            notifPopup.classList.add('hidden');
+        }
+    });
+
+    // Prevent popup from closing when clicking inside it
+    notifPopup.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
+}
