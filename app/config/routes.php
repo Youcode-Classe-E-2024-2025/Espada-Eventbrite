@@ -19,13 +19,17 @@ $router->addRoute('POST', '/auth/login', [App\controllers\front\AuthController::
 
 $router->addRoute('GET', '/auth/logout', [App\controllers\front\AuthController::class, 'logout']);
 
-$router->addRoute('GET', '/reservation', [App\controllers\front\ReservationController::class, 'getBooking']);
+
 
 $router->addRoute('GET', '/Organiser/dash', [App\controllers\front\OrganiserDashController::class, 'index']);
+$router->addRoute('GET', '/Organiser/tickets', [App\controllers\front\OrganiserDashController::class, 'tickets']);
+$router->addRoute('GET', '/Organiser/events', [App\controllers\front\OrganiserDashController::class, 'events']);
 $router->addRoute('GET', '/Organiser/test', [App\controllers\front\OrganiserDashController::class, 'serviceTest']);
 
 
 $router->addRoute('GET', '/events/search', [App\controllers\front\EventController::class, 'search']);
+$router->addRoute('POST', '/organiser/dash', [App\controllers\front\OrganiserDashController::class, 'index']);
+$router->addRoute('GET', '/reservation', [App\controllers\front\ReservationController::class, 'getBooking']);
 
 
 $router->addRoute('GET', '/admin/users', [App\controllers\back\AdminUserController::class, 'index']);

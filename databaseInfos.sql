@@ -1,20 +1,20 @@
 create DATABASE eventbrite;
 
-CREATE TABLE role (
-    id serial PRIMARY KEY,
-    name VARCHAR(100) NOT NULL
-);
+CREATE TABLE role (  
+    id serial PRIMARY KEY,  
+    name VARCHAR(100) NOT NULL  
+);  
 
-
-CREATE TABLE users (
-    id serial PRIMARY KEY,
-    role_id INT NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    username VARCHAR(100) NOT NULL,
-    avatar VARCHAR(255),
-    banned INT DEFAULT 0,
-    archived INT DEFAULT 0
+CREATE TABLE users (  
+    id serial PRIMARY KEY,  
+    role_id INT NOT NULL,  
+    email VARCHAR(255) NOT NULL,  
+    password VARCHAR(255) NOT NULL,  
+    username VARCHAR(100) NOT NULL,  
+    avatar VARCHAR(255),  
+    banned INT DEFAULT 0,  
+    archived INT DEFAULT 0,  
+    FOREIGN KEY (role_id) REFERENCES role(id)  
 );
 
 
