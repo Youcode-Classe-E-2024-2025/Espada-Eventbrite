@@ -108,7 +108,7 @@
                             <td class="px-6 py-4">
                                 <div class="flex space-x-2">
                                     {% if user.banned == 0 and user.archived == 0 %}
-                                        <form action="/admin/users/banUser" method="POST" class="inline">
+                                        <form action="/admin/users/status" method="POST" class="inline">
                                             <input type="hidden" name="user_id" value="{{ user.id }}">
                                             <input type="hidden" name="status" value="1">
                                             <button type="submit" class="text-gray-400 hover:text-red-500" title="Ban User">
