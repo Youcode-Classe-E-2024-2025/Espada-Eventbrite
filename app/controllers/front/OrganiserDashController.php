@@ -13,6 +13,7 @@ class OrganiserDashController extends Controller
     protected EventService $evsdn;
 
     public function __construct(){
+        parent::__construct();
         $this->evsdn=new EventService();
 
     }

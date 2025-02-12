@@ -16,7 +16,7 @@ use Exception;
 class AuthController extends Controller
 
 {
-    // private UserService $userService;
+    private UserService $userService;
     private Validator $validator;
     private UserService $userService;
 
