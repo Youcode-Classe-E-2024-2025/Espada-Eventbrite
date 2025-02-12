@@ -15,6 +15,8 @@ class UserRepository
         $this->DB = new Database();
     }
 
+    
+
     // Get user by email
     public function getUserByEmail(string $email): ?object
     {
