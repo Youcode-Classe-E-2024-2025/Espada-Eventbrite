@@ -28,6 +28,7 @@ $router->addRoute('GET', '/Organiser/test', [App\controllers\front\OrganiserDash
 
 
 $router->addRoute('GET', '/events/search', [App\controllers\front\EventController::class, 'search']);
+$router->addRoute('GET', '/events/list', [App\controllers\front\EventController::class, 'index']);
 $router->addRoute('POST', '/organiser/dash', [App\controllers\front\OrganiserDashController::class, 'index']);
 $router->addRoute('GET', '/reservation', [App\controllers\front\ReservationController::class, 'getBooking']);
 
