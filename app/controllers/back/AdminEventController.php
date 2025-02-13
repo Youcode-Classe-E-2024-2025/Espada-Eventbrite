@@ -4,23 +4,19 @@ namespace App\controllers\back;
 
 use App\core\Controller;
 use App\services\EventService;
-use App\services\UserService;
 
 class AdminEventController extends Controller
 {
     private EventService $eventService;
-    private UserService $userService;
 
     public function __construct()
     {
         parent::__construct();
         $this->eventService = new EventService();
-        $this->userService = new UserService();
     }
 
     public function index()
     {
-        // $this->getStats();
         $events = $this->eventService->getEvents();
 
         return $this->render('back/events.html.twig', ['events' => $events]);
@@ -62,21 +58,6 @@ class AdminEventController extends Controller
         }
         $this->redirect('/admin/events');
     }
-
-    // private function getStats()
-    // {
-    //     $totalUsers = $this->userService->getTotalUsers();
-    //     $activeEvents = $this->eventService->getTotalActiveEvents();
-    //     $ticketsSold = $this->eventService->getTotalTicketsSold();
-    //     $revenue = $this->eventService->getTotalRevenue();
-
-    //     $this->render('back/index.html.twig', [
-    //         'totalUsers' => $totalUsers,
-    //         'activeEvents' => $activeEvents,
-    //         'ticketsSold' => $ticketsSold,
-    //         'revenue' => $revenue
-    //     ]);
-    // }
 
     // public function filter()
     // {

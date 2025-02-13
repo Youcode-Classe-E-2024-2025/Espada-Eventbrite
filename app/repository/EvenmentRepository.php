@@ -309,28 +309,4 @@ WHERE e.owner_id = :owner_id;
         $params = ['keyword' => "%$keyword%"];
         return $this->DB->query($sql, $params)->fetchAll(PDO::FETCH_OBJ);
     }
-
-    public function totalActiveEvents()
-    {
-        $query = "SELECT COUNT(*) as total FROM evenments WHERE validation = 1 AND archived = 0";
-        $stmt = $this->DB->query($query);
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result['total'];
-    }
-
-    public function totalTicketsSold()
-    {
-        $query = "SELECT SUM(vip_tickets_sold + standard_tickets_sold + gratuit_tickets_sold) as total FROM capacity ";
-        $stmt = $this->DB->query($query);
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result['total'];
-    }
-
-    public function totalRevenue()
-    {
-        $query = "SELECT SUM(vip_tickets_sold * vip_price) + SUM(standard_tickets_sold * standard_price) as totalRevenue FROM capacity ";
-        $stmt = $this->DB->query($query);
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result['totalRevenue'] ?? 0.0;
-    }
 }
