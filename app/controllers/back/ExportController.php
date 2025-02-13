@@ -17,17 +17,27 @@ class ExportController extends Controller
 
     public function exportCsv()
     {
-        $data = $this->exportService->getCsvData();
-        header('Content-Type: text/csv');
-        header('Content-Disposition: attachment; filename="exported_data.csv"');
-        echo $data;
+        try {
+            $data = $this->exportService->getCsvData();
+            header('Content-Type: text/csv; charset=utf-8');
+            header('Content-Disposition: attachment; filename="export.csv"');
+            header('Pragma: no-cache');
+            header('Expires: 0');
+            echo $data;
+        } catch (\Exception $e) {
+            die('Erreur : ' . $e->getMessage());
+        }
     }
 
     public function exportPdf()
     {
-        $data = $this->exportService->getPdfData();
-        header('Content-Type: application/pdf');
-        header('Content-Disposition: attachment; filename="exported_data.pdf"');
-        echo $data;
+        try {
+            $data = $this->exportService->getPdfData();
+            header('Content-Type: application/pdf');
+            header('Content-Disposition: attachment; filename="export.pdf"');
+            echo $data;
+        } catch (\Exception $e) {
+            die('Erreur : ' . $e->getMessage());
+        }
     }
 }
