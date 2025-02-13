@@ -406,11 +406,20 @@ WHERE e.owner_id = :owner_id;
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function getRecentEvents()
-    {
-        $sql = "SELECT * FROM evenments ORDER BY date DESC LIMIT 2";
-        $stmt = $this->DB->query($sql);
 
-        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    public function getById($id)
+    {
+        $query = "SELECT e.id as event_id, e.*, u.username as owner, c.*, cat.name as category, cat.icon as icon
+        FROM evenments e 
+        LEFT JOIN capacity c ON e.id = c.evenment_id
+        LEFT JOIN users u ON e.owner_id = u.id
+        LEFT JOIN categories cat ON e.category_id = cat.id
+        where e.id= :id
+        ORDER BY e.date DESC
+        ";
+        $stmt = $this->DB->query($query, ["id"=> $id]);
+        return $stmt->fetch(PDO::FETCH_OBJ);
     }
+
+
 }

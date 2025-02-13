@@ -24,4 +24,6 @@ class TagRepository {
         $stmt = $this->DB->getConnection()->query($query);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
+
+
 }

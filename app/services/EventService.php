@@ -111,8 +111,19 @@ class EventService
         return $this->evenmentRepo->getPendingEvents();
     }
 
-    public function getRecentEvents()
-    {
-        return $this->evenmentRepo->getRecentEvents();
+    public function getEventById($id){
+        return $this->evenmentRepo->getById($id);
+    }
+
+    public function getCapacities($id){
+        return $this->capacityRepo->getEventStatistics($id);
+    }
+    
+    public function getTags($id){
+        return $this->evenmentTagRepo->getTagById($id);
+    }
+
+    public function getMyEvent($id){
+        return $this->evenmentRepo->getMyEvents($id);
     }
 }
