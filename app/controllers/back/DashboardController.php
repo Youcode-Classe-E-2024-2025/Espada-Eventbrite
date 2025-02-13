@@ -6,75 +6,68 @@ use App\core\Controller;
 use App\services\EventService;
 use App\services\UserService;
 
-class DashboardController extends Controller
-{
+class DashboardController extends Controller {
     private EventService $eventService;
     private UserService $userService;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->eventService = new EventService();
         parent::__construct();
         $this->eventService = new EventService();
         $this->userService = new UserService();
     }
 
-    public function index()
-    {
-        if ($_SESSION['user']->role_id == 1) {
-            echo $this->render("/front/organiser/dashboard.twig");
-        } else if ($_SESSION['user']->role_id == 2) {
-            $id = $this->session->get('user')->id;
-$data = $this->eventService->getMyEvent($id);
-
-// Ensure $data has at least two elements
-if (count($data) >= 2) {
-    echo $this->render("/front/profile.html.twig", [
-        "event1" => $data[0],
-        "event2" => $data[1]
-    ]);
-} else {
-    // Handle the case where $data doesn't have enough elements
-    echo $this->render("/front/profile.html.twig", [
-        "event1" => null,
-        "event2" => null
-    ]);
-}
-        } else if ($_SESSION['user']->role_id == 3) {
+    public function index() {
+        if ( $_SESSION[ 'user' ]->role_id == 1 ) {
+            echo $this->render( '/front/organiser/dashboard.twig' );
+        } else if ( $_SESSION[ 'user' ]->role_id == 2 ) {
+            $id = $this->session->get( 'user' )->id;
+            $data = $this->eventService->getMyEvent( $id );
+            if ( count( $data ) >= 2 ) {
+                echo $this->render( '/front/profile.html.twig', [
+                    'event1' => $data[ 0 ],
+                    'event2' => $data[ 1 ]
+                ] );
+            } else {
+                echo $this->render( '/front/profile.html.twig', [
+                    'event1' => null,
+                    'event2' => null
+                ] );
+            }
+        } else if ( $_SESSION[ 'user' ]->role_id == 3 ) {
             $stats = $this->getStats();
             $pendingActions = $this->getPendingActions();
             $recentActivities = $this->getRecentActivities();
-            // var_dump($pendingActions);
-            echo $this->render("/back/index.html.twig", [
+            // var_dump( $pendingActions );
+            echo $this->render( '/back/index.html.twig', [
                 'stats' => $stats,
                 'pendingActions' => $pendingActions,
                 'recentActivities' => $recentActivities
-            ]);
+            ] );
         } else {
-            echo $this->render("/back/404.html.twig");
+            echo $this->render( '/back/404.html.twig' );
         }
     }
-    public function showEvents()
-    {
-        echo $this->render("/back/events.html.twig");
-    }
-    public function showUsers()
-    {
-        echo $this->render("/back/users.html.twig");
-    }
-    public function showComments()
-    {
-        echo $this->render("/back/comments.html.twig");
+
+    public function showEvents() {
+        echo $this->render( '/back/events.html.twig' );
     }
 
-    private function getStats()
-    {
+    public function showUsers() {
+        echo $this->render( '/back/users.html.twig' );
+    }
+
+    public function showComments() {
+        echo $this->render( '/back/comments.html.twig' );
+    }
+
+    private function getStats() {
         $totalUsers = $this->userService->getTotalUsers();
         $activeEvents = $this->eventService->getTotalActiveEvents();
         $ticketsSold = $this->eventService->getTotalTicketsSold();
         $revenue = $this->eventService->getTotalRevenue();
 
-        // var_dump($totalUsers, $activeEvents, $ticketsSold, $revenue);
+        // var_dump( $totalUsers, $activeEvents, $ticketsSold, $revenue );
         // die();
 
         return  [
@@ -85,8 +78,7 @@ if (count($data) >= 2) {
         ];
     }
 
-    private function getPendingActions()
-    {
+    private function getPendingActions() {
         $pendingEvents = $this->eventService->getPendingEvents();
         // $pendingUsers = $this->userService->getPendingUsers();
 
@@ -96,8 +88,7 @@ if (count($data) >= 2) {
         ];
     }
 
-    private function getRecentActivities()
-    {
+    private function getRecentActivities() {
         $recentUsers = $this->userService->getRecentUsers();
         $recentEvents = $this->eventService->getRecentEvents();
         // $recentComments = $this->eventService->getRecentComments();
