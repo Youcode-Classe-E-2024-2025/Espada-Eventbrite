@@ -90,19 +90,4 @@ class EventService
     {
         return $this->evenmentRepo->delete($eventId);
     }
-
-    public function getTotalActiveEvents()
-    {
-        return $this->evenmentRepo->totalActiveEvents();
-    }
-
-    public function getTotalTicketsSold()
-    {
-        return $this->evenmentRepo->totalTicketsSold();
-    }
-
-    public function getTotalRevenue()
-    {
-        return $this->evenmentRepo->totalRevenue();
-    }
 }
