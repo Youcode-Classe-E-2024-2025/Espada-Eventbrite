@@ -3,19 +3,12 @@
 namespace App\controllers\back;
 
 use App\core\Controller;
-use App\services\EventService;
-use App\services\UserService;
 
 class DashboardController extends Controller
 {
-    private EventService $eventService;
-    private UserService $userService;
-
     public function __construct()
     {
         parent::__construct();
-        $this->eventService = new EventService();
-        $this->userService = new UserService();
     }
 
     public function index()
@@ -25,10 +18,12 @@ class DashboardController extends Controller
         } else if ($_SESSION['user']->role_id == 2) {
             echo $this->render("/front/profile.html.twig");
         } else if ($_SESSION['user']->role_id == 3) {
+
             $stats = $this->getStats();
             $pendingActions = $this->getPendingActions();
             // var_dump($pendingActions);
             echo $this->render("/back/index.html.twig", ['stats' => $stats, 'pending_actions' => $pendingActions]);
+
         } else {
             echo $this->render("/back/404.html.twig");
         }
