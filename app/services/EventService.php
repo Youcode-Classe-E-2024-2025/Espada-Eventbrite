@@ -90,4 +90,9 @@ class EventService
     {
         return $this->evenmentRepo->delete($eventId);
     }
+
+
+    public function getMyEvents($id){
+        return $this->evenmentRepo->getMyEvents($id);
+    }
 }

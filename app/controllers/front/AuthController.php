@@ -17,7 +17,7 @@ class AuthController extends Controller
 
 {
     private UserService $userService;
-    private Validator $validator;
+    // private  $validator;
 
     public function __construct()
     {
