@@ -2,32 +2,62 @@
 namespace App\controllers\front ; 
 use App\core\Controller;
 use App\core\View;
-use App\services\EventService;
+// use App\services\EventService;
+use App\services\StatService;
 
 class OrganiserDashController extends Controller
 {
 
     protected EventService $evsdn;
+    protected StatService $statServ;
 
     public function __construct(){
         parent::__construct();
-        $this->evsdn=new EventService();
+        // $this->evsdn=new EventService();
+        $this->statServ=new StatService();
+        
+
+        
 
     }
 
 
     public function index(): void
     {
-        echo $this->render('front/organiser/dashboard.twig',[]);
+
+       $data = $this->statServ->getOwnerStatistic(1)  ;
+
+       
+
+
+        echo $this->render('front/organiser/dashboard.twig',[ 'data' =>$data]);
+
+        var_dump($data);
     }
+
+
+
+
+
+
+
     public function events(): void
     {
         echo $this->render('front/organiser/events.html.twig',[]);
     }
+
+
     public function tickets(): void
     {
-        echo $this->render('front/organiser/tickets.html.twig',[]);
+
+        $data = $this->statServ->ticketsStaTs(1)  ;
+
+        var_dump($data);
+ 
+        echo $this->render('front/organiser/tickets.html.twig',[[ 'data' =>$data]]);
     }
+
+
 
     public function serviceTest(){
         $evenmentData = [
@@ -52,9 +82,12 @@ class OrganiserDashController extends Controller
         ];
         $tagIds = [1, 2, 3]; 
 
-        $this->evsdn->createEvent($evenmentData ,$capacityData , $tagIds);
+        // $this->evsdn->createEvent($evenmentData ,$capacityData , $tagIds);
         
     } 
+
+
+
 
 
 }
