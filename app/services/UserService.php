@@ -155,4 +155,9 @@ class UserService
     // {
     //     return $this->userRepository->getPendingUsers();
     // }
+
+    public function getRecentUsers()
+    {
+        return $this->userRepository->getRecentUsers();
+    }
 }

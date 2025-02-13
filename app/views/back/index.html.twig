@@ -70,48 +70,52 @@
             <div class="bg-white p-6 rounded-xl shadow">
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-xl font-bold">Recent Activity</h2>
-                    <button class="text-blue-500 hover:text-blue-600">View all</button>
                 </div>
                 <div class="space-y-4">
-                    <div class="flex items-center space-x-4 p-3 hover:bg-gray-50 rounded-lg">
-                        <div class="bg-blue-100 p-2 rounded-lg">
-                            <i class="fa-solid fa-user-plus text-blue-500"></i>
+                    {% for user in recentActivities.recentUsers %}
+                        <div class="flex items-center space-x-6 p-3 hover:bg-gray-50 rounded-lg">
+                            <div class="bg-blue-100 p-2 rounded-lg">
+                                <i class="fa-solid fa-user-plus text-blue-500"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium">New user registration</p>
+                                <p class="text-sm text-gray-500">{{ user.username }} joined the platform</p>
+                            </div>
+                            <span class="text-sm text-gray-400 ml-auto">{{ user.created_at | date("d M H:i") }}</span>
                         </div>
-                        <div>
-                            <p class="font-medium">New user registration</p>
-                            <p class="text-sm text-gray-500">Sarah Johnson joined the platform</p>
+                    {% endfor %}
+                    {% for event in recentActivities.recentEvents %}
+                        <div class="flex items-center space-x-4 p-3 hover:bg-gray-50 rounded-lg">
+                            <div class="bg-green-100 p-2 rounded-lg">
+                                <i class="fa-solid fa-calendar-plus text-green-500"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium">New event created</p>
+                                <p class="text-sm text-gray-500">{{ event.title }}</p>
+                            </div>
+                            <span class="text-sm text-gray-400 ml-auto">{{ event.date | date("H:i") }}</span>
                         </div>
-                        <span class="text-sm text-gray-400 ml-auto">2m ago</span>
-                    </div>
-                    <div class="flex items-center space-x-4 p-3 hover:bg-gray-50 rounded-lg">
-                        <div class="bg-green-100 p-2 rounded-lg">
-                            <i class="fa-solid fa-calendar-plus text-green-500"></i>
+                    {% endfor %}
+                    {# {% for comment in recentActivities.reportedComments %}
+                        <div class="flex items-center space-x-4 p-3 hover:bg-gray-50 rounded-lg">
+                            <div class="bg-red-100 p-2 rounded-lg">
+                                <i class="fa-solid fa-flag text-red-500"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium">Reported comment</p>
+                                <p class="text-sm text-gray-500">Comment reported for inappropriate content</p>
+                            </div>
+                            <span class="text-sm text-gray-400 ml-auto">1h ago</span>
                         </div>
-                        <div>
-                            <p class="font-medium">New event created</p>
-                            <p class="text-sm text-gray-500">Summer Music Festival 2025</p>
-                        </div>
-                        <span class="text-sm text-gray-400 ml-auto">15m ago</span>
-                    </div>
-                    <div class="flex items-center space-x-4 p-3 hover:bg-gray-50 rounded-lg">
-                        <div class="bg-red-100 p-2 rounded-lg">
-                            <i class="fa-solid fa-flag text-red-500"></i>
-                        </div>
-                        <div>
-                            <p class="font-medium">Reported comment</p>
-                            <p class="text-sm text-gray-500">Comment reported for inappropriate content</p>
-                        </div>
-                        <span class="text-sm text-gray-400 ml-auto">1h ago</span>
-                    </div>
+                    {% endfor %} #}
                 </div>
             </div>
             <div class="bg-white p-6 rounded-xl shadow">
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-xl font-bold">Pending Actions</h2>
-                    {# <button class="text-blue-500 hover:text-blue-600">View all</button> #}
                 </div>
                 <div class="space-y-4">
-                    {% for event in pending_actions.pendingEvents %}
+                    {% for event in pendingActions.pendingEvents %}
                         <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg">
                             <div class="flex items-center space-x-4">
                                 <div class="bg-yellow-100 p-2 rounded-lg">

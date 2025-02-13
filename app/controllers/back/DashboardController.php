@@ -27,8 +27,13 @@ class DashboardController extends Controller
         } else if ($_SESSION['user']->role_id == 3) {
             $stats = $this->getStats();
             $pendingActions = $this->getPendingActions();
+            $recentActivities = $this->getRecentActivities();
             // var_dump($pendingActions);
-            echo $this->render("/back/index.html.twig", ['stats' => $stats, 'pending_actions' => $pendingActions]);
+            echo $this->render("/back/index.html.twig", [
+                'stats' => $stats,
+                'pendingActions' => $pendingActions,
+                'recentActivities' => $recentActivities
+            ]);
         } else {
             echo $this->render("/back/404.html.twig");
         }
@@ -72,6 +77,19 @@ class DashboardController extends Controller
         return [
             'pendingEvents' => $pendingEvents,
             // 'pendingUsers' => $pendingUsers
+        ];
+    }
+
+    private function getRecentActivities()
+    {
+        $recentUsers = $this->userService->getRecentUsers();
+        $recentEvents = $this->eventService->getRecentEvents();
+        // $recentComments = $this->eventService->getRecentComments();
+
+        return [
+            'recentUsers' => $recentUsers,
+            'recentEvents' => $recentEvents,
+            // 'reportedComments' => $recentComments
         ];
     }
 }

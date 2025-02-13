@@ -45,7 +45,6 @@ class EvenmentRepository
         return false;
     }
 
-
     public function validate(int $evenmentId)
     {
         $query = "UPDATE evenments SET validation = 1 WHERE id = :id";
@@ -143,6 +142,13 @@ class EvenmentRepository
     {
         $sql = "SELECT * FROM evenments WHERE validation = :status";
         $stmt = $this->DB->query($sql, ['status' => Event::VALIDATED]);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function getRecentEvents()
+    {
+        $sql = "SELECT * FROM evenments ORDER BY date DESC LIMIT 2";
+        $stmt = $this->DB->query($sql);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 }
