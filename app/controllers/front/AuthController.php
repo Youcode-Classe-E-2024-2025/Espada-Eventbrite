@@ -5,7 +5,7 @@ namespace App\controllers\front;
 use App\services\UserService;
 use App\core\Controller;
 use App\core\View;
-use App\core\Validator;
+// use App\core\Validator;
 
 use App\core\Session;
 use App\models\User;

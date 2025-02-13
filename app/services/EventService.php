@@ -81,4 +81,8 @@ class EventService {
     public function getEvents(){
         return $this->evenmentRepo->getAll();
     }
+
+    public function getEventById($eventId): array{
+        return $this->evenmentRepo->getById($eventId);
+    }
 }

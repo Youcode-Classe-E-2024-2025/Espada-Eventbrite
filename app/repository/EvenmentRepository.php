@@ -80,5 +80,12 @@ class EvenmentRepository {
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
+    public function getById( $evenmentId): array {
+        $query = "SELECT * from evenments where id = :id";
+        $stmt = $this->DB->getConnection()->prepare($query);
+        $stmt->execute([":id"=> $evenmentId]);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
    
 }

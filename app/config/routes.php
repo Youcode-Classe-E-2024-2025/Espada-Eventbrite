@@ -41,6 +41,7 @@ $router->addRoute('GET', '/admin/users/filter', [App\controllers\back\AdminUserC
 $router->addRoute('POST', '/admin/users/status', [App\controllers\back\AdminUserController::class, 'updateStatus']);
 // $router->addRoute('POST', '/admin/users/banUser', [App\controllers\back\AdminUserController::class, 'updateStatus']);
 
+$router->addRoute('GET', '/event/details/{id}', [App\controllers\front\EventController::class, 'eventDetails']);
 
 
 
