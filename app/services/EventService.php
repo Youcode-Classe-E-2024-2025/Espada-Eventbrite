@@ -126,4 +126,8 @@ class EventService
     public function getMyEvent($id){
         return $this->evenmentRepo->getMyEvents($id);
     }
+    public function getRecentEvents(int $limit = 5): array
+{
+    return $this->evenmentRepo->getPaginatedEvents(1, $limit, []);
+}
 }
