@@ -23,6 +23,7 @@ class AuthController extends Controller
     {
         parent::__construct();
         $this->userService = new UserService();
+        $this->validator = new Validator();
     }
 
     public function index(): void

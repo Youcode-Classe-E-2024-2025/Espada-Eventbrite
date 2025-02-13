@@ -103,43 +103,45 @@
                                 {% endif %}
                             </td>
                             <td class="px-6 py-4">
-                                <div class="flex space-x-2">
-                                    {% if user.banned == 0 %}
-                                        <form action="/admin/users/status" method="POST" class="inline">
-                                            <input type="hidden" name="user_id" value="{{ user.id }}">
-                                            <input type="hidden" name="status" value="1">
-                                            <button type="submit" class="text-gray-400 hover:text-red-500" title="Ban User">
-                                                <i class="fa-solid fa-ban"></i>
-                                            </button>
-                                        </form>
-                                    {% else %}
-                                        <form action="/admin/users/status" method="POST" class="inline">
-                                            <input type="hidden" name="user_id" value="{{ user.id }}">
-                                            <input type="hidden" name="status" value="0">
-                                            <button type="submit" class="text-gray-400 hover:text-green-500" title="Activate User">
-                                                <i class="fa-solid fa-check"></i>
-                                            </button>
-                                        </form>
-                                    {% endif %}
-                                    {% if user.archived == 0 %}
-                                        <form action="/admin/users/status" method="POST" class="inline">
-                                            <input type="hidden" name="user_id" value="{{ user.id }}">
-                                            <input type="hidden" name="status" value="2">
-                                            <button type="submit" class="text-gray-400 hover:text-red-500" title="Archive User">
-                                                <i class="fa-solid fa-box-archive"></i>
-                                            </button>
-                                        </form>
-                                    {% else %}
-                                        <form action="/admin/users/status" method="POST" class="inline">
-                                            <input type="hidden" name="user_id" value="{{ user.id }}">
-                                            <input type="hidden" name="status" value="3">
-                                            <button type="submit" class="text-gray-400 hover:text-red-500" title="Remove from Archive">
-                                                <i class="fa-solid fa-box-open"></i>
-                                            </button>
-                                        </form>
-                                    {% endif %}
-                                    {# <button class="text-gray-400 hover:text-red-500"><i class="fa-solid fa-trash"></i></button> #}
-                                </div>
+                                {% if user.role_id != 3 %}
+                                    <div class="flex space-x-2">
+                                        {% if user.banned == 0 %}
+                                            <form action="/admin/users/status" method="POST" class="inline">
+                                                <input type="hidden" name="user_id" value="{{ user.id }}">
+                                                <input type="hidden" name="status" value="1">
+                                                <button type="submit" class="text-gray-400 hover:text-red-500" title="Ban User">
+                                                    <i class="fa-solid fa-ban"></i>
+                                                </button>
+                                            </form>
+                                        {% else %}
+                                            <form action="/admin/users/status" method="POST" class="inline">
+                                                <input type="hidden" name="user_id" value="{{ user.id }}">
+                                                <input type="hidden" name="status" value="0">
+                                                <button type="submit" class="text-gray-400 hover:text-green-500" title="Activate User">
+                                                    <i class="fa-solid fa-check"></i>
+                                                </button>
+                                            </form>
+                                        {% endif %}
+                                        {% if user.archived == 0 %}
+                                            <form action="/admin/users/status" method="POST" class="inline">
+                                                <input type="hidden" name="user_id" value="{{ user.id }}">
+                                                <input type="hidden" name="status" value="2">
+                                                <button type="submit" class="text-gray-400 hover:text-red-500" title="Archive User">
+                                                    <i class="fa-solid fa-box-archive"></i>
+                                                </button>
+                                            </form>
+                                        {% else %}
+                                            <form action="/admin/users/status" method="POST" class="inline">
+                                                <input type="hidden" name="user_id" value="{{ user.id }}">
+                                                <input type="hidden" name="status" value="3">
+                                                <button type="submit" class="text-gray-400 hover:text-red-500" title="Remove from Archive">
+                                                    <i class="fa-solid fa-box-open"></i>
+                                                </button>
+                                            </form>
+                                        {% endif %}
+                                        {# <button class="text-gray-400 hover:text-red-500"><i class="fa-solid fa-trash"></i></button> #}
+                                    </div>
+                                {% endif %}
                             </td>
                         </tr>
                     {% endfor %}

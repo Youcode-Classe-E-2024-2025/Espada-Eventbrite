@@ -3,12 +3,19 @@
 namespace App\controllers\back;
 
 use App\core\Controller;
+use App\services\EventService;
+use App\services\UserService;
 
 class DashboardController extends Controller
 {
+    private EventService $eventService;
+    private UserService $userService;
+
     public function __construct()
     {
         parent::__construct();
+        $this->eventService = new EventService();
+        $this->userService = new UserService();
     }
 
     public function index()
@@ -18,7 +25,8 @@ class DashboardController extends Controller
         } else if ($_SESSION['user']->role_id == 2) {
             echo $this->render("/front/profile.html.twig");
         } else if ($_SESSION['user']->role_id == 3) {
-            echo $this->render("/back/index.html.twig");
+            $stats = $this->getStats();
+            echo $this->render("/back/index.html.twig", ['stats' => $stats]);
         } else {
             echo $this->render("/back/404.html.twig");
         }
@@ -34,5 +42,20 @@ class DashboardController extends Controller
     public function showComments()
     {
         echo $this->render("/back/comments.html.twig");
+    }
+
+    private function getStats()
+    {
+        $totalUsers = $this->userService->getTotalUsers();
+        $activeEvents = $this->eventService->getTotalActiveEvents();
+        $ticketsSold = $this->eventService->getTotalTicketsSold();
+        $revenue = $this->eventService->getTotalRevenue();
+
+        return $this->render('back/index.html.twig', [
+            'totalUsers' => $totalUsers,
+            'activeEvents' => $activeEvents,
+            'ticketsSold' => $ticketsSold,
+            'revenue' => $revenue
+        ]);
     }
 }
