@@ -102,7 +102,8 @@ class EvenmentRepository
             c.vip_tickets_sold,
             c.standard_tickets_sold,
             c.gratuit_tickets_sold,
-            cat.name as category_name
+            cat.name as category_name,
+            cat.icon as icon
             FROM evenments e
             LEFT JOIN capacity c ON e.id = c.evenment_id
             LEFT JOIN categories cat ON e.category_id = cat.id
