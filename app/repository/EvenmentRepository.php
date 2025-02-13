@@ -398,7 +398,7 @@ WHERE e.owner_id = :owner_id;
         $stmt->execute($params);
         
 
-
+    }
     public function getPendingEvents()
     {
         $sql = "SELECT * FROM evenments WHERE validation = :status";
