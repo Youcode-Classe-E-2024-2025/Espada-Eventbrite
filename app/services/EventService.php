@@ -110,4 +110,9 @@ class EventService
     {
         return $this->evenmentRepo->getPendingEvents();
     }
+
+    public function getRecentEvents()
+    {
+        return $this->evenmentRepo->getRecentEvents();
+    }
 }

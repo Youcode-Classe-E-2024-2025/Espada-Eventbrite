@@ -14,6 +14,7 @@ CREATE TABLE users (
     avatar VARCHAR(255),  
     banned INT DEFAULT 0,  
     archived INT DEFAULT 0,  
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (role_id) REFERENCES role(id)  
 );
 

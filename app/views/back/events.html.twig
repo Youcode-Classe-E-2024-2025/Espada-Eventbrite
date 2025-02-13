@@ -78,9 +78,9 @@
                                         </div>
                                     </div>
                                     <div class="flex space-x-2">
-                                        <button class="p-2 text-blue-500 hover:bg-blue-50 rounded-lg" title="Edit Event">
+                                        {# <button class="p-2 text-blue-500 hover:bg-blue-50 rounded-lg" title="Edit Event">
                                             <i class="fa-solid fa-pen-to-square"></i>
-                                        </button>
+                                        </button> #}
                                         <form action="/admin/events/delete" method="POST" class="inline">
                                                 <input type="hidden" name="event_id" value="{{ event.event_id }}">
                                                 <button class="p-2 text-red-500 hover:bg-red-50 rounded-lg" title="Delete Event">
