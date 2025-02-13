@@ -9,7 +9,10 @@ $router->addRoute('GET', '/', [App\controllers\front\HomeController::class, 'ind
 $router->addRoute('GET', '/auth', [App\controllers\front\AuthController::class, 'index']);
 $router->addRoute('GET', '/dashboard', [App\controllers\back\DashboardController::class, 'index']);
 // $router->addRoute('GET', '/admin/users', [App\controllers\back\DashboardController::class, 'showUsers']);
-$router->addRoute('GET', '/admin/events', [App\controllers\back\DashboardController::class, 'showEvents']);
+$router->addRoute('GET', '/admin/events', [App\controllers\back\AdminEventController::class, 'index']);
+$router->addRoute('GET', '/admin/events/search', [App\controllers\back\AdminEventController::class, 'search']);
+$router->addRoute('POST', '/admin/events/status', [App\controllers\back\AdminEventController::class, 'updateStatus']);
+$router->addRoute('POST', '/admin/events/delete', [App\controllers\back\AdminEventController::class, 'delete']);
 $router->addRoute('GET', '/admin/comments', [App\controllers\back\DashboardController::class, 'showComments']);
 $router->addRoute('POST', '/auth/register', [App\controllers\front\AuthController::class, 'register']);
 
@@ -27,7 +30,7 @@ $router->addRoute('GET', '/Organiser/events', [App\controllers\front\OrganiserDa
 $router->addRoute('GET', '/Organiser/test', [App\controllers\front\OrganiserDashController::class, 'serviceTest']);
 
 
-$router->addRoute('GET', '/events/search', [App\controllers\front\EventController::class, 'search']);
+// $router->addRoute('GET', '/events/search', [App\controllers\front\EventController::class, 'search']);
 
 $router->addRoute('GET', '/events/list', [App\controllers\front\EventController::class, 'index']);
 
