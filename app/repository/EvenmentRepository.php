@@ -90,6 +90,21 @@ class EvenmentRepository
     }
 
 
+    public function getMyEvents($id): array
+    {
+        $query = "SELECT e.id as event_id, e.*, u.username as owner, c.*, cat.name as category, cat.icon as icon
+        FROM evenments e 
+        LEFT JOIN capacity c ON e.id = c.evenment_id
+        LEFT JOIN users u ON e.owner_id = u.id
+        LEFT JOIN categories cat ON e.category_id = cat.id
+        where u.id = :id
+        ORDER BY e.date DESC limit 2
+        ";
+        $stmt = $this->DB->query($query, [":id"=> $id]);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+
 //     public function getOrganiserEvent($id): array {
 //         $query = 
 //        " SELECT                      
