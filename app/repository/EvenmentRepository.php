@@ -45,7 +45,6 @@ class EvenmentRepository
         return false;
     }
 
-
     public function validate(int $evenmentId)
     {
         $query = "UPDATE evenments SET validation = 1 WHERE id = :id";
@@ -308,7 +307,8 @@ WHERE e.owner_id = :owner_id;
             c.vip_tickets_sold,
             c.standard_tickets_sold,
             c.gratuit_tickets_sold,
-            cat.name as category_name
+            cat.name as category_name,
+            cat.icon as icon
             FROM evenments e
             LEFT JOIN capacity c ON e.id = c.evenment_id
             LEFT JOIN categories cat ON e.category_id = cat.id
@@ -351,6 +351,7 @@ WHERE e.owner_id = :owner_id;
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
+<<<<<<< HEAD
 
     public function getById($id)
     {
@@ -367,4 +368,12 @@ WHERE e.owner_id = :owner_id;
     }
 
 
+=======
+    public function getRecentEvents()
+    {
+        $sql = "SELECT * FROM evenments ORDER BY date DESC LIMIT 2";
+        $stmt = $this->DB->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+>>>>>>> 0413a97c336ed19b67f5518b32e894bc1be1af74
 }

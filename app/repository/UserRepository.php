@@ -94,7 +94,7 @@ class UserRepository
     // Get all users
     public function getAll(): array
     {
-        $query = "SELECT users.* FROM users";
+        $query = "SELECT * FROM users ORDER BY id DESC";
         $stmt = $this->DB->query($query);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
@@ -187,4 +187,11 @@ class UserRepository
     //     $stmt = $this->DB->query($sql, ['status' => User::UNARCHIVED]);
     //     return $stmt->fetchAll(PDO::FETCH_OBJ);
     // }
+
+    public function getRecentUsers()
+    {
+        $sql = "SELECT * FROM users ORDER BY created_at DESC LIMIT 2";
+        $stmt = $this->DB->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
 }
