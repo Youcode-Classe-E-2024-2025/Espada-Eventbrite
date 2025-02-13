@@ -3,6 +3,7 @@
 namespace App\repository;
 
 use App\core\Database;
+use App\models\Event;
 use PDO;
 
 class EvenmentRepository
@@ -75,7 +76,7 @@ class EvenmentRepository
         $stmt = $this->DB->getConnection()->prepare($query);
         return $stmt->execute([':type' => $type, ':id' => $evenmentId]);
     }
-    public function getAll(): array
+    public function getAll()
     {
         $query = "SELECT e.id as event_id, e.*, u.username as owner, c.*, cat.name as category, cat.icon as icon
         FROM evenments e 
@@ -294,12 +295,6 @@ WHERE e.owner_id = :owner_id;
 
 
 
-   
-
-
-
-
-
     public function delete(int $eventId)
     {
         $query = "DELETE FROM evenments WHERE id = :id";
@@ -323,5 +318,36 @@ WHERE e.owner_id = :owner_id;
 
         $params = ['keyword' => "%$keyword%"];
         return $this->DB->query($sql, $params)->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function totalActiveEvents()
+    {
+        $query = "SELECT COUNT(*) as total FROM evenments WHERE validation = 1 AND archived = 0";
+        $stmt = $this->DB->query($query);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'];
+    }
+
+    public function totalTicketsSold()
+    {
+        $query = "SELECT SUM(vip_tickets_sold + standard_tickets_sold + gratuit_tickets_sold) as total FROM capacity ";
+        $stmt = $this->DB->query($query);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'];
+    }
+
+    public function totalRevenue()
+    {
+        $query = "SELECT SUM(vip_tickets_sold * vip_price) + SUM(standard_tickets_sold * standard_price) as totalRevenue FROM capacity ";
+        $stmt = $this->DB->query($query);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['totalRevenue'] ?? 0.0;
+    }
+
+    public function getPendingEvents()
+    {
+        $sql = "SELECT * FROM evenments WHERE validation = :status";
+        $stmt = $this->DB->query($sql, ['status' => Event::VALIDATED]);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 }
