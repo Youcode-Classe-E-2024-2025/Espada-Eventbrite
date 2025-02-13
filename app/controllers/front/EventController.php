@@ -25,11 +25,12 @@ class EventController extends Controller
     }
 
     public function eventDetails($id){
-        // var_dump($id);
-        // die();
+
         $data = $this->eventService->getEventById($id[0]);
-        var_dump($data);
-       echo $this->render('front/event/event-detail.html.twig',['event' => $data]);
+        $statis = $this->eventService->getCapacities($id[0]);
+        $tags = $this->eventService->getTags($id[0]);
+        
+       echo $this->render('front/event/event-detail.html.twig',['event' => $data, 'statistics'=> $statis, 'tags'=> $tags]);
     }
 
     public function search()

@@ -41,4 +41,16 @@ class EvenmentTagRepository {
         $stmt = $this->DB->getConnection()->prepare($query);
         return $stmt->execute();
     }
-}
+    public function getTagById($id): array {
+        $query = "SELECT t.id, t.title
+                  FROM tags t
+                  INNER JOIN envenment_tag et ON t.id = et.tag_id
+                  WHERE et.envenment_id = :id";
+    
+        $stmt = $this->DB->getConnection()->prepare($query);
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+    
+    
+}    
