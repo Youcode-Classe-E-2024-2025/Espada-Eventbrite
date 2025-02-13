@@ -4,18 +4,15 @@ namespace App\controllers\back;
 
 use App\core\Controller;
 use App\services\EventService;
-use App\services\UserService;
 
 class AdminEventController extends Controller
 {
     private EventService $eventService;
-    private UserService $userService;
 
     public function __construct()
     {
         parent::__construct();
         $this->eventService = new EventService();
-        $this->userService = new UserService();
     }
 
     public function index()
@@ -81,6 +78,7 @@ class AdminEventController extends Controller
 
     //     return $stats;
     // }
+
 
     // public function filter()
     // {

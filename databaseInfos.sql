@@ -56,18 +56,43 @@ CREATE TABLE envenment_tag (
     FOREIGN KEY (envenment_id) REFERENCES evenments(id)
 );
 
+-- CREATE TABLE capacity (
+--     id serial PRIMARY KEY ,
+--     evenment_id INT NOT NULL,
+--     total_tickets INT NOT NULL,
+--     vip_tickets_number INT NOT NULL,
+--     vip_price FLOAT NOT NULL,
+--     standard_tickets_number INT NOT NULL,
+--     standard_price FLOAT NOT NULL,
+--     gratuit_tickets_number INT NOT NULL,
+--     early_bird_discount INT,
+--     FOREIGN KEY (evenment_id) REFERENCES evenments(id)
+-- );
+
 CREATE TABLE capacity (
-id serial PRIMARY KEY,
-evenment_id INT NOT NULL,
-total_tickets INT NOT NULL,
-vip_tickets_number INT NOT NULL,
-vip_price FLOAT NOT NULL,
-standard_tickets_number INT NOT NULL,
-standard_price FLOAT NOT NULL,
-gratuit_tickets_number INT NOT NULL,
-early_bird_discount INT,
-vip_tickets_sold INT DEFAULT 0,
-standard_tickets_sold INT DEFAULT 0,
-gratuit_tickets_sold INT DEFAULT 0,
-FOREIGN KEY (evenment_id) REFERENCES evenments(id)
+    id serial PRIMARY KEY,
+    evenment_id INT NOT NULL,
+    total_tickets INT NOT NULL,
+    vip_tickets_number INT NOT NULL,
+    vip_price FLOAT NOT NULL,
+    standard_tickets_number INT NOT NULL,
+    standard_price FLOAT NOT NULL,
+    gratuit_tickets_number INT NOT NULL,
+    early_bird_discount INT,
+    vip_tickets_sold INT DEFAULT 0,
+    standard_tickets_sold INT DEFAULT 0,
+    gratuit_tickets_sold INT DEFAULT 0,
+    FOREIGN KEY (evenment_id) REFERENCES evenments(id)
+);
+
+
+CREATE TABLE booking (
+    id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    evenment_id INT NOT NULL,
+    type VARCHAR(50) NOT NULL,
+    price FLOAT NOT NULL,
+    booking_date DATE NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (evenment_id) REFERENCES evenments(id) ON DELETE CASCADE
 );

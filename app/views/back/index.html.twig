@@ -93,7 +93,7 @@
                                 <p class="font-medium">New event created</p>
                                 <p class="text-sm text-gray-500">{{ event.title }}</p>
                             </div>
-                            <span class="text-sm text-gray-400 ml-auto">{{ event.date | date("H:i") }}</span>
+                            <span class="text-sm text-gray-400 ml-auto">{{ event.date | date("d M H:i") }}</span>
                         </div>
                     {% endfor %}
                     {# {% for comment in recentActivities.reportedComments %}

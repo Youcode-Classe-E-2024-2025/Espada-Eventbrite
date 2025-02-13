@@ -94,7 +94,7 @@ class UserRepository
     // Get all users
     public function getAll(): array
     {
-        $query = "SELECT * FROM users";
+        $query = "SELECT * FROM users ORDER BY id DESC";
         $stmt = $this->DB->query($query);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }

@@ -37,7 +37,7 @@ class UserService
         return null;
     }
 
-
+    
     // Handle user registration
     public function register(array $userData): bool
     {
