@@ -7,7 +7,7 @@
                 <span class="text-xl font-bold">AdminPanel</span>
             </div>
             <nav class="space-y-2">
-                <a href="/admin/dashboard" class="flex items-center space-x-2 bg-gray-800 p-3 rounded-lg">
+                <a href="/dashboard" class="flex items-center space-x-2 bg-gray-800 p-3 rounded-lg">
                     <i class="fa-solid fa-gauge-high"></i>
                     <span>Dashboard</span>
                 </a>
@@ -38,32 +38,32 @@
                     <h3 class="text-gray-500">Total Users</h3>
                     <i class="fa-solid fa-users text-blue-500 text-xl"></i>
                 </div>
-                <p class="text-2xl font-bold">24,521</p>
-                <span class="text-green-500 text-sm"><i class="fa-solid fa-arrow-up"></i> +12.5%</span>
+                <p class="text-2xl font-bold">{{ stats.totalUsers }}</p>
+                <span class="text-green-500 text-sm"><i class="fa-solid fa-arrow-up"></i></span>
             </div>
             <div class="bg-white p-6 rounded-xl shadow">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-gray-500">Active Events</h3>
                     <i class="fa-solid fa-calendar text-purple-500 text-xl"></i>
                 </div>
-                <p class="text-2xl font-bold">1,482</p>
-                <span class="text-green-500 text-sm"><i class="fa-solid fa-arrow-up"></i> +8.1%</span>
+                <p class="text-2xl font-bold">{{ stats.activeEvents }}</p>
+                <span class="text-green-500 text-sm"><i class="fa-solid fa-arrow-up"></i></span>
             </div>
             <div class="bg-white p-6 rounded-xl shadow">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-gray-500">Tickets Sold</h3>
                     <i class="fa-solid fa-ticket text-orange-500 text-xl"></i>
                 </div>
-                <p class="text-2xl font-bold">85,245</p>
-                <span class="text-green-500 text-sm"><i class="fa-solid fa-arrow-up"></i> +23.4%</span>
+                <p class="text-2xl font-bold">{{ stats.ticketsSold }}</p>
+                <span class="text-green-500 text-sm"><i class="fa-solid fa-arrow-up"></i></span>
             </div>
             <div class="bg-white p-6 rounded-xl shadow">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-gray-500">Revenue</h3>
                     <i class="fa-solid fa-dollar-sign text-green-500 text-xl"></i>
                 </div>
-                <p class="text-2xl font-bold">$542,895</p>
-                <span class="text-green-500 text-sm"><i class="fa-solid fa-arrow-up"></i> +18.2%</span>
+                <p class="text-2xl font-bold">{{ stats.revenue }}</p>
+                <span class="text-green-500 text-sm"><i class="fa-solid fa-arrow-up"></i></span>
             </div>
         </div>
         <div id="activity-section" class="grid grid-cols-2 gap-6 mb-8">

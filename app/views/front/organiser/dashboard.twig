@@ -7,7 +7,7 @@
             <span>Create New Event</span>
         </button>
         <nav class="space-y-1">
-            <a href="/Organiser/dash" class="flex items-center gap-3 px-3 py-2 text-gray-900 bg-gray-100 rounded-lg">
+            <a href="/dashboard" class="flex items-center gap-3 px-3 py-2 text-gray-900 bg-gray-100 rounded-lg">
                 <i class="fa-solid fa-chart-line w-5"></i>
                 <span>Dashboard</span>
             </a>
@@ -31,28 +31,28 @@
                             <h3 class="text-sm font-medium text-gray-500">Total Events</h3>
                             <i class="fa-solid fa-calendar text-indigo-600"></i>
                         </div>
-                        <p class="text-2xl font-semibold mt-2">24</p>
+                        <p class="text-2xl font-semibold mt-2">{{data.stat.total_events}}</p>
                     </div>
                     <div class="bg-white p-6 rounded-xl border border-gray-200">
                         <div class="flex items-center justify-between">
                             <h3 class="text-sm font-medium text-gray-500">Active Events</h3>
                             <i class="fa-solid fa-circle-play text-green-600"></i>
                         </div>
-                        <p class="text-2xl font-semibold mt-2">8</p>
+                        <p class="text-2xl font-semibold mt-2">{{data.stat.active_events}}</p>
                     </div>
                     <div class="bg-white p-6 rounded-xl border border-gray-200">
                         <div class="flex items-center justify-between">
                             <h3 class="text-sm font-medium text-gray-500">Total Sales</h3>
                             <i class="fa-solid fa-dollar-sign text-blue-600"></i>
                         </div>
-                        <p class="text-2xl font-semibold mt-2">$12,450</p>
+                        <p class="text-2xl font-semibold mt-2">${{data.stat.total_sales}}</p>
                     </div>
                     <div class="bg-white p-6 rounded-xl border border-gray-200">
                         <div class="flex items-center justify-between">
                             <h3 class="text-sm font-medium text-gray-500">Total Attendees</h3>
                             <i class="fa-solid fa-users text-purple-600"></i>
                         </div>
-                        <p class="text-2xl font-semibold mt-2">1,240</p>
+                        <p class="text-2xl font-semibold mt-2">{{data.stat.total_attendees}}</p>
                     </div>
                 </div>
                 <div class="bg-white rounded-xl border border-gray-200">
@@ -80,64 +80,45 @@
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                <tr>
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center">
-                                            <div class="h-10 w-10 rounded-lg bg-indigo-100 flex items-center justify-center">
-                                                <i class="fa-solid fa-music text-indigo-600"></i>
-                                            </div>
-                                            <div class="ml-4">
-                                                <div class="text-sm font-medium text-gray-900">Summer Music Festival</div>
-                                                <div class="text-sm text-gray-500">Los Angeles, CA</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">Aug 15, 2025</td>
-                                    <td class="px-6 py-4">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span>
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">$4,200</td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center gap-2">
-                                            <button class="p-2 hover:bg-gray-100 rounded-lg">
-                                                <i class="fa-solid fa-pen-to-square text-gray-400"></i>
-                                            </button>
-                                            <button class="p-2 hover:bg-gray-100 rounded-lg">
-                                                <i class="fa-solid fa-trash text-gray-400"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center">
-                                            <div class="h-10 w-10 rounded-lg bg-purple-100 flex items-center justify-center">
-                                                <i class="fa-solid fa-graduation-cap text-purple-600"></i>
-                                            </div>
-                                            <div class="ml-4">
-                                                <div class="text-sm font-medium text-gray-900">Tech Conference 2025</div>
-                                                <div class="text-sm text-gray-500">San Francisco, CA</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">Sep 20, 2025</td>
-                                    <td class="px-6 py-4">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Pending</span>
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">$8,250</td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center gap-2">
-                                            <button class="p-2 hover:bg-gray-100 rounded-lg">
-                                                <i class="fa-solid fa-pen-to-square text-gray-400"></i>
-                                            </button>
-                                            <button class="p-2 hover:bg-gray-100 rounded-lg">
-                                                <i class="fa-solid fa-trash text-gray-400"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
+                           <tbody class="bg-white divide-y divide-gray-200">
+    {% for event in data.events %}
+        <tr>
+            <td class="px-6 py-4">
+                <div class="flex items-center">
+                    <div class="h-10 w-10 rounded-lg bg-indigo-100 flex items-center justify-center">
+                        <i class="fa-solid fa-music text-indigo-600"></i>
+                    </div>
+                    <div class="ml-4">
+                        <div class="text-sm font-medium text-gray-900">{{ event.event_name }}</div>
+                        <div class="text-sm text-gray-500">{{ event.lieu }}</div>
+                    </div>
+                </div>
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-500">{{ event.event_date }}</td>
+            <td class="px-6 py-4">
+    {% if event.status == 1 %}
+        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span>
+    {% else %}
+        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Pending</span>
+    {% endif %}
+</td>
+
+            <td class="px-6 py-4 text-sm text-gray-500">{{ event.lieu }}</td>
+            <td class="px-6 py-4">
+                <div class="flex items-center gap-2">
+                    <button class="p-2 hover:bg-gray-100 rounded-lg">
+                        <i class="fa-solid fa-pen-to-square text-gray-400"></i>
+                    </button>
+                    <button class="p-2 hover:bg-gray-100 rounded-lg">
+                        <i class="fa-solid fa-trash text-gray-400"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+</tbody>
+
+
                         </table>
                     </div>
                 </div>
