@@ -59,6 +59,27 @@ class AdminEventController extends Controller
         $this->redirect('/admin/events');
     }
 
+    // private function getStats()
+    // {
+    //     $totalUsers = $this->userService->getTotalUsers();
+    //     $activeEvents = $this->eventService->getTotalActiveEvents();
+    //     $ticketsSold = $this->eventService->getTotalTicketsSold();
+    //     $revenue = $this->eventService->getTotalRevenue();
+
+    //     $stats = [
+    //         'totalUsers' => $totalUsers,
+    //         'activeEvents' => $activeEvents,
+    //         'ticketsSold' => $ticketsSold,
+    //         'revenue' => $revenue
+    //     ];
+
+    //     // var_dump($totalUsers, $activeEvents, $ticketsSold, $revenue);
+    //     // die();
+
+    //     return $stats;
+    // }
+
+
     // public function filter()
     // {
     //     $roleId = isset($_GET['role_id']) ? (int)$_GET['role_id'] : null;
