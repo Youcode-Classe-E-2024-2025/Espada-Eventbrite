@@ -7,15 +7,15 @@
         <header id="header" class="flex justify-between items-center mb-8">
             <div>
                 <h1 class="text-2xl font-bold">Dashboard Overview</h1>
-                <p class="text-gray-600">Welcome back, Admin</p>
+                <p class="text-gray-600">Welcome back, {{session.get('user').username}}</p>
             </div>
             <div class="flex items-center space-x-4">
                 <button class="bg-white p-2 rounded-lg shadow">
                     <i class="fa-solid fa-bell text-gray-600"></i>
                 </button>
                 <div class="flex items-center space-x-2">
-                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" class="w-10 h-10 rounded-full">
-                    <span class="font-medium">John Admin</span>
+                    <img src="{{session.get('user').avatar}}" class="w-10 h-10 rounded-full">
+                    <span class="font-medium">{{session.get('user').username}}</span>
                 </div>
             </div>
         </header>

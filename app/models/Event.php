@@ -14,6 +14,10 @@ class Event extends Model
     public $date;
     public $location;
     public $created_at;
+    public const VALIDATED = 0;
+    public const UNVALIDATED = 1;
+    public const ARCHIVED = 2;
+    public const UNARCHIVED = 3;
 
     public function __construct()
     {
