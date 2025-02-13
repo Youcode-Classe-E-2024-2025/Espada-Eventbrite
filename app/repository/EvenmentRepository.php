@@ -82,7 +82,7 @@ class EvenmentRepository
         LEFT JOIN capacity c ON e.id = c.evenment_id
         LEFT JOIN users u ON e.owner_id = u.id
         LEFT JOIN categories cat ON e.category_id = cat.id
-        ORDER BY e.date DESC
+        ORDER BY e.date DESC LIMIT 3
         ";
         $stmt = $this->DB->query($query);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -396,8 +396,8 @@ WHERE e.owner_id = :owner_id;
         // Prepare and execute the statement properly
         $stmt = $this->DB->getConnection()->prepare($query);
         $stmt->execute($params);
-        
-
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
 
     public function getPendingEvents()
     {

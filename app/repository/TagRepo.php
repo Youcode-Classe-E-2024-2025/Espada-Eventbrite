@@ -5,7 +5,7 @@ namespace App\repository;
 use App\core\Database;
 use PDO;
 
-class TagRepository {
+class TagRepo {
     private Database $DB;
 
     public function __construct() {
@@ -24,4 +24,6 @@ class TagRepository {
         $stmt = $this->DB->getConnection()->query($query);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
+
+
 }

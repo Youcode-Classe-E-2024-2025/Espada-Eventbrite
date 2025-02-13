@@ -23,20 +23,6 @@ class EventController extends Controller
 
     public function index()
     {
-
-        $events = $this->eventService->getEvents();
-        var_dump($events);
-        die();
-    }
-
-    public function eventDetails($id){
-
-        $data = $this->eventService->getEventById($id[0]);
-        $statis = $this->eventService->getCapacities($id[0]);
-        $tags = $this->eventService->getTags($id[0]);
-        
-       echo $this->render('front/event/event-detail.html.twig',['event' => $data, 'statistics'=> $statis, 'tags'=> $tags]);
-
       $categories = [];
       // Check if categories are set and convert to array
     if (isset($_GET['categories'])) {
@@ -71,45 +57,7 @@ class EventController extends Controller
       }
       
       echo $this->render('front/event/event-list.html.twig', $data);
-
     }
-  //   public function serchByCategory()
-  //   {
-  //     $categories = [];
-  //     // Check if categories are set and convert to array
-  //   if (isset($_GET['categories'])) {
-  //     // If it's a single value, wrap it in an array
-  //     $categories = is_array($_GET['categories']) ? $_GET['categories'] : [$_GET['categories']];
-      
-  //     // Convert to integers and remove any invalid values
-  //     $categories = array_map('intval', $categories);
-  //     $categories = array_filter($categories);
-  // }
-  //     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-  //     $limit = 2; // Events per page
-      
-  //     $events = $this->evenmentRepository->serchByCategory($page, $limit , $categories);
-  //     $totalEvents = $this->evenmentRepository->totalActiveEvents();
-  //     $totalPages = ceil($totalEvents / $limit);
-  //     $categories = $this->categoryRepo->getAll();
-      
-  //     $data = [
-  //       'events' => $events,
-  //       'totalEvents' => $totalEvents,
-  //       'currentPage' => $page,
-  //       'totalPages' => $totalPages,
-  //       'categories' => $categories
-  //     ];
-      
-  //     if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
-  //       // Return JSON for AJAX requests
-  //       header('Content-Type: application/json');
-  //       echo json_encode($data);
-  //       exit;
-  //     }
-      
-  //     echo $this->render('front/event/event-list.html.twig', $data);
-  //   }
 
     public function search()
     {
