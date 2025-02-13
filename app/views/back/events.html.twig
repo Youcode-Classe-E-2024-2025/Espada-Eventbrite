@@ -7,7 +7,7 @@
                         <span class="text-xl font-bold">AdminPanel</span>
                     </div>
                  <nav class="space-y-2">
-                <a href="/admin/dashboard" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
+                <a href="/dashboard" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
                     <i class="fa-solid fa-gauge-high"></i>
                     <span>Dashboard</span>
                 </a>
@@ -34,14 +34,11 @@
 {% block mainContent %}   
                 <div id="events-actions" class="flex justify-between items-center mb-6">
                     <div class="flex space-x-4">
-                        <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 flex items-center space-x-2">
-                            <i class="fa-solid fa-plus"></i>
-                            <span>Create Event</span>
-                        </button>
-                        <div class="relative">
-                            <input type="text" placeholder="Search events..." class="pl-10 pr-4 py-2 border rounded-lg w-64">
+                        
+                        <form action="/admin/events/search" method="get" class="relative">
+                            <input type="text" name="keyword" placeholder="Search events..." class="pl-10 pr-4 py-2 border rounded-lg w-64">
                             <i class="fa-solid fa-search absolute left-3 top-3 text-gray-400"></i>
-                        </div>
+                        </form>
                     </div>
                     <div class="flex space-x-2">
                         <button class="p-2 hover:bg-gray-100 rounded-lg">
@@ -53,42 +50,81 @@
                     </div>
                 </div>
                 <div id="events-grid" class="grid grid-cols-1 gap-4 mb-8">
-                    <div class="bg-white p-6 rounded-xl shadow">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center space-x-4">
-                                <div class="bg-blue-100 p-3 rounded-xl">
-                                    <i class="fa-solid fa-music text-blue-500 text-xl"></i>
+                    {% for event in events %}
+                        <div class="bg-white p-6 rounded-xl shadow">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="bg-blue-100 p-3 rounded-xl">
+                                        <i class="{{ event.icon }} text-blue-500 text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-bold">{{ event.title }}</h3>
+                                        <p class="text-gray-500">{{ event.category }}</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h3 class="text-lg font-bold">Summer Music Festival 2025</h3>
-                                    <p class="text-gray-500">Music & Entertainment</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center space-x-6">
-                                <div class="text-right">
-                                    <p class="font-medium">Date</p>
-                                    <p class="text-gray-500">Jul 15, 2025</p>
-                                </div>
-                                <div class="text-right">
-                                    <p class="font-medium">Tickets Sold</p>
-                                    <p class="text-gray-500">1,234/2,000</p>
-                                </div>
-                                <div class="text-right">
-                                    <p class="font-medium">Revenue</p>
-                                    <p class="text-green-500">$24,680</p>
-                                </div>
-                                <div class="flex space-x-2">
-                                    <button class="p-2 text-blue-500 hover:bg-blue-50 rounded-lg">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </button>
-                                    <button class="p-2 text-red-500 hover:bg-red-50 rounded-lg">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
+                                <div class="flex items-center space-x-20">
+                                    <div class="flex space-x-8">
+                                        <div class="text-right">
+                                            <p class="font-medium">Date</p>
+                                            <p class="text-gray-500">{{ event.date | date('d/m/Y') }}</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="font-medium">Tickets Sold</p>
+                                            <p class="text-gray-500">{{ event.vip_tickets_sold + event.standard_tickets_sold + event.gratuit_tickets_sold }}/{{ event.vip_tickets_number + event.standard_tickets_number + event.gratuit_tickets_number }}</p>
+                                        </div>
+                                        <div class="text-right ">
+                                            <p class="font-medium">Revenue</p>
+                                            <p class="text-green-500">${{ (event.vip_tickets_sold * event.vip_price) + (event.standard_tickets_sold * event.standard_price) }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <form action="/admin/events/delete" method="POST" class="inline">
+                                                <input type="hidden" name="event_id" value="{{ event.event_id }}">
+                                                <button class="p-2 text-red-500 hover:bg-red-50 rounded-lg" title="Delete Event">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        {% if event.validation == 0 %}
+                                            <form action="/admin/events/status" method="POST" class="inline">
+                                                <input type="hidden" name="event_id" value="{{ event.event_id }}">
+                                                <input type="hidden" name="status" value="0">
+                                                <button type="submit" class="p-2 text-gray-500 hover:text-green-500 rounded-lg" title="Approve Event">
+                                                    <i class="fa-solid fa-check-circle"></i>
+                                                </button>
+                                            </form>
+                                        {% else %}
+                                            <form action="/admin/events/status" method="POST" class="inline">
+                                                <input type="hidden" name="event_id" value="{{ event.event_id }}">
+                                                <input type="hidden" name="status" value="1">
+                                                <button type="submit" class="p-2 text-gray-500 hover:text-red-500 rounded-lg" title="Disapprove Event">
+                                                    <i class="fa-solid fa-xmark-circle"></i>
+                                                </button>
+                                            </form>
+                                        {% endif %}
+                                        {% if event.archived == 0 %}
+                                            <form action="/admin/events/status" method="POST" class="inline">
+                                                <input type="hidden" name="event_id" value="{{ event.event_id }}">
+                                                <input type="hidden" name="status" value="2">
+                                                <button type="submit" class="p-2 text-gray-500 hover:text-red-500 rounded-lg" title="Archive Event">
+                                                    <i class="fa-solid fa-box-archive"></i>
+                                                </button>
+                                            </form>
+                                            
+                                        {% else %}
+                                            <form action="/admin/events/status" method="POST" class="inline">
+                                                <input type="hidden" name="event_id" value="{{ event.event_id }}">
+                                                <input type="hidden" name="status" value="3">
+                                                <button type="submit" class="p-2 text-gray-500 hover:text-green-500 rounded-lg" title="Unarchive Event">
+                                                    <i class="fa-solid fa-box-open"></i>
+                                                </button>
+                                            </form>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="bg-white p-6 rounded-xl shadow">
+                    {% endfor %}
+                    {# <div class="bg-white p-6 rounded-xl shadow">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center space-x-4">
                                 <div class="bg-purple-100 p-3 rounded-xl">
@@ -157,7 +193,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> #}
                 </div>
                 <div id="pagination" class="flex justify-between items-center bg-white p-4 rounded-xl shadow">
                     <div class="text-gray-600">
