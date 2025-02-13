@@ -4,7 +4,7 @@ namespace App\controllers\front;
 
 use App\core\Controller;
 use App\core\View;
-// use App\services\EventService;
+use App\services\EventService;
 use App\services\StatService;
 
 class OrganiserDashController extends Controller
@@ -17,23 +17,19 @@ class OrganiserDashController extends Controller
     {
         parent::__construct();
         // $this->evsdn=new EventService();
-        $this->statServ=new StatService();
-        
-
-        
-
+        $this->statServ = new StatService();
     }
 
 
     public function index(): void
     {
 
-       $data = $this->statServ->getOwnerStatistic(1)  ;
-
-       
+        $data = $this->statServ->getOwnerStatistic(1);
 
 
-        echo $this->render('front/organiser/dashboard.twig',[ 'data' =>$data]);
+
+
+        echo $this->render('front/organiser/dashboard.twig', ['data' => $data]);
 
         var_dump($data);
     }
@@ -53,7 +49,7 @@ class OrganiserDashController extends Controller
     public function tickets(): void
     {
 
-        $data = $this->statServ->ticketsStaTs(1)  ;
+        $data = $this->statServ->ticketsStaTs(1);
 
         var_dump($data);
  
@@ -62,7 +58,8 @@ class OrganiserDashController extends Controller
 
 
 
-    public function serviceTest(){
+    public function serviceTest()
+    {
         $evenmentData = [
             'title' => 'Test',
             'description' => 'A conference about the latest trends in technology.',
@@ -86,11 +83,6 @@ class OrganiserDashController extends Controller
         $tagIds = [1, 2, 3];
 
         // $this->evsdn->createEvent($evenmentData ,$capacityData , $tagIds);
-        
-    } 
 
-
-
-
-
+    }
 }

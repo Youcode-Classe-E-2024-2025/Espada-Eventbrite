@@ -9,9 +9,7 @@
                         {% if session.get('user').role_id == 1 or session.get('user').role_id == 3 %}
                         <a href="/dashboard" class="text-gray-700 hover:text-indigo-600 cursor-pointer">Dashboard</a>
                         {% endif %}
-                        {% if session.get('user').role_id == 2 %}
-                            <a href="/profile" class="text-gray-700 hover:text-indigo-600 cursor-pointer">Profile</a>
-                        {% endif %}
+                        <a href="/profile" class="text-gray-700 hover:text-indigo-600 cursor-pointer">Profile</a>
                     {% endif %}
                     <a href="/events/list" class="text-gray-700 hover:text-indigo-600 cursor-pointer">Browse Events</a>
                 </nav>

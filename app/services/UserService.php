@@ -37,7 +37,7 @@ class UserService
         return null;
     }
 
-
+    
     // Handle user registration
     public function register(array $userData): bool
     {
@@ -149,5 +149,15 @@ class UserService
     public function getTotalUsers(): int
     {
         return $this->userRepository->getNumberOfUsers();
+    }
+
+    // public function getPendingUsers()
+    // {
+    //     return $this->userRepository->getPendingUsers();
+    // }
+
+    public function getRecentUsers()
+    {
+        return $this->userRepository->getRecentUsers();
     }
 }
