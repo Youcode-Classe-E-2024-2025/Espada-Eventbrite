@@ -18,19 +18,16 @@ class AuthController extends Controller
 {
     private UserService $userService;
     private Validator $validator;
-    private UserService $userService;
 
     public function __construct()
     {
+        parent::__construct();
         $this->userService = new UserService();
-        $this->session = new Session();
-        $this->validator = new Validator();
     }
 
     public function index(): void
     {
-        $view = new View();
-        echo $view->render('front/auth.twig', []);
+        echo $this->render('front/auth.twig', []);
     }
 
     // Handle user login
@@ -47,16 +44,14 @@ class AuthController extends Controller
         // Validate the data
         if (!$this->validator->validate($requestData, $rules)) {
 
-            $view = new View();
-            echo $view->render('front/auth.twig', ['messege' => 'all feilds should are required ']);
+            echo $this->render('front/auth.twig', ['messege' => 'all feilds should are required ']);
         }
 
         $user = $this->userService->loginuser($requestData['email'], $requestData['password']);
         if ($user) {
             $this->session->set('user', $user);
-            header('Location: /');
+            header('Location: /dashboard');
             die();
-            return;
         }
 
         $view = new View();
@@ -80,15 +75,13 @@ class AuthController extends Controller
         // Validate the data
         if (!$this->validator->validate($requestData, $rules)) {
 
-            $view = new View();
-            echo $view->render('front/auth.twig', ['messege' => 'all feilds should are required ']);
+            echo $this->render('front/auth.twig', ['messege' => 'all feilds should are required ']);
         }
 
         //Check if passwords match
         if ($requestData['password'] !== $requestData['confirm_password']) {
 
-            $view = new View();
-            echo $view->render('front/auth.twig', ['messege' => 'mismatch in passowrds feilds']);
+            echo $this->render('front/auth.twig', ['messege' => 'mismatch in passowrds feilds']);
         }
 
         // Hash the password
@@ -99,14 +92,12 @@ class AuthController extends Controller
         if ($this->userService->register($requestData)) {
 
 
-            $view = new View();
-            echo $view->render('front/auth.twig', ['messege' => 'log in now']);
+            echo $this->render('front/auth.twig', ['messege' => 'log in now']);
 
             return;
         }
 
-        $view = new View();
-        echo $view->render('front/auth.twig', ['messege' => 'somthing went wrong']);
+        echo $this->render('front/auth.twig', ['messege' => 'somthing went wrong']);
     }
 
     // Helper method to get JSON input

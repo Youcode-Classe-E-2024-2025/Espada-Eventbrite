@@ -37,7 +37,7 @@ class UserService
         return null;
     }
 
-
+    
     // Handle user registration
     public function register(array $userData): bool
     {
@@ -59,19 +59,19 @@ class UserService
     }
 
     // Handle banning a user
-    public function banUser(int $userId): bool
+    public function banUser(int $userId)
     {
         return $this->userRepository->banUser($userId);
     }
 
     // Handle unbanning a user
-    public function unbanUser(int $userId): bool
+    public function unbanUser(int $userId)
     {
         return $this->userRepository->unbanUser($userId);
     }
 
     // Handle archiving a user
-    public function archiveUser(int $userId): bool
+    public function archiveUser(int $userId)
     {
         return $this->userRepository->archiveUser($userId);
     }
@@ -129,14 +129,13 @@ class UserService
     {
         switch ($status) {
             case User::BANNED:
-                $this->banUser($userId);
-                break;
+                return $this->userRepository->banUser($userId);
             case User::ACTIVE:
-                $this->unbanUser($userId);
-                break;
+                return $this->userRepository->unbanUser($userId);
             case User::ARCHIVED:
-                $this->archiveUser($userId);
-                break;
+                return $this->userRepository->archiveUser($userId);
+            case User::UNARCHIVED:
+                return $this->userRepository->unarchiveUser($userId);
             default:
                 throw new \Exception("Invalid status");
         }

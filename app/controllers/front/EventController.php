@@ -19,7 +19,12 @@ class EventController extends Controller
 
     public function index()
     {
-        $this->render('front/event-list.html.twig');
+        $events = $this->eventService->getEvents();
+        var_dump($events);
+        die();
+        $this->render('front/event/event-list.html.twig',[
+            ''=> $events
+        ]);
     }
 
     public function search()
