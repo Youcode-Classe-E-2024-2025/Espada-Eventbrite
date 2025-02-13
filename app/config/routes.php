@@ -35,7 +35,7 @@ $router->addRoute('GET', '/Organiser/test', [App\controllers\front\OrganiserDash
 $router->addRoute('GET', '/events/list', [App\controllers\front\EventController::class, 'index']);
 // $router->addRoute('GET', '/events/list/searchByCaty', [App\controllers\front\EventController::class, 'serchByCategory']);
 
-// $router->addRoute('POST', '/organiser/dash', [App\controllers\front\OrganiserDashController::class, 'index']);
+$router->addRoute('POST', '/organiser/dash', [App\controllers\front\OrganiserDashController::class, 'index']);
 $router->addRoute('GET', '/reservation', [App\controllers\front\ReservationController::class, 'index']);
 
 
@@ -45,6 +45,7 @@ $router->addRoute('GET', '/admin/users/filter', [App\controllers\back\AdminUserC
 $router->addRoute('POST', '/admin/users/status', [App\controllers\back\AdminUserController::class, 'updateStatus']);
 // $router->addRoute('POST', '/admin/users/banUser', [App\controllers\back\AdminUserController::class, 'updateStatus']);
 
+$router->addRoute('GET', '/event/details/{id}', [App\controllers\front\EventController::class, 'eventDetails']);
 
 
 

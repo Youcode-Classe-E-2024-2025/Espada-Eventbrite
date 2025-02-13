@@ -5,7 +5,7 @@ namespace App\controllers\front;
 use App\services\UserService;
 use App\core\Controller;
 use App\core\View;
-use App\core\Validator;
+// use App\core\Validator;
 
 use App\core\Session;
 use App\models\User;
@@ -17,13 +17,12 @@ class AuthController extends Controller
 
 {
     private UserService $userService;
-    private Validator $validator;
+    // private  $validator;
 
     public function __construct()
     {
         parent::__construct();
         $this->userService = new UserService();
-        $this->validator = new Validator();
     }
 
     public function index(): void
