@@ -23,10 +23,20 @@ class EventController extends Controller
 
     public function index()
     {
+      $categories = [];
+      // Check if categories are set and convert to array
+    if (isset($_GET['categories'])) {
+      // If it's a single value, wrap it in an array
+      $categories = is_array($_GET['categories']) ? $_GET['categories'] : [$_GET['categories']];
+      
+      // Convert to integers and remove any invalid values
+      $categories = array_map('intval', $categories);
+      $categories = array_filter($categories);
+  }
       $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
       $limit = 2; // Events per page
       
-      $events = $this->evenmentRepository->getPaginatedEvents($page, $limit);
+      $events = $this->evenmentRepository->getPaginatedEvents($page, $limit,$categories);
       $totalEvents = $this->evenmentRepository->totalActiveEvents();
       $totalPages = ceil($totalEvents / $limit);
       $categories = $this->categoryRepo->getAll();
@@ -48,33 +58,43 @@ class EventController extends Controller
       
       echo $this->render('front/event/event-list.html.twig', $data);
     }
-    public function serchByCategory()
-    {
-      $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-      $limit = 2; // Events per page
+  //   public function serchByCategory()
+  //   {
+  //     $categories = [];
+  //     // Check if categories are set and convert to array
+  //   if (isset($_GET['categories'])) {
+  //     // If it's a single value, wrap it in an array
+  //     $categories = is_array($_GET['categories']) ? $_GET['categories'] : [$_GET['categories']];
       
-      $events = $this->evenmentRepository->getPaginatedEvents($page, $limit);
-      $totalEvents = $this->evenmentRepository->totalActiveEvents();
-      $totalPages = ceil($totalEvents / $limit);
-      $categories = $this->categoryRepo->getAll();
+  //     // Convert to integers and remove any invalid values
+  //     $categories = array_map('intval', $categories);
+  //     $categories = array_filter($categories);
+  // }
+  //     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+  //     $limit = 2; // Events per page
       
-      $data = [
-        'events' => $events,
-        'totalEvents' => $totalEvents,
-        'currentPage' => $page,
-        'totalPages' => $totalPages,
-        'categories' => $categories
-      ];
+  //     $events = $this->evenmentRepository->serchByCategory($page, $limit , $categories);
+  //     $totalEvents = $this->evenmentRepository->totalActiveEvents();
+  //     $totalPages = ceil($totalEvents / $limit);
+  //     $categories = $this->categoryRepo->getAll();
       
-      if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
-        // Return JSON for AJAX requests
-        header('Content-Type: application/json');
-        echo json_encode($data);
-        exit;
-      }
+  //     $data = [
+  //       'events' => $events,
+  //       'totalEvents' => $totalEvents,
+  //       'currentPage' => $page,
+  //       'totalPages' => $totalPages,
+  //       'categories' => $categories
+  //     ];
       
-      echo $this->render('front/event/event-list.html.twig', $data);
-    }
+  //     if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
+  //       // Return JSON for AJAX requests
+  //       header('Content-Type: application/json');
+  //       echo json_encode($data);
+  //       exit;
+  //     }
+      
+  //     echo $this->render('front/event/event-list.html.twig', $data);
+  //   }
 
     public function search()
     {
