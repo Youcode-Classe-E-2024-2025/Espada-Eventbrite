@@ -57,7 +57,7 @@ class OrganiserDashController extends Controller
 
         var_dump($data);
  
-        echo $this->render('front/organiser/tickets.html.twig',[[ 'data' =>$data]]);
+        echo $this->render('front/organiser/tickets.html.twig',['data' =>$data]);
     }
 
 
