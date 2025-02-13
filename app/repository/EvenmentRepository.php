@@ -351,7 +351,6 @@ WHERE e.owner_id = :owner_id;
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-<<<<<<< HEAD
 
     public function getById($id)
     {
@@ -368,12 +367,4 @@ WHERE e.owner_id = :owner_id;
     }
 
 
-=======
-    public function getRecentEvents()
-    {
-        $sql = "SELECT * FROM evenments ORDER BY date DESC LIMIT 2";
-        $stmt = $this->DB->query($sql);
-        return $stmt->fetchAll(PDO::FETCH_OBJ);
-    }
->>>>>>> 0413a97c336ed19b67f5518b32e894bc1be1af74
 }

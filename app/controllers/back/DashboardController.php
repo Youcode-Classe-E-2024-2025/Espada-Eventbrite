@@ -25,16 +25,8 @@ class DashboardController extends Controller
             echo $this->render("/front/organiser/dashboard.twig");
         } else if ($_SESSION['user']->role_id == 2) {
             $id = $this->session->get('user')->id;
-<<<<<<< HEAD
-            $data = $this->eventService->getMyEvent($id) ?? [];
-            $event1 = $data[0] ?? [];
-            $event2 = $data[1] ?? [];
-            
-            echo $this->render("/front/profile.html.twig", ["event1"=> $event1,"event2"=> $event2]);
-=======
             $data = $this->eventService->getMyEvents($id);
             echo $this->render("/front/profile.html.twig", ["event1" => $data[0], "event2" => $data[1]]);
->>>>>>> 0413a97c336ed19b67f5518b32e894bc1be1af74
         } else if ($_SESSION['user']->role_id == 3) {
             $stats = $this->getStats();
             $pendingActions = $this->getPendingActions();
