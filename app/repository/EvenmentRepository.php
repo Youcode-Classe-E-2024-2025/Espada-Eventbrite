@@ -366,33 +366,33 @@ WHERE e.owner_id = :owner_id;
     public function getPaginatedEvents(int $page = 1, int $limit = 2, array $categories = []): array
     {
         $offset = ($page - 1) * $limit;
-        
+
         $query = "SELECT e.id as event_id, e.*, u.username as owner, c.*, cat.name as category, cat.icon as icon
                 FROM evenments e 
                 LEFT JOIN capacity c ON e.id = c.evenment_id
                 LEFT JOIN users u ON e.owner_id = u.id
                 LEFT JOIN categories cat ON e.category_id = cat.id
                 WHERE e.validation = 1 AND e.archived = 0";
-        
+
         // Prepare parameters array
         $params = [];
-        
+
         // Add category filter if categories are provided
         if (!empty($categories)) {
             // Create placeholders for categories
             $placeholders = implode(',', array_fill(0, count($categories), '?'));
             $query .= " AND e.category_id IN ($placeholders)";
-            
+
             // Add category values to params
             $params = array_merge($params, $categories);
         }
-        
+
         $query .= " ORDER BY e.date DESC LIMIT ? OFFSET ?";
-        
+
         // Add limit and offset to params
         $params[] = $limit;
         $params[] = $offset;
-        
+
         // Prepare and execute the statement properly
         $stmt = $this->DB->getConnection()->prepare($query);
         $stmt->execute($params);
