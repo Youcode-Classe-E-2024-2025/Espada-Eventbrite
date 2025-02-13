@@ -11,7 +11,8 @@ use App\core\Database;
 
 
 
-class EventService {
+class EventService
+{
 
     private EvenmentRepository $evenmentRepo;
     private CapacityRepository $capacityRepo;
@@ -19,7 +20,8 @@ class EventService {
     private EventRepository $eventRepository;
     private Event $event;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->evenmentRepo = new EvenmentRepository();
         $this->capacityRepo = new CapacityRepository();
         $this->evenmentTagRepo = new EvenmentTagRepository();
@@ -27,14 +29,15 @@ class EventService {
         $this->eventRepository = new EventRepository(new Database(), $this->event);
     }
 
-    public function createEvent(array $evenmentData, array $capacityData, array $tagIds): bool {
+    public function createEvent(array $evenmentData, array $capacityData, array $tagIds): bool
+    {
         try {
             // Step 1: Create the event and get its ID
-            $res=$this->evenmentRepo->create($evenmentData);
+            $res = $this->evenmentRepo->create($evenmentData);
             if (!$res) {
                 return false; // Event creation failed
             }
-            
+
             // Get the event ID (assuming it's returned by the `create` method)
             // $eventId = $this->evenmentRepo->getLastInsertedId();
 
@@ -45,7 +48,7 @@ class EventService {
             }
             // var_dump($res);
             if (!$this->evenmentTagRepo->massInsert($tagIds, $res)) {
-                return false; 
+                return false;
             }
 
             return true; // Everything succeeded
@@ -54,35 +57,37 @@ class EventService {
             error_log($e->getMessage());
             return false;
         }
-
     }
 
-    public function searchEvents(string $keyword, int $page, int $limit): array
+    public function searchEvents(string $keyword, int $page = null, int $limit = null)
     {
-        if (!$this->event->validateSearchKeyword($keyword)) {
-            return [
-                'events' => [],
-                'total' => 0,
-                'pages' => 0
-            ];
-        }
 
-        $events = $this->eventRepository->searchEvents($keyword, $page, $limit);
-        $totalCount = $this->eventRepository->searchCount($keyword);
-
-        return [
-            'events' => $events,
-            'total' => $totalCount,
-            'pages' => ceil($totalCount / $limit)
-        ];
+        return $this->evenmentRepo->searchEvents($keyword);
     }
 
-
-    public function getEvents(){
+    public function getEvents()
+    {
         return $this->evenmentRepo->getAll();
     }
 
-    public function getEventById($eventId): array{
-        return $this->evenmentRepo->getById($eventId);
+    public function updateEventStatus($eventId, $status)
+    {
+        switch ($status) {
+            case Event::VALIDATED:
+                return $this->evenmentRepo->validate($eventId);
+            case Event::UNVALIDATED:
+                return $this->evenmentRepo->unValidate($eventId);
+            case Event::ARCHIVED:
+                return $this->evenmentRepo->archive($eventId);
+            case Event::UNARCHIVED:
+                return $this->evenmentRepo->unArchive($eventId);
+            default:
+                throw new \Exception("Invalid status");
+        }
+    }
+
+    public function deleteEvent($eventId)
+    {
+        return $this->evenmentRepo->delete($eventId);
     }
 }
