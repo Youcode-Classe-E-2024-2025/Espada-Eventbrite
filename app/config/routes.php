@@ -33,6 +33,9 @@ $router->addRoute('GET', '/Organiser/test', [App\controllers\front\OrganiserDash
 // $router->addRoute('GET', '/events/search', [App\controllers\front\EventController::class, 'search']);
 
 $router->addRoute('GET', '/events/list', [App\controllers\front\EventController::class, 'index']);
+$router->addRoute('GET', '/event/details/{id}', [App\controllers\front\EventController::class, 'eventDetails']);
+$router->addRoute('GET', '/events/booking', [App\controllers\front\ReservationController::class, 'index']);
+// $router->addRoute('GET', '/events/list/searchByCaty', [App\controllers\front\EventController::class, 'serchByCategory']);
 
 $router->addRoute('POST', '/organiser/dash', [App\controllers\front\OrganiserDashController::class, 'index']);
 $router->addRoute('GET', '/reservation', [App\controllers\front\ReservationController::class, 'index']);
@@ -46,7 +49,6 @@ $router->addRoute('POST', '/admin/users/status', [App\controllers\back\AdminUser
 $router->addRoute('GET', '/admin/export/csv', [App\controllers\back\ExportController::class, 'exportCsv']);
 $router->addRoute('GET', '/admin/export/pdf', [App\controllers\back\ExportController::class, 'exportPdf']);
 
-$router->addRoute('GET', '/event/details/{id}', [App\controllers\front\EventController::class, 'eventDetails']);
 
 
 

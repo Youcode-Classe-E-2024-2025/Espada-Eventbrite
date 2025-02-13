@@ -5,32 +5,35 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div class="space-y-4">
           <div class="flex space-x-3">
-            <span class="inline-block px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">Available</span>
-            <span class="inline-block px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">Selling Fast</span>
+            <span class="inline-block px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">{{ event.category }}</span>
+            {% for tag in tags %}
+              <span class="inline-block px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">{{ tag.title }}</span>
+            {% endfor %}
+
           </div>
           <h1 class="text-4xl font-bold text-gray-900">{{ event.title }}</h1>
-          <p class="text-gray-600">Join us for the biggest tech conference of the year featuring industry leaders and innovative workshops.</p>
+          <p class="text-gray-600">{{ event.description }}</p>
           <div class="flex items-center space-x-4">
             <div class="flex items-center text-gray-600">
               <i class="fa-regular fa-calendar mr-2"></i>
-              <span>March 15-17, 2025</span>
+              <span>{{ event.date }}</span>
             </div>
             <div class="flex items-center text-gray-600">
               <i class="fa-solid fa-location-dot mr-2"></i>
-              <span>Convention Center, New York</span>
+              <span>{{ event.lieu }}</span>
             </div>
           </div>
           <div class="grid grid-cols-3 gap-4 pt-4">
             <div class="bg-white p-4 rounded-lg text-center">
-              <div class="text-2xl font-bold text-indigo-600">750</div>
+              <div class="text-2xl font-bold text-indigo-600">{{statistics.tickets_sold}}</div>
               <div class="text-sm text-gray-600">Tickets Sold</div>
             </div>
             <div class="bg-white p-4 rounded-lg text-center">
-              <div class="text-2xl font-bold text-indigo-600">250</div>
+              <div class="text-2xl font-bold text-indigo-600">{{ statistics.tickets_available}}</div>
               <div class="text-sm text-gray-600">Available</div>
             </div>
             <div class="bg-white p-4 rounded-lg text-center">
-              <div class="text-2xl font-bold text-indigo-600">1000</div>
+              <div class="text-2xl font-bold text-indigo-600">{{statistics.total_tickets }}</div>
               <div class="text-sm text-gray-600">Total Capacity</div>
             </div>
           </div>
@@ -45,16 +48,13 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:border-indigo-600 transition">
           <div class="flex justify-between items-center mb-4">
-            <h3 class="font-bold text-xl">Early Bird</h3>
-            <span class="text-indigo-600 font-bold">$299</span>
+            <h3 class="font-bold text-xl">Free</h3>
+            <span class="text-indigo-600 font-bold">${{statistics.vip_price}}</span>
           </div>
           <div class="mb-4">
             <div class="flex justify-between text-sm text-gray-600 mb-2">
               <span>Available</span>
-              <span>15 tickets left</span>
-            </div>
-            <div class="w-full bg-gray-200 rounded-full h-2">
-              <div class="bg-green-500 h-2 rounded-full" style="width: 15%"></div>
+              <span>{{statistics.gratuit_available}} tickets left</span>
             </div>
           </div>
           <ul class="space-y-3 mb-6">
@@ -67,15 +67,12 @@
         <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:border-indigo-600 transition">
           <div class="flex justify-between items-center mb-4">
             <h3 class="font-bold text-xl">Regular</h3>
-            <span class="text-indigo-600 font-bold">$499</span>
+            <span class="text-indigo-600 font-bold">${{statistics.standard_price}}</span>
           </div>
           <div class="mb-4">
             <div class="flex justify-between text-sm text-gray-600 mb-2">
               <span>Available</span>
-              <span>185 tickets left</span>
-            </div>
-            <div class="w-full bg-gray-200 rounded-full h-2">
-              <div class="bg-green-500 h-2 rounded-full" style="width: 63%"></div>
+              <span>{{statistics.standard_available}} tickets left</span>
             </div>
           </div>
           <ul class="space-y-3 mb-6">
@@ -88,15 +85,12 @@
         <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:border-indigo-600 transition">
           <div class="flex justify-between items-center mb-4">
             <h3 class="font-bold text-xl">VIP</h3>
-            <span class="text-indigo-600 font-bold">$899</span>
+            <span class="text-indigo-600 font-bold">${{statistics.gratuit_tickets_number}}</span>
           </div>
           <div class="mb-4">
             <div class="flex justify-between text-sm text-gray-600 mb-2">
               <span>Available</span>
-              <span>50 tickets left</span>
-            </div>
-            <div class="w-full bg-gray-200 rounded-full h-2">
-              <div class="bg-green-500 h-2 rounded-full" style="width: 50%"></div>
+              <span>{{ statistics.vip_available }} tickets left</span>
             </div>
           </div>
           <ul class="space-y-3 mb-6">
@@ -130,32 +124,27 @@
           <div class="space-y-4">
             <div>
               <p class="text-gray-500 text-sm">Date & Time</p>
-              <p class="font-medium">March 15-17, 2025</p>
-              <p class="font-medium">9:00 AM - 6:00 PM</p>
+              <p class="font-medium">{{ event.date}}</p>
             </div>
             <div>
               <p class="text-gray-500 text-sm">Location</p>
               <p class="font-medium">Convention Center</p>
-              <p class="text-gray-600">123 Tech Avenue, New York, NY</p>
+              <p class="text-gray-600">{{event.lieu}}</p>
             </div>
             <div>
               <p class="text-gray-500 text-sm">Event Stats</p>
               <div class="grid grid-cols-2 gap-4 mt-2">
                 <div>
                   <p class="font-medium">Total Capacity</p>
-                  <p class="text-gray-600">1000 attendees</p>
+                  <p class="text-gray-600">{{statistics.total_tickets}}</p>
                 </div>
                 <div>
                   <p class="font-medium">Tickets Sold</p>
-                  <p class="text-gray-600">750 (75%)</p>
+                  <p class="text-gray-600">{{statistics.tickets_sold}}</p>
                 </div>
                 <div>
                   <p class="font-medium">Available Tickets</p>
-                  <p class="text-gray-600">250 remaining</p>
-                </div>
-                <div>
-                  <p class="font-medium">Countries</p>
-                  <p class="text-gray-600">25+ represented</p>
+                  <p class="text-gray-600">{{statistics.available_tickets}}</p>
                 </div>
               </div>
             </div>
