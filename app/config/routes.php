@@ -46,6 +46,8 @@ $router->addRoute('GET', '/admin/users/search', [App\controllers\back\AdminUserC
 $router->addRoute('GET', '/admin/users/filter', [App\controllers\back\AdminUserController::class, 'filter']);
 $router->addRoute('POST', '/admin/users/status', [App\controllers\back\AdminUserController::class, 'updateStatus']);
 // $router->addRoute('POST', '/admin/users/banUser', [App\controllers\back\AdminUserController::class, 'updateStatus']);
+$router->addRoute('GET', '/admin/export/csv', [App\controllers\back\ExportController::class, 'exportCsv']);
+$router->addRoute('GET', '/admin/export/pdf', [App\controllers\back\ExportController::class, 'exportPdf']);
 
 
 
