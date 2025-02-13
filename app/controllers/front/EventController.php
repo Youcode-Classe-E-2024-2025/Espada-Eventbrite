@@ -22,9 +22,14 @@ class EventController extends Controller
         $events = $this->eventService->getEvents();
         var_dump($events);
         die();
-        $this->render('front/event/event-list.html.twig',[
-            ''=> $events
-        ]);
+    }
+
+    public function eventDetails($id){
+        // var_dump($id);
+        // die();
+        $data = $this->eventService->getEventById($id[0]);
+        var_dump($data);
+       echo $this->render('front/event/event-detail.html.twig',['event' => $data]);
     }
 
     public function search()

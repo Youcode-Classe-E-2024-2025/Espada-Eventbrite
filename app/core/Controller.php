@@ -2,6 +2,8 @@
 
 namespace App\core;
 
+use Google\Service\BeyondCorp\Resource\V;
+
 abstract class Controller
 {
     protected $db;
@@ -9,12 +11,15 @@ abstract class Controller
     protected $security;
     protected $session;
 
+    protected $validator;
+
     public function __construct()
     {
         $this->db = new Database();
         $this->view = new View();
         $this->security = new Security();
         $this->session = new Session();
+        $this->validator = new Validator();
     }
 
 
