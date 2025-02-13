@@ -3,6 +3,7 @@
 namespace App\repository;
 
 use App\core\Database;
+use App\models\Event;
 use PDO;
 
 class EvenmentRepository
@@ -75,7 +76,7 @@ class EvenmentRepository
         $stmt = $this->DB->getConnection()->prepare($query);
         return $stmt->execute([':type' => $type, ':id' => $evenmentId]);
     }
-    public function getAll(): array
+    public function getAll()
     {
         $query = "SELECT e.id as event_id, e.*, u.username as owner, c.*, cat.name as category, cat.icon as icon
         FROM evenments e 
@@ -135,5 +136,12 @@ class EvenmentRepository
         $stmt = $this->DB->query($query);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['totalRevenue'] ?? 0.0;
+    }
+
+    public function getPendingEvents()
+    {
+        $sql = "SELECT * FROM evenments WHERE validation = :status";
+        $stmt = $this->DB->query($sql, ['status' => Event::VALIDATED]);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 }

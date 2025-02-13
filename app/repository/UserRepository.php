@@ -15,7 +15,7 @@ class UserRepository
         $this->DB = new Database();
     }
 
-    
+
 
     // Get user by email
     public function getUserByEmail(string $email): ?object
@@ -180,4 +180,11 @@ class UserRepository
 
         return $this->DB->query($sql, $params)->fetchAll(PDO::FETCH_OBJ);
     }
+
+    // public function getPendingUsers()
+    // {
+    //     $sql = "SELECT * FROM users WHERE status = :status";
+    //     $stmt = $this->DB->query($sql, ['status' => User::UNARCHIVED]);
+    //     return $stmt->fetchAll(PDO::FETCH_OBJ);
+    // }
 }

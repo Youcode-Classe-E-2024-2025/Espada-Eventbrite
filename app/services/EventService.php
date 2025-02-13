@@ -105,4 +105,9 @@ class EventService
     {
         return $this->evenmentRepo->totalRevenue();
     }
+
+    public function getPendingEvents()
+    {
+        return $this->evenmentRepo->getPendingEvents();
+    }
 }

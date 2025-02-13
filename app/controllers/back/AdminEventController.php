@@ -20,7 +20,6 @@ class AdminEventController extends Controller
 
     public function index()
     {
-        // $this->getStats();
         $events = $this->eventService->getEvents();
 
         return $this->render('back/events.html.twig', ['events' => $events]);
@@ -70,12 +69,17 @@ class AdminEventController extends Controller
     //     $ticketsSold = $this->eventService->getTotalTicketsSold();
     //     $revenue = $this->eventService->getTotalRevenue();
 
-    //     $this->render('back/index.html.twig', [
+    //     $stats = [
     //         'totalUsers' => $totalUsers,
     //         'activeEvents' => $activeEvents,
     //         'ticketsSold' => $ticketsSold,
     //         'revenue' => $revenue
-    //     ]);
+    //     ];
+
+    //     // var_dump($totalUsers, $activeEvents, $ticketsSold, $revenue);
+    //     // die();
+
+    //     return $stats;
     // }
 
     // public function filter()
