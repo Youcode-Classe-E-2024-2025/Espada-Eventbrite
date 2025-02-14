@@ -21,26 +21,32 @@ class DashboardController extends Controller
 
     public function index()
     {
+        $this->logger->info('Dashboard index accessed');
+
         if ($_SESSION['user']->role_id == 1) {
+            $this->logger->info('Organiser dashboard accessed');
             echo $this->render("/front/organiser/dashboard.twig");
         } else if ($_SESSION['user']->role_id == 2) {
             $id = $this->session->get('user')->id;
-$data = $this->eventService->getMyEvent($id);
+            $data = $this->eventService->getMyEvent($id);
 
-// Ensure $data has at least two elements
-if (count($data) >= 2) {
-    echo $this->render("/front/profile.html.twig", [
-        "event1" => $data[0],
-        "event2" => $data[1]
-    ]);
-} else {
-    // Handle the case where $data doesn't have enough elements
-    echo $this->render("/front/profile.html.twig", [
-        "event1" => null,
-        "event2" => null
-    ]);
-}
+            // Ensure $data has at least two elements
+            if (count($data) >= 2) {
+                $this->logger->info('User dashboard accessed with events.');
+                echo $this->render("/front/profile.html.twig", [
+                    "event1" => $data[0],
+                    "event2" => $data[1]
+                ]);
+            } else {
+                // Handle the case where $data doesn't have enough elements
+                $this->logger->debug('Not enough events found for user dashboard.');
+                echo $this->render("/front/profile.html.twig", [
+                    "event1" => null,
+                    "event2" => null
+                ]);
+            }
         } else if ($_SESSION['user']->role_id == 3) {
+            $this->logger->info('Admin dashboard accessed');
             $stats = $this->getStats();
             $pendingActions = $this->getPendingActions();
             $recentActivities = $this->getRecentActivities();
@@ -51,24 +57,29 @@ if (count($data) >= 2) {
                 'recentActivities' => $recentActivities
             ]);
         } else {
+            $this->logger->error('Invalid role for dashboard access');
             echo $this->render("/back/404.html.twig");
         }
     }
     public function showEvents()
     {
+        $this->logger->info('Events page accessed');
         echo $this->render("/back/events.html.twig");
     }
     public function showUsers()
     {
+        $this->logger->info('Users page accessed');
         echo $this->render("/back/users.html.twig");
     }
-    public function showComments()
-    {
-        echo $this->render("/back/comments.html.twig");
-    }
+    // public function showComments()
+    // {
+    //     $this->logger->info('Comments page accessed');
+    //     echo $this->render("/back/comments.html.twig");
+    // }
 
     private function getStats()
     {
+        $this->logger->info('Fetching stats for dashboard');
         $totalUsers = $this->userService->getTotalUsers();
         $activeEvents = $this->eventService->getTotalActiveEvents();
         $ticketsSold = $this->eventService->getTotalTicketsSold();
@@ -87,6 +98,7 @@ if (count($data) >= 2) {
 
     private function getPendingActions()
     {
+        $this->logger->info('Fetching pending actions for dashboard');
         $pendingEvents = $this->eventService->getPendingEvents();
         // $pendingUsers = $this->userService->getPendingUsers();
 
@@ -98,6 +110,7 @@ if (count($data) >= 2) {
 
     private function getRecentActivities()
     {
+        $this->logger->info('Fetching recent activities for dashboard');
         $recentUsers = $this->userService->getRecentUsers();
         $recentEvents = $this->eventService->getRecentEvents();
         // $recentComments = $this->eventService->getRecentComments();
