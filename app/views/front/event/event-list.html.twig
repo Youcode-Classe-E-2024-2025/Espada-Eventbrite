@@ -16,33 +16,35 @@
                 </div>
               </div>
               <div>
-                <label class="text-sm font-medium text-gray-700 block mb-2">Price Range</label>
-                <div class="flex items-center gap-2">
-                  <input type="number" placeholder="Min" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
-                  <span>-</span>
-                  <input type="number" placeholder="Max" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
-                </div>
-              </div>
-              <div>
                 <label class="text-sm font-medium text-gray-700 block mb-2">Event Type</label>
-                <div class="space-y-2">
-                  <label class="flex items-center">
-                    <input type="checkbox" class="text-indigo-600 rounded">
-                    <span class="ml-2 text-sm">Music</span>
-                  </label>
-                  <label class="flex items-center">
-                    <input type="checkbox" class="text-indigo-600 rounded">
-                    <span class="ml-2 text-sm">Technology</span>
-                  </label>
-                  <label class="flex items-center">
-                    <input type="checkbox" class="text-indigo-600 rounded">
-                    <span class="ml-2 text-sm">Food & Drink</span>
-                  </label>
-                  <label class="flex items-center">
-                    <input type="checkbox" class="text-indigo-600 rounded">
-                    <span class="ml-2 text-sm">Sports</span>
-                  </label>
-                </div>
+               <form action="/events/list" class="space-y-2" method="GET">
+    {% for category in categories %}
+    <label class="flex items-center gap-3 p-2.5 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors group">
+        <div class="relative flex">
+            <input type="checkbox" name="categories[]" value="{{category.id}}" class="peer sr-only" />
+            <div class="w-5 h-5 border-2 border-gray-300 rounded transition-colors peer-checked:border-indigo-600 peer-checked:bg-indigo-600 flex items-center justify-center">
+                <svg class="w-3.5 h-3.5 text-white hidden peer-checked:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </div>
+        </div>
+        
+        <span class="text-sm font-medium text-gray-700 group-hover:text-gray-900">
+            {{category.name}}
+        </span>
+        
+        <i class="{{category.icon}} text-gray-500 group-hover:text-gray-700"></i>
+    </label>
+    {% endfor %}
+    
+    <button type="submit" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 inline-flex items-center gap-2">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        Search
+    </button>
+</form>
               </div>
             </div>
           </div>
@@ -59,7 +61,6 @@
                   <span class="text-sm text-gray-600">Sort by:</span>
                   <select class="border rounded-lg px-3 py-2">
                     <option>Date</option>
-                    <option>Price</option>
                     <option>Popularity</option>
                   </select>
                 </div>
@@ -74,58 +75,49 @@
               </div>
             </div>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="events-container">
+          {% for event in events  %}
             <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
               <div class="relative">
-                <img class="w-full h-48 object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/eff23b311d-7de2695bdac677903375.png" alt="tech conference">
-                <span class="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm">Available</span>
+                <img class="w-full h-48 object-cover" src="{{event.visual_content}}" alt="tech conference">
+                <span class="absolute top-4 right-4 bg-gray-500 text-white px-3 py-1 rounded-full text-sm">
+                    <i class="fa-solid {{event.icon}} mr-1"></i>{{event.category}}
+                </span>
               </div>
               <div class="p-6">
                 <div class="flex items-center text-sm text-gray-500 mb-2">
                   <i class="fa-regular fa-calendar mr-2"></i>
-                  <span>Mar 15, 2025</span>
+                  <span>{{event.date|date("F j, Y")}}</span>
                   <i class="fa-solid fa-location-dot ml-4 mr-2"></i>
-                  <span>San Francisco</span>
+                  <span>{{event.lieu}}</span>
                 </div>
-                <h4 class="text-xl font-bold mb-2">Tech Innovation Summit 2025</h4>
-                <p class="text-gray-600 mb-4">Join industry leaders for a day of insights and networking</p>
+                <h4 class="text-xl font-bold mb-2">{{event.title}}</h4>
+                <p class="text-gray-600 mb-4">{{event.description|striptags|slice(0, 20)}}...</p>
                 <div class="flex items-center justify-between">
-                  <span class="text-indigo-600 font-bold">$299</span>
-                  <button class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Book Now</button>
+                  <a href="/events/booking/{{ event.event_id }}" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Book Now</a>
                 </div>
               </div>
             </div>
-            <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-              <div class="relative">
-                <img class="w-full h-48 object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/ddad521685-c419be52d590c18caf33.png" alt="music festival">
-                <span class="absolute top-4 right-4 bg-yellow-500 text-white px-3 py-1 rounded-full text-sm">Selling Fast</span>
-              </div>
-              <div class="p-6">
-                <div class="flex items-center text-sm text-gray-500 mb-2">
-                  <i class="fa-regular fa-calendar mr-2"></i>
-                  <span>Apr 20, 2025</span>
-                  <i class="fa-solid fa-location-dot ml-4 mr-2"></i>
-                  <span>Los Angeles</span>
-                </div>
-                <h4 class="text-xl font-bold mb-2">Summer Music Festival</h4>
-                <p class="text-gray-600 mb-4">Three days of non-stop music and entertainment</p>
-                <div class="flex items-center justify-between">
-                  <span class="text-indigo-600 font-bold">$149</span>
-                  <button class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Book Now</button>
-                </div>
-              </div>
-            </div>
+            {% endfor %}
+
           </div>
           <div class="mt-8 flex items-center justify-between">
             <div class="text-sm text-gray-600">
-              Showing 1-10 of 48 events
+              Showing {{ ((currentPage - 1) * 2) + 1 }}-{{ min(currentPage * 2, totalEvents) }} of {{totalEvents}} events
             </div>
-            <div class="flex gap-2">
-              <button class="px-4 py-2 border rounded-lg hover:bg-gray-50 disabled:opacity-50" disabled>
-                <i class="fa-solid fa-arrow-left mr-2"></i>Previous
+            <div class="flex gap-2" id="pagination-controls">
+              <button class="px-4 py-2 border rounded-lg hover:bg-gray-100 disabled:opacity-50" 
+                      id="prev-page" 
+                      {% if currentPage == 1 %}disabled{% endif %}
+                      data-page="{{ currentPage - 1 }}">
+                Previous
               </button>
-              <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">
-                Next<i class="fa-solid fa-arrow-right ml-2"></i>
+              <button class="px-4 py-2 border rounded-lg hover:bg-gray-100 disabled:opacity-50" 
+                      id="next-page"
+                      {% if currentPage == totalPages %}disabled{% endif %}
+                      data-page="{{ currentPage + 1 }}">
+                Next
               </button>
             </div>
           </div>
@@ -135,3 +127,6 @@
   </section>
   {% endblock %}
 {% block footer %} {% include "layouts/footer.html.twig" %}  {% endblock %}
+{% block scripts %}
+  <script src="/assets/script/pagination.js"></script>
+{% endblock %}

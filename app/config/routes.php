@@ -13,7 +13,7 @@ $router->addRoute('GET', '/admin/events', [App\controllers\back\AdminEventContro
 $router->addRoute('GET', '/admin/events/search', [App\controllers\back\AdminEventController::class, 'search']);
 $router->addRoute('POST', '/admin/events/status', [App\controllers\back\AdminEventController::class, 'updateStatus']);
 $router->addRoute('POST', '/admin/events/delete', [App\controllers\back\AdminEventController::class, 'delete']);
-$router->addRoute('GET', '/admin/comments', [App\controllers\back\DashboardController::class, 'showComments']);
+$router->addRoute('GET', '/admin/contents', [App\controllers\back\DashboardController::class, 'showContents']);
 $router->addRoute('POST', '/auth/register', [App\controllers\front\AuthController::class, 'register']);
 
 
@@ -43,6 +43,10 @@ $router->addRoute('GET', '/Organiser/delete/{id}', [App\controllers\front\Organi
 // $router->addRoute('GET', '/events/search', [App\controllers\front\EventController::class, 'search']);
 
 $router->addRoute('GET', '/events/list', [App\controllers\front\EventController::class, 'index']);
+$router->addRoute('GET', '/event/details/{id}', [App\controllers\front\EventController::class, 'eventDetails']);
+$router->addRoute('GET', '/events/booking/{id}', [App\controllers\front\ReservationController::class, 'index']);
+$router->addRoute('POST', '/events/reserv/{id}', [App\controllers\front\ReservationController::class, 'getBooking']);
+// $router->addRoute('GET', '/events/list/searchByCaty', [App\controllers\front\EventController::class, 'serchByCategory']);
 
 // $router->addRoute('GET', '/Organiser/dash', [App\controllers\front\OrganiserDashController::class, 'index']);
 $router->addRoute('GET', '/reservation', [App\controllers\front\ReservationController::class, 'index']);
@@ -53,6 +57,8 @@ $router->addRoute('GET', '/admin/users/search', [App\controllers\back\AdminUserC
 $router->addRoute('GET', '/admin/users/filter', [App\controllers\back\AdminUserController::class, 'filter']);
 $router->addRoute('POST', '/admin/users/status', [App\controllers\back\AdminUserController::class, 'updateStatus']);
 // $router->addRoute('POST', '/admin/users/banUser', [App\controllers\back\AdminUserController::class, 'updateStatus']);
+$router->addRoute('GET', '/admin/export/csv', [App\controllers\back\ExportController::class, 'exportCsv']);
+$router->addRoute('GET', '/admin/export/pdf', [App\controllers\back\ExportController::class, 'exportPdf']);
 
 
 

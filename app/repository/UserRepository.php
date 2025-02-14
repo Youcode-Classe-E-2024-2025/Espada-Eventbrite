@@ -15,7 +15,7 @@ class UserRepository
         $this->DB = new Database();
     }
 
-    
+
 
     // Get user by email
     public function getUserByEmail(string $email): ?object
@@ -94,7 +94,7 @@ class UserRepository
     // Get all users
     public function getAll(): array
     {
-        $query = "SELECT users.* FROM users";
+        $query = "SELECT * FROM users ORDER BY id DESC";
         $stmt = $this->DB->query($query);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
@@ -179,5 +179,19 @@ class UserRepository
         }
 
         return $this->DB->query($sql, $params)->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    // public function getPendingUsers()
+    // {
+    //     $sql = "SELECT * FROM users WHERE status = :status";
+    //     $stmt = $this->DB->query($sql, ['status' => User::UNARCHIVED]);
+    //     return $stmt->fetchAll(PDO::FETCH_OBJ);
+    // }
+
+    public function getRecentUsers()
+    {
+        $sql = "SELECT * FROM users";
+        $stmt = $this->DB->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 }

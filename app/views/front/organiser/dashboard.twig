@@ -27,6 +27,15 @@
 </aside>
 {% endblock %}
 {% block dashcontent %}
+
+{% if messages is defined %}
+        {% for type, message in messages %}
+            <div class="alert alert-{{ type }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    
  <div class="p-6 space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div class="bg-white p-6 rounded-xl border border-gray-200">

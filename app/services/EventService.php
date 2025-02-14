@@ -6,6 +6,7 @@ use App\repository\EvenmentRepository;
 use App\repository\CapacityRepository;
 use App\repository\EvenmentTagRepository;
 use App\repository\EventRepository;
+use App\repository\ReservationRepository;
 use App\models\Event;
 use App\core\Database;
 
@@ -18,6 +19,8 @@ class EventService
     private CapacityRepository $capacityRepo;
     private EvenmentTagRepository $evenmentTagRepo;
     private EventRepository $eventRepository;
+    private ReservationRepository $ReservationRepository;
+
     private Event $event;
 
     public function __construct()
@@ -26,6 +29,7 @@ class EventService
         $this->capacityRepo = new CapacityRepository();
         $this->evenmentTagRepo = new EvenmentTagRepository();
         $this->event = new Event();
+        $this->ReservationRepository = new ReservationRepository();
         $this->eventRepository = new EventRepository(new Database(), $this->event);
     }
 
@@ -90,4 +94,46 @@ class EventService
     {
         return $this->evenmentRepo->delete($eventId);
     }
+
+    public function getTotalActiveEvents()
+    {
+        return $this->evenmentRepo->totalActiveEvents();
+    }
+
+    public function getTotalTicketsSold()
+    {
+        return $this->evenmentRepo->totalTicketsSold();
+    }
+
+    public function getTotalRevenue()
+    {
+        return $this->evenmentRepo->totalRevenue();
+    }
+
+    public function getPendingEvents()
+    {
+        return $this->evenmentRepo->getPendingEvents();
+    }
+
+    public function getEventById($id){
+        return $this->evenmentRepo->getById($id);
+    }
+
+    public function getCapacities($id){
+        return $this->capacityRepo->getEventStatistics($id);
+    }
+    
+    public function getTags($id){
+        return $this->evenmentTagRepo->getTagById($id);
+    }
+
+    public function getMyEvent($id){
+        return $this->evenmentRepo->getMyEvents($id);
+    }
+    public function getRecentEvents(int $limit = 5){
+
+        return $this->evenmentRepo->getPaginatedEvents(1, $limit, []);
+    }
+
+
 }

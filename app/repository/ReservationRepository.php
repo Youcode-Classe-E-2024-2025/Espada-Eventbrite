@@ -1,32 +1,45 @@
 <?php
 
+
+
 namespace App\repository;
 
 use App\core\Database;
+use App\models\Event;
 use PDO;
-use App\models\User;
 
 class ReservationRepository
 {
-    private Database $DB;
+    private Database $db;
 
     public function __construct()
     {
-        $this->DB = new Database();
+        $this->db = new Database();
     }
 
+    public function createReservation($data) {
+        $sql = "INSERT INTO reservations (user_id, event_id, type, price, booking_date) VALUES (:user_id, :event_id, :type, :price, :booking_date)";
+        $stmt = $this->db->prepare($sql);
+        // Bind parameters and execute
+        $stmt->execute([
+            ':user_id' => $data['user_id'],
+            ':event_id' => $data['event_id'],
+            ':type' => $data['type'],
+            ':price' => $data['price'],
+            ':booking_date' => $data['booking_date'],
+        ]);
+    }
 
     // Create a new booking
-    public function createBooking() {
-        $query = "INSERT INTO bookings (user_id, event_id, type, price, booking_date, status) VALUES (:user_id, :event_id, :type, :price, :booking_date, :status)";
+    public function createBooking($userId, $eventId, $type, $totalPrice,$booking_date) {
+        $query = "INSERT INTO booking (user_id, evenment_id, type, price, booking_date) VALUES (:user_id, :event_id, :type, :price, :booking_date)";
         $stmt = $this->db->prepare($query);
         $params = [
-            ':user_id' => $this->user_id,
-            ':event_id' => $this->evenment_id,
-            ':type' => $this->type,
-            ':price' => $this->price,
-            ':booking_date' => $this->booking_date,
-            ':status' => $this->status
+            ':user_id' => $userId,
+            ':event_id' => $eventId,
+            ':type' => $type,
+            ':price' => $totalPrice,
+            ':booking_date'=>$booking_date
         ];
         return $stmt->execute($params);
     }
@@ -68,5 +81,21 @@ class ReservationRepository
         $query = "DELETE FROM bookings WHERE id = :booking_id";
         $stmt = $this->db->prepare($query);
         return $stmt->execute([':booking_id' => $booking_id]);
+    }
+
+    public function insertBooking($userId, $eventId, $type, $totalPrice)
+    {
+        $query = "INSERT INTO booking ( user_id, evenment_id, type, price, booking_date)
+        VALUES (:user_id, :evenment_id, :type, :price, :booking_date);";
+
+    $stmt = $this->db->prepare($query);
+    $params = [
+        ':user_id' => $this->user_id,
+        ':evenment_id' => $this->evenment_id,
+        ':type' => $this->type,
+        ':price' => $this->price,
+        ':booking_date' => $this->booking_date
+    ];
+    return $stmt->execute($params);
     }
 }

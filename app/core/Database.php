@@ -85,4 +85,7 @@ class Database
     {
         return $this->query($sql, $params)->fetchAll();
     }
+    public function prepare($sql) {
+        return $this->connection->prepare($sql);
+    }
 }

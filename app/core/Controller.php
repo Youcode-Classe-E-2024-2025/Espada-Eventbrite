@@ -2,12 +2,16 @@
 
 namespace App\core;
 
+use Google\Service\BeyondCorp\Resource\V;
+
 abstract class Controller
 {
     protected $db;
     protected $view;
     protected $security;
     protected $session;
+    protected $validator;
+    protected $logger;
 
     public function __construct()
     {
@@ -15,6 +19,8 @@ abstract class Controller
         $this->view = new View();
         $this->security = new Security();
         $this->session = new Session();
+        $this->validator = new Validator();
+        $this->logger = new Logger();
     }
 
 
@@ -28,6 +34,7 @@ abstract class Controller
     protected function render(string $template, array $data = [])
     {
         $data['session'] = new Session();
+        $this->logger->debug("Rendering template: {$template}");
         return $this->view->render($template, $data);
     }
 

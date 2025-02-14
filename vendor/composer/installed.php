@@ -3,11 +3,7 @@
         'name' => 'mvc/app',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-<<<<<<< HEAD
-        'reference' => '8af16baea721a1c5e0c3c63f503089785e2e2e12',
-=======
-        'reference' => '591fe5007577c8dcc085123a01ba659688f9d327',
->>>>>>> 3a5edaace40b231a13096523939d454e33009328
+        'reference' => '0413a97c336ed19b67f5518b32e894bc1be1af74',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -24,9 +20,9 @@
             'dev_requirement' => false,
         ),
         'google/apiclient' => array(
-            'pretty_version' => 'v2.15.0',
-            'version' => '2.15.0.0',
-            'reference' => '49787fa30b8d8313146a61efbf77ed1fede723c2',
+            'pretty_version' => 'v2.18.2',
+            'version' => '2.18.2.0',
+            'reference' => 'd8d201ba8a189a3cd7fb34e4da569f2ed440eee7',
             'type' => 'library',
             'install_path' => __DIR__ . '/../google/apiclient',
             'aliases' => array(),
@@ -98,11 +94,7 @@
         'mvc/app' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-<<<<<<< HEAD
-            'reference' => '8af16baea721a1c5e0c3c63f503089785e2e2e12',
-=======
-            'reference' => '591fe5007577c8dcc085123a01ba659688f9d327',
->>>>>>> 3a5edaace40b231a13096523939d454e33009328
+            'reference' => '0413a97c336ed19b67f5518b32e894bc1be1af74',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -264,6 +256,15 @@
             'reference' => '4a4cfc2d253c21a5ad0e53071df248ed48c6ce5c',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/polyfill-php81',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'tecnickcom/tcpdf' => array(
+            'pretty_version' => '6.8.2',
+            'version' => '6.8.2.0',
+            'reference' => 'f7a781073e1645062f163e058139e2f89355d420',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../tecnickcom/tcpdf',
             'aliases' => array(),
             'dev_requirement' => false,
         ),

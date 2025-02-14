@@ -19,9 +19,9 @@
                     <i class="fa-solid fa-calendar-check"></i>
                     <span>Events</span>
                 </a>
-                <a href="/admin/comments" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
+                <a href="/admin/contents" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
                     <i class="fa-solid fa-comments"></i>
-                    <span>Comments</span>
+                    <span>categories&tags</span>
                 </a>
                 <a href="#" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
                     <i class="fa-solid fa-chart-pie"></i>
@@ -32,6 +32,15 @@
             </aside>
 {% endblock %}
 {% block mainContent %}   
+
+        {% if messages is defined %}
+            {% for type, message in messages %}
+                <div class="alert alert-{{ type }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
                 <div id="events-actions" class="flex justify-between items-center mb-6">
                     <div class="flex space-x-4">
                         
@@ -55,7 +64,7 @@
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center space-x-4">
                                     <div class="bg-blue-100 p-3 rounded-xl">
-                                        <i class="{{ event.icon }} text-blue-500 text-xl"></i>
+                                        <i class="fa-solid {{ event.icon }} text-blue-500 text-xl"></i>
                                     </div>
                                     <div>
                                         <h3 class="text-lg font-bold">{{ event.title }}</h3>
@@ -78,9 +87,9 @@
                                         </div>
                                     </div>
                                     <div class="flex space-x-2">
-                                        <button class="p-2 text-blue-500 hover:bg-blue-50 rounded-lg" title="Edit Event">
+                                        {# <button class="p-2 text-blue-500 hover:bg-blue-50 rounded-lg" title="Edit Event">
                                             <i class="fa-solid fa-pen-to-square"></i>
-                                        </button>
+                                        </button> #}
                                         <form action="/admin/events/delete" method="POST" class="inline">
                                                 <input type="hidden" name="event_id" value="{{ event.event_id }}">
                                                 <button class="p-2 text-red-500 hover:bg-red-50 rounded-lg" title="Delete Event">
@@ -126,6 +135,63 @@
                                 </div>
                             </div>
                         </div>
+                         <!-- Category Creation Modal -->
+    <div id="category-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+        <div class="bg-white rounded-xl p-8 w-full max-w-md mx-4">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Create New Category</h2>
+                <button id="close-category-modal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fa-solid fa-times text-2xl"></i>
+                </button>
+            </div>
+            <form id="category-form" class="space-y-4">
+                <div>
+                    <label for="category-name" class="block mb-2 text-sm font-medium">Category Name</label>
+                    <input type="text" id="category-name" name="category-name" required 
+                           class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label for="category-icon" class="block mb-2 text-sm font-medium">Category Icon</label>
+                    <select id="category-icon" name="category-icon" required
+                            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option value="fa-folder">Folder</option>
+                        <option value="fa-calendar">Calendar</option>
+                        <option value="fa-music">Music</option>
+                        <option value="fa-book">Book</option>
+                        <option value="fa-gamepad">Gamepad</option>
+                    </select>
+                </div>
+                <div class="flex justify-end space-x-4">
+                    <button type="button" id="cancel-category" class="px-4 py-2 border rounded-lg hover:bg-gray-50">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tag Creation Modal -->
+    <div id="tag-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+        <div class="bg-white rounded-xl p-8 w-full max-w-md mx-4">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Create New Tag</h2>
+                <button id="close-tag-modal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fa-solid fa-times text-2xl"></i>
+                </button>
+            </div>
+            <form id="tag-form" class="space-y-4">
+                <div>
+                    <label for="tag-name" class="block mb-2 text-sm font-medium">Tag Name</label>
+                    <input type="text" id="tag-name" name="tag-name" required 
+                           class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"
+                           placeholder="Enter tag name (e.g., technology)">
+                </div>
+                <div class="flex justify-end space-x-4">
+                    <button type="button" id="cancel-tag" class="px-4 py-2 border rounded-lg hover:bg-gray-50">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
                     {% endfor %}
                     {# <div class="bg-white p-6 rounded-xl shadow">
                         <div class="flex items-center justify-between">
