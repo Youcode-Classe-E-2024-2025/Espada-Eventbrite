@@ -18,6 +18,7 @@ class ExportController extends Controller
     public function exportCsv()
     {
         try {
+            $this->logger->info('Exporting data to csv');
             $data = $this->exportService->getCsvData();
             header('Content-Type: text/csv; charset=utf-8');
             header('Content-Disposition: attachment; filename="export.csv"');
@@ -25,6 +26,7 @@ class ExportController extends Controller
             header('Expires: 0');
             echo $data;
         } catch (\Exception $e) {
+            $this->logger->error('Error exporting data to CSV: ' . $e->getMessage());
             die('Erreur : ' . $e->getMessage());
         }
     }
@@ -32,11 +34,13 @@ class ExportController extends Controller
     public function exportPdf()
     {
         try {
+            $this->logger->info('Exporting data to PDF');
             $data = $this->exportService->getPdfData();
             header('Content-Type: application/pdf');
             header('Content-Disposition: attachment; filename="export.pdf"');
             echo $data;
         } catch (\Exception $e) {
+            $this->logger->error('Error exporting data to PDF: ' . $e->getMessage());
             die('Erreur : ' . $e->getMessage());
         }
     }
