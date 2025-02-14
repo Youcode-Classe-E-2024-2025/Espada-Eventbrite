@@ -40,6 +40,13 @@ class AdminEventController extends Controller
     {
         $eventId = isset($_POST['event_id']) ? (int)$_POST['event_id'] : null;
         $status = isset($_POST['status']) ? (int)$_POST['status'] : null;
+        $csrfToken = $_POST['csrf_token'] ?? '';
+
+        if (!$this->security->validateCsrfToken($csrfToken)) {
+            $this->logger->error('Invalid CSRF token.');
+            $this->redirect('/admin/events');
+            exit;
+        }
 
         if ($eventId && isset($status)) {
             $this->logger->info('Updating event status: ' . $eventId . ' to ' . $status);
@@ -56,6 +63,14 @@ class AdminEventController extends Controller
     public function delete()
     {
         $eventId = isset($_POST['event_id']) ? (int)$_POST['event_id'] : null;
+        $csrfToken = $_POST['csrf_token'] ?? '';
+
+        if (!$this->security->validateCsrfToken($csrfToken)) {
+            $this->logger->error('Invalid CSRF token.');
+            $this->redirect('/admin/events');
+            exit;
+        }
+
         if ($eventId) {
             $this->logger->info('Deleting event: ' . $eventId);
             $this->eventService->deleteEvent($eventId);

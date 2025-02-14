@@ -19,6 +19,12 @@ class ExportController extends Controller
     {
         try {
             $this->logger->info('Exporting data to csv');
+
+            $csrfToken = $_POST['csrf_token'] ?? '';
+            if (!$this->security->validateCsrfToken($csrfToken)) {
+                throw new \Exception('Invalid CSRF token.');
+            }
+
             $data = $this->exportService->getCsvData();
             header('Content-Type: text/csv; charset=utf-8');
             header('Content-Disposition: attachment; filename="export.csv"');
@@ -35,6 +41,12 @@ class ExportController extends Controller
     {
         try {
             $this->logger->info('Exporting data to PDF');
+
+            $csrfToken = $_POST['csrf_token'] ?? '';
+            if (!$this->security->validateCsrfToken($csrfToken)) {
+                throw new \Exception('Invalid CSRF token.');
+            }
+
             $data = $this->exportService->getPdfData();
             header('Content-Type: application/pdf');
             header('Content-Disposition: attachment; filename="export.pdf"');

@@ -61,6 +61,13 @@ class AdminUserController extends Controller
     {
         $userId = isset($_POST['user_id']) ? (int)$_POST['user_id'] : null;
         $status = isset($_POST['status']) ? (int)$_POST['status'] : null;
+        $csrfToken = isset($_POST['csrf_token']) ? $_POST['csrf_token'] : null;
+
+        if (!$this->security->validateCsrfToken($csrfToken)) {
+            $this->logger->error('Invalid CSRF token.');
+            $this->redirect('/admin/users');
+            exit;
+        }
 
         if ($userId && isset($status)) {
             $this->logger->info('Updating user status: ' . $userId . ' to ' . $status);
