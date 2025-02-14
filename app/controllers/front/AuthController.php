@@ -27,7 +27,13 @@ class AuthController extends Controller
 
     public function index(): void
     {
-        echo $this->render('front/auth.twig', []);
+           
+        if(!empty($this->session->get('user'))){
+            $this->redirect('/');
+        }else{
+            echo $this->render('front/auth.twig', []);
+        }
+        
     }
 
     // Handle user login
