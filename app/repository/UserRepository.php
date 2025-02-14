@@ -190,7 +190,7 @@ class UserRepository
 
     public function getRecentUsers()
     {
-        $sql = "SELECT * FROM users";
+        $sql = "SELECT * FROM users ORDER BY created_at DESC LIMIT 2";
         $stmt = $this->DB->query($sql);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }

@@ -20,8 +20,9 @@ class AdminEventController extends Controller
         $this->logger->info('Fetching all events');
         $events = $this->eventService->getEvents();
         $messages = $this->session->get('messages') ?? [];
+        $csrfToken = $this->security->generateCsrfToken();
 
-        return $this->render('back/events.html.twig', ['events' => $events, 'messages' => $messages]);
+        return $this->render('back/events.html.twig', ['events' => $events, 'messages' => $messages, 'csrf_token' => $csrfToken]);
     }
 
     public function search()
@@ -35,7 +36,7 @@ class AdminEventController extends Controller
         return $this->render('back/events.html.twig', [
             'events' => $events,
             'keyword' => $keyword,
-            'messages' => $messages
+            'messages' => $messages,
         ]);
     }
 

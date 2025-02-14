@@ -17,8 +17,8 @@ class EvenmentRepository
 
     public function create(array $evenmentData)
     {
-        $query = "INSERT INTO evenments (title, description, visual_content, lieu, validation, archived, owner_id, category_id, date, type)
-                  VALUES (:title, :description, :visual_content, :lieu, 1, 0, :owner_id, :category_id, :date, :type) RETURNING id";
+        $query = "INSERT INTO evenments (title, description, visual_content, lieu, validation, archived, owner_id, category_id, date, type ,video_path)
+                  VALUES (:title, :description, :visual_content, :lieu, 1, 0, :owner_id, :category_id, :date, :type , :video_path) RETURNING id";
         $stmt = $this->DB->getConnection()->prepare($query);
         $res = $stmt->execute(
 
@@ -30,7 +30,8 @@ class EvenmentRepository
                 ":owner_id" => $evenmentData['owner_id'],
                 ":category_id" => $evenmentData['category_id'],
                 ":date" => $evenmentData['date'],
-                ":type" => $evenmentData['type']
+                ":type" => $evenmentData['type'],
+                ":video_path"=>$evenmentData['video_path']
 
             ]
 
@@ -43,6 +44,45 @@ class EvenmentRepository
 
         return false;
     }
+
+
+
+    public function update(int $eventId, array $evenmentData)
+{
+    $query = "UPDATE evenments 
+              SET title = :title, 
+                  description = :description, 
+                  visual_content = :visual_content, 
+                   video_path = :video_path
+                 
+              WHERE id = :eventId";
+
+    $stmt = $this->DB->getConnection()->prepare($query);
+    
+    $res = $stmt->execute([
+        ":title" => $evenmentData['title'],
+        ":description" => $evenmentData['description'],
+        ":visual_content" => $evenmentData['visual_content'],
+        "::video_path" => $evenmentData[':video_path'],
+      
+        ":eventId" => $eventId 
+    ]);
+
+    return $res && $stmt->rowCount() > 0; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function validate(int $evenmentId)
     {
@@ -97,51 +137,52 @@ WHERE b.user_id = :id
 ORDER BY b.booking_date DESC
 LIMIT 2;
         ";
-        $stmt = $this->DB->query($query, [":id"=> $id]);
+        $stmt = $this->DB->query($query, [":id" => $id]);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
 
-//     public function getOrganiserEvent($id): array {
-//         $query = 
-//        " SELECT                      
-//     e.id AS event_id,
-//     e.title,
-//     e.description,
-//     e.visual_content,
-//     e.lieu,
-//     e.validation,
-//     e.archived,
-//     e.owner_id,
-//     e.category_id,
-//     c.name AS category_name,
-//     e.date,
-//     e.type,
-//     cap.total_tickets,
-//     cap.vip_tickets_number,
-//     cap.vip_price,
-//     cap.standard_tickets_number,
-//     cap.standard_price,
-//     cap.gratuit_tickets_number,
-//     cap.early_bird_discount,
-//     Array_agg(DISTINCT t.title) AS tags
-// FROM evenments e
-// LEFT JOIN categories c ON e.category_id = c.id
-// LEFT JOIN capacity cap ON e.id = cap.evenment_id
-// LEFT JOIN envenment_tag et ON e.id = et.envenment_id
-// LEFT JOIN tags t ON et.tag_id = t.id
-// WHERE e.owner_id = 1
-// GROUP BY 
-//     e.id, c.name, 
-//     cap.total_tickets, cap.vip_tickets_number, cap.vip_price,
-//     cap.standard_tickets_number, cap.standard_price, cap.gratuit_tickets_number, cap.early_bird_discount;
-//         ";
-//         $stmt = $this->DB->getConnection()->query($query);
-//         return $stmt->fetchAll(PDO::FETCH_OBJ);
-//     }
+    //     public function getOrganiserEvent($id): array {
+    //         $query = 
+    //        " SELECT                      
+    //     e.id AS event_id,
+    //     e.title,
+    //     e.description,
+    //     e.visual_content,
+    //     e.lieu,
+    //     e.validation,
+    //     e.archived,
+    //     e.owner_id,
+    //     e.category_id,
+    //     c.name AS category_name,
+    //     e.date,
+    //     e.type,
+    //     cap.total_tickets,
+    //     cap.vip_tickets_number,
+    //     cap.vip_price,
+    //     cap.standard_tickets_number,
+    //     cap.standard_price,
+    //     cap.gratuit_tickets_number,
+    //     cap.early_bird_discount,
+    //     Array_agg(DISTINCT t.title) AS tags
+    // FROM evenments e
+    // LEFT JOIN categories c ON e.category_id = c.id
+    // LEFT JOIN capacity cap ON e.id = cap.evenment_id
+    // LEFT JOIN envenment_tag et ON e.id = et.envenment_id
+    // LEFT JOIN tags t ON et.tag_id = t.id
+    // WHERE e.owner_id = 1
+    // GROUP BY 
+    //     e.id, c.name, 
+    //     cap.total_tickets, cap.vip_tickets_number, cap.vip_price,
+    //     cap.standard_tickets_number, cap.standard_price, cap.gratuit_tickets_number, cap.early_bird_discount;
+    //         ";
+    //         $stmt = $this->DB->getConnection()->query($query);
+    //         return $stmt->fetchAll(PDO::FETCH_OBJ);
+    //     }
 
 
-    public function getEventsForOwner(int $owner_id): array {
+    public function getEventsForOwner(int $owner_id): array
+    {
         $sql = "
             SELECT 
                 e.id,
@@ -167,7 +208,8 @@ LIMIT 2;
     // public function ticketsStaT
 
 
-    public function ticketsStaT(int $owner_id): array {
+    public function ticketsStaT(int $owner_id): array
+    {
         $sql = "
             SELECT                  
     -- Total Tickets: Sum of total tickets for all events owned by the user
@@ -197,11 +239,12 @@ WHERE e.owner_id = :owner_id;
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    
 
 
 
-    public function getOwnerStatistics(int $owner_id): array {
+
+    public function getOwnerStatistics(int $owner_id): array
+    {
         $sql = "
             SELECT 
                 (SELECT COUNT(*) FROM evenments WHERE owner_id = :owner_id) AS total_events,
@@ -219,7 +262,7 @@ WHERE e.owner_id = :owner_id;
         $stmt = $this->DB->getConnection()->prepare($sql);
         $stmt->bindParam(':owner_id', $owner_id, PDO::PARAM_INT);
         $stmt->execute();
-        
+
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
@@ -240,17 +283,18 @@ WHERE e.owner_id = :owner_id;
     //             JOIN evenments e ON b.evenment_id = e.id
     //             JOIN users u ON b.user_id = u.id
     //             WHERE e.owner_id = :owner_id";
-    
+
     //     $stmt = $this->DB->getConnection()->prepare($sql);
     //     $stmt->bindParam(':owner_id', $owner_id, PDO::PARAM_INT);
     //     $stmt->execute();
-    
+
     //     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
+
     //     return ['p' => $result]; // Return an array with 'p' as the key (or change to a different name)
     // }
 
-    public function getClient(int $owner_id, int $even_id = 0): array {
+    public function getClient(int $owner_id, int $even_id = 0): array
+    {
         // Start with the base SQL query
         $sql = "SELECT 
                     u.username AS user_name,
@@ -264,34 +308,38 @@ WHERE e.owner_id = :owner_id;
                 JOIN evenments e ON b.evenment_id = e.id
                 JOIN users u ON b.user_id = u.id
                 WHERE e.owner_id = :owner_id";
-        
+
         // Modify query if even_id > 0
         if ($even_id > 0) {
             $sql .= " AND e.id = :even_id";
         }
-    
+
         // Prepare the statement
         $stmt = $this->DB->getConnection()->prepare($sql);
         $stmt->bindParam(':owner_id', $owner_id, PDO::PARAM_INT);
-        
+
         if ($even_id > 0) {
             $stmt->bindParam(':even_id', $even_id, PDO::PARAM_INT);
         }
-    
+
         // Execute the query
         $stmt->execute();
-    
+
         // Fetch all results
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
+
         return $result;  // Return the fetched results
     }
-    
-    
-    
-    
+
+
+
+
+
+
+
     // Function to get all events for a user
-    function getUserEvents($user_id) {
+    function getUserEvents($user_id)
+    {
         // SQL query to fetch events for the user
         $sql = "SELECT 
                     e.id AS event_id,
@@ -302,19 +350,19 @@ WHERE e.owner_id = :owner_id;
                 
                 WHERE 
                     e.owner_id = :user_id"; // Bind the user ID dynamically
-    
+
         try {
             // Prepare and execute the query
             $stmt = $this->DB->getConnection()->prepare($sql);
             $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
             $stmt->execute();
-    
+
             // Fetch all events
             $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
+
             // Return the events
             return $events;
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             // Handle any errors
             echo "Error: " . $e->getMessage();
             return [];
@@ -324,9 +372,9 @@ WHERE e.owner_id = :owner_id;
     
     
     
-    
 
-    public function getEventsales($owner , $even){
+    public function getEventsales($owner, $even)
+    {
 
         $sql = "
                 SELECT 
@@ -343,43 +391,40 @@ WHERE e.owner_id = :owner_id;
                 WHERE e.owner_id = :user_id AND e.id = :eve_id;
 
             ";
-    
-            $stmt = $this->DB->getConnection()->prepare($sql);
-            $stmt->bindParam(':user_id', $owner, PDO::PARAM_INT);
-            $stmt->bindParam(':eve_id', $even, PDO::PARAM_INT);
-            $stmt->execute();
-    
-            $event = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            return $event ;
 
+        $stmt = $this->DB->getConnection()->prepare($sql);
+        $stmt->bindParam(':user_id', $owner, PDO::PARAM_INT);
+        $stmt->bindParam(':eve_id', $even, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $event = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $event;
     }
 
     public function delete(int $eventId)
     {
-        
-            $conn = $this->DB->getConnection();
-    
-            // Delete from envenment_tag
-            $sql1 = "DELETE FROM envenment_tag WHERE envenment_id = :eventId;";
-            $stmt1 = $conn->prepare($sql1);
-            $stmt1->bindParam(':eventId', $eventId, PDO::PARAM_INT);
-            $stmt1->execute();
-    
-            // Delete from capacity
-            $sql2 = "DELETE FROM capacity WHERE evenment_id = :eventId;";
-            $stmt2 = $conn->prepare($sql2);
-            $stmt2->bindParam(':eventId', $eventId, PDO::PARAM_INT);
-            $stmt2->execute();
-    
-            // Delete from evenments
-            $sql3 = "DELETE FROM evenments WHERE id = :eventId;";
-            $stmt3 = $conn->prepare($sql3);
-            $stmt3->bindParam(':eventId', $eventId, PDO::PARAM_INT);
-            $stmt3->execute();
-    
-            return $stmt3->rowCount() > 0;
-    
-        
+
+        $conn = $this->DB->getConnection();
+
+        // Delete from envenment_tag
+        $sql1 = "DELETE FROM envenment_tag WHERE envenment_id = :eventId;";
+        $stmt1 = $conn->prepare($sql1);
+        $stmt1->bindParam(':eventId', $eventId, PDO::PARAM_INT);
+        $stmt1->execute();
+
+        // Delete from capacity
+        $sql2 = "DELETE FROM capacity WHERE evenment_id = :eventId;";
+        $stmt2 = $conn->prepare($sql2);
+        $stmt2->bindParam(':eventId', $eventId, PDO::PARAM_INT);
+        $stmt2->execute();
+
+        // Delete from evenments
+        $sql3 = "DELETE FROM evenments WHERE id = :eventId;";
+        $stmt3 = $conn->prepare($sql3);
+        $stmt3->bindParam(':eventId', $eventId, PDO::PARAM_INT);
+        $stmt3->execute();
+
+        return $stmt3->rowCount() > 0;
     }
 
     public function searchEvents($keyword)
@@ -437,12 +482,12 @@ WHERE e.owner_id = :owner_id;
     //             WHERE e.validation = 1 AND e.archived = 0
     //             ORDER BY e.date DESC
     //             LIMIT :limit OFFSET :offset";
-                
+
     //     $stmt = $this->DB->getConnection()->prepare($query);
     //     $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
     //     $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
     //     $stmt->execute();
-        
+
     //     return $stmt->fetchAll(PDO::FETCH_OBJ);
     // }
     public function getPaginatedEvents(int $page = 1, int $limit = 2, array $categories = []): array
@@ -499,9 +544,14 @@ WHERE e.owner_id = :owner_id;
         where e.id= :id
         ORDER BY e.date DESC
         ";
-        $stmt = $this->DB->query($query, ["id"=> $id]);
+        $stmt = $this->DB->query($query, ["id" => $id]);
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
-
+    public function getRecentEvents()
+    {
+        $sql = "SELECT * FROM evenments ORDER BY date DESC LIMIT 2";
+        $stmt = $this->DB->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
 }
