@@ -298,3 +298,42 @@
 [2025-02-14 21:18:16] [INFO] Attempting to add category: Tatiana Reilly
 [2025-02-14 21:18:16] [INFO] Fetching all categories and tags
 [2025-02-14 21:18:16] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-14 21:26:08] [INFO] Fetching all categories and tags
+[2025-02-14 21:26:08] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-14 21:26:11] [DEBUG] Rendering template: /back/404.html.twig
+[2025-02-14 21:27:48] [DEBUG] Rendering template: /back/404.html.twig
+[2025-02-14 21:27:52] [INFO] Fetching all categories and tags
+[2025-02-14 21:27:52] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-14 21:27:54] [DEBUG] Rendering template: /back/404.html.twig
+[2025-02-14 21:31:49] [DEBUG] Rendering template: /back/404.html.twig
+[2025-02-14 21:31:51] [INFO] Fetching all categories and tags
+[2025-02-14 21:31:51] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-14 21:31:54] [INFO] Fetching all categories and tags
+[2025-02-14 21:31:54] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-14 21:31:56] [DEBUG] Rendering template: /back/404.html.twig
+[2025-02-14 21:33:00] [INFO] Fetching all categories and tags
+[2025-02-14 21:33:00] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-14 21:33:01] [INFO] Fetching all categories and tags
+[2025-02-14 21:33:01] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-14 21:33:04] [DEBUG] Rendering template: /back/404.html.twig
+[2025-02-14 21:33:08] [INFO] Fetching all categories and tags
+[2025-02-14 21:33:08] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-14 21:34:36] [INFO] Fetching all categories and tags
+[2025-02-14 21:34:36] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-14 21:34:39] [DEBUG] Rendering template: /back/404.html.twig
+[2025-02-14 21:36:44] [DEBUG] Rendering template: /back/404.html.twig
+[2025-02-14 21:37:49] [INFO] Fetching all categories and tags
+[2025-02-14 21:37:49] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-14 21:37:51] [INFO] Fetching all categories and tags
+[2025-02-14 21:37:51] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-14 21:37:53] [INFO] Attempting to delete category with ID: 5
+[2025-02-14 21:37:54] [INFO] Fetching all categories and tags
+[2025-02-14 21:37:54] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-14 21:42:48] [INFO] Fetching all categories and tags
+[2025-02-14 21:42:48] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-14 21:42:50] [INFO] Attempting to delete tag with ID: 17
+[2025-02-14 21:42:51] [INFO] Fetching all categories and tags
+[2025-02-14 21:42:51] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-14 21:42:56] [INFO] Attempting to delete tag with ID: 9
+[2025-02-14 21:42:56] [INFO] Fetching all categories and tags
+[2025-02-14 21:42:56] [DEBUG] Rendering template: back/categoryTag.html.twig

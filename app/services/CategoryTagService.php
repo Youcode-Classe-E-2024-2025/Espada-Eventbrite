@@ -35,4 +35,14 @@ class CategoryTagService
     {
         return $this->categoryRepository->create($title, $icon);
     }
+
+    public function deleteCategory($id)
+    {
+        return $this->categoryRepository->delete($id);
+    }
+
+    public function deleteTag($id)
+    {
+        return $this->tagRepository->delete($id);
+    }
 }

@@ -52,9 +52,13 @@
                                     <button class="p-2 text-blue-500 hover:bg-blue-50 rounded-lg">
                                         <i class="fa-solid fa-pen"></i>
                                     </button>
-                                    <button class="p-2 text-red-500 hover:bg-red-50 rounded-lg">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
+                                    <form action="/category/delete/{{ category.id }}" method="post">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                                        <input type="hidden" name="category_id" value="{{ category.id }}">
+                                        <button type="submit" class="p-2 text-red-500 hover:bg-red-50 rounded-lg">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         {% endfor %}
@@ -73,9 +77,16 @@
                         {% for tag in tags %}
                             <div class="flex items-center space-x-2 bg-gray-100 px-3 py-2 rounded-full">
                                 <span>#{{ tag.title }}</span>
-                                <button class="text-gray-500 hover:text-red-500">
+                                <form action="/tag/delete/{{ tag.id }}" method="post">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                                        <input type="hidden" name="tag_id" value="{{ tag.id }}">
+                                        <button type="submit" class="text-gray-500 hover:text-red-500">
+                                            <i class="fa-solid fa-times"></i>
+                                        </button>
+                                    </form>
+                                {# <button class="text-gray-500 hover:text-red-500">
                                     <i class="fa-solid fa-times"></i>
-                                </button>
+                                </button> #}
                             </div>
                         {% endfor %}
                     </div>

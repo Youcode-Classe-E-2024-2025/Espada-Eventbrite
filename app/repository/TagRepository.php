@@ -45,4 +45,11 @@ class TagRepository
             throw $e;
         }
     }
+
+    public function delete($id)
+    {
+        $sql = "DELETE FROM tags WHERE id = :id";
+        $stmt = $this->DB->query($sql, ['id' => $id]);
+        return $stmt->rowCount() > 0;
+    }
 }

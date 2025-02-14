@@ -34,4 +34,11 @@ class CategoryRepository
         $stmt = $this->DB->query($query, [':title' => $title, ':icon' => $icon]);
         return $stmt->rowCount() > 0;
     }
+
+    public function delete($id)
+    {
+        $query = "DELETE FROM categories WHERE id = :id";
+        $stmt = $this->DB->query($query, [':id' => $id]);
+        return $stmt->rowCount() > 0;
+    }
 }

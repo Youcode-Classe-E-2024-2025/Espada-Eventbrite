@@ -64,7 +64,9 @@ $router->addRoute('POST', '/admin/export/pdf', [App\controllers\back\ExportContr
 
 
 $router->addRoute('POST', '/category/create', [App\controllers\back\CategoryTagController::class, 'addCategory']);
+$router->addRoute('POST', '/category/delete/{id}', [App\controllers\back\CategoryTagController::class, 'deleteCategory']);
 $router->addRoute('POST', '/tag/create', [App\controllers\back\CategoryTagController::class, 'addTag']);
+$router->addRoute('POST', '/tag/delete/{id}', [App\controllers\back\CategoryTagController::class, 'deleteTag']);
 
 
 // $router->addRoute('GET', '/auth/login/google', [App\controllers\front\AuthController::class, 'loginWithGoogle']);

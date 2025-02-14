@@ -75,4 +75,48 @@ class CategoryTagController extends Controller
 
         $this->redirect('/admin/categoryTag');
     }
+
+    public function deleteCategory()
+    {
+        $id = $_POST['category_id'] ?? '';
+        $this->logger->info('Attempting to delete category with ID: ' . $id);
+        $csrfToken = $_POST['csrf_token'] ?? '';
+
+        if (!$this->security->validateCsrfToken($csrfToken)) {
+            $this->session->set('error', 'Invalid CSRF token.');
+            $this->redirect('/admin/categoryTag');
+            exit;
+        }
+
+        if (!empty($id)) {
+            $this->categoryTagService->deleteCategory($id);
+            $this->session->set('success', 'Category deleted successfully.');
+        } else {
+            $this->session->set('error', 'Category id not found.');
+        }
+
+        $this->redirect('/admin/categoryTag');
+    }
+
+    public function deleteTag()
+    {
+        $id = $_POST['tag_id'] ?? '';
+        $this->logger->info('Attempting to delete tag with ID: ' . $id);
+        $csrfToken = $_POST['csrf_token'] ?? '';
+
+        if (!$this->security->validateCsrfToken($csrfToken)) {
+            $this->session->set('error', 'Invalid CSRF token.');
+            $this->redirect('/admin/categoryTag');
+            exit;
+        }
+
+        if (!empty($id)) {
+            $this->categoryTagService->deleteTag($id);
+            $this->session->set('success', 'Tag deleted successfully.');
+        } else {
+            $this->session->set('error', 'Tag id not found.');
+        }
+
+        $this->redirect('/admin/categoryTag');
+    }
 }
