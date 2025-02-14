@@ -58,6 +58,15 @@ class EventController extends Controller
       echo $this->render('front/event/event-list.html.twig', $data);
     }
 
+
+    public function eventDetails($id){
+      $data = $this->eventService->getEventById($id[0]);
+      $statis = $this->eventService->getCapacities($id[0]);
+      $tags = $this->eventService->getTags($id[0]);
+      
+     echo $this->render('front/event/event-detail.html.twig',['event' => $data, 'statistics'=> $statis, 'tags'=> $tags]);
+  }
+
     public function search()
     {
         $keyword = isset($_GET['keyword']) ? trim($_GET['keyword']) : '';

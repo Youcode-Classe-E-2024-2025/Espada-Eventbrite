@@ -19,9 +19,9 @@ class ReservationController extends Controller{
         $statis = $this->eventService->getCapacities($id[0]);
         echo $this->view->render("front/event/booking.html.twig", ['data' => $statis,'event'=>$data]);
     }
-    public function getBooking($id) {
+    public function getBooking() {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $event_id = $id[0];
+            $event_id = $_POST['event_id'];
             $vipQuantity = $_POST['vipQuantity'];
             $standardQuantity = $_POST['standardQuantity'];
             $totalPrice = $_POST['totalPrice'];
