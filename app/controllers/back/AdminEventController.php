@@ -17,6 +17,7 @@ class AdminEventController extends Controller
 
     public function index()
     {
+        $this->logger->info('Fetching all events');
         $events = $this->eventService->getEvents();
 
         return $this->render('back/events.html.twig', ['events' => $events]);
@@ -25,6 +26,7 @@ class AdminEventController extends Controller
     public function search()
     {
         $keyword = isset($_GET['keyword']) ? trim($_GET['keyword']) : '';
+        $this->logger->info('Searching events with keyword: ' . $keyword);
 
         $events = $this->eventService->searchEvents($keyword);
 
@@ -38,12 +40,13 @@ class AdminEventController extends Controller
     {
         $eventId = isset($_POST['event_id']) ? (int)$_POST['event_id'] : null;
         $status = isset($_POST['status']) ? (int)$_POST['status'] : null;
-        // var_dump($eventId);
-        // var_dump($status);
-        // exit;
+
         if ($eventId && isset($status)) {
+            $this->logger->info('Updating event status: ' . $eventId . ' to ' . $status);
             $this->eventService->updateEventStatus($eventId, $status);
             // $this->redirect('/admin/events');
+        } else {
+            $this->logger->error('Failed to update event status.');
         }
 
         $this->redirect('/admin/events');
@@ -54,8 +57,12 @@ class AdminEventController extends Controller
     {
         $eventId = isset($_POST['event_id']) ? (int)$_POST['event_id'] : null;
         if ($eventId) {
+            $this->logger->info('Deleting event: ' . $eventId);
             $this->eventService->deleteEvent($eventId);
+        } else {
+            $this->logger->error('Failed to delete event.');
         }
+
         $this->redirect('/admin/events');
     }
 
