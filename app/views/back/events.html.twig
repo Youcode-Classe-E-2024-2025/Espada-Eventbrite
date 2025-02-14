@@ -32,6 +32,15 @@
             </aside>
 {% endblock %}
 {% block mainContent %}   
+
+        {% if messages is defined %}
+            {% for type, message in messages %}
+                <div class="alert alert-{{ type }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
                 <div id="events-actions" class="flex justify-between items-center mb-6">
                     <div class="flex space-x-4">
                         

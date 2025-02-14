@@ -1,6 +1,15 @@
 {% extends "base.html.twig" %}
 {% block header %} {% include "layouts/header.html.twig" %}  {% endblock %}
 {% block content %}
+
+{% if messages is defined %}
+        {% for type, message in messages %}
+            <div class="alert alert-{{ type }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    
 <div id="profile-page" class="bg-gray-50">
     <main class="container mx-auto px-4 py-8">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
