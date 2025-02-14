@@ -1,1 +1,34 @@
-..
+..[2025-02-14 12:52:22] [DEBUG] Rendering template: /back/404.html.twig
+[2025-02-14 12:52:26] [INFO] Dashboard index accessed
+[2025-02-14 12:52:26] [INFO] Admin dashboard accessed
+[2025-02-14 12:52:26] [INFO] Fetching stats for dashboard
+[2025-02-14 12:52:26] [INFO] Fetching pending actions for dashboard
+[2025-02-14 12:52:26] [INFO] Fetching recent activities for dashboard
+[2025-02-14 12:52:26] [DEBUG] Rendering template: /back/index.html.twig
+[2025-02-14 12:53:41] [INFO] Dashboard index accessed
+[2025-02-14 12:53:41] [INFO] Admin dashboard accessed
+[2025-02-14 12:53:41] [INFO] Fetching stats for dashboard
+[2025-02-14 12:53:41] [INFO] Fetching pending actions for dashboard
+[2025-02-14 12:53:41] [INFO] Fetching recent activities for dashboard
+[2025-02-14 12:53:41] [DEBUG] Rendering template: /back/index.html.twig
+[2025-02-14 12:56:29] [INFO] Dashboard index accessed
+[2025-02-14 12:56:29] [INFO] Admin dashboard accessed
+[2025-02-14 12:56:29] [INFO] Fetching stats for dashboard
+[2025-02-14 12:56:29] [INFO] Fetching pending actions for dashboard
+[2025-02-14 12:56:29] [INFO] Fetching recent activities for dashboard
+[2025-02-14 12:56:29] [DEBUG] Rendering template: /back/index.html.twig
+[2025-02-14 13:01:48] [INFO] Dashboard index accessed
+[2025-02-14 13:01:48] [INFO] Admin dashboard accessed
+[2025-02-14 13:01:48] [INFO] Fetching stats for dashboard
+[2025-02-14 13:01:48] [INFO] Fetching pending actions for dashboard
+[2025-02-14 13:01:48] [INFO] Fetching recent activities for dashboard
+[2025-02-14 13:01:48] [DEBUG] Rendering template: /back/index.html.twig
+[2025-02-14 13:01:55] [INFO] Exporting data to csv
+[2025-02-14 13:01:55] [ERROR] Invalid CSRF token.
+[2025-02-14 13:01:55] [ERROR] Error exporting data to CSV: Invalid CSRF token.
+[2025-02-14 13:02:01] [INFO] Dashboard index accessed
+[2025-02-14 13:02:01] [INFO] Admin dashboard accessed
+[2025-02-14 13:02:01] [INFO] Fetching stats for dashboard
+[2025-02-14 13:02:01] [INFO] Fetching pending actions for dashboard
+[2025-02-14 13:02:01] [INFO] Fetching recent activities for dashboard
+[2025-02-14 13:02:01] [DEBUG] Rendering template: /back/index.html.twig

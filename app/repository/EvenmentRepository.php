@@ -99,51 +99,52 @@ class EvenmentRepository
         where u.id = :id
         ORDER BY e.date DESC limit 2
         ";
-        $stmt = $this->DB->query($query, [":id"=> $id]);
+        $stmt = $this->DB->query($query, [":id" => $id]);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
 
-//     public function getOrganiserEvent($id): array {
-//         $query = 
-//        " SELECT                      
-//     e.id AS event_id,
-//     e.title,
-//     e.description,
-//     e.visual_content,
-//     e.lieu,
-//     e.validation,
-//     e.archived,
-//     e.owner_id,
-//     e.category_id,
-//     c.name AS category_name,
-//     e.date,
-//     e.type,
-//     cap.total_tickets,
-//     cap.vip_tickets_number,
-//     cap.vip_price,
-//     cap.standard_tickets_number,
-//     cap.standard_price,
-//     cap.gratuit_tickets_number,
-//     cap.early_bird_discount,
-//     Array_agg(DISTINCT t.title) AS tags
-// FROM evenments e
-// LEFT JOIN categories c ON e.category_id = c.id
-// LEFT JOIN capacity cap ON e.id = cap.evenment_id
-// LEFT JOIN envenment_tag et ON e.id = et.envenment_id
-// LEFT JOIN tags t ON et.tag_id = t.id
-// WHERE e.owner_id = 1
-// GROUP BY 
-//     e.id, c.name, 
-//     cap.total_tickets, cap.vip_tickets_number, cap.vip_price,
-//     cap.standard_tickets_number, cap.standard_price, cap.gratuit_tickets_number, cap.early_bird_discount;
-//         ";
-//         $stmt = $this->DB->getConnection()->query($query);
-//         return $stmt->fetchAll(PDO::FETCH_OBJ);
-//     }
+    //     public function getOrganiserEvent($id): array {
+    //         $query = 
+    //        " SELECT                      
+    //     e.id AS event_id,
+    //     e.title,
+    //     e.description,
+    //     e.visual_content,
+    //     e.lieu,
+    //     e.validation,
+    //     e.archived,
+    //     e.owner_id,
+    //     e.category_id,
+    //     c.name AS category_name,
+    //     e.date,
+    //     e.type,
+    //     cap.total_tickets,
+    //     cap.vip_tickets_number,
+    //     cap.vip_price,
+    //     cap.standard_tickets_number,
+    //     cap.standard_price,
+    //     cap.gratuit_tickets_number,
+    //     cap.early_bird_discount,
+    //     Array_agg(DISTINCT t.title) AS tags
+    // FROM evenments e
+    // LEFT JOIN categories c ON e.category_id = c.id
+    // LEFT JOIN capacity cap ON e.id = cap.evenment_id
+    // LEFT JOIN envenment_tag et ON e.id = et.envenment_id
+    // LEFT JOIN tags t ON et.tag_id = t.id
+    // WHERE e.owner_id = 1
+    // GROUP BY 
+    //     e.id, c.name, 
+    //     cap.total_tickets, cap.vip_tickets_number, cap.vip_price,
+    //     cap.standard_tickets_number, cap.standard_price, cap.gratuit_tickets_number, cap.early_bird_discount;
+    //         ";
+    //         $stmt = $this->DB->getConnection()->query($query);
+    //         return $stmt->fetchAll(PDO::FETCH_OBJ);
+    //     }
 
 
-    public function getEventsForOwner(int $owner_id): array {
+    public function getEventsForOwner(int $owner_id): array
+    {
         $sql = "
             SELECT 
                 e.id,
@@ -169,7 +170,8 @@ class EvenmentRepository
     // public function ticketsStaT
 
 
-    public function ticketsStaT(int $owner_id): array {
+    public function ticketsStaT(int $owner_id): array
+    {
         $sql = "
             SELECT                  
     -- Total Tickets: Sum of total tickets for all events owned by the user
@@ -199,11 +201,12 @@ WHERE e.owner_id = :owner_id;
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    
 
 
 
-    public function getOwnerStatistics(int $owner_id): array {
+
+    public function getOwnerStatistics(int $owner_id): array
+    {
         $sql = "
             SELECT 
                 (SELECT COUNT(*) FROM evenments WHERE owner_id = :owner_id) AS total_events,
@@ -221,7 +224,7 @@ WHERE e.owner_id = :owner_id;
         $stmt = $this->DB->getConnection()->prepare($sql);
         $stmt->bindParam(':owner_id', $owner_id, PDO::PARAM_INT);
         $stmt->execute();
-        
+
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
@@ -242,17 +245,18 @@ WHERE e.owner_id = :owner_id;
     //             JOIN evenments e ON b.evenment_id = e.id
     //             JOIN users u ON b.user_id = u.id
     //             WHERE e.owner_id = :owner_id";
-    
+
     //     $stmt = $this->DB->getConnection()->prepare($sql);
     //     $stmt->bindParam(':owner_id', $owner_id, PDO::PARAM_INT);
     //     $stmt->execute();
-    
+
     //     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
+
     //     return ['p' => $result]; // Return an array with 'p' as the key (or change to a different name)
     // }
 
-    public function getClient(int $owner_id, int $even_id = 0): array {
+    public function getClient(int $owner_id, int $even_id = 0): array
+    {
         // Start with the base SQL query
         $sql = "SELECT 
                     u.username AS user_name,
@@ -266,31 +270,31 @@ WHERE e.owner_id = :owner_id;
                 JOIN evenments e ON b.evenment_id = e.id
                 JOIN users u ON b.user_id = u.id
                 WHERE e.owner_id = :owner_id";
-        
+
         // Modify query if even_id > 0
         if ($even_id > 0) {
             $sql .= " AND e.id = :even_id";
         }
-    
+
         // Prepare the statement
         $stmt = $this->DB->getConnection()->prepare($sql);
         $stmt->bindParam(':owner_id', $owner_id, PDO::PARAM_INT);
-        
+
         if ($even_id > 0) {
             $stmt->bindParam(':even_id', $even_id, PDO::PARAM_INT);
         }
-    
+
         // Execute the query
         $stmt->execute();
-    
+
         // Fetch all results
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
+
         return $result;  // Return the fetched results
     }
-    
-    
-    
+
+
+
 
 
 
@@ -355,12 +359,12 @@ WHERE e.owner_id = :owner_id;
     //             WHERE e.validation = 1 AND e.archived = 0
     //             ORDER BY e.date DESC
     //             LIMIT :limit OFFSET :offset";
-                
+
     //     $stmt = $this->DB->getConnection()->prepare($query);
     //     $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
     //     $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
     //     $stmt->execute();
-        
+
     //     return $stmt->fetchAll(PDO::FETCH_OBJ);
     // }
     public function getPaginatedEvents(int $page = 1, int $limit = 2, array $categories = []): array
@@ -417,9 +421,14 @@ WHERE e.owner_id = :owner_id;
         where e.id= :id
         ORDER BY e.date DESC
         ";
-        $stmt = $this->DB->query($query, ["id"=> $id]);
+        $stmt = $this->DB->query($query, ["id" => $id]);
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
-
+    public function getRecentEvents()
+    {
+        $sql = "SELECT * FROM evenments ORDER BY date DESC LIMIT 2";
+        $stmt = $this->DB->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
 }

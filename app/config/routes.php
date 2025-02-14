@@ -13,7 +13,7 @@ $router->addRoute('GET', '/admin/events', [App\controllers\back\AdminEventContro
 $router->addRoute('GET', '/admin/events/search', [App\controllers\back\AdminEventController::class, 'search']);
 $router->addRoute('POST', '/admin/events/status', [App\controllers\back\AdminEventController::class, 'updateStatus']);
 $router->addRoute('POST', '/admin/events/delete', [App\controllers\back\AdminEventController::class, 'delete']);
-$router->addRoute('GET', '/admin/contents', [App\controllers\back\DashboardController::class, 'showContents']);
+$router->addRoute('GET', '/admin/categoryTag', [App\controllers\back\DashboardController::class, 'showContents']);
 $router->addRoute('POST', '/auth/register', [App\controllers\front\AuthController::class, 'register']);
 
 
