@@ -42,7 +42,7 @@ class OrganiserDashController extends Controller
 
         echo $this->render('front/organiser/dashboard.twig',[ 'data' =>$data]);
         // var_dump($this->id);
-        var_dump($data);
+        // var_dump($data);
     }
 
 
@@ -59,7 +59,7 @@ class OrganiserDashController extends Controller
 
     
     
-    public function getEv(int $eventId){
+    public function getEv( $eventId){
         if ($eventId === 'all') {
             // Redirect to the tickets page when 'all' is selected
             $intValeur =  (int)  $this->id ;
@@ -72,7 +72,7 @@ class OrganiserDashController extends Controller
             $userId = $this->id;  // Assume the user ID is stored in the session
             
             $idR = (int) $eventId;
-            $event=$this->statServ->getET($this->id , $idR);
+            $event=$this->statServ->getET(1 , $idR);
             header("HTTP/1.1 200 OK"); 
             echo json_encode($event);
         }

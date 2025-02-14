@@ -286,10 +286,9 @@ WHERE e.owner_id = :owner_id;
                     
                 FROM 
                     evenments e
-                JOIN 
-                    users u ON e.owner_id = u.id
+                
                 WHERE 
-                    u.id = :user_id"; // Bind the user ID dynamically
+                    e.owner_id = :user_id"; // Bind the user ID dynamically
     
         try {
             // Prepare and execute the query
@@ -328,13 +327,13 @@ WHERE e.owner_id = :owner_id;
                 FROM booking b
                 JOIN evenments e ON b.evenment_id = e.id
                 JOIN users u ON b.user_id = u.id
-                WHERE e.owner_id = 1 AND e.id = 1;
+                WHERE e.owner_id = :user_id AND e.id = :eve_id;
 
             ";
     
             $stmt = $this->DB->getConnection()->prepare($sql);
-            // $stmt->bindParam(':user_id', $owner, PDO::PARAM_INT);
-            // $stmt->bindParam(':eve_id', $even, PDO::PARAM_INT);
+            $stmt->bindParam(':user_id', $owner, PDO::PARAM_INT);
+            $stmt->bindParam(':eve_id', $even, PDO::PARAM_INT);
             $stmt->execute();
     
             $event = $stmt->fetchAll(PDO::FETCH_ASSOC);
