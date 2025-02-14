@@ -62,9 +62,9 @@ if (count($data) >= 2) {
     {
         echo $this->render("/back/users.html.twig");
     }
-    public function showComments()
+    public function showContents()
     {
-        echo $this->render("/back/comments.html.twig");
+        echo $this->render("/back/contents.html.twig");
     }
 
     private function getStats()
@@ -99,12 +99,12 @@ if (count($data) >= 2) {
     private function getRecentActivities()
     {
         $recentUsers = $this->userService->getRecentUsers();
-        $recentEvents = $this->eventService->getRecentEvents();
+        // $recentEvents = $this->eventService->getRecentEvents();
         // $recentComments = $this->eventService->getRecentComments();
 
         return [
-            'recentUsers' => $recentUsers,
-            'recentEvents' => $recentEvents,
+            'recentUsers' => $recentUsers
+            // 'recentEvents' => $recentEvents,
             // 'reportedComments' => $recentComments
         ];
     }
