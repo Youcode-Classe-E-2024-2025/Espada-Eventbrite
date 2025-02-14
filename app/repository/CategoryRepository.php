@@ -28,9 +28,10 @@ class CategoryRepository
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function create($title)
+    public function create($title, $icon)
     {
-        $query = "INSERT INTO categories (name) VALUES (:title)";
-        $stmt = $this->DB->query($query, [':title' => $title]);
+        $query = "INSERT INTO categories (name, icon) VALUES (:title, :icon)";
+        $stmt = $this->DB->query($query, [':title' => $title, ':icon' => $icon]);
+        return $stmt->rowCount() > 0;
     }
 }

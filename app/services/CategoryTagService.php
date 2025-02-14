@@ -28,11 +28,11 @@ class CategoryTagService
 
     public function addTag($title)
     {
-        return $this->tagRepository->create(['title' => $title]);
+        return $this->tagRepository->create($title);
     }
 
-    public function addCategory($title)
+    public function addCategory($title, $icon)
     {
-        return $this->categoryRepository->create(['title' => $title]);
+        return $this->categoryRepository->create($title, $icon);
     }
 }

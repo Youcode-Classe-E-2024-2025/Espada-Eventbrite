@@ -214,8 +214,8 @@ class OrganiserDashController extends Controller
                 $image = $_FILES['image'];
 
                 // Absolute path to the upload directory
-                $uploadDir = '/home/hamza/Desktop/collab/Espada-Eventbrite/uploads/';
-
+                $uploadDir = 'uploads/';
+    
                 // Ensure the upload directory exists
                 if (!is_dir($uploadDir)) {
                     mkdir($uploadDir, 0777, true);  // Create directory if not exists
@@ -247,79 +247,87 @@ class OrganiserDashController extends Controller
             } else {
                 echo "Error with the uploaded file.";
             }
-            // if (isset($_FILES['video']) && $_FILES['video']['error'] === UPLOAD_ERR_OK) {
-            //     $video = $_FILES['video'];
+            // Video upload handling
+if (isset($_FILES['video']) && $_FILES['video']['error'] === UPLOAD_ERR_OK) {
+    $video = $_FILES['video'];
 
-            //     // Absolute path to the upload directory
-            //     $uploadDir = '/home/hamza/Desktop/collab/Espada-Eventbrite/uploads/videos/';
+    // Absolute path to the upload directory
+    $uploadDir = 'uploads/videos/';
 
-            //     // Ensure the upload directory exists
-            //     if (!is_dir($uploadDir)) {
-            //         mkdir($uploadDir, 0777, true);  // Create directory if not exists
-            //     }
+    // Ensure the upload directory exists
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0777, true);
+    }
 
-            //     // Sanitize the file name
-            //     $fileName = uniqid() . "_" . basename($video['name']);
-            //     $videoPath = $uploadDir . $fileName;
+    // Sanitize file name
+    $fileName = uniqid() . "_" . basename($video['name']);
+    $videoPath = $uploadDir . $fileName;
 
-            //     // Validate file type (only allow videos)
-            //     $allowedTypes = ['video/mp4', 'video/avi', 'video/quicktime', 'video/mov'];
-            //     if (in_array($video['type'], $allowedTypes)) {
-            //         // Check file size (max 50MB)
-            //         if ($video['size'] <= 50 * 1024 * 1024) {
-            //             // Move the uploaded file to the desired location
-            //             if (move_uploaded_file($video['tmp_name'], $videoPath)) {
-            //                 echo "Video uploaded successfully.<br>";
-            //                 echo "Video Path: " . htmlspecialchars($videoPath) . "<br>";
-            //             } else {
-            //                 echo "Failed to move the uploaded file.";
-            //             }
-            //         } else {
-            //             echo "File size exceeds the 50MB limit.";
-            //         }
-            //     } else {
-            //         echo "Invalid file type. Only MP4, AVI, and MOV videos are allowed.";
-            //     }
-            // } else {
-            //     echo "Error with the uploaded file.";
-            // }
+    // Allowed video types
+    $allowedTypes = ['video/mp4', 'video/avi', 'video/quicktime', 'video/mov'];
+    
+    // Log file type for debugging
+    error_log("Uploaded video type: " . $video['type']);
+
+    if (in_array($video['type'], $allowedTypes)) {
+        if ($video['size'] <= 50 * 1024 * 1024) {
+            if (move_uploaded_file($video['tmp_name'], $videoPath)) {
+                echo "Video uploaded successfully.<br>";
+                echo "Video Path: " . htmlspecialchars($videoPath) . "<br>";
+            } else {
+                echo "Failed to move the uploaded video.";
+            }
+        } else {
+            echo "File size exceeds the 50MB limit.";
+        }
+    } else {
+        echo "Invalid video type. Only MP4, AVI, and MOV are allowed.";
+    }
+} else {
+    echo "No video uploaded or an error occurred.";
+}
 
             $evenmentData = [
-                'title' => $title,
-                'description' => $description,
-                'visual_content' => $filePath,
-                'lieu' => $location,
-                'owner_id' => $this->id,
-                'category_id' => $categorie,
-                'date' => $date,
-                'type' => $type
-            ];
-            $capacityData = [
-                'total_tickets' => $total_num,
-                'vip_tickets_number' => $vip_num,
-                'vip_price' => $vip_price,
-                'standard_tickets_number' => $regular_num,
-                'standard_price' => $regular_price,
-                'gratuit_tickets_number' => $student_num,
-                'early_bird_discount' => $discount
-            ];
-            $tagIds = explode(",", $tags);
+                    'title' => $title,
+                    'description' =>$description ,
+                    'visual_content' => $filePath,
+                    'lieu' => $location,
+                    'owner_id' => $this->id,
+                    'category_id' => $categorie,
+                     'video_path' => $videoPath   , 
+                    'date' => $date,
+                    'type' => $type
+                ];
+                $capacityData = [
+            'total_tickets' => $total_num,
+            'vip_tickets_number' => $vip_num,
+            'vip_price' => $vip_price,
+            'standard_tickets_number' => $regular_num,
+            'standard_price' => $regular_price,
+            'gratuit_tickets_number' => $student_num,
+            'early_bird_discount' => $discount
+        ];
+        $tagIds = explode(",",$tags);
 
 
             $this->evsdn->createEvent($evenmentData, $capacityData, $tagIds);
 
 
-            header("Location: /Organiser/dash");
+        header("Location: /Organiser/dash");
 
-            // echo "Total Tickets: " . htmlspecialchars($filePath) . "<br>";
-            // // echo "Discount: " . htmlspecialchars($videoPath) . "<br>";
-            // echo "VIP Tickets: " . htmlspecialchars($vip_num) . "<br>";
-            // echo "VIP Price: $" . htmlspecialchars($vip_price) . "<br>";
-            // echo "Regular Tickets: " . htmlspecialchars($regular_num) . "<br>";
-            // echo "Regular Price: $" . htmlspecialchars($regular_price) . "<br>";
-            // echo "Student Tickets: " . htmlspecialchars($student_num) . "<br>";
-            // echo "Tags: " . htmlspecialchars($tags) . "<br>";
-            // print_r (explode(",",$tags));
+        // echo  '<br>fvef<br>';
+        // print_r($_FILES);
+        // exit;
+        
+        //     echo "Total Tickets: " . htmlspecialchars($filePath) . "<br>";
+        //     // echo "Discount: " . htmlspecialchars($videoPath) . "<br>";
+        //     echo "VIP Tickets: " . htmlspecialchars($vip_num) . "<br>";
+        //     echo "VIP Price: $" . htmlspecialchars($vip_price) . "<br>";
+        //     echo "Regular Tickets: " . htmlspecialchars($regular_num) . "<br>";
+        //     echo "Regular Price: $" . htmlspecialchars($regular_price) . "<br>";
+        //     echo "Student Tickets: " . htmlspecialchars($student_num) . "<br>";
+        //     echo "Tags: " . htmlspecialchars($tags) . "<br>";
+        //     print_r (explode(",",$tags));
 
         }
     }

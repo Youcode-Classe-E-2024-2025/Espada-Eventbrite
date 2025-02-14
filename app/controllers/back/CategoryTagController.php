@@ -33,7 +33,8 @@ class CategoryTagController extends Controller
 
     public function addTag()
     {
-        $title = $_POST['title'] ?? '';
+        $title = $_POST['tag_title'] ?? '';
+        $this->logger->info('Attempting to add tag: ' . $title);
         $csrfToken = $_POST['csrf_token'] ?? '';
 
         if (!$this->security->validateCsrfToken($csrfToken)) {
@@ -54,7 +55,9 @@ class CategoryTagController extends Controller
 
     public function addCategory()
     {
-        $title = $_POST['title'] ?? '';
+        $title = $_POST['category_title'] ?? '';
+        $icon = $_POST['category_icon'] ?? '';
+        $this->logger->info('Attempting to add category: ' . $title);
         $csrfToken = $_POST['csrf_token'] ?? '';
 
         if (!$this->security->validateCsrfToken($csrfToken)) {
@@ -64,7 +67,7 @@ class CategoryTagController extends Controller
         }
 
         if (!empty($title)) {
-            $this->categoryTagService->addCategory($title);
+            $this->categoryTagService->addCategory($title, $icon);
             $this->session->set('success', 'Category added successfully.');
         } else {
             $this->session->set('error', 'Category title cannot be empty.');

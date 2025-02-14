@@ -232,3 +232,69 @@
 [2025-02-14 16:37:34] [DEBUG] Rendering template: back/users.html.twig
 [2025-02-14 16:37:39] [INFO] Fetching all categories and tags
 [2025-02-14 16:37:39] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-14 16:52:22] [DEBUG] Rendering template: front/home.html.twig
+[2025-02-14 16:52:27] [DEBUG] Rendering template: front/auth.twig
+[2025-02-14 16:52:35] [DEBUG] Rendering template: front/home.html.twig
+[2025-02-14 16:52:43] [DEBUG] Rendering template: front/auth.twig
+[2025-02-14 16:52:51] [INFO] Dashboard index accessed
+[2025-02-14 16:52:51] [INFO] Organiser dashboard accessed
+[2025-02-14 16:52:51] [DEBUG] Rendering template: /front/organiser/dashboard.twig
+[2025-02-14 16:55:47] [INFO] Dashboard index accessed
+[2025-02-14 16:55:47] [INFO] Organiser dashboard accessed
+[2025-02-14 16:55:47] [DEBUG] Rendering template: /front/organiser/dashboard.twig
+[2025-02-14 16:55:51] [DEBUG] Rendering template: front/organiser/createEvent.html.twig
+[2025-02-14 16:57:08] [DEBUG] Rendering template: front/organiser/dashboard.twig
+[2025-02-14 20:28:19] [DEBUG] Rendering template: front/organiser/dashboard.twig
+[2025-02-14 20:28:25] [DEBUG] Rendering template: front/home.html.twig
+[2025-02-14 20:28:27] [DEBUG] Rendering template: front/auth.twig
+[2025-02-14 20:28:32] [INFO] Dashboard index accessed
+[2025-02-14 20:28:32] [INFO] Admin dashboard accessed
+[2025-02-14 20:28:32] [INFO] Fetching stats for dashboard
+[2025-02-14 20:28:32] [INFO] Fetching pending actions for dashboard
+[2025-02-14 20:28:32] [INFO] Fetching recent activities for dashboard
+[2025-02-14 20:28:32] [DEBUG] Rendering template: /back/index.html.twig
+[2025-02-14 20:28:59] [ERROR] Invalid CSRF token.
+[2025-02-14 20:28:59] [INFO] Fetching all events
+[2025-02-14 20:28:59] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-14 20:30:48] [INFO] Fetching all events
+[2025-02-14 20:30:48] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-14 20:32:06] [INFO] Fetching all users
+[2025-02-14 20:32:06] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-14 20:32:12] [INFO] Dashboard index accessed
+[2025-02-14 20:32:12] [INFO] Admin dashboard accessed
+[2025-02-14 20:32:12] [INFO] Fetching stats for dashboard
+[2025-02-14 20:32:12] [INFO] Fetching pending actions for dashboard
+[2025-02-14 20:32:12] [INFO] Fetching recent activities for dashboard
+[2025-02-14 20:32:12] [DEBUG] Rendering template: /back/index.html.twig
+[2025-02-14 20:32:35] [INFO] Fetching all events
+[2025-02-14 20:32:35] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-14 20:32:37] [INFO] Fetching all categories and tags
+[2025-02-14 20:32:37] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-14 20:45:09] [INFO] Fetching all categories and tags
+[2025-02-14 20:45:09] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-14 20:48:29] [INFO] Fetching all categories and tags
+[2025-02-14 20:48:29] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-14 20:51:52] [INFO] Fetching all categories and tags
+[2025-02-14 20:51:52] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-14 20:53:23] [INFO] Fetching all categories and tags
+[2025-02-14 20:53:23] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-14 20:54:19] [INFO] Fetching all categories and tags
+[2025-02-14 20:54:19] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-14 20:57:35] [INFO] Fetching all categories and tags
+[2025-02-14 20:57:35] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-14 20:59:46] [INFO] Fetching all categories and tags
+[2025-02-14 20:59:46] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-14 21:01:18] [INFO] Fetching all categories and tags
+[2025-02-14 21:01:18] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-14 21:06:12] [INFO] Fetching all categories and tags
+[2025-02-14 21:06:12] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-14 21:10:44] [INFO] Fetching all categories and tags
+[2025-02-14 21:10:44] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-14 21:17:23] [INFO] Fetching all categories and tags
+[2025-02-14 21:17:23] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-14 21:18:07] [INFO] Attempting to add tag: tag
+[2025-02-14 21:18:07] [INFO] Fetching all categories and tags
+[2025-02-14 21:18:07] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-14 21:18:16] [INFO] Attempting to add category: Tatiana Reilly
+[2025-02-14 21:18:16] [INFO] Fetching all categories and tags
+[2025-02-14 21:18:16] [DEBUG] Rendering template: back/categoryTag.html.twig

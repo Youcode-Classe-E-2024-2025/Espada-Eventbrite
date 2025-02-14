@@ -17,8 +17,8 @@ class EvenmentRepository
 
     public function create(array $evenmentData)
     {
-        $query = "INSERT INTO evenments (title, description, visual_content, lieu, validation, archived, owner_id, category_id, date, type)
-                  VALUES (:title, :description, :visual_content, :lieu, 0, 0, :owner_id, :category_id, :date, :type) RETURNING id";
+        $query = "INSERT INTO evenments (title, description, visual_content, lieu, validation, archived, owner_id, category_id, date, type ,video_path)
+                  VALUES (:title, :description, :visual_content, :lieu, 1, 0, :owner_id, :category_id, :date, :type , :video_path) RETURNING id";
         $stmt = $this->DB->getConnection()->prepare($query);
         $res = $stmt->execute(
 
@@ -30,7 +30,8 @@ class EvenmentRepository
                 ":owner_id" => $evenmentData['owner_id'],
                 ":category_id" => $evenmentData['category_id'],
                 ":date" => $evenmentData['date'],
-                ":type" => $evenmentData['type']
+                ":type" => $evenmentData['type'],
+                ":video_path" => $evenmentData['video_path']
 
             ]
 
@@ -43,6 +44,30 @@ class EvenmentRepository
         }
 
         return false;
+    }
+
+    public function update(int $eventId, array $evenmentData)
+    {
+        $query = "UPDATE evenments 
+              SET title = :title, 
+                  description = :description, 
+                  visual_content = :visual_content, 
+                   video_path = :video_path
+                 
+              WHERE id = :eventId";
+
+        $stmt = $this->DB->getConnection()->prepare($query);
+
+        $res = $stmt->execute([
+            ":title" => $evenmentData['title'],
+            ":description" => $evenmentData['description'],
+            ":visual_content" => $evenmentData['visual_content'],
+            "::video_path" => $evenmentData[':video_path'],
+
+            ":eventId" => $eventId
+        ]);
+
+        return $res && $stmt->rowCount() > 0;
     }
 
     public function validate(int $evenmentId)
@@ -82,12 +107,11 @@ class EvenmentRepository
         LEFT JOIN capacity c ON e.id = c.evenment_id
         LEFT JOIN users u ON e.owner_id = u.id
         LEFT JOIN categories cat ON e.category_id = cat.id
-        ORDER BY e.date DESC LIMIT 3
+        ORDER BY e.date
         ";
         $stmt = $this->DB->query($query);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
-
 
     public function getMyEvents($id): array
     {
@@ -102,7 +126,6 @@ class EvenmentRepository
         $stmt = $this->DB->query($query, [":id" => $id]);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
-
 
     //     public function getOrganiserEvent($id): array {
     //         $query = 
@@ -166,33 +189,30 @@ class EvenmentRepository
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
     // public function ticketsStaT
-
-
     public function ticketsStaT(int $owner_id): array
     {
         $sql = "
             SELECT                  
-    -- Total Tickets: Sum of total tickets for all events owned by the user
-    COALESCE(SUM(c.total_tickets), 0) AS Total_Tickets, 
+            -- Total Tickets: Sum of total tickets for all events owned by the user
+            COALESCE(SUM(c.total_tickets), 0) AS Total_Tickets, 
 
-    -- Available Tickets: Total tickets minus all sold tickets
-    COALESCE(SUM(c.total_tickets - (c.vip_tickets_sold + c.standard_tickets_sold + c.gratuit_tickets_sold)), 0) AS Available_Tickets,
+            -- Available Tickets: Total tickets minus all sold tickets
+            COALESCE(SUM(c.total_tickets - (c.vip_tickets_sold + c.standard_tickets_sold + c.gratuit_tickets_sold)), 0) AS Available_Tickets,
 
-    -- Sold Tickets: Count of sold tickets (can still rely on 'capacity' if needed)
-    COALESCE(SUM(c.vip_tickets_sold + c.standard_tickets_sold + c.gratuit_tickets_sold), 0) AS Sold_Tickets,
+            -- Sold Tickets: Count of sold tickets (can still rely on 'capacity' if needed)
+            COALESCE(SUM(c.vip_tickets_sold + c.standard_tickets_sold + c.gratuit_tickets_sold), 0) AS Sold_Tickets,
 
-    -- Refunds: Count of refunded (canceled) tickets from the 'booking' table
-    COALESCE(COUNT(b.id) FILTER (WHERE b.canceled = 1), 0) AS Refund_Tickets
+            -- Refunds: Count of refunded (canceled) tickets from the 'booking' table
+            COALESCE(COUNT(b.id) FILTER (WHERE b.canceled = 1), 0) AS Refund_Tickets
 
-FROM evenments e
-LEFT JOIN capacity c ON e.id = c.evenment_id
-LEFT JOIN booking b ON e.id = b.evenment_id
+            FROM evenments e
+            LEFT JOIN capacity c ON e.id = c.evenment_id
+            LEFT JOIN booking b ON e.id = b.evenment_id
 
-WHERE e.owner_id = :owner_id;
+            WHERE e.owner_id = :owner_id;
 
-        ";
+                    ";
 
         $stmt = $this->DB->getConnection()->prepare($sql);
         $stmt->bindParam(':owner_id', $owner_id, PDO::PARAM_INT);
@@ -200,10 +220,6 @@ WHERE e.owner_id = :owner_id;
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
-
-
-
 
     public function getOwnerStatistics(int $owner_id): array
     {
@@ -228,10 +244,6 @@ WHERE e.owner_id = :owner_id;
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-
-
-
-
     // public function getClient(int $owner_id ,int $even_id): array {
     //     $sql = "SELECT 
     //                 u.username AS user_name,
@@ -254,6 +266,7 @@ WHERE e.owner_id = :owner_id;
 
     //     return ['p' => $result]; // Return an array with 'p' as the key (or change to a different name)
     // }
+
 
     public function getClient(int $owner_id, int $even_id = 0): array
     {
@@ -293,12 +306,6 @@ WHERE e.owner_id = :owner_id;
         return $result;  // Return the fetched results
     }
 
-
-
-
-
-
-
     // Function to get all events for a user
     function getUserEvents($user_id)
     {
@@ -330,11 +337,6 @@ WHERE e.owner_id = :owner_id;
             return [];
         }
     }
-
-
-
-
-
 
     public function getEventsales($owner, $even)
     {
@@ -453,6 +455,7 @@ WHERE e.owner_id = :owner_id;
 
     //     return $stmt->fetchAll(PDO::FETCH_OBJ);
     // }
+
     public function getPaginatedEvents(int $page = 1, int $limit = 2, array $categories = []): array
     {
         $offset = ($page - 1) * $limit;
@@ -495,7 +498,6 @@ WHERE e.owner_id = :owner_id;
         $stmt = $this->DB->query($sql, ['status' => Event::VALIDATED]);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
-
 
     public function getById($id)
     {

@@ -63,6 +63,8 @@ $router->addRoute('POST', '/admin/export/csv', [App\controllers\back\ExportContr
 $router->addRoute('POST', '/admin/export/pdf', [App\controllers\back\ExportController::class, 'exportPdf']);
 
 
+$router->addRoute('POST', '/category/create', [App\controllers\back\CategoryTagController::class, 'addCategory']);
+$router->addRoute('POST', '/tag/create', [App\controllers\back\CategoryTagController::class, 'addTag']);
 
 
 // $router->addRoute('GET', '/auth/login/google', [App\controllers\front\AuthController::class, 'loginWithGoogle']);
