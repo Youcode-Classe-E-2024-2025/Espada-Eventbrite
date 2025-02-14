@@ -19,8 +19,9 @@ class AdminUserController extends Controller
     {
         $this->logger->info('Fetching all users');
         $users = $this->userService->getAllUsers();
+        $messages = $this->session->get('messages') ?? [];
 
-        return $this->render('back/users.html.twig', ['users' => $users]);
+        return $this->render('back/users.html.twig', ['users' => $users, 'messages' => $messages]);
     }
 
     public function search()
@@ -32,12 +33,14 @@ class AdminUserController extends Controller
         $this->logger->info('Searching users with keyword: ' . $keyword);
 
         $results = $this->userService->searchFilterUsers($keyword, $roleId, $status);
+        $messages = $this->session->get('messages') ?? [];
 
         return $this->render('back/users.html.twig', [
             'users' => $results,
             'keyword' => $keyword,
             'role_id' => $roleId,
-            'status' => $status
+            'status' => $status,
+            'messages' => $messages
         ]);
     }
 
@@ -49,11 +52,13 @@ class AdminUserController extends Controller
         $this->logger->info('Filtering users with role: ' . $roleId . ' and status: ' . $status);
 
         $results = $this->userService->filterUsers($roleId, $status);
+        $messages = $this->session->get('messages') ?? [];
 
         return $this->render('back/users.html.twig', [
             'users' => $results,
             'role_id' => $roleId,
-            'status' => $status
+            'status' => $status,
+            'messages' => $messages
         ]);
     }
 

@@ -19,8 +19,9 @@ class AdminEventController extends Controller
     {
         $this->logger->info('Fetching all events');
         $events = $this->eventService->getEvents();
+        $messages = $this->session->get('messages') ?? [];
 
-        return $this->render('back/events.html.twig', ['events' => $events]);
+        return $this->render('back/events.html.twig', ['events' => $events, 'messages' => $messages]);
     }
 
     public function search()
@@ -29,10 +30,12 @@ class AdminEventController extends Controller
         $this->logger->info('Searching events with keyword: ' . $keyword);
 
         $events = $this->eventService->searchEvents($keyword);
+        $messages = $this->session->get('messages') ?? [];
 
         return $this->render('back/events.html.twig', [
             'events' => $events,
             'keyword' => $keyword,
+            'messages' => $messages
         ]);
     }
 

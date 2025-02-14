@@ -23,6 +23,8 @@ class DashboardController extends Controller
     {
         $this->logger->info('Dashboard index accessed');
 
+        $messages = $this->session->get('messages') ?? [];
+
         if ($_SESSION['user']->role_id == 1) {
             $this->logger->info('Organiser dashboard accessed');
             echo $this->render("/front/organiser/dashboard.twig");
@@ -35,14 +37,16 @@ class DashboardController extends Controller
                 $this->logger->info('User dashboard accessed with events.');
                 echo $this->render("/front/profile.html.twig", [
                     "event1" => $data[0],
-                    "event2" => $data[1]
+                    "event2" => $data[1],
+                    "messages" => $messages
                 ]);
             } else {
                 // Handle the case where $data doesn't have enough elements
                 $this->logger->debug('Not enough events found for user dashboard.');
                 echo $this->render("/front/profile.html.twig", [
                     "event1" => null,
-                    "event2" => null
+                    "event2" => null,
+                    "messages" => $messages
                 ]);
             }
         } else if ($_SESSION['user']->role_id == 3) {
@@ -54,7 +58,8 @@ class DashboardController extends Controller
             echo $this->render("/back/index.html.twig", [
                 'stats' => $stats,
                 'pendingActions' => $pendingActions,
-                'recentActivities' => $recentActivities
+                'recentActivities' => $recentActivities,
+                "messages" => $messages
             ]);
         } else {
             $this->logger->error('Invalid role for dashboard access');
@@ -64,12 +69,18 @@ class DashboardController extends Controller
     public function showEvents()
     {
         $this->logger->info('Events page accessed');
-        echo $this->render("/back/events.html.twig");
+        $messages = $this->session->get('messages') ?? [];
+        echo $this->render("/back/events.html.twig", [
+            "messages" => $messages
+        ]);
     }
     public function showUsers()
     {
         $this->logger->info('Users page accessed');
-        echo $this->render("/back/users.html.twig");
+        $messages = $this->session->get('messages') ?? [];
+        echo $this->render("/back/users.html.twig", [
+            "messages" => $messages
+        ]);
     }
     // public function showComments()
     // {
