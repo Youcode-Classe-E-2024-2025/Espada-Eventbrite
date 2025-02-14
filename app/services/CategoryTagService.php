@@ -2,18 +2,18 @@
 
 namespace App\services;
 
-use App\repository\CategoryRepo;
-use App\repository\TagRepo;
+use App\repository\CategoryRepository;
+use App\repository\TagRepository;
 
 class CategoryTagService
 {
-    private CategoryRepo $categoryRepository;
-    private TagRepo $tagRepository;
+    private CategoryRepository $categoryRepository;
+    private TagRepository $tagRepository;
 
     public function __construct()
     {
-        $this->categoryRepository = new CategoryRepo();
-        $this->tagRepository = new TagRepo();
+        $this->categoryRepository = new CategoryRepository();
+        $this->tagRepository = new TagRepository();
     }
 
     public function getAllCategories()

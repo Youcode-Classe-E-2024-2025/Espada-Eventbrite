@@ -5,7 +5,7 @@ namespace App\repository;
 use App\core\Database;
 use PDO;
 
-class CategoryRepo
+class CategoryRepository
 {
     private Database $DB;
 

@@ -118,3 +118,82 @@
 [2025-02-14 15:37:19] [DEBUG] Rendering template: /back/index.html.twig
 [2025-02-14 15:37:23] [INFO] Fetching all categories and tags
 [2025-02-14 15:37:23] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-14 15:47:39] [INFO] Dashboard index accessed
+[2025-02-14 15:47:39] [INFO] Admin dashboard accessed
+[2025-02-14 15:47:39] [INFO] Fetching stats for dashboard
+[2025-02-14 15:47:39] [INFO] Fetching pending actions for dashboard
+[2025-02-14 15:47:39] [INFO] Fetching recent activities for dashboard
+[2025-02-14 15:47:39] [DEBUG] Rendering template: /back/index.html.twig
+[2025-02-14 15:47:44] [ERROR] Invalid CSRF token.
+[2025-02-14 15:47:44] [INFO] Fetching all events
+[2025-02-14 15:47:44] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-14 15:47:48] [INFO] Updating event status: 6 to 0
+[2025-02-14 15:47:49] [INFO] Fetching all events
+[2025-02-14 15:47:49] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-14 15:47:50] [INFO] Updating event status: 6 to 1
+[2025-02-14 15:47:51] [INFO] Fetching all events
+[2025-02-14 15:47:51] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-14 15:47:52] [INFO] Updating event status: 6 to 2
+[2025-02-14 15:47:52] [INFO] Fetching all events
+[2025-02-14 15:47:52] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-14 15:47:54] [INFO] Updating event status: 6 to 3
+[2025-02-14 15:47:54] [INFO] Fetching all events
+[2025-02-14 15:47:54] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-14 15:48:00] [INFO] Fetching all users
+[2025-02-14 15:48:01] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-14 15:48:05] [INFO] Updating user status: 5 to 1
+[2025-02-14 15:48:05] [INFO] Fetching all users
+[2025-02-14 15:48:05] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-14 15:48:06] [INFO] Updating user status: 5 to 0
+[2025-02-14 15:48:06] [INFO] Fetching all users
+[2025-02-14 15:48:06] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-14 15:48:07] [INFO] Updating user status: 5 to 2
+[2025-02-14 15:48:07] [INFO] Fetching all users
+[2025-02-14 15:48:07] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-14 15:48:08] [INFO] Updating user status: 5 to 3
+[2025-02-14 15:48:08] [INFO] Fetching all users
+[2025-02-14 15:48:09] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-14 15:48:11] [INFO] Fetching all events
+[2025-02-14 15:48:11] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-14 15:48:14] [INFO] Dashboard index accessed
+[2025-02-14 15:48:14] [INFO] Admin dashboard accessed
+[2025-02-14 15:48:14] [INFO] Fetching stats for dashboard
+[2025-02-14 15:48:14] [INFO] Fetching pending actions for dashboard
+[2025-02-14 15:48:14] [INFO] Fetching recent activities for dashboard
+[2025-02-14 15:48:14] [DEBUG] Rendering template: /back/index.html.twig
+[2025-02-14 15:48:16] [INFO] Fetching all users
+[2025-02-14 15:48:16] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-14 15:48:20] [INFO] Searching users with keyword: admin
+[2025-02-14 15:48:20] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-14 15:48:23] [INFO] Filtering users with role: 3 and status: 0
+[2025-02-14 15:48:23] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-14 15:48:26] [INFO] Filtering users with role: 1 and status: 0
+[2025-02-14 15:48:26] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-14 15:48:29] [INFO] Filtering users with role: 2 and status: 0
+[2025-02-14 15:48:29] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-14 15:48:33] [INFO] Filtering users with role: 0 and status: 0
+[2025-02-14 15:48:33] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-14 15:48:37] [INFO] Fetching all events
+[2025-02-14 15:48:37] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-14 15:48:40] [INFO] Searching events with keyword: 3
+[2025-02-14 15:48:40] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-14 15:48:47] [INFO] Searching events with keyword: 3
+[2025-02-14 15:48:47] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-14 15:48:50] [INFO] Fetching all events
+[2025-02-14 15:48:50] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-14 15:50:24] [INFO] Fetching all events
+[2025-02-14 15:50:24] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-14 15:50:26] [INFO] Fetching all users
+[2025-02-14 15:50:26] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-14 15:55:17] [INFO] Fetching all categories and tags
+[2025-02-14 15:55:17] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-14 15:55:39] [INFO] Fetching all events
+[2025-02-14 15:55:39] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-14 15:55:42] [INFO] Fetching all users
+[2025-02-14 15:55:42] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-14 15:55:43] [INFO] Dashboard index accessed
+[2025-02-14 15:55:43] [INFO] Admin dashboard accessed
+[2025-02-14 15:55:43] [INFO] Fetching stats for dashboard
+[2025-02-14 15:55:43] [INFO] Fetching pending actions for dashboard
+[2025-02-14 15:55:43] [INFO] Fetching recent activities for dashboard
+[2025-02-14 15:55:43] [DEBUG] Rendering template: /back/index.html.twig
