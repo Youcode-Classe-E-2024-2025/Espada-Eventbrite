@@ -276,8 +276,71 @@ WHERE e.owner_id = :owner_id;
     
     
     
+    
+    // Function to get all events for a user
+    function getUserEvents($user_id) {
+        // SQL query to fetch events for the user
+        $sql = "SELECT 
+                    e.id AS event_id,
+                    e.title AS event_title
+                    
+                FROM 
+                    evenments e
+                JOIN 
+                    users u ON e.owner_id = u.id
+                WHERE 
+                    u.id = :user_id"; // Bind the user ID dynamically
+    
+        try {
+            // Prepare and execute the query
+            $stmt = $this->DB->getConnection()->prepare($sql);
+            $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+            $stmt->execute();
+    
+            // Fetch all events
+            $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+            // Return the events
+            return $events;
+        } catch (PDOException $e) {
+            // Handle any errors
+            echo "Error: " . $e->getMessage();
+            return [];
+        }
+    }
+    
+    
+    
+    
+    
 
+    public function getEventsales($owner , $even){
 
+        $sql = "
+                SELECT 
+                    u.username AS user_name,
+                    u.email AS user_email,
+                    u.avatar AS user_avatar,
+                    e.id AS event_id,
+                    e.title AS event_title,
+                    b.type AS booking_type,
+                    b.price AS booking_price
+                FROM booking b
+                JOIN evenments e ON b.evenment_id = e.id
+                JOIN users u ON b.user_id = u.id
+                WHERE e.owner_id = 1 AND e.id = 1;
+
+            ";
+    
+            $stmt = $this->DB->getConnection()->prepare($sql);
+            // $stmt->bindParam(':user_id', $owner, PDO::PARAM_INT);
+            // $stmt->bindParam(':eve_id', $even, PDO::PARAM_INT);
+            $stmt->execute();
+    
+            $event = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $event ;
+
+    }
 
    
 

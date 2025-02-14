@@ -24,17 +24,27 @@ $router->addRoute('GET', '/auth/logout', [App\controllers\front\AuthController::
 
 
 
-// $router->addRoute('GET', '/Organiser/dash', [App\controllers\front\OrganiserDashController::class, 'index']);
+$router->addRoute('GET', '/Organiser/dash', [App\controllers\front\OrganiserDashController::class, 'index']);
 $router->addRoute('GET', '/Organiser/tickets', [App\controllers\front\OrganiserDashController::class, 'tickets']);
 $router->addRoute('GET', '/Organiser/events', [App\controllers\front\OrganiserDashController::class, 'events']);
-$router->addRoute('GET', '/Organiser/test', [App\controllers\front\OrganiserDashController::class, 'serviceTest']);
+
+
+$router->addRoute('GET', '/Organiser/createEve', [App\controllers\front\OrganiserDashController::class, 'createEve']);
+
+
+$router->addRoute('POST', '/Organiser/create', [App\controllers\front\OrganiserDashController::class, 'create']);
+
+
+$router->addRoute('GET', '/Organiser/eventTicket/{id}', [App\controllers\front\OrganiserDashController::class, 'getEventTickets']);
+
+$router->addRoute('GET', '/Organiser/delete/{id}', [App\controllers\front\OrganiserDashController::class, 'delete']);
 
 
 // $router->addRoute('GET', '/events/search', [App\controllers\front\EventController::class, 'search']);
 
 $router->addRoute('GET', '/events/list', [App\controllers\front\EventController::class, 'index']);
 
-$router->addRoute('POST', '/organiser/dash', [App\controllers\front\OrganiserDashController::class, 'index']);
+// $router->addRoute('GET', '/Organiser/dash', [App\controllers\front\OrganiserDashController::class, 'index']);
 $router->addRoute('GET', '/reservation', [App\controllers\front\ReservationController::class, 'index']);
 
 
