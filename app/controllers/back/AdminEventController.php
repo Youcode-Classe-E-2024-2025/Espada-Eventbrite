@@ -44,6 +44,7 @@ class AdminEventController extends Controller
 
         if (!$this->security->validateCsrfToken($csrfToken)) {
             $this->logger->error('Invalid CSRF token.');
+            $this->session->set('error', 'Invalid CSRF token.');
             $this->redirect('/admin/events');
             exit;
         }
@@ -54,6 +55,7 @@ class AdminEventController extends Controller
             // $this->redirect('/admin/events');
         } else {
             $this->logger->error('Failed to update event status.');
+            $this->session->set('error', 'Failed to update event status.');
         }
 
         $this->redirect('/admin/events');
@@ -67,6 +69,7 @@ class AdminEventController extends Controller
 
         if (!$this->security->validateCsrfToken($csrfToken)) {
             $this->logger->error('Invalid CSRF token.');
+            $this->session->set('error', 'Invalid CSRF token.');
             $this->redirect('/admin/events');
             exit;
         }
@@ -76,6 +79,7 @@ class AdminEventController extends Controller
             $this->eventService->deleteEvent($eventId);
         } else {
             $this->logger->error('Failed to delete event.');
+            $this->session->set('error', 'Failed to delete event.');
         }
 
         $this->redirect('/admin/events');

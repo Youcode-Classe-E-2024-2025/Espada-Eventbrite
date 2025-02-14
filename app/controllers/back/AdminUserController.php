@@ -65,6 +65,7 @@ class AdminUserController extends Controller
 
         if (!$this->security->validateCsrfToken($csrfToken)) {
             $this->logger->error('Invalid CSRF token.');
+            $this->session->set('error', 'Invalid CSRF token.');
             $this->redirect('/admin/users');
             exit;
         }
@@ -75,6 +76,7 @@ class AdminUserController extends Controller
             $this->redirect('/admin/users');
         } else {
             $this->logger->error('Failed to update user status.');
+            $this->session->set('error', 'Failed to update user status.');
         }
 
         // $this->redirect('/back/users');

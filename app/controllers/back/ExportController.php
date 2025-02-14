@@ -22,6 +22,8 @@ class ExportController extends Controller
 
             $csrfToken = $_POST['csrf_token'] ?? '';
             if (!$this->security->validateCsrfToken($csrfToken)) {
+                $this->logger->error('Invalid CSRF token.');
+                $this->session->set('error', 'Invalid CSRF token.');
                 throw new \Exception('Invalid CSRF token.');
             }
 
@@ -31,8 +33,11 @@ class ExportController extends Controller
             header('Pragma: no-cache');
             header('Expires: 0');
             echo $data;
+
+            $this->session->set('success', 'Data exported successfully.');
         } catch (\Exception $e) {
             $this->logger->error('Error exporting data to CSV: ' . $e->getMessage());
+            $this->session->set('error', 'Error exporting data to CSV: ' . $e->getMessage());
             die('Erreur : ' . $e->getMessage());
         }
     }
@@ -44,6 +49,9 @@ class ExportController extends Controller
 
             $csrfToken = $_POST['csrf_token'] ?? '';
             if (!$this->security->validateCsrfToken($csrfToken)) {
+                $this->logger->error('Invalid CSRF token.');
+                $this->session->set('error', 'Invalid CSRF token.');
+                $this->redirect('/admin/export');
                 throw new \Exception('Invalid CSRF token.');
             }
 
@@ -51,9 +59,13 @@ class ExportController extends Controller
             header('Content-Type: application/pdf');
             header('Content-Disposition: attachment; filename="export.pdf"');
             echo $data;
+
+            $this->session->set('success', 'Data exported to PDF successfully.');
         } catch (\Exception $e) {
             $this->logger->error('Error exporting data to PDF: ' . $e->getMessage());
-            die('Erreur : ' . $e->getMessage());
+            $this->session->set('error', 'Error exporting data to PDF.');
+            $this->redirect('/admin/export');
+            exit;
         }
     }
 }
