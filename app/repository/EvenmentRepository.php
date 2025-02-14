@@ -290,13 +290,97 @@ WHERE e.owner_id = :owner_id;
     
     
     
+    
+    // Function to get all events for a user
+    function getUserEvents($user_id) {
+        // SQL query to fetch events for the user
+        $sql = "SELECT 
+                    e.id AS event_id,
+                    e.title AS event_title
+                    
+                FROM 
+                    evenments e
+                
+                WHERE 
+                    e.owner_id = :user_id"; // Bind the user ID dynamically
+    
+        try {
+            // Prepare and execute the query
+            $stmt = $this->DB->getConnection()->prepare($sql);
+            $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+            $stmt->execute();
+    
+            // Fetch all events
+            $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+            // Return the events
+            return $events;
+        } catch (PDOException $e) {
+            // Handle any errors
+            echo "Error: " . $e->getMessage();
+            return [];
+        }
+    }
+    
+    
+    
+    
+    
 
+    public function getEventsales($owner , $even){
 
+        $sql = "
+                SELECT 
+                    u.username AS user_name,
+                    u.email AS user_email,
+                    u.avatar AS user_avatar,
+                    e.id AS event_id,
+                    e.title AS event_title,
+                    b.type AS booking_type,
+                    b.price AS booking_price
+                FROM booking b
+                JOIN evenments e ON b.evenment_id = e.id
+                JOIN users u ON b.user_id = u.id
+                WHERE e.owner_id = :user_id AND e.id = :eve_id;
+
+            ";
+    
+            $stmt = $this->DB->getConnection()->prepare($sql);
+            $stmt->bindParam(':user_id', $owner, PDO::PARAM_INT);
+            $stmt->bindParam(':eve_id', $even, PDO::PARAM_INT);
+            $stmt->execute();
+    
+            $event = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $event ;
+
+    }
 
     public function delete(int $eventId)
     {
-        $query = "DELETE FROM evenments WHERE id = :id";
-        return $this->DB->query($query, [':id' => $eventId]);
+        
+            $conn = $this->DB->getConnection();
+    
+            // Delete from envenment_tag
+            $sql1 = "DELETE FROM envenment_tag WHERE envenment_id = :eventId;";
+            $stmt1 = $conn->prepare($sql1);
+            $stmt1->bindParam(':eventId', $eventId, PDO::PARAM_INT);
+            $stmt1->execute();
+    
+            // Delete from capacity
+            $sql2 = "DELETE FROM capacity WHERE evenment_id = :eventId;";
+            $stmt2 = $conn->prepare($sql2);
+            $stmt2->bindParam(':eventId', $eventId, PDO::PARAM_INT);
+            $stmt2->execute();
+    
+            // Delete from evenments
+            $sql3 = "DELETE FROM evenments WHERE id = :eventId;";
+            $stmt3 = $conn->prepare($sql3);
+            $stmt3->bindParam(':eventId', $eventId, PDO::PARAM_INT);
+            $stmt3->execute();
+    
+            return $stmt3->rowCount() > 0;
+    
+        
     }
 
     public function searchEvents($keyword)

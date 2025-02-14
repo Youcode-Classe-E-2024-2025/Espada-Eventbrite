@@ -19,9 +19,9 @@
                     <i class="fa-solid fa-calendar-check"></i>
                     <span>Events</span>
                 </a>
-                <a href="/admin/comments" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
+                <a href="/admin/contents" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
                     <i class="fa-solid fa-comments"></i>
-                    <span>Comments</span>
+                    <span>categories&tags</span>
                 </a>
                 <a href="#" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
                     <i class="fa-solid fa-chart-pie"></i>
@@ -32,6 +32,14 @@
        </aside>
     {% endblock %}
 {% block mainContent %}
+
+        {% if messages is defined %}
+            {% for type, message in messages %}
+                <div class="alert alert-{{ type }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
 
         <div id="users-controls" class="flex justify-between items-center mb-6">
             <div class="flex space-x-4">

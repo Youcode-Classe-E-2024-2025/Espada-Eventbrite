@@ -31,7 +31,7 @@
                             <h3 class="text-sm font-medium text-gray-500">Total Tickets</h3>
                             <i class="fa-solid fa-ticket text-indigo-600"></i>
                         </div>
-                        <p class="text-2xl font-semibold mt-2">{{ data.tickts.Total_Tickets }}</p>
+                        <p class="text-2xl font-semibold mt-2">{{ data.tickts.total_tickets }}</p>
                     </div>
                     <div class="bg-white p-6 rounded-xl border border-gray-200">
                         <div class="flex items-center justify-between">
@@ -61,11 +61,13 @@
                             <h2 class="text-lg font-semibold">Ticket Sales</h2>
                             <div class="flex items-center gap-4">
                                 <div class="flex items-center gap-2">
-                                    <select class="border border-gray-300 rounded-lg px-3 py-1.5 text-sm">
-                                        <option>All Events</option>
-                                        <option>Summer Music Festival</option>
-                                        <option>Tech Conference 2025</option>
-                                    </select>
+                                  <select class="border border-gray-300 rounded-lg px-3 py-1.5 text-sm" id="eventSelectOptions">
+                <option class="selectEvents" value="all">All Events</option>
+                {% for event in data.eve %}
+                    <option value={{ event.event_id }}>{{ event.event_title }}</option>
+                {% endfor %}
+</select>
+
                                     
                                 </div>
                                 <button class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
@@ -78,106 +80,67 @@
                         <table class="w-full">
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ticket ID</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Event</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Purchase Date</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                <tr>
-                                    <td class="px-6 py-4 text-sm text-gray-500">#TK-2501</td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center">
-                                            <div class="h-10 w-10 rounded-lg bg-indigo-100 flex items-center justify-center">
-                                                <i class="fa-solid fa-music text-indigo-600"></i>
-                                            </div>
-                                            <div class="ml-4">
-                                                <div class="text-sm font-medium text-gray-900">Summer Music Festival</div>
-                                                <div class="text-sm text-gray-500">Aug 15, 2025</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center">
-                                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" class="h-8 w-8 rounded-full"/>
-                                            <div class="ml-3">
-                                                <div class="text-sm font-medium text-gray-900">John Smith</div>
-                                                <div class="text-sm text-gray-500">john@example.com</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">Jul 1, 2025</td>
-                                    <td class="px-6 py-4">
-                                        <span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">VIP</span>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Confirmed</span>
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-gray-900 font-medium">$150.00</td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center gap-2">
-                                            <button class="p-2 hover:bg-gray-100 rounded-lg">
-                                                <i class="fa-solid fa-qrcode text-gray-400"></i>
-                                            </button>
-                                            <button class="p-2 hover:bg-gray-100 rounded-lg">
-                                                <i class="fa-solid fa-pen-to-square text-gray-400"></i>
-                                            </button>
-                                            <button class="p-2 hover:bg-gray-100 rounded-lg">
-                                                <i class="fa-solid fa-trash text-gray-400"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 text-sm text-gray-500">#TK-2502</td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center">
-                                            <div class="h-10 w-10 rounded-lg bg-purple-100 flex items-center justify-center">
-                                                <i class="fa-solid fa-graduation-cap text-purple-600"></i>
-                                            </div>
-                                            <div class="ml-4">
-                                                <div class="text-sm font-medium text-gray-900">Tech Conference 2025</div>
-                                                <div class="text-sm text-gray-500">Sep 20, 2025</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center">
-                                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg" class="h-8 w-8 rounded-full"/>
-                                            <div class="ml-3">
-                                                <div class="text-sm font-medium text-gray-900">Sarah Johnson</div>
-                                                <div class="text-sm text-gray-500">sarah@example.com</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">Jul 2, 2025</td>
-                                    <td class="px-6 py-4">
-                                        <span class="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-800 rounded-full">Standard</span>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <span class="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">Pending</span>
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-gray-900 font-medium">$99.00</td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center gap-2">
-                                            <button class="p-2 hover:bg-gray-100 rounded-lg">
-                                                <i class="fa-solid fa-qrcode text-gray-400"></i>
-                                            </button>
-                                            <button class="p-2 hover:bg-gray-100 rounded-lg">
-                                                <i class="fa-solid fa-pen-to-square text-gray-400"></i>
-                                            </button>
-                                            <button class="p-2 hover:bg-gray-100 rounded-lg">
-                                                <i class="fa-solid fa-trash text-gray-400"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
+                            
+                           <tbody id='eventsDisplay'>
+    {% for booking in data.p %}
+        <tr class="border-b">
+            <td class="px-6 py-4">
+                <div class="flex items-center">
+                    <div class="h-10 w-10 rounded-lg bg-indigo-100 flex items-center justify-center">
+                        <i class="fa-solid fa-music text-indigo-600"></i>
+                    </div>
+                    <div class="ml-4">
+                        <div class="text-sm font-medium text-gray-900">{{ booking.event_title }}</div>
+                        <div class="text-sm text-gray-500">{{ booking.event_date }}</div>
+                    </div>
+                </div>
+            </td>
+            <td class="px-6 py-4">
+                <div class="flex items-center">
+                    {% if booking.user_avatar is not empty %}
+                        <img src="{{ booking.user_avatar }}" class="h-8 w-8 rounded-full"/>
+                    {% else %}
+                        <div class="h-8 w-8 rounded-full bg-gray-300 flex items-center justify-center text-gray-500 text-sm">N/A</div>
+                    {% endif %}
+                    <div class="ml-3">
+                        <div class="text-sm font-medium text-gray-900">{{ booking.user_name }}</div>
+                        <div class="text-sm text-gray-500">{{ booking.user_email }}</div>
+                    </div>
+                </div>
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-500">{{ booking.booking_date }}</td>
+            <td class="px-6 py-4">
+                <span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">{{ booking.booking_type }}</span>
+            </td>
+            <td class="px-6 py-4">
+                <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Confirmed</span>
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-900 font-medium">${{ booking.booking_price }}</td>
+            {# <td class="px-6 py-4">
+                <div class="flex items-center gap-2">
+                    <button class="p-2 hover:bg-gray-100 rounded-lg">
+                        <i class="fa-solid fa-qrcode text-gray-400"></i>
+                    </button>
+                    <button class="p-2 hover:bg-gray-100 rounded-lg">
+                        <i class="fa-solid fa-pen-to-square text-gray-400"></i>
+                    </button>
+                    <button class="p-2 hover:bg-gray-100 rounded-lg">
+                        <i class="fa-solid fa-trash text-gray-400"></i>
+                    </button>
+                </div>
+            </td> #}
+        </tr>
+    {% endfor %}
+</tbody>
+
                         </table>
                     </div>
                     <div class="p-4 border-t border-gray-200">
@@ -197,5 +160,137 @@
                 </div>
             </div>
 {% endblock %}
+
+{% block scripts %} <script >
+
+
+
+document.getElementById('eventSelectOptions').addEventListener('change', function() {
+    // Get the selected event ID
+    const eventId = this.value;
+    
+    fetchEventData(eventId);
+})
+
+{# function fetchEventData(eventId) {
+    const url = `/Organiser/eventTicket/${eventId}`;
+
+    fetch(url)
+        .then(response => console.log('Raw'+response.json()),console.log('Raw'+response.status))
+        .then(data => {
+            console.log('Raw response:', data);  
+            const tbody = document.getElementById('eventsDisplay');
+            tbody.innerHTML = ''; // Clear existing content
+
+            // Assuming `data` is an array of event booking details
+            data.forEach(booking => {
+                const row = document.createElement('tr');
+                row.classList.add('border-b');
+                row.innerHTML = `
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            <div class="h-10 w-10 rounded-lg bg-indigo-100 flex items-center justify-center">
+                                <i class="fa-solid fa-music text-indigo-600"></i>
+                            </div>
+                            <div class="ml-4">
+                                <div class="text-sm font-medium text-gray-900">${booking.event_title}</div>
+                                <div class="text-sm text-gray-500">${booking.event_date}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            ${booking.user_avatar ? `<img src="${booking.user_avatar}" class="h-8 w-8 rounded-full"/>` : `<div class="h-8 w-8 rounded-full bg-gray-300 flex items-center justify-center text-gray-500 text-sm">N/A</div>`}
+                            <div class="ml-3">
+                                <div class="text-sm font-medium text-gray-900">${booking.user_name}</div>
+                                <div class="text-sm text-gray-500">${booking.user_email}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 text-sm text-gray-500">${booking.booking_date}</td>
+                    <td class="px-6 py-4">
+                        <span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">${booking.booking_type}</span>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Confirmed</span>
+                    </td>
+                    <td class="px-6 py-4 text-sm text-gray-900 font-medium">$${booking.booking_price}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            console.log('mqzjefz');
+        });
+} #}
+
+function fetchEventData(eventId) {
+    const url = `/Organiser/eventTicket/${eventId}`;
+
+    fetch(url)
+        .then(response => {
+            console.log('Raw status:', response.status);
+            return response.json();
+        })
+        .then(data => {
+            console.log('Parsed response:', data);
+
+            const tbody = document.getElementById('eventsDisplay');
+            tbody.innerHTML = ''; // Clear existing content
+
+            if (!Array.isArray(data) || data.length === 0) {
+                console.warn('No bookings found.');
+                tbody.innerHTML = `<tr><td colspan="6" class="text-center py-4">No bookings found.</td></tr>`;
+                return;
+            }
+
+            data.forEach(booking => {
+                const row = document.createElement('tr');
+                row.classList.add('border-b');
+
+                row.innerHTML = `
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            <div class="h-10 w-10 rounded-lg bg-indigo-100 flex items-center justify-center">
+                                <i class="fa-solid fa-music text-indigo-600"></i>
+                            </div>
+                            <div class="ml-4">
+                                <div class="text-sm font-medium text-gray-900">${booking.event_title || 'Unknown Event'}</div>
+                                <div class="text-sm text-gray-500">${booking.event_date || 'Date Not Available'}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            ${booking.user_avatar ? `<img src="${booking.user_avatar}" class="h-8 w-8 rounded-full"/>` : `<div class="h-8 w-8 rounded-full bg-gray-300 flex items-center justify-center text-gray-500 text-sm">N/A</div>`}
+                            <div class="ml-3">
+                                <div class="text-sm font-medium text-gray-900">${booking.user_name || 'Unknown User'}</div>
+                                <div class="text-sm text-gray-500">${booking.user_email || 'No Email'}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 text-sm text-gray-500">${booking.booking_date || 'N/A'}</td>
+                    <td class="px-6 py-4">
+                        <span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">${booking.booking_type || 'N/A'}</span>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Confirmed</span>
+                    </td>
+                    <td class="px-6 py-4 text-sm text-gray-900 font-medium">$${booking.booking_price || '0.00'}</td>
+                `;
+
+                tbody.appendChild(row);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            const tbody = document.getElementById('eventsDisplay');
+            tbody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-red-600">Failed to load data</td></tr>`;
+        });
+}
+
+
+</script>{% endblock %}
           
            
