@@ -13,8 +13,10 @@ $router->addRoute('GET', '/admin/events', [App\controllers\back\AdminEventContro
 $router->addRoute('GET', '/admin/events/search', [App\controllers\back\AdminEventController::class, 'search']);
 $router->addRoute('POST', '/admin/events/status', [App\controllers\back\AdminEventController::class, 'updateStatus']);
 $router->addRoute('POST', '/admin/events/delete', [App\controllers\back\AdminEventController::class, 'delete']);
-$router->addRoute('GET', '/admin/contents', [App\controllers\back\DashboardController::class, 'showContents']);
 $router->addRoute('POST', '/auth/register', [App\controllers\front\AuthController::class, 'register']);
+
+
+$router->addRoute('GET', '/admin/categoryTag', [App\controllers\back\CategoryTagController::class, 'index']);
 
 
 $router->addRoute('POST', '/auth/login', [App\controllers\front\AuthController::class, 'login']);
@@ -57,8 +59,8 @@ $router->addRoute('GET', '/admin/users/search', [App\controllers\back\AdminUserC
 $router->addRoute('GET', '/admin/users/filter', [App\controllers\back\AdminUserController::class, 'filter']);
 $router->addRoute('POST', '/admin/users/status', [App\controllers\back\AdminUserController::class, 'updateStatus']);
 // $router->addRoute('POST', '/admin/users/banUser', [App\controllers\back\AdminUserController::class, 'updateStatus']);
-$router->addRoute('GET', '/admin/export/csv', [App\controllers\back\ExportController::class, 'exportCsv']);
-$router->addRoute('GET', '/admin/export/pdf', [App\controllers\back\ExportController::class, 'exportPdf']);
+$router->addRoute('POST', '/admin/export/csv', [App\controllers\back\ExportController::class, 'exportCsv']);
+$router->addRoute('POST', '/admin/export/pdf', [App\controllers\back\ExportController::class, 'exportPdf']);
 
 
 
