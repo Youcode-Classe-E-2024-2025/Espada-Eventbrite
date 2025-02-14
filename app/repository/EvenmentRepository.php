@@ -46,6 +46,45 @@ class EvenmentRepository
         return false;
     }
 
+
+
+    public function update(int $eventId, array $evenmentData)
+{
+    $query = "UPDATE evenments 
+              SET title = :title, 
+                  description = :description, 
+                  visual_content = :visual_content, 
+                   video_path = :video_path
+                 
+              WHERE id = :eventId";
+
+    $stmt = $this->DB->getConnection()->prepare($query);
+    
+    $res = $stmt->execute([
+        ":title" => $evenmentData['title'],
+        ":description" => $evenmentData['description'],
+        ":visual_content" => $evenmentData['visual_content'],
+        "::video_path" => $evenmentData[':video_path'],
+      
+        ":eventId" => $eventId 
+    ]);
+
+    return $res && $stmt->rowCount() > 0; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function validate(int $evenmentId)
     {
         $query = "UPDATE evenments SET validation = 1 WHERE id = :id";

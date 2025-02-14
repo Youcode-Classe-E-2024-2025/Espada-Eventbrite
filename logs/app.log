@@ -43,3 +43,5 @@
 [2025-02-14 14:29:45] [DEBUG] Rendering template: front/organiser/createEvent.html.twig
 [2025-02-14 14:30:03] [DEBUG] Rendering template: front/organiser/dashboard.twig
 [2025-02-14 14:30:03] [DEBUG] Rendering template: /back/404.html.twig
+[2025-02-14 14:43:10] [DEBUG] Rendering template: front/organiser/dashboard.twig
+[2025-02-14 14:43:10] [DEBUG] Rendering template: /back/404.html.twig
