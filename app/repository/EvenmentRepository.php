@@ -17,8 +17,8 @@ class EvenmentRepository
 
     public function create(array $evenmentData)
     {
-        $query = "INSERT INTO evenments (title, description, visual_content, lieu, validation, archived, owner_id, category_id, date, type)
-                  VALUES (:title, :description, :visual_content, :lieu, 1, 0, :owner_id, :category_id, :date, :type) RETURNING id";
+        $query = "INSERT INTO evenments (title, description, visual_content, lieu, validation, archived, owner_id, category_id, date, type ,video_path)
+                  VALUES (:title, :description, :visual_content, :lieu, 1, 0, :owner_id, :category_id, :date, :type , :video_path) RETURNING id";
         $stmt = $this->DB->getConnection()->prepare($query);
         $res = $stmt->execute(
 
@@ -30,7 +30,8 @@ class EvenmentRepository
                 ":owner_id" => $evenmentData['owner_id'],
                 ":category_id" => $evenmentData['category_id'],
                 ":date" => $evenmentData['date'],
-                ":type" => $evenmentData['type']
+                ":type" => $evenmentData['type'],
+                ":video_path"=>$evenmentData['video_path']
 
             ]
 
@@ -322,7 +323,6 @@ WHERE e.owner_id = :owner_id;
             return [];
         }
     }
-    
     
     
     
