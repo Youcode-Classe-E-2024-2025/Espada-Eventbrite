@@ -20,8 +20,9 @@ class AdminUserController extends Controller
         $this->logger->info('Fetching all users');
         $users = $this->userService->getAllUsers();
         $messages = $this->session->get('messages') ?? [];
+        $csrfToken = $this->security->generateCsrfToken();
 
-        return $this->render('back/users.html.twig', ['users' => $users, 'messages' => $messages]);
+        return $this->render('back/users.html.twig', ['users' => $users, 'messages' => $messages, 'csrf_token' => $csrfToken]);
     }
 
     public function search()
@@ -31,7 +32,6 @@ class AdminUserController extends Controller
         $status = isset($_GET['status']) ? $_GET['status'] : null;
 
         $this->logger->info('Searching users with keyword: ' . $keyword);
-
         $results = $this->userService->searchFilterUsers($keyword, $roleId, $status);
         $messages = $this->session->get('messages') ?? [];
 
@@ -40,7 +40,7 @@ class AdminUserController extends Controller
             'keyword' => $keyword,
             'role_id' => $roleId,
             'status' => $status,
-            'messages' => $messages
+            'messages' => $messages,
         ]);
     }
 
@@ -58,7 +58,7 @@ class AdminUserController extends Controller
             'users' => $results,
             'role_id' => $roleId,
             'status' => $status,
-            'messages' => $messages
+            'messages' => $messages,
         ]);
     }
 
@@ -66,7 +66,7 @@ class AdminUserController extends Controller
     {
         $userId = isset($_POST['user_id']) ? (int)$_POST['user_id'] : null;
         $status = isset($_POST['status']) ? (int)$_POST['status'] : null;
-        $csrfToken = isset($_POST['csrf_token']) ? $_POST['csrf_token'] : null;
+        $csrfToken = $_POST['csrf_token'] ?? '';
 
         if (!$this->security->validateCsrfToken($csrfToken)) {
             $this->logger->error('Invalid CSRF token.');

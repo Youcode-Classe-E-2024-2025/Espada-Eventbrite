@@ -19,7 +19,7 @@
                     <i class="fa-solid fa-calendar-check"></i>
                     <span>Events</span>
                 </a>
-                <a href="/admin/contents" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
+                <a href="/admin/categoryTag" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
                     <i class="fa-solid fa-comments"></i>
                     <span>categories&tags</span>
                 </a>
@@ -44,10 +44,12 @@
         <div id="users-controls" class="flex justify-between items-center mb-6">
             <div class="flex space-x-4">
                 <form action="/admin/users/search" method="get" class="relative">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
                     <input type="text" name="keyword" placeholder="Search users..." class="pl-10 pr-4 py-2 border rounded-lg w-64">
                     <i class="fa-solid fa-search absolute left-3 top-3 text-gray-400"></i>
                 </form>
                 <form action="/admin/users/filter" method="get" class="flex space-x-4">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
                     <select name="role_id" class="border rounded-lg px-4 py-2">
                         <option value="">All Roles</option>
                         <option value="3">Admin</option>
@@ -115,6 +117,7 @@
                                     <div class="flex space-x-2">
                                         {% if user.banned == 0 %}
                                             <form action="/admin/users/status" method="POST" class="inline">
+                                                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
                                                 <input type="hidden" name="user_id" value="{{ user.id }}">
                                                 <input type="hidden" name="status" value="1">
                                                 <button type="submit" class="text-gray-400 hover:text-red-500" title="Ban User">
@@ -123,6 +126,7 @@
                                             </form>
                                         {% else %}
                                             <form action="/admin/users/status" method="POST" class="inline">
+                                                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
                                                 <input type="hidden" name="user_id" value="{{ user.id }}">
                                                 <input type="hidden" name="status" value="0">
                                                 <button type="submit" class="text-gray-400 hover:text-green-500" title="Activate User">
@@ -132,6 +136,7 @@
                                         {% endif %}
                                         {% if user.archived == 0 %}
                                             <form action="/admin/users/status" method="POST" class="inline">
+                                                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
                                                 <input type="hidden" name="user_id" value="{{ user.id }}">
                                                 <input type="hidden" name="status" value="2">
                                                 <button type="submit" class="text-gray-400 hover:text-yellow-500" title="Archive User">
@@ -140,6 +145,7 @@
                                             </form>
                                         {% else %}
                                             <form action="/admin/users/status" method="POST" class="inline">
+                                                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
                                                 <input type="hidden" name="user_id" value="{{ user.id }}">
                                                 <input type="hidden" name="status" value="3">
                                                 <button type="submit" class="text-gray-400 hover:text-red-500" title="Remove from Archive">
