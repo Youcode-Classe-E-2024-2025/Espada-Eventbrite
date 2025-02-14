@@ -90,12 +90,12 @@ class DashboardController extends Controller {
 
     private function getRecentActivities() {
         $recentUsers = $this->userService->getRecentUsers();
-        // $recentEvents = $this->eventService->getRecentEvents();
+        $recentEvents = $this->eventService->getRecentEvents();
         // $recentComments = $this->eventService->getRecentComments();
 
         return [
-            'recentUsers' => $recentUsers
-            // 'recentEvents' => $recentEvents,
+            'recentUsers' => $recentUsers,
+            'recentEvents' => $recentEvents
             // 'reportedComments' => $recentComments
         ];
     }
