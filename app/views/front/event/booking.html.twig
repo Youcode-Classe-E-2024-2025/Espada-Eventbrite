@@ -20,7 +20,7 @@
                                         </div>
                                         <div class="text-right">
                                             <p class="text-2xl font-bold" data-price="{{ data.standard_price }}">${{ data.standard_price }}</p>
-                                            <select class="mt-2 border rounded p-2 ticket-quantity" data-type="standard">
+                                            <select class="mt-2 border rounded p-2 ticket-quantity" data-type="standard" onchange="updateQuantities()">
                                                 <option value="0" selected>0</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
@@ -38,7 +38,7 @@
                                         </div>
                                         <div class="text-right">
                                             <p class="text-2xl font-bold" data-price="{{ data.vip_price }}">${{ data.vip_price }}</p>
-                                            <select class="mt-2 border rounded p-2 ticket-quantity" data-type="vip">
+                                            <select class="mt-2 border rounded p-2 ticket-quantity" data-type="vip" onchange="updateQuantities()">
                                                 <option value="0" selected>0</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
@@ -55,7 +55,7 @@
                                         </div>
                                          <div class="text-right">
                                             <p class="text-2xl font-bold" data-price="0">$0</p>
-                                            <select class="mt-2 border rounded p-2 ticket-quantity" data-type="free">
+                                            <select class="mt-2 border rounded p-2 ticket-quantity" data-type="free" onchange="updateQuantities()">
                                                 <option value="0" selected>0</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
@@ -87,6 +87,10 @@
                         <div id="order-summary" class="bg-white rounded-xl shadow-sm border p-6 h-fit">
                             <form action="/events/reserv" method="POST" id="booking-form">
                             <input name="event_id" class="hidden" value=" {{ event.event_id }} ">
+                            <input type="hidden" name="vipQuantity" id="vipQuantity" value="0">
+                            <input type="hidden" name="standardQuantity" id="standardQuantity" value="0">
+                            <input type="hidden" name="freeQuantity" id="freeQuantity" value="0">
+                            <input type="hidden" name="totalPrice" id="totalPrice" value="0">
                                 <h2 class="text-2xl font-bold mb-6">Order Summary</h2>
                                 <div class="space-y-4">
                                     <div class="flex justify-between">
@@ -97,6 +101,10 @@
                                         <span>Standard Access (x0)</span>
                                         <span>$0.00</span>
                                     </div>
+                                     <div class="flex justify-between">
+                                            <span>Free Access (x$0)</span>
+                                            <span>$0.00</span>
+                                    </div>
                                     <div class="flex justify-between text-sm text-gray-600">
                                         <span>Processing Fee</span>
                                         <span>$5.99</span>
@@ -106,9 +114,6 @@
                                             <span>Total</span>
                                             <span id="total-price">$5.99</span>
                                         </div>
-                                        <input type="hidden" name="vipQuantity" id="vipQuantity" value="0">
-                                        <input type="hidden" name="standardQuantity" id="standardQuantity" value="0">
-                                        <input type="hidden" name="totalPrice" id="totalPrice" value="0">
                                         <button type="submit" class="w-full bg-blue-600 text-white py-4 rounded-lg font-semibold hover:bg-blue-700">
                                             Complete Booking
                                         </button>
@@ -155,6 +160,7 @@
                         // Initialize quantities
                         let vipQuantity = 0;
                         let standardQuantity = 0;
+                        let freeQuantity = 0;
 
                         ticketQuantities.forEach(select => {
                             select.addEventListener('change', updateTotalPrice);
@@ -164,6 +170,7 @@
                             let total = 0;
                             let vipQuantity = 0;
                             let standardQuantity = 0;
+                            let freeQuantity = 0;
 
                             ticketQuantities.forEach(select => {
                                 // Ensure we are correctly retrieving the price attribute
@@ -184,6 +191,8 @@
                                     vipQuantity = quantity;
                                 } else if (select.getAttribute('data-type') === 'standard') {
                                     standardQuantity = quantity;
+                                } else if (select.getAttribute('data-type') === 'free') {
+                                    freeQuantity = quantity;
                                 }
                             });
 
@@ -194,6 +203,7 @@
                             // Debugging to check values
                             console.log("VIP Quantity:", vipQuantity);
                             console.log("Standard Quantity:", standardQuantity);
+                            console.log("Free Quantity:", freeQuantity);
                             console.log("Total Price:", total);
 
                             // Update order summary
@@ -210,6 +220,10 @@
                                             <span>Standard Access (x${standardQuantity})</span>
                                             <span>$${(standardQuantity * (isNaN(parseFloat(ticketQuantities[0]?.previousElementSibling?.getAttribute('data-price'))) ? 0 : parseFloat(ticketQuantities[0].previousElementSibling.getAttribute('data-price')))).toFixed(2)}</span>
                                         </div>
+                                        <div class='flex justify-between'>
+                                            <span>Free Access (x${freeQuantity})</span>
+                                            <span>$${(freeQuantity * (isNaN(parseFloat(ticketQuantities[2]?.previousElementSibling?.getAttribute('data-price'))) ? 0 : parseFloat(ticketQuantities[2].previousElementSibling.getAttribute('data-price')))).toFixed(2)}</span>
+                                        </div>
                                         <div class='flex justify-between text-sm text-gray-600'>
                                             <span>Processing Fee</span>
                                             <span>$5.99</span>
@@ -222,6 +236,7 @@
                                         </div>
                                         <input type="hidden" name="vipQuantity" id="vipQuantity" value="${vipQuantity}">
                                         <input type="hidden" name="standardQuantity" id="standardQuantity" value="${standardQuantity}">
+                                        <input type="hidden" name="freeQuantity" id="freeQuantity" value="${freeQuantity}">
                                         <input type="hidden" name="totalPrice" id="totalPrice" value="${total.toFixed(2)}">
                                         <button type="submit" class="w-full bg-blue-600 text-white py-4 rounded-lg font-semibold hover:bg-blue-700">
                                             Complete Booking
@@ -234,18 +249,15 @@
                     });
                 </script>
                 <script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                        const ticketQuantityInput = document.getElementById('ticketQuantity');
-                        const priceValue = document.getElementById('priceValue');
-                        const totalPriceDisplay = document.getElementById('totalPrice');
-                        const pricePerTicket = parseFloat(priceValue.innerText);
+                    function updateQuantities() {
+                        const vipQuantity = document.querySelector('select[data-type="vip"]').value;
+                        const standardQuantity = document.querySelector('select[data-type="standard"]').value;
+                        const freeQuantity = document.querySelector('select[data-type="free"]').value;
 
-                        ticketQuantityInput.addEventListener('input', function() {
-                            const quantity = parseInt(this.value);
-                            const totalPrice = quantity * pricePerTicket;
-                            totalPriceDisplay.innerText = totalPrice.toFixed(2);
-                        });
-                    });
+                        document.getElementById('vipQuantity').value = vipQuantity;
+                        document.getElementById('standardQuantity').value = standardQuantity;
+                        document.getElementById('freeQuantity').value = freeQuantity;
+                    }
                 </script>
                <div>
     <label for="ticketQuantity">Number of Tickets:</label>

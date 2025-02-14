@@ -48,13 +48,7 @@ $router->addRoute('GET', '/events/booking/{id}', [App\controllers\front\Reservat
 $router->addRoute('POST', '/events/reserv', [App\controllers\front\ReservationController::class, 'getBooking']);
 // $router->addRoute('GET', '/events/list/searchByCaty', [App\controllers\front\EventController::class, 'serchByCategory']);
 
-<<<<<<< HEAD
-$router->addRoute('POST', '/profile/update', [App\controllers\front\ProfileController::class, 'updateUser']);
-
-$router->addRoute('POST', '/organiser/dash', [App\controllers\front\OrganiserDashController::class, 'index']);
-=======
 // $router->addRoute('GET', '/Organiser/dash', [App\controllers\front\OrganiserDashController::class, 'index']);
->>>>>>> c2a309fe8bbe91de07caf3ff7459821ad34238a4
 $router->addRoute('GET', '/reservation', [App\controllers\front\ReservationController::class, 'index']);
 
 

@@ -5,7 +5,6 @@ namespace App\controllers\front;
 use App\core\Controller;
 use App\core\View;
 use App\services\EventService;
-use App\services\EventService;
 use App\services\StatService;
 use App\services\CreateService;
 

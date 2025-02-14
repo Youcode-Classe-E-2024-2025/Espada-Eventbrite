@@ -26,6 +26,39 @@ class CapacityRepository {
         return $stmt->fetch(PDO::FETCH_OBJ) ?: null;
     }
 
+    //update the sold whene the user get teckit
+    public function updateSold($event_id,$new_vip_tickets,$new_standard_tickets,$new_gratuit_tickets){
+        $query = "UPDATE capacity
+        SET 
+            vip_tickets_sold = vip_tickets_sold + :new_vip_tickets,
+            standard_tickets_sold = standard_tickets_sold + :new_standard_tickets,
+            gratuit_tickets_sold = gratuit_tickets_sold + :new_gratuit_tickets
+        WHERE evenment_id = :event_id;";
+
+    return $stmt = $this->DB->query($query, [":new_vip_tickets" => $new_vip_tickets,
+                                            ":new_standard_tickets" => $new_standard_tickets,
+                                            ":new_gratuit_tickets" => $new_gratuit_tickets,
+                                            ":event_id" => $event_id
+                                            ]);
+    }
+
+
+    public function getAvailable($event_id){
+        $query = "SELECT
+    (vip_tickets_number - vip_tickets_sold) AS vip_tickets_available,
+    (standard_tickets_number - standard_tickets_sold) AS standard_tickets_available,
+    (gratuit_tickets_number - gratuit_tickets_sold) AS gratuit_tickets_available
+FROM
+    capacity
+WHERE
+    evenment_id = :event_id;";
+
+     $stmt = $this->DB->query($query, [
+                                            ":event_id" => $event_id
+     ]);
+     return $stmt->fetch(PDO::FETCH_OBJ);
+    }
+
     public function getEventStatistics($evenment_id)
     {
         $query = "SELECT 

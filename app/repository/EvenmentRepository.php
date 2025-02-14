@@ -37,7 +37,6 @@ class EvenmentRepository
         );
         if ($res) {
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            var_dump($result);
             // Fetch the ID
             return  $result['id'];  // Ensure it returns an integer
         }

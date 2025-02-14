@@ -15,8 +15,10 @@ class ReservationController extends Controller{
         $this->eventService = new EventService();
     }
     public function index($id){
+        
         $data = $this->eventService->getEventById($id[0]);
         $statis = $this->eventService->getCapacities($id[0]);
+        
         echo $this->view->render("front/event/booking.html.twig", ['data' => $statis,'event'=>$data]);
     }
     public function getBooking() {
@@ -24,18 +26,20 @@ class ReservationController extends Controller{
             $event_id = $_POST['event_id'];
             $vipQuantity = $_POST['vipQuantity'];
             $standardQuantity = $_POST['standardQuantity'];
+            $freeQuantity = $_POST['freeQuantity'];
             $totalPrice = $_POST['totalPrice'];
     
             $userId = $this->session->get('user')->id; 
             $date = date('d-m-y');
 
             $booking_date = (new \DateTime($date))->format('Y-m-d H:i:s');
+            
 
             $type = 'VIP';
 
             $this->ReservationService->insertBooking($userId, $event_id, $type , $totalPrice, $booking_date);
-    
-            echo "Booking successful! VIP Quantity: $vipQuantity, Standard Quantity: $standardQuantity, Total Price: $$totalPrice";
+            $this->ReservationService->updateSold($event_id, $vipQuantity,$standardQuantity,$freeQuantity);
+            echo "Booking successful! VIP Quantity: $vipQuantity, Standard Quantity: $standardQuantity, free Quantity: $freeQuantity Total Price: $$totalPrice";
         }
     }
 }

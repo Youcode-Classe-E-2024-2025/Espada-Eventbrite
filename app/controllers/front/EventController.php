@@ -5,20 +5,23 @@ namespace App\controllers\front;
 use App\core\Controller;
 use App\services\EventService;
 use App\repository\EvenmentRepository;
-use App\repository\CategoryRepo;
+use App\repository\CategoryRepository;
+use App\services\ReservationService;
 
 class EventController extends Controller
 {
     private EventService $eventService;
     private EvenmentRepository $evenmentRepository; 
-    private CategoryRepo $categoryRepo; 
+    private CategoryRepository $categoryRepo; 
+    private ReservationService $ReservationService; 
 
     public function __construct()
     {
         parent::__construct();
         $this->eventService = new EventService();
         $this->evenmentRepository = new EvenmentRepository();
-        $this->categoryRepo = new CategoryRepo();
+        $this->categoryRepo = new CategoryRepository();
+        $this->ReservationService = new ReservationService();
     }
 
     public function index()
@@ -63,8 +66,10 @@ class EventController extends Controller
       $data = $this->eventService->getEventById($id[0]);
       $statis = $this->eventService->getCapacities($id[0]);
       $tags = $this->eventService->getTags($id[0]);
-      
-     echo $this->render('front/event/event-detail.html.twig',['event' => $data, 'statistics'=> $statis, 'tags'=> $tags]);
+      $availible = $this->ReservationService->getAvailable($id[0]);
+      var_dump($availible);
+      die();
+     echo $this->render('front/event/event-detail.html.twig',['event' => $data, 'statistics'=> $statis, 'tags'=> $tags, 'available'=>$availible]);
   }
 
     public function search()

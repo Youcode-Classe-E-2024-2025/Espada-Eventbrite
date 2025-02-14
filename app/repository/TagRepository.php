@@ -5,7 +5,7 @@ namespace App\repository;
 use App\core\Database;
 use PDO;
 
-class TagRepo {
+class TagRepository {
     private Database $DB;
 
     public function __construct() {
