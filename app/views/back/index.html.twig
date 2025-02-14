@@ -173,14 +173,18 @@
                 <h2 class="text-xl font-bold">Data Export</h2>
             </div>
             <div class="flex space-x-4">
-                <button class="flex items-center space-x-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
-                    <i class="fa-solid fa-file-csv"></i>
-                    <span>Export as CSV</span>
-                </button>
-                <button class="flex items-center space-x-2 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
-                    <i class="fa-solid fa-file-pdf"></i>
-                    <span>Export as PDF</span>
-                </button>
+                <form action="/admin/export/csv" method="GET">
+                    <button class="flex items-center space-x-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+                        <i class="fa-solid fa-file-csv"></i>
+                        <span>Export as CSV</span>
+                    </button>
+                </form>
+                <form action="/admin/export/pdf" method="GET">
+                    <button class="flex items-center space-x-2 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
+                        <i class="fa-solid fa-file-pdf"></i>
+                        <span>Export as PDF</span>
+                    </button>
+                </form>
             </div>
         </div>
 {% endblock %}

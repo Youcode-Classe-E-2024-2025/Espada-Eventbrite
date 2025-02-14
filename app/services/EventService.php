@@ -6,6 +6,7 @@ use App\repository\EvenmentRepository;
 use App\repository\CapacityRepository;
 use App\repository\EvenmentTagRepository;
 use App\repository\EventRepository;
+use App\repository\ReservationRepository;
 use App\models\Event;
 use App\core\Database;
 
@@ -18,6 +19,8 @@ class EventService
     private CapacityRepository $capacityRepo;
     private EvenmentTagRepository $evenmentTagRepo;
     private EventRepository $eventRepository;
+    private ReservationRepository $ReservationRepository;
+
     private Event $event;
 
     public function __construct()
@@ -26,6 +29,7 @@ class EventService
         $this->capacityRepo = new CapacityRepository();
         $this->evenmentTagRepo = new EvenmentTagRepository();
         $this->event = new Event();
+        $this->ReservationRepository = new ReservationRepository();
         $this->eventRepository = new EventRepository(new Database(), $this->event);
     }
 
@@ -126,4 +130,10 @@ class EventService
     public function getMyEvent($id){
         return $this->evenmentRepo->getMyEvents($id);
     }
+    public function getRecentEvents(int $limit = 5){
+
+        return $this->evenmentRepo->getPaginatedEvents(1, $limit, []);
+    }
+
+
 }
