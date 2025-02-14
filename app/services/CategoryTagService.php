@@ -45,4 +45,9 @@ class CategoryTagService
     {
         return $this->tagRepository->delete($id);
     }
+
+    public function updateCategory($id, $name, $icon)
+    {
+        return $this->categoryRepository->update($id, $name, $icon);
+    }
 }

@@ -41,4 +41,11 @@ class CategoryRepository
         $stmt = $this->DB->query($query, [':id' => $id]);
         return $stmt->rowCount() > 0;
     }
+
+    public function update($id, $name, $icon)
+    {
+        $sql = "UPDATE categories SET name = :name, icon = :icon WHERE id = :id";
+        $stmt = $this->DB->query($sql, [':name' => $name, ':icon' => $icon, ':id' => $id]);
+        return $stmt->rowCount() > 0;
+    }
 }

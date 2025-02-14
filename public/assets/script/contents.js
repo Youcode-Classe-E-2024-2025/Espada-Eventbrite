@@ -44,4 +44,25 @@ document.addEventListener('DOMContentLoaded', () => {
     // Just hide the modal
     toggleTagModal();
   });
+
+  document.querySelectorAll('.edit-category-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const modal = document.getElementById('edit-category-modal');
+      const id = button.getAttribute('data-id');
+      const name = button.getAttribute('data-name');
+      const icon = button.getAttribute('data-icon');
+
+      document.getElementById('edit-category-id').value = id;
+      document.getElementById('edit-category-name').value = name;
+      document.getElementById('edit-category-icon').value = icon;
+
+      modal.classList.remove('hidden');
+    });
+  });
+
+  document.getElementById('close-edit-modal').addEventListener('click', () => {
+    const modal = document.getElementById('edit-category-modal');
+    modal.classList.add('hidden');
+  });
+
 });

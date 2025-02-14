@@ -76,6 +76,31 @@ class CategoryTagController extends Controller
         $this->redirect('/admin/categoryTag');
     }
 
+    public function updateCategory()
+    {
+        $id = $_POST['category_id'] ?? '';
+        $name = $_POST['category_name'] ?? '';
+        $icon = $_POST['category_icon'] ?? '';
+        $csrfToken = $_POST['csrf_token'] ?? '';
+        $this->logger->info('Attempting to update category with ID: ' . $id);
+
+        if (!$this->security->validateCsrfToken($csrfToken)) {
+            $this->session->set('error', 'Invalid CSRF token.');
+            $this->redirect('/admin/categoryTag');
+            exit;
+        }
+
+        if (!empty($name)) {
+            $this->categoryTagService->updateCategory($id, $name, $icon);
+            $this->session->set('success', 'Category updated successfully.');
+        } else {
+            $this->session->set('error', 'Category title cannot be empty.');
+        }
+
+        $this->redirect('/admin/categoryTag');
+    }
+
+
     public function deleteCategory()
     {
         $id = $_POST['category_id'] ?? '';
