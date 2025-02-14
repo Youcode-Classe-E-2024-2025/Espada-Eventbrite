@@ -21,6 +21,7 @@ class HomeController extends controller
       die('error to fetch data');
     }
     $locations = json_decode($response,true);
+    // var_dump($locations);
     $events = $this->evenmentRepository->getAll();
     $data = [
       'events' => $events,
