@@ -17,6 +17,7 @@ class AdminUserController extends Controller
 
     public function index()
     {
+        $this->logger->info('Fetching all users');
         $users = $this->userService->getAllUsers();
 
         return $this->render('back/users.html.twig', ['users' => $users]);
@@ -27,6 +28,8 @@ class AdminUserController extends Controller
         $keyword = isset($_GET['keyword']) ? trim($_GET['keyword']) : '';
         $roleId = isset($_GET['role_id']) ? (int)$_GET['role_id'] : null;
         $status = isset($_GET['status']) ? $_GET['status'] : null;
+
+        $this->logger->info('Searching users with keyword: ' . $keyword);
 
         $results = $this->userService->searchFilterUsers($keyword, $roleId, $status);
 
@@ -43,6 +46,8 @@ class AdminUserController extends Controller
         $roleId = isset($_GET['role_id']) ? (int)$_GET['role_id'] : null;
         $status = isset($_GET['status']) ? (int)$_GET['status'] : null;
 
+        $this->logger->info('Filtering users with role: ' . $roleId . ' and status: ' . $status);
+
         $results = $this->userService->filterUsers($roleId, $status);
 
         return $this->render('back/users.html.twig', [
@@ -58,8 +63,11 @@ class AdminUserController extends Controller
         $status = isset($_POST['status']) ? (int)$_POST['status'] : null;
 
         if ($userId && isset($status)) {
+            $this->logger->info('Updating user status: ' . $userId . ' to ' . $status);
             $this->userService->updateUserStatus($userId, $status);
             $this->redirect('/admin/users');
+        } else {
+            $this->logger->error('Failed to update user status.');
         }
 
         // $this->redirect('/back/users');
