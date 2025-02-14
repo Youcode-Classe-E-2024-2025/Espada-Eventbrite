@@ -54,8 +54,8 @@ class DashboardController extends Controller
             $stats = $this->getStats();
             $pendingActions = $this->getPendingActions();
             $recentActivities = $this->getRecentActivities();
-            // var_dump($pendingActions);
-            echo $this->render("/back/index.html.twig", [
+            // var_dump( $pendingActions );
+            echo $this->render('/back/index.html.twig', [
                 'stats' => $stats,
                 'pendingActions' => $pendingActions,
                 'recentActivities' => $recentActivities,
@@ -96,7 +96,7 @@ class DashboardController extends Controller
         $ticketsSold = $this->eventService->getTotalTicketsSold();
         $revenue = $this->eventService->getTotalRevenue();
 
-        // var_dump($totalUsers, $activeEvents, $ticketsSold, $revenue);
+        // var_dump( $totalUsers, $activeEvents, $ticketsSold, $revenue );
         // die();
 
         return  [
@@ -128,7 +128,7 @@ class DashboardController extends Controller
 
         return [
             'recentUsers' => $recentUsers,
-            'recentEvents' => $recentEvents,
+            'recentEvents' => $recentEvents
             // 'reportedComments' => $recentComments
         ];
     }

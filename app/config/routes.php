@@ -13,7 +13,7 @@ $router->addRoute('GET', '/admin/events', [App\controllers\back\AdminEventContro
 $router->addRoute('GET', '/admin/events/search', [App\controllers\back\AdminEventController::class, 'search']);
 $router->addRoute('POST', '/admin/events/status', [App\controllers\back\AdminEventController::class, 'updateStatus']);
 $router->addRoute('POST', '/admin/events/delete', [App\controllers\back\AdminEventController::class, 'delete']);
-$router->addRoute('GET', '/admin/comments', [App\controllers\back\DashboardController::class, 'showComments']);
+$router->addRoute('GET', '/admin/contents', [App\controllers\back\DashboardController::class, 'showContents']);
 $router->addRoute('POST', '/auth/register', [App\controllers\front\AuthController::class, 'register']);
 
 
@@ -34,7 +34,8 @@ $router->addRoute('GET', '/Organiser/test', [App\controllers\front\OrganiserDash
 
 $router->addRoute('GET', '/events/list', [App\controllers\front\EventController::class, 'index']);
 $router->addRoute('GET', '/event/details/{id}', [App\controllers\front\EventController::class, 'eventDetails']);
-$router->addRoute('GET', '/events/booking', [App\controllers\front\ReservationController::class, 'index']);
+$router->addRoute('GET', '/events/booking/{id}', [App\controllers\front\ReservationController::class, 'index']);
+$router->addRoute('POST', '/events/reserv/{id}', [App\controllers\front\ReservationController::class, 'getBooking']);
 // $router->addRoute('GET', '/events/list/searchByCaty', [App\controllers\front\EventController::class, 'serchByCategory']);
 
 $router->addRoute('POST', '/organiser/dash', [App\controllers\front\OrganiserDashController::class, 'index']);
