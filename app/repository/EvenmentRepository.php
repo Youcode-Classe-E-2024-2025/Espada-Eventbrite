@@ -349,8 +349,30 @@ WHERE e.owner_id = :owner_id;
 
     public function delete(int $eventId)
     {
-        $query = "DELETE FROM evenments WHERE id = :id";
-        return $this->DB->query($query, [':id' => $eventId]);
+        
+            $conn = $this->DB->getConnection();
+    
+            // Delete from envenment_tag
+            $sql1 = "DELETE FROM envenment_tag WHERE envenment_id = :eventId;";
+            $stmt1 = $conn->prepare($sql1);
+            $stmt1->bindParam(':eventId', $eventId, PDO::PARAM_INT);
+            $stmt1->execute();
+    
+            // Delete from capacity
+            $sql2 = "DELETE FROM capacity WHERE evenment_id = :eventId;";
+            $stmt2 = $conn->prepare($sql2);
+            $stmt2->bindParam(':eventId', $eventId, PDO::PARAM_INT);
+            $stmt2->execute();
+    
+            // Delete from evenments
+            $sql3 = "DELETE FROM evenments WHERE id = :eventId;";
+            $stmt3 = $conn->prepare($sql3);
+            $stmt3->bindParam(':eventId', $eventId, PDO::PARAM_INT);
+            $stmt3->execute();
+    
+            return $stmt3->rowCount() > 0;
+    
+        
     }
 
     public function searchEvents($keyword)

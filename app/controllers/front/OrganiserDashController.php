@@ -97,13 +97,19 @@ class OrganiserDashController extends Controller
     }
 
     public function delete($id){
-        $intValeur = (int) $id;
+        $intValeur = (int) $id[0];
 
-        $this->statServ->deleteEvent($intValeur);
+        $this->statServ->deleteE($intValeur);
 
 
-    //    header('Location: /Organiser/dash');
+        
 
+        header("Location: /Organiser/dash"); 
+
+
+
+
+    
         
 
     }
@@ -139,12 +145,62 @@ class OrganiserDashController extends Controller
 
 
     }
+public function crealhjte() {
 
+    $videoPath = null; // Ensure $videoPath is always set
+
+if (isset($_FILES['video']) && $_FILES['video']['error'] === UPLOAD_ERR_OK) {
+    $video = $_FILES['video'];
+
+    // Absolute path to the upload directory
+    $uploadDir = '/home/hamza/Desktop/collab/Espada-Eventbrite/uploads/videos/';
+
+    // Ensure the upload directory exists
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0777, true);
+    }
+
+    // Sanitize the file name
+    $fileName = uniqid() . "_" . basename($video['name']);
+    $videoPath = $uploadDir . $fileName;
+
+    // Validate file type (only allow videos)
+    $allowedTypes = ['video/mp4', 'video/avi', 'video/quicktime', 'video/mov'];
+    if (in_array($video['type'], $allowedTypes)) {
+        // Check file size (max 50MB)
+        if ($video['size'] <= 50 * 1024 * 1024) {
+            // Move the uploaded file to the desired location
+            if (move_uploaded_file($video['tmp_name'], $videoPath)) {
+                echo "Video uploaded successfully.<br>";
+                echo "Video Path: " . htmlspecialchars($videoPath) . "<br>";
+            } else {
+                echo "Failed to move the uploaded video.";
+                $videoPath = null; // Reset to null if upload fails
+            }
+        } else {
+            echo "File size exceeds the 50MB limit.";
+            $videoPath = null;
+        }
+    } else {
+        echo "Invalid file type. Only MP4, AVI, and MOV videos are allowed.";
+        $videoPath = null;
+    }
+} else {
+    echo "Error with the uploaded video.";
+    $videoPath = null;
+}
+
+// Ensure htmlspecialchars() doesn't receive null
+echo "Discount: " . htmlspecialchars($videoPath ?? "No video uploaded") . "<br>";
+
+    
+}
     
     public function create()
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             // Retrieve form data
+            $videoPath=null;
             $title = $_POST['title'] ?? null;
             $description = $_POST['description'] ?? null;
             $type = $_POST['type'] ?? null;
@@ -199,7 +255,43 @@ class OrganiserDashController extends Controller
             } else {
                 echo "Error with the uploaded file.";
             }
-
+            // if (isset($_FILES['video']) && $_FILES['video']['error'] === UPLOAD_ERR_OK) {
+            //     $video = $_FILES['video'];
+            
+            //     // Absolute path to the upload directory
+            //     $uploadDir = '/home/hamza/Desktop/collab/Espada-Eventbrite/uploads/videos/';
+            
+            //     // Ensure the upload directory exists
+            //     if (!is_dir($uploadDir)) {
+            //         mkdir($uploadDir, 0777, true);  // Create directory if not exists
+            //     }
+            
+            //     // Sanitize the file name
+            //     $fileName = uniqid() . "_" . basename($video['name']);
+            //     $videoPath = $uploadDir . $fileName;
+            
+            //     // Validate file type (only allow videos)
+            //     $allowedTypes = ['video/mp4', 'video/avi', 'video/quicktime', 'video/mov'];
+            //     if (in_array($video['type'], $allowedTypes)) {
+            //         // Check file size (max 50MB)
+            //         if ($video['size'] <= 50 * 1024 * 1024) {
+            //             // Move the uploaded file to the desired location
+            //             if (move_uploaded_file($video['tmp_name'], $videoPath)) {
+            //                 echo "Video uploaded successfully.<br>";
+            //                 echo "Video Path: " . htmlspecialchars($videoPath) . "<br>";
+            //             } else {
+            //                 echo "Failed to move the uploaded file.";
+            //             }
+            //         } else {
+            //             echo "File size exceeds the 50MB limit.";
+            //         }
+            //     } else {
+            //         echo "Invalid file type. Only MP4, AVI, and MOV videos are allowed.";
+            //     }
+            // } else {
+            //     echo "Error with the uploaded file.";
+            // }
+            
             $evenmentData = [
                     'title' => $title,
                     'description' =>$description ,
@@ -227,8 +319,8 @@ class OrganiserDashController extends Controller
 
         header("Location: /Organiser/dash");
           
-            // echo "Total Tickets: " . htmlspecialchars($total_num) . "<br>";
-            // echo "Discount: " . htmlspecialchars($discount) . "<br>";
+            // echo "Total Tickets: " . htmlspecialchars($filePath) . "<br>";
+            // // echo "Discount: " . htmlspecialchars($videoPath) . "<br>";
             // echo "VIP Tickets: " . htmlspecialchars($vip_num) . "<br>";
             // echo "VIP Price: $" . htmlspecialchars($vip_price) . "<br>";
             // echo "Regular Tickets: " . htmlspecialchars($regular_num) . "<br>";

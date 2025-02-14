@@ -62,5 +62,14 @@ class StatService {
 
     }
 
+    
+
+    public function deleteE($eventId){
+        $res = $this->evenmentRepo->delete($eventId);
+
+         return $res ;
+       
+    }
+
    
 }
