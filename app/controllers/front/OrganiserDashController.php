@@ -20,27 +20,30 @@ class OrganiserDashController extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->evsdn=new EventService();
-        $this->statServ=new StatService();
-        $this->tagCatego =new CreateService();
-        $this->id=$this->session->get('user')->id;
-        
+        $this->evsdn = new EventService();
+        $this->statServ = new StatService();
+        $this->tagCatego = new CreateService();
+        $this->id = $this->session->get('user')->id;
     }
 
 
-    public function index(): void { $this->ind($this->id);  }
+    public function index(): void
+    {
+        $this->ind($this->id);
+    }
 
 
-    public function ind($id){
+    public function ind($id)
+    {
 
         $intValeur = (int) $id;
 
-       $data = $this->statServ->getOwnerStatistic($intValeur)  ;
+        $data = $this->statServ->getOwnerStatistic($intValeur);
 
-       
-     
 
-        echo $this->render('front/organiser/dashboard.twig',[ 'data' =>$data]);
+
+
+        echo $this->render('front/organiser/dashboard.twig', ['data' => $data]);
         // var_dump($this->id);
         // var_dump($data);
     }
@@ -51,36 +54,38 @@ class OrganiserDashController extends Controller
 
 
 
-    public function getEventTickets( $eventIdzed) { 
+    public function getEventTickets($eventIdzed)
+    {
         $id = $eventIdzed[0];
 
         $this->getEv($id);
-      }
+    }
 
-    
-    
-    public function getEv( $eventId){
+
+
+    public function getEv($eventId)
+    {
         if ($eventId === 'all') {
             // Redirect to the tickets page when 'all' is selected
-            $intValeur =  (int)  $this->id ;
-            $event = $this->statServ->ticketsStaTs($intValeur)  ;
-            header("HTTP/1.1 200 OK"); 
+            $intValeur =  (int)  $this->id;
+            $event = $this->statServ->ticketsStaTs($intValeur);
+            header("HTTP/1.1 200 OK");
             echo json_encode($event);
-           
         } else {
             // Prepare and execute the query to get event details for a specific user and event
             $userId = $this->id;  // Assume the user ID is stored in the session
-            
+
             $idR = (int) $eventId;
-            $event=$this->statServ->getET(1 , $idR);
-            header("HTTP/1.1 200 OK"); 
+            $event = $this->statServ->getET(1, $idR);
+            header("HTTP/1.1 200 OK");
             echo json_encode($event);
         }
     }
-    
 
 
-    public function tickets(){
+
+    public function tickets()
+    {
         $this->tic($this->id);
     }
 
@@ -89,29 +94,23 @@ class OrganiserDashController extends Controller
 
         $intValeur = (int) $id;
 
-        $data = $this->statServ->ticketsStaTs($intValeur)  ;
+        $data = $this->statServ->ticketsStaTs($intValeur);
 
         // var_dump($data);
- 
-        echo $this->render('front/organiser/tickets.html.twig',[ 'data' =>$data]);
+
+        echo $this->render('front/organiser/tickets.html.twig', ['data' => $data]);
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         $intValeur = (int) $id[0];
 
         $this->statServ->deleteE($intValeur);
 
 
-        
-
-        header("Location: /Organiser/dash"); 
 
 
-
-
-    
-        
-
+        header("Location: /Organiser/dash");
     }
 
 
@@ -133,74 +132,67 @@ class OrganiserDashController extends Controller
 
 
 
-        $tG=$this->tagCatego->getAllTagAndCatego();
-        
-
-
-        echo $this->render('front/organiser/createEvent.html.twig' , [ 'data' => $tG]);
+        $tG = $this->tagCatego->getAllTagAndCatego();
 
 
 
-
-
-
+        echo $this->render('front/organiser/createEvent.html.twig', ['data' => $tG]);
     }
-public function crealhjte() {
+    public function crealhjte()
+    {
 
-    $videoPath = null; // Ensure $videoPath is always set
+        $videoPath = null; // Ensure $videoPath is always set
 
-if (isset($_FILES['video']) && $_FILES['video']['error'] === UPLOAD_ERR_OK) {
-    $video = $_FILES['video'];
+        if (isset($_FILES['video']) && $_FILES['video']['error'] === UPLOAD_ERR_OK) {
+            $video = $_FILES['video'];
 
-    // Absolute path to the upload directory
-    $uploadDir = '/home/hamza/Desktop/collab/Espada-Eventbrite/uploads/videos/';
+            // Absolute path to the upload directory
+            $uploadDir = '/home/hamza/Desktop/collab/Espada-Eventbrite/uploads/videos/';
 
-    // Ensure the upload directory exists
-    if (!is_dir($uploadDir)) {
-        mkdir($uploadDir, 0777, true);
-    }
+            // Ensure the upload directory exists
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
 
-    // Sanitize the file name
-    $fileName = uniqid() . "_" . basename($video['name']);
-    $videoPath = $uploadDir . $fileName;
+            // Sanitize the file name
+            $fileName = uniqid() . "_" . basename($video['name']);
+            $videoPath = $uploadDir . $fileName;
 
-    // Validate file type (only allow videos)
-    $allowedTypes = ['video/mp4', 'video/avi', 'video/quicktime', 'video/mov'];
-    if (in_array($video['type'], $allowedTypes)) {
-        // Check file size (max 50MB)
-        if ($video['size'] <= 50 * 1024 * 1024) {
-            // Move the uploaded file to the desired location
-            if (move_uploaded_file($video['tmp_name'], $videoPath)) {
-                echo "Video uploaded successfully.<br>";
-                echo "Video Path: " . htmlspecialchars($videoPath) . "<br>";
+            // Validate file type (only allow videos)
+            $allowedTypes = ['video/mp4', 'video/avi', 'video/quicktime', 'video/mov'];
+            if (in_array($video['type'], $allowedTypes)) {
+                // Check file size (max 50MB)
+                if ($video['size'] <= 50 * 1024 * 1024) {
+                    // Move the uploaded file to the desired location
+                    if (move_uploaded_file($video['tmp_name'], $videoPath)) {
+                        echo "Video uploaded successfully.<br>";
+                        echo "Video Path: " . htmlspecialchars($videoPath) . "<br>";
+                    } else {
+                        echo "Failed to move the uploaded video.";
+                        $videoPath = null; // Reset to null if upload fails
+                    }
+                } else {
+                    echo "File size exceeds the 50MB limit.";
+                    $videoPath = null;
+                }
             } else {
-                echo "Failed to move the uploaded video.";
-                $videoPath = null; // Reset to null if upload fails
+                echo "Invalid file type. Only MP4, AVI, and MOV videos are allowed.";
+                $videoPath = null;
             }
         } else {
-            echo "File size exceeds the 50MB limit.";
+            echo "Error with the uploaded video.";
             $videoPath = null;
         }
-    } else {
-        echo "Invalid file type. Only MP4, AVI, and MOV videos are allowed.";
-        $videoPath = null;
+
+        // Ensure htmlspecialchars() doesn't receive null
+        echo "Discount: " . htmlspecialchars($videoPath ?? "No video uploaded") . "<br>";
     }
-} else {
-    echo "Error with the uploaded video.";
-    $videoPath = null;
-}
 
-// Ensure htmlspecialchars() doesn't receive null
-echo "Discount: " . htmlspecialchars($videoPath ?? "No video uploaded") . "<br>";
-
-    
-}
-    
     public function create()
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             // Retrieve form data
-            $videoPath=null;
+            $videoPath = null;
             $title = $_POST['title'] ?? null;
             $description = $_POST['description'] ?? null;
             $type = $_POST['type'] ?? null;
@@ -216,11 +208,11 @@ echo "Discount: " . htmlspecialchars($videoPath ?? "No video uploaded") . "<br>"
             $student_price = $_POST['student_price'] ?? null;
             $categorie = $_POST['categorie'] ?? null;
             $tags = $_POST['tags'] ?? null;
-    
+
             // Image upload handling
             if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
                 $image = $_FILES['image'];
-    
+
                 // Absolute path to the upload directory
                 $uploadDir = 'uploads/';
     
@@ -228,11 +220,11 @@ echo "Discount: " . htmlspecialchars($videoPath ?? "No video uploaded") . "<br>"
                 if (!is_dir($uploadDir)) {
                     mkdir($uploadDir, 0777, true);  // Create directory if not exists
                 }
-    
+
                 // Sanitize the file name
                 $fileName = uniqid() . "_" . basename($image['name']);
                 $filePath = $uploadDir . $fileName;
-    
+
                 // Validate file type (only allow images)
                 $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
                 if (in_array($image['type'], $allowedTypes)) {
@@ -317,8 +309,8 @@ if (isset($_FILES['video']) && $_FILES['video']['error'] === UPLOAD_ERR_OK) {
         ];
         $tagIds = explode(",",$tags);
 
-    
-        $this->evsdn->createEvent($evenmentData ,$capacityData , $tagIds);
+
+            $this->evsdn->createEvent($evenmentData, $capacityData, $tagIds);
 
 
         header("Location: /Organiser/dash");
@@ -337,14 +329,8 @@ if (isset($_FILES['video']) && $_FILES['video']['error'] === UPLOAD_ERR_OK) {
         //     echo "Tags: " . htmlspecialchars($tags) . "<br>";
         //     print_r (explode(",",$tags));
 
-        } 
+        }
     }
-    
-
-
-
-        
-    
 
 
 
@@ -354,7 +340,14 @@ if (isset($_FILES['video']) && $_FILES['video']['error'] === UPLOAD_ERR_OK) {
 
 
 
-    public function serviceTest(){
+
+
+
+
+
+
+    public function serviceTest()
+    {
         // $evenmentData = [
         //     'title' => 'Test',
         //     'description' => 'A conference about the latest trends in technology.',
@@ -377,13 +370,6 @@ if (isset($_FILES['video']) && $_FILES['video']['error'] === UPLOAD_ERR_OK) {
         // ];
         // $tagIds = [1, 2, 3];
 
-        $this->evsdn->createEvent($evenmentData ,$capacityData , $tagIds);
-        
-    } 
-
-
-   
-
-
-
+        $this->evsdn->createEvent($evenmentData, $capacityData, $tagIds);
+    }
 }

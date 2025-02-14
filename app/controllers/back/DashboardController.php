@@ -24,10 +24,11 @@ class DashboardController extends Controller
         $this->logger->info('Dashboard index accessed');
 
         $messages = $this->session->get('messages') ?? [];
+        $csrfToken = $this->security->generateCsrfToken();
 
         if ($_SESSION['user']->role_id == 1) {
             $this->logger->info('Organiser dashboard accessed');
-            echo $this->render("/front/organiser/dashboard.twig");
+            echo $this->render("/front/organiser/dashboard.twig", ['messages' => $messages, 'csrf_token' => $csrfToken]);
         } else if ($_SESSION['user']->role_id == 2) {
             $id = $this->session->get('user')->id;
             $data = $this->eventService->getMyEvent($id);
@@ -38,7 +39,8 @@ class DashboardController extends Controller
                 echo $this->render("/front/profile.html.twig", [
                     "event1" => $data[0],
                     "event2" => $data[1],
-                    "messages" => $messages
+                    "messages" => $messages,
+                    "csrf_token" => $csrfToken
                 ]);
             } else {
                 // Handle the case where $data doesn't have enough elements
@@ -46,7 +48,8 @@ class DashboardController extends Controller
                 echo $this->render("/front/profile.html.twig", [
                     "event1" => null,
                     "event2" => null,
-                    "messages" => $messages
+                    "messages" => $messages,
+                    "csrf_token" => $csrfToken
                 ]);
             }
         } else if ($_SESSION['user']->role_id == 3) {
@@ -59,27 +62,35 @@ class DashboardController extends Controller
                 'stats' => $stats,
                 'pendingActions' => $pendingActions,
                 'recentActivities' => $recentActivities,
-                "messages" => $messages
+                "messages" => $messages,
+                "csrf_token" => $csrfToken
             ]);
         } else {
             $this->logger->error('Invalid role for dashboard access');
-            echo $this->render("/back/404.html.twig");
+            echo $this->render("/back/404.html.twig", [
+                "messages" => $messages,
+                "csrf_token" => $csrfToken
+            ]);
         }
     }
     public function showEvents()
     {
         $this->logger->info('Events page accessed');
         $messages = $this->session->get('messages') ?? [];
+        $csrfToken = $this->security->generateCsrfToken();
         echo $this->render("/back/events.html.twig", [
-            "messages" => $messages
+            "messages" => $messages,
+            "csrf_token" => $csrfToken
         ]);
     }
     public function showUsers()
     {
         $this->logger->info('Users page accessed');
         $messages = $this->session->get('messages') ?? [];
+        $csrfToken = $this->security->generateCsrfToken();
         echo $this->render("/back/users.html.twig", [
-            "messages" => $messages
+            "messages" => $messages,
+            "csrf_token" => $csrfToken
         ]);
     }
     // public function showComments()
