@@ -27,4 +27,10 @@ class CategoryRepository
         $stmt = $this->DB->getConnection()->query($query);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
+
+    public function create($title)
+    {
+        $query = "INSERT INTO categories (name) VALUES (:title)";
+        $stmt = $this->DB->query($query, [':title' => $title]);
+    }
 }

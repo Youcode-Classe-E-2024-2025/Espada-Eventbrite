@@ -197,3 +197,38 @@
 [2025-02-14 15:55:43] [INFO] Fetching pending actions for dashboard
 [2025-02-14 15:55:43] [INFO] Fetching recent activities for dashboard
 [2025-02-14 15:55:43] [DEBUG] Rendering template: /back/index.html.twig
+[2025-02-14 16:09:19] [DEBUG] Rendering template: front/home.html.twig
+[2025-02-14 16:09:27] [DEBUG] Rendering template: front/auth.twig
+[2025-02-14 16:09:34] [INFO] Dashboard index accessed
+[2025-02-14 16:09:34] [INFO] Organiser dashboard accessed
+[2025-02-14 16:09:34] [DEBUG] Rendering template: /front/organiser/dashboard.twig
+[2025-02-14 16:09:46] [INFO] Dashboard index accessed
+[2025-02-14 16:09:46] [INFO] Organiser dashboard accessed
+[2025-02-14 16:09:46] [DEBUG] Rendering template: /front/organiser/dashboard.twig
+[2025-02-14 16:09:49] [DEBUG] Rendering template: front/organiser/createEvent.html.twig
+[2025-02-14 16:12:46] [DEBUG] Rendering template: front/organiser/dashboard.twig
+[2025-02-14 16:13:31] [DEBUG] Rendering template: front/organiser/createEvent.html.twig
+[2025-02-14 16:13:42] [DEBUG] Rendering template: front/organiser/dashboard.twig
+[2025-02-14 16:13:56] [DEBUG] Rendering template: front/organiser/dashboard.twig
+[2025-02-14 16:16:13] [DEBUG] Rendering template: front/organiser/dashboard.twig
+[2025-02-14 16:16:20] [DEBUG] Rendering template: front/organiser/createEvent.html.twig
+[2025-02-14 16:16:28] [DEBUG] Rendering template: front/organiser/dashboard.twig
+[2025-02-14 16:16:40] [DEBUG] Rendering template: front/organiser/createEvent.html.twig
+[2025-02-14 16:16:50] [DEBUG] Rendering template: front/organiser/dashboard.twig
+[2025-02-14 16:17:31] [DEBUG] Rendering template: front/organiser/dashboard.twig
+[2025-02-14 16:18:29] [DEBUG] Rendering template: front/organiser/createEvent.html.twig
+[2025-02-14 16:18:55] [DEBUG] Rendering template: front/organiser/dashboard.twig
+[2025-02-14 16:23:00] [DEBUG] Rendering template: front/home.html.twig
+[2025-02-14 16:25:07] [DEBUG] Rendering template: front/auth.twig
+[2025-02-14 16:25:15] [INFO] Dashboard index accessed
+[2025-02-14 16:25:15] [INFO] Admin dashboard accessed
+[2025-02-14 16:25:15] [INFO] Fetching stats for dashboard
+[2025-02-14 16:25:15] [INFO] Fetching pending actions for dashboard
+[2025-02-14 16:25:15] [INFO] Fetching recent activities for dashboard
+[2025-02-14 16:25:15] [DEBUG] Rendering template: /back/index.html.twig
+[2025-02-14 16:25:27] [INFO] Fetching all events
+[2025-02-14 16:25:27] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-14 16:37:34] [INFO] Fetching all users
+[2025-02-14 16:37:34] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-14 16:37:39] [INFO] Fetching all categories and tags
+[2025-02-14 16:37:39] [DEBUG] Rendering template: back/categoryTag.html.twig

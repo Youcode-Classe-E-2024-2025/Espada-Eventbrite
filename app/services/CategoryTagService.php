@@ -30,4 +30,9 @@ class CategoryTagService
     {
         return $this->tagRepository->create(['title' => $title]);
     }
+
+    public function addCategory($title)
+    {
+        return $this->categoryRepository->create(['title' => $title]);
+    }
 }

@@ -51,4 +51,25 @@ class CategoryTagController extends Controller
 
         $this->redirect('/admin/categoryTag');
     }
+
+    public function addCategory()
+    {
+        $title = $_POST['title'] ?? '';
+        $csrfToken = $_POST['csrf_token'] ?? '';
+
+        if (!$this->security->validateCsrfToken($csrfToken)) {
+            $this->session->set('error', 'Invalid CSRF token.');
+            $this->redirect('/admin/categoryTag');
+            exit;
+        }
+
+        if (!empty($title)) {
+            $this->categoryTagService->addCategory($title);
+            $this->session->set('success', 'Category added successfully.');
+        } else {
+            $this->session->set('error', 'Category title cannot be empty.');
+        }
+
+        $this->redirect('/admin/categoryTag');
+    }
 }
