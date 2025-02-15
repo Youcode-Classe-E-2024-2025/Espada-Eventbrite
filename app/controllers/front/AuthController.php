@@ -33,9 +33,24 @@ class AuthController extends Controller
         
         // Load Google OAuth configuration
         $this->client = new Client();
-        $this->client->setClientId($_ENV['GOOGLE_CLIENT_ID'] ?? '758185166822-n9amffp7bm990cvqde7t654v5dtfc1nk.apps.googleusercontent.com');
-        $this->client->setClientSecret($_ENV['GOOGLE_CLIENT_SECRET'] ?? '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');
-        $this->client->setRedirectUri($_ENV['GOOGLE_REDIRECT_URI'] ?? 'http://localhost:8000/auth/google/callback');
+        
+        // Require environment variables for Google OAuth
+        $clientId = $_ENV['GOOGLE_CLIENT_ID'] ?? null;
+        $clientSecret = $_ENV['GOOGLE_CLIENT_SECRET'] ?? null;
+        $redirectUri = $_ENV['GOOGLE_REDIRECT_URI'] ?? null;
+        
+        if (!$clientId || !$clientSecret || !$redirectUri) {
+            $this->logger->error('Missing Google OAuth configuration', [
+                'client_id' => $clientId ? 'set' : 'missing',
+                'client_secret' => $clientSecret ? 'set' : 'missing',
+                'redirect_uri' => $redirectUri ? 'set' : 'missing'
+            ]);
+            throw new \RuntimeException('Google OAuth configuration is incomplete. Please check your .env file.');
+        }
+        
+        $this->client->setClientId($clientId);
+        $this->client->setClientSecret($clientSecret);
+        $this->client->setRedirectUri($redirectUri);
         
         // Configure scopes
         $this->client->setScopes([
