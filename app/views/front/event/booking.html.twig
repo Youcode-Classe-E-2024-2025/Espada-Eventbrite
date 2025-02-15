@@ -247,6 +247,26 @@
                             `;
                         }
                     });
+
+                    const stripe = Stripe('pk_test_XXXXXXXXXXXXXXXXXXXXXXXX'); // Replace with your test publishable key
+
+const form = document.getElementById('payment-form');
+form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+            card: cardElement,
+        },
+    });
+
+    if (error) {
+        console.error('Payment failed:', error.message);
+    } else {
+        console.log('Payment succeeded:', paymentIntent);
+        alert('Payment successful!');
+    }
+});
                 </script>
                 <script>
                     function updateQuantities() {

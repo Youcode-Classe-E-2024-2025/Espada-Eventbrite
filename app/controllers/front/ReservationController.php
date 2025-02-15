@@ -1,47 +1,91 @@
 <?php
 
+namespace App\controllers\front;
 
-namespace App\controllers\front ; 
 use App\services\ReservationService;
 use App\services\EventService;
-
 use App\core\Controller;
-class ReservationController extends Controller{
-    private $ReservationService;
+use Stripe\Stripe;
+use Stripe\PaymentIntent;
+use Dotenv\Dotenv;
+
+class ReservationController extends Controller {
+    private $reservationService;
     private $eventService;
-    public function __construct(){
+
+    public function __construct() {
         parent::__construct();
-        $this->ReservationService = new ReservationService();
+        $this->reservationService = new ReservationService();
         $this->eventService = new EventService();
     }
-    public function index($id){
-        
+
+    public function index($id) {
         $data = $this->eventService->getEventById($id[0]);
         $statis = $this->eventService->getCapacities($id[0]);
-        
-        echo $this->view->render("front/event/booking.html.twig", ['data' => $statis,'event'=>$data]);
+
+        echo $this->view->render("front/event/booking.html.twig", [
+            'data' => $statis,
+            'event' => $data
+        ]);
     }
+
     public function getBooking() {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $userId = $this->session->get('user')->id; 
+        if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+            http_response_code(405);
+            echo json_encode(['error' => 'Method not allowed']);
+            exit;
+        }
 
-            $event_id = $_POST['event_id'];
-            $vipQuantity = $_POST['vipQuantity'];
-            $standardQuantity = $_POST['standardQuantity'];
-            
-            $freeQuantity = $_POST['freeQuantity'];
-            $totalPrice = $_POST['totalPrice'];
+        $user = $this->session->get('user');
+        if (!$user) {
+            http_response_code(403);
+            echo json_encode(['error' => 'Unauthorized']);
+            exit;
+        }
 
-            $date = date('d-m-y');
+        $userId = $user->id;
 
-            $booking_date = (new \DateTime($date))->format('Y-m-d H:i:s');
-            
+        $event_id = filter_input(INPUT_POST, 'event_id', FILTER_VALIDATE_INT);
+        $vipQuantity = filter_input(INPUT_POST, 'vipQuantity', FILTER_VALIDATE_INT);
+        $standardQuantity = filter_input(INPUT_POST, 'standardQuantity', FILTER_VALIDATE_INT);
+        $freeQuantity = filter_input(INPUT_POST, 'freeQuantity', FILTER_VALIDATE_INT);
+        $totalPrice = filter_input(INPUT_POST, 'totalPrice', FILTER_VALIDATE_FLOAT);
 
-            $type = 'VIP';
+        if (!$event_id || $totalPrice < 0) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Invalid input']);
+            exit;
+        }
 
-            $this->ReservationService->insertBooking($userId, $event_id, $type , $totalPrice, $booking_date);
-            $this->ReservationService->updateSold($event_id, $vipQuantity,$standardQuantity,$freeQuantity);
-            echo "Booking successful! VIP Quantity: $vipQuantity, Standard Quantity: $standardQuantity, free Quantity: $freeQuantity Total Price: $$totalPrice";
+        $booking_date = (new \DateTime())->format('Y-m-d H:i:s');
+
+        $dotenv = Dotenv::createImmutable(__DIR__ . '/../../../');
+        $dotenv->safeLoad();
+
+        $stripeKey = 'sk_test_51Qsl4eC6cEMis3nd6veqKeIyZpo2ap2AeE8An8uSWjW9nWGmMTdNt8dIPpxjtA4ZVre7Z7hYUlucjO52zcYIwpPB00fnOgtUFe'; // Your Stripe API key
+
+        if (!$stripeKey) {
+            http_response_code(500);
+            echo json_encode(['error' => 'Stripe API key is missing']);
+            exit;
+        }
+
+        Stripe::setApiKey($stripeKey);
+
+        try {
+            $paymentIntent = PaymentIntent::create([
+                'amount' => intval($totalPrice * 100), // Convert to cents
+                'currency' => 'usd',
+                'payment_method_types' => ['card'],
+            ]);
+
+            echo json_encode([
+                'clientSecret' => $paymentIntent->client_secret,
+                'message' => 'Booking successful!',
+            ]);
+        } catch (\Exception $e) {
+            http_response_code(500);
+            echo json_encode(['error' => 'Payment error: ' . $e->getMessage()]);
         }
     }
 }

@@ -41,9 +41,6 @@ class OrganiserDashController extends Controller
         $data = $this->statServ->getOwnerStatistic($intValeur);
 
 
-
-
-
         echo $this->render('front/organiser/dashboard.twig', ['data' => $data]);
     }
 
