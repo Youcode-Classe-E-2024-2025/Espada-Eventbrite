@@ -105,7 +105,7 @@ class UserRepository
     }
 
     // Update user (only name and avatar URL)
-    public function updateUser(int $userId, string $name, string $avatar): bool
+    public function updateUser(int $userId, string $name, string $avatar)
     {
         $query = "UPDATE users SET username = :username, avatar = :avatar WHERE id = :id";
         $stmt = $this->DB->getConnection()->prepare($query);

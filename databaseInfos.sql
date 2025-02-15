@@ -11,7 +11,7 @@ CREATE TABLE users (
     email VARCHAR(255) NOT NULL,  
     password VARCHAR(255) NOT NULL,  
     username VARCHAR(100) NOT NULL,  
-    avatar VARCHAR(255),  
+    avatar TEXT,  
     banned INT DEFAULT 0,  
     archived INT DEFAULT 0,  
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

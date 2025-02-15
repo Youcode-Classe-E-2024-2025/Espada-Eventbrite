@@ -724,3 +724,64 @@
 [2025-02-15 17:32:23] [DEBUG] Rendering template: back/users.html.twig
 [2025-02-15 17:32:29] [INFO] Fetching all events
 [2025-02-15 17:32:29] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 17:35:26] [INFO] Dashboard index accessed
+[2025-02-15 17:35:26] [INFO] Admin dashboard accessed
+[2025-02-15 17:35:26] [INFO] Fetching stats for dashboard
+[2025-02-15 17:35:26] [INFO] Fetching pending actions for dashboard
+[2025-02-15 17:35:26] [INFO] Fetching recent activities for dashboard
+[2025-02-15 17:37:59] [INFO] Dashboard index accessed
+[2025-02-15 17:37:59] [INFO] Admin dashboard accessed
+[2025-02-15 17:37:59] [INFO] Fetching stats for dashboard
+[2025-02-15 17:37:59] [INFO] Fetching pending actions for dashboard
+[2025-02-15 17:37:59] [INFO] Fetching recent activities for dashboard
+[2025-02-15 17:37:59] [DEBUG] Rendering template: /back/index.html.twig
+[2025-02-15 17:39:04] [INFO] Exporting data to csv
+[2025-02-15 17:39:06] [INFO] Exporting data to PDF
+[2025-02-15 17:39:10] [INFO] Fetching all users
+[2025-02-15 17:39:10] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 17:39:13] [INFO] Fetching all events
+[2025-02-15 17:39:13] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 17:39:16] [INFO] Fetching all events
+[2025-02-15 17:39:16] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 17:39:18] [INFO] Fetching all events
+[2025-02-15 17:39:18] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 17:39:20] [INFO] Fetching all users
+[2025-02-15 17:39:20] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 17:39:23] [INFO] Fetching all users
+[2025-02-15 17:39:23] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 17:39:25] [INFO] Fetching all users
+[2025-02-15 17:39:25] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 17:39:26] [INFO] Fetching all events
+[2025-02-15 17:39:26] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 17:39:30] [INFO] Fetching all categories and tags
+[2025-02-15 17:39:30] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-15 17:40:40] [INFO] Fetching all categories and tags
+[2025-02-15 17:40:40] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-15 17:41:03] [INFO] Attempting to add category: Driscoll Pate
+[2025-02-15 17:41:03] [INFO] Fetching all categories and tags
+[2025-02-15 17:41:03] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-15 17:41:13] [INFO] Attempting to update category with ID: 7
+[2025-02-15 17:41:13] [INFO] Fetching all categories and tags
+[2025-02-15 17:41:14] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-15 17:41:16] [INFO] Attempting to delete category with ID: 7
+[2025-02-15 17:41:16] [INFO] Fetching all categories and tags
+[2025-02-15 17:41:16] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-15 17:41:21] [INFO] Attempting to delete tag with ID: 25
+[2025-02-15 17:41:21] [INFO] Fetching all categories and tags
+[2025-02-15 17:41:21] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-15 17:41:23] [INFO] Attempting to delete tag with ID: 24
+[2025-02-15 17:41:23] [INFO] Fetching all categories and tags
+[2025-02-15 17:41:23] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-15 17:41:26] [INFO] Attempting to delete tag with ID: 16
+[2025-02-15 17:41:26] [INFO] Fetching all categories and tags
+[2025-02-15 17:41:26] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-15 17:41:29] [INFO] Fetching all events
+[2025-02-15 17:41:29] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 17:41:33] [INFO] Fetching all users
+[2025-02-15 17:41:33] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 17:41:35] [INFO] Dashboard index accessed
+[2025-02-15 17:41:35] [INFO] Admin dashboard accessed
+[2025-02-15 17:41:35] [INFO] Fetching stats for dashboard
+[2025-02-15 17:41:35] [INFO] Fetching pending actions for dashboard
+[2025-02-15 17:41:35] [INFO] Fetching recent activities for dashboard
+[2025-02-15 17:41:35] [DEBUG] Rendering template: /back/index.html.twig

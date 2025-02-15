@@ -17,19 +17,6 @@ class ReservationRepository
         $this->db = new Database();
     }
 
-    public function createReservation($data) {
-        $sql = "INSERT INTO reservations (user_id, event_id, type, price, booking_date) VALUES (:user_id, :event_id, :type, :price, :booking_date)";
-        $stmt = $this->db->prepare($sql);
-        // Bind parameters and execute
-        $stmt->execute([
-            ':user_id' => $data['user_id'],
-            ':event_id' => $data['event_id'],
-            ':type' => $data['type'],
-            ':price' => $data['price'],
-            ':booking_date' => $data['booking_date'],
-        ]);
-    }
-
     // Create a new booking
     public function createBooking($userId, $eventId, $type, $totalPrice,$booking_date) {
         $query = "INSERT INTO booking (user_id, evenment_id, type, price, booking_date) VALUES (:user_id, :event_id, :type, :price, :booking_date)";

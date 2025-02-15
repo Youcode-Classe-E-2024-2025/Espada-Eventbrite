@@ -28,7 +28,8 @@ class DashboardController extends Controller
 
         if ($_SESSION['user']->role_id == 1) {
             $this->logger->info('Organiser dashboard accessed');
-            echo $this->render("/front/organiser/dashboard.twig", ['messages' => $messages, 'csrf_token' => $csrfToken]);
+            // echo $this->render("/front/organiser/dashboard.twig", ['messages' => $messages, 'csrf_token' => $csrfToken]);
+            echo $this->redirect('/Organiser/dash');
         } else if ($_SESSION['user']->role_id == 2) {
             $id = $this->session->get('user')->id;
             $data = $this->eventService->getMyEvent($id);
@@ -134,7 +135,7 @@ class DashboardController extends Controller
     {
         $this->logger->info('Fetching recent activities for dashboard');
         $recentUsers = $this->userService->getRecentUsers();
-        $recentEvents = $this->eventService->getRecentEvents();
+        $recentEvents = $this->eventService->getRecentEvents($limit = 2);
         // $recentComments = $this->eventService->getRecentComments();
 
         return [

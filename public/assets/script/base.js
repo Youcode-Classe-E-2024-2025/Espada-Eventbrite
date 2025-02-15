@@ -19,4 +19,24 @@ if (notifBtn && notifPopup) {
     notifPopup.addEventListener('click', (event) => {
         event.stopPropagation();
     });
+
 }
+const locationBtn = document.getElementById('location-btn');
+const locationModal = document.getElementById('location-modal');
+const closeLocationModal = document.getElementById('close-location-modal');
+const cancelLocation = document.getElementById('cancel-location');
+const confirmLocation = document.getElementById('confirm-location');
+const locationSearch = document.getElementById('location-search');
+const locationList = document.getElementById('location-list');
+
+  // Event Listeners
+  locationBtn.addEventListener('click', () => {
+    locationModal.classList.remove('hidden');
+    populateLocations();
+  });
+
+  [closeLocationModal, cancelLocation].forEach(el => {
+    el.addEventListener('click', () => {
+      locationModal.classList.add('hidden');
+    });
+  });

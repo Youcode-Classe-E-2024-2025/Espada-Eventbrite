@@ -38,7 +38,6 @@ class EvenmentRepository
         );
         if ($res) {
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            var_dump($result);
             // Fetch the ID
             return  $result['id'];  // Ensure it returns an integer
         }
@@ -107,7 +106,7 @@ class EvenmentRepository
         LEFT JOIN capacity c ON e.id = c.evenment_id
         LEFT JOIN users u ON e.owner_id = u.id
         LEFT JOIN categories cat ON e.category_id = cat.id
-        ORDER BY e.date
+        ORDER BY e.date DESC
         ";
         $stmt = $this->DB->query($query);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -115,13 +114,12 @@ class EvenmentRepository
 
     public function getMyEvents($id): array
     {
-        $query = "SELECT e.id as event_id, e.*, u.username as owner, c.*, cat.name as category, cat.icon as icon
-        FROM evenments e 
-        LEFT JOIN capacity c ON e.id = c.evenment_id
-        LEFT JOIN users u ON e.owner_id = u.id
-        LEFT JOIN categories cat ON e.category_id = cat.id
-        where u.id = :id
-        ORDER BY e.date DESC limit 2
+        $query = "SELECT *
+FROM evenments e
+JOIN booking b ON e.id = b.evenment_id
+WHERE b.user_id = :id
+ORDER BY b.booking_date DESC
+LIMIT 2;
         ";
         $stmt = $this->DB->query($query, [":id" => $id]);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -522,15 +520,24 @@ class EvenmentRepository
         LEFT JOIN categories cat ON e.category_id = cat.id
         where e.id= :id
         ORDER BY e.date DESC
-        ";
+        LIMIT 4";
+
         $stmt = $this->DB->query($query, ["id" => $id]);
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
-    public function getRecentEvents()
+    public function getRecentEvents($limit)
     {
-        $sql = "SELECT * FROM evenments ORDER BY date DESC LIMIT 2";
-        $stmt = $this->DB->query($sql);
+        $sql = "SELECT e.id as event_id, e.*, u.username as owner, c.*, cat.name as category, cat.icon as icon
+        FROM evenments e 
+        LEFT JOIN capacity c ON e.id = c.evenment_id
+        LEFT JOIN users u ON e.owner_id = u.id
+        LEFT JOIN categories cat ON e.category_id = cat.id
+        ORDER BY e.date DESC LIMIT :limit";
+        $param = [
+            'limit' => $limit
+        ];
+        $stmt = $this->DB->query($sql, $param);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 

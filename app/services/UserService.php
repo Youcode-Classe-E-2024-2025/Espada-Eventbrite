@@ -160,9 +160,14 @@ class UserService
     // {
     //     return $this->userRepository->getPendingUsers();
     // }
-
+    
     public function getRecentUsers()
     {
         return $this->userRepository->getRecentUsers();
     }
+
+    public function updateUser(int $userId, string $name, string $avatar)
+{
+    return $this->userRepository->updateUser($userId, $name, $avatar);
+}
 }

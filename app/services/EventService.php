@@ -140,9 +140,9 @@ class EventService
     {
         return $this->evenmentRepo->getMyEvents($id);
     }
-    public function getRecentEvents()
+    public function getRecentEvents($limit = 2)
     {
-        return $this->evenmentRepo->getRecentEvents();
+        return $this->evenmentRepo->getRecentEvents($limit);
     }
 
     public function sortEvents($sort)
