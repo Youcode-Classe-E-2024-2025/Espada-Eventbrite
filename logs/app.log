@@ -469,3 +469,63 @@
 [2025-02-15 11:41:31] [DEBUG] Rendering template: back/events.html.twig
 [2025-02-15 11:44:38] [INFO] Fetching all events
 [2025-02-15 11:44:38] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 12:13:51] [INFO] Fetching all events
+[2025-02-15 12:13:51] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 12:26:26] [INFO] Fetching all events
+[2025-02-15 12:26:26] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 12:31:46] [INFO] Fetching all events
+[2025-02-15 12:31:46] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 12:33:07] [INFO] Fetching all events
+[2025-02-15 12:33:07] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 12:34:43] [INFO] Fetching all events
+[2025-02-15 12:34:43] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 12:34:55] [INFO] Fetching all events
+[2025-02-15 12:34:55] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 12:39:52] [INFO] Fetching all events
+[2025-02-15 12:39:52] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 12:42:11] [INFO] Fetching all events
+[2025-02-15 12:42:11] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 12:47:52] [INFO] Fetching all events
+[2025-02-15 12:47:52] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 12:56:22] [INFO] Fetching all events
+[2025-02-15 12:56:22] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 12:56:49] [INFO] Fetching all events
+[2025-02-15 12:56:49] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 12:59:41] [INFO] Fetching all events
+[2025-02-15 12:59:41] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 13:02:45] [INFO] Fetching all events
+[2025-02-15 13:02:45] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 13:03:58] [INFO] Fetching all events
+[2025-02-15 13:03:59] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 13:09:00] [INFO] Fetching all events
+[2025-02-15 13:09:00] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 13:11:37] [INFO] Dashboard index accessed
+[2025-02-15 13:11:37] [INFO] Admin dashboard accessed
+[2025-02-15 13:11:37] [INFO] Fetching stats for dashboard
+[2025-02-15 13:11:37] [INFO] Fetching pending actions for dashboard
+[2025-02-15 13:11:37] [INFO] Fetching recent activities for dashboard
+[2025-02-15 13:11:37] [DEBUG] Rendering template: /back/index.html.twig
+[2025-02-15 13:11:47] [INFO] Fetching all users
+[2025-02-15 13:11:47] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 13:11:54] [INFO] Fetching all events
+[2025-02-15 13:11:54] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 13:11:58] [INFO] Fetching all categories and tags
+[2025-02-15 13:11:58] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-15 13:27:02] [INFO] Fetching all categories and tags
+[2025-02-15 13:27:02] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-15 13:27:09] [INFO] Fetching all events
+[2025-02-15 13:27:09] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 13:39:21] [INFO] Fetching all events
+[2025-02-15 13:39:21] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 13:45:11] [INFO] Fetching all events
+[2025-02-15 13:45:11] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 13:46:57] [INFO] Fetching all events
+[2025-02-15 13:46:57] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 13:50:15] [INFO] Fetching all events
+[2025-02-15 13:50:15] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 13:53:26] [INFO] Fetching all events
+[2025-02-15 13:53:26] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 13:54:30] [INFO] Fetching all events
+[2025-02-15 13:54:30] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 13:56:11] [INFO] Fetching all events
+[2025-02-15 13:56:11] [DEBUG] Rendering template: back/events.html.twig

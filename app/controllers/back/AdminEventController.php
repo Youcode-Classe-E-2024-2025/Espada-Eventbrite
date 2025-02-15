@@ -89,12 +89,11 @@ class AdminEventController extends Controller
         $this->redirect('/admin/events');
     }
 
-    public function filter()
+    public function sort()
     {
-        $status = $_GET['status'] ?? '';
         $sortBy = $_GET['sort'] ?? '';
 
-        $events = $this->eventService->filterSortEvents($status, $sortBy);
+        $events = $this->eventService->sortEvents($sortBy);
 
         header('Content-Type: application/json');
         echo json_encode(['events' => $events]);
