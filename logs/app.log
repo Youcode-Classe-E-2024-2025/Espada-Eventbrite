@@ -251,3 +251,73 @@
 [2025-02-14 20:02:28] [INFO] Organiser dashboard accessed
 [2025-02-14 20:02:28] [DEBUG] Rendering template: /front/organiser/dashboard.twig
 [2025-02-14 20:02:37] [DEBUG] Rendering template: front/home.html.twig
+[2025-02-15 12:15:27] [DEBUG] Rendering template: front/home.html.twig
+[2025-02-15 12:17:02] [DEBUG] Rendering template: front/auth.twig
+[2025-02-15 12:17:48] [DEBUG] Rendering template: front/home.html.twig
+[2025-02-15 12:18:47] [DEBUG] Rendering template: front/auth.twig
+[2025-02-15 12:19:27] [INFO] Dashboard index accessed
+[2025-02-15 12:19:27] [INFO] Admin dashboard accessed
+[2025-02-15 12:19:27] [INFO] Fetching stats for dashboard
+[2025-02-15 12:19:27] [INFO] Fetching pending actions for dashboard
+[2025-02-15 12:19:27] [INFO] Fetching recent activities for dashboard
+[2025-02-15 12:24:56] [INFO] Dashboard index accessed
+[2025-02-15 12:24:56] [INFO] Admin dashboard accessed
+[2025-02-15 12:24:56] [INFO] Fetching stats for dashboard
+[2025-02-15 12:24:56] [INFO] Fetching pending actions for dashboard
+[2025-02-15 12:24:56] [INFO] Fetching recent activities for dashboard
+[2025-02-15 12:24:56] [DEBUG] Rendering template: /back/index.html.twig
+[2025-02-15 12:25:11] [INFO] Exporting data to csv
+[2025-02-15 12:25:15] [INFO] Exporting data to PDF
+[2025-02-15 12:31:18] [INFO] Dashboard index accessed
+[2025-02-15 12:31:18] [INFO] Admin dashboard accessed
+[2025-02-15 12:31:18] [INFO] Fetching stats for dashboard
+[2025-02-15 12:31:18] [INFO] Fetching pending actions for dashboard
+[2025-02-15 12:31:18] [INFO] Fetching recent activities for dashboard
+[2025-02-15 12:31:18] [DEBUG] Rendering template: /back/index.html.twig
+[2025-02-15 12:31:21] [INFO] Exporting data to PDF
+[2025-02-15 12:31:35] [INFO] Fetching all users
+[2025-02-15 12:31:35] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 12:31:38] [INFO] Fetching all events
+[2025-02-15 12:31:38] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 12:31:40] [INFO] Fetching all users
+[2025-02-15 12:31:40] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 12:31:45] [INFO] Filtering users with role: 0 and status: 0
+[2025-02-15 12:31:45] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 12:31:48] [INFO] Filtering users with role: 0 and status: 1
+[2025-02-15 12:31:48] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 12:31:52] [INFO] Filtering users with role: 0 and status: 0
+[2025-02-15 12:31:52] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 12:31:54] [INFO] Filtering users with role: 3 and status: 0
+[2025-02-15 12:31:54] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 12:31:56] [INFO] Filtering users with role: 0 and status: 0
+[2025-02-15 12:31:56] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 12:32:03] [INFO] Fetching all events
+[2025-02-15 12:32:03] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 12:32:18] [INFO] Searching events with keyword: hn
+[2025-02-15 12:32:19] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 12:32:23] [INFO] Searching events with keyword: hn
+[2025-02-15 12:32:23] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 12:32:28] [INFO] Fetching all categories and tags
+[2025-02-15 12:32:28] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-15 12:32:33] [INFO] Attempting to delete tag with ID: 4
+[2025-02-15 12:32:33] [INFO] Attempting to delete tag with ID: 4
+[2025-02-15 12:32:35] [INFO] Fetching all categories and tags
+[2025-02-15 12:32:35] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-15 12:32:44] [INFO] Fetching all categories and tags
+[2025-02-15 12:32:44] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-15 12:34:09] [INFO] Fetching all categories and tags
+[2025-02-15 12:34:09] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-15 12:36:18] [INFO] Attempting to add category: film
+[2025-02-15 12:36:18] [INFO] Fetching all categories and tags
+[2025-02-15 12:36:18] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-15 12:36:42] [INFO] Fetching all categories and tags
+[2025-02-15 12:36:42] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-15 12:36:57] [INFO] Fetching all categories and tags
+[2025-02-15 12:36:57] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-15 12:37:05] [INFO] Fetching all categories and tags
+[2025-02-15 12:37:05] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-15 12:41:59] [INFO] Fetching all categories and tags
+[2025-02-15 12:41:59] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-15 12:48:11] [INFO] Attempting to add category: Basil Mcdaniel
+[2025-02-15 12:48:12] [INFO] Fetching all categories and tags
+[2025-02-15 12:48:12] [DEBUG] Rendering template: back/categoryTag.html.twig
