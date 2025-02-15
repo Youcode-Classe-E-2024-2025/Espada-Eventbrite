@@ -9,10 +9,6 @@ $router->addRoute('GET', '/', [App\controllers\front\HomeController::class, 'ind
 $router->addRoute('GET', '/auth', [App\controllers\front\AuthController::class, 'index']);
 $router->addRoute('GET', '/dashboard', [App\controllers\back\DashboardController::class, 'index']);
 // $router->addRoute('GET', '/admin/users', [App\controllers\back\DashboardController::class, 'showUsers']);
-$router->addRoute('GET', '/admin/events', [App\controllers\back\AdminEventController::class, 'index']);
-$router->addRoute('GET', '/admin/events/search', [App\controllers\back\AdminEventController::class, 'search']);
-$router->addRoute('POST', '/admin/events/status', [App\controllers\back\AdminEventController::class, 'updateStatus']);
-$router->addRoute('POST', '/admin/events/delete', [App\controllers\back\AdminEventController::class, 'delete']);
 $router->addRoute('POST', '/auth/register', [App\controllers\front\AuthController::class, 'register']);
 
 
@@ -54,6 +50,10 @@ $router->addRoute('POST', '/events/reserv/{id}', [App\controllers\front\Reservat
 $router->addRoute('GET', '/reservation', [App\controllers\front\ReservationController::class, 'index']);
 
 
+$router->addRoute('GET', '/admin/events', [App\controllers\back\AdminEventController::class, 'index']);
+$router->addRoute('GET', '/admin/events/search', [App\controllers\back\AdminEventController::class, 'search']);
+$router->addRoute('POST', '/admin/events/status', [App\controllers\back\AdminEventController::class, 'updateStatus']);
+$router->addRoute('POST', '/admin/events/delete', [App\controllers\back\AdminEventController::class, 'delete']);
 $router->addRoute('GET', '/admin/users', [App\controllers\back\AdminUserController::class, 'index']);
 $router->addRoute('GET', '/admin/users/search', [App\controllers\back\AdminUserController::class, 'search']);
 $router->addRoute('GET', '/admin/users/filter', [App\controllers\back\AdminUserController::class, 'filter']);
@@ -63,6 +63,11 @@ $router->addRoute('POST', '/admin/export/csv', [App\controllers\back\ExportContr
 $router->addRoute('POST', '/admin/export/pdf', [App\controllers\back\ExportController::class, 'exportPdf']);
 
 
+$router->addRoute('POST', '/category/create', [App\controllers\back\CategoryTagController::class, 'addCategory']);
+$router->addRoute('POST', '/category/delete/{id}', [App\controllers\back\CategoryTagController::class, 'deleteCategory']);
+$router->addRoute('POST', '/category/update', [App\controllers\back\CategoryTagController::class, 'updateCategory']);
+$router->addRoute('POST', '/tag/create', [App\controllers\back\CategoryTagController::class, 'addTag']);
+$router->addRoute('POST', '/tag/delete/{id}', [App\controllers\back\CategoryTagController::class, 'deleteTag']);
 
 
 // $router->addRoute('GET', '/auth/login/google', [App\controllers\front\AuthController::class, 'loginWithGoogle']);
