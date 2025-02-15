@@ -46,7 +46,7 @@
                                 <div class="flex items-center space-x-3">
                                     <i class="fa-solid {{ category.icon }} text-blue-500"></i>
                                     <span class="font-medium">{{ category.name }}</span>
-                                    <span class="text-sm text-gray-500">(45 items)</span>
+                                    <span class="text-sm text-gray-500">({{ category.event_count }} items)</span>
                                 </div>
                                 <div class="flex space-x-2">
                                     <button class="edit-category-btn p-2 text-blue-500 hover:bg-blue-50 rounded-lg" data-id="{{ category.id }}" data-name="{{ category.name }}" data-icon="{{ category.icon }}">

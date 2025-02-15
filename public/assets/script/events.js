@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div class="flex space-x-2">
                                 <form action="/admin/events/delete" method="POST" class="inline">
                                     <input type="hidden" name="csrf_token" value="${csrfToken}">
-                                    <input type="hidden" name="event_id" value="${event.event_id}">
+                                    <input type="hidden" name="event_id" value="${event.id}">
                                     <button class="p-2 text-red-500 hover:bg-red-50 rounded-lg" title="Delete Event">
                                         <i class="fa-solid fa-trash"></i>
                                     </button>
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 ${event.validation == 0 ? `
                                     <form action="/admin/events/status" method="POST" class="inline">
                                         <input type="hidden" name="csrf_token" value="${csrfToken}">
-                                        <input type="hidden" name="event_id" value="${event.event_id}">
+                                        <input type="hidden" name="event_id" value="${event.id}">
                                         <input type="hidden" name="status" value="0">
                                         <button type="submit" class="p-2 text-gray-500 hover:text-green-500 rounded-lg" title="Approve Event">
                                             <i class="fa-solid fa-check-circle"></i>
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 ` : `
                                     <form action="/admin/events/status" method="POST" class="inline">
                                         <input type="hidden" name="csrf_token" value="${csrfToken}">
-                                        <input type="hidden" name="event_id" value="${event.event_id}">
+                                        <input type="hidden" name="event_id" value="${event.id}">
                                         <input type="hidden" name="status" value="1">
                                         <button type="submit" class="p-2 text-gray-500 hover:text-red-500 rounded-lg" title="Disapprove Event">
                                             <i class="fa-solid fa-xmark-circle"></i>
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 ${event.archived == 0 ? `
                                     <form action="/admin/events/status" method="POST" class="inline">
                                         <input type="hidden" name="csrf_token" value="${csrfToken}">
-                                        <input type="hidden" name="event_id" value="${event.event_id}">
+                                        <input type="hidden" name="event_id" value="${event.id}">
                                         <input type="hidden" name="status" value="2">
                                         <button type="submit" class="p-2 text-gray-500 hover:text-yellow-500 rounded-lg" title="Archive Event">
                                             <i class="fa-solid fa-box-archive"></i>
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 ` : `
                                     <form action="/admin/events/status" method="POST" class="inline">
                                         <input type="hidden" name="csrf_token" value="${csrfToken}">
-                                        <input type="hidden" name="event_id" value="${event.event_id}">
+                                        <input type="hidden" name="event_id" value="${event.id}">
                                         <input type="hidden" name="status" value="3">
                                         <button type="submit" class="p-2 text-gray-500 hover:text-green-500 rounded-lg" title="Unarchive Event">
                                             <i class="fa-solid fa-box-open"></i>
@@ -126,6 +126,36 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             eventsContainer.insertAdjacentHTML('beforeend', eventCard);
         });
+    }
+
+    function handleEventAction(form, event) {
+        event.preventDefault();
+        const formData = new FormData(form);
+
+        fetch(form.action, {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(() => {
+                // Refresh the events list with current sort
+                const currentSort = document.querySelector('[data-sort].active')?.dataset.sort;
+                fetchSortedEvents(currentSort);
+            });
+
+        return false;
+    }
+
+
+    function fetchSortedEvents(sortBy) {
+        const params = new URLSearchParams({ sort: sortBy });
+        fetch(`/admin/events/sort?${params.toString()}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.events) {
+                    updateEventsList(data.events);
+                }
+            });
     }
 });
 

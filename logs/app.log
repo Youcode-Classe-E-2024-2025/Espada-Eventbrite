@@ -583,3 +583,50 @@
 [2025-02-14 20:02:28] [INFO] Organiser dashboard accessed
 [2025-02-14 20:02:28] [DEBUG] Rendering template: /front/organiser/dashboard.twig
 [2025-02-14 20:02:37] [DEBUG] Rendering template: front/home.html.twig
+[2025-02-15 14:02:30] [ERROR] Failed to update event status.
+[2025-02-15 14:02:31] [INFO] Fetching all events
+[2025-02-15 14:02:31] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 14:02:42] [ERROR] Failed to update event status.
+[2025-02-15 14:02:42] [INFO] Fetching all events
+[2025-02-15 14:02:42] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 14:02:57] [ERROR] Failed to update event status.
+[2025-02-15 14:02:57] [INFO] Fetching all events
+[2025-02-15 14:02:57] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 14:03:10] [ERROR] Failed to update event status.
+[2025-02-15 14:03:10] [INFO] Fetching all events
+[2025-02-15 14:03:10] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 14:03:12] [INFO] Updating event status: 8 to 1
+[2025-02-15 14:03:13] [INFO] Fetching all events
+[2025-02-15 14:03:13] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 14:11:41] [INFO] Fetching all events
+[2025-02-15 14:11:41] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 14:11:52] [INFO] Updating event status: 4 to 1
+[2025-02-15 14:11:52] [INFO] Fetching all events
+[2025-02-15 14:11:52] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 14:12:30] [ERROR] Failed to delete event.
+[2025-02-15 14:12:31] [INFO] Fetching all events
+[2025-02-15 14:12:31] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 14:12:56] [INFO] Fetching all events
+[2025-02-15 14:12:56] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 14:13:06] [INFO] Deleting event: 10
+[2025-02-15 14:13:06] [INFO] Fetching all events
+[2025-02-15 14:13:06] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 14:13:17] [INFO] Updating event status: 4 to 2
+[2025-02-15 14:13:18] [INFO] Fetching all events
+[2025-02-15 14:13:18] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 14:13:52] [INFO] Searching events with keyword: 3
+[2025-02-15 14:13:52] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 14:13:53] [INFO] Fetching all users
+[2025-02-15 14:13:53] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 14:13:57] [INFO] Updating user status: 5 to 1
+[2025-02-15 14:13:57] [INFO] Fetching all users
+[2025-02-15 14:13:57] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 14:14:00] [INFO] Updating user status: 4 to 2
+[2025-02-15 14:14:00] [INFO] Fetching all users
+[2025-02-15 14:14:00] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 14:14:06] [INFO] Fetching all categories and tags
+[2025-02-15 14:14:06] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-15 14:21:19] [INFO] Fetching all categories and tags
+[2025-02-15 14:21:19] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-15 14:21:34] [INFO] Fetching all categories and tags
+[2025-02-15 14:21:34] [DEBUG] Rendering template: back/categoryTag.html.twig
