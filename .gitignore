@@ -1,6 +1,6 @@
 vendor/
 composer.lock
 .env
-logs/
+logs/app.log
 uploads/
 public/uploads/
