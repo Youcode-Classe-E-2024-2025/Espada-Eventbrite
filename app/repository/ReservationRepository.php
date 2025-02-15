@@ -18,21 +18,26 @@ class ReservationRepository
     }
 
     // Create a new booking
-    public function createBooking($userId, $eventId, $type, $totalPrice,$booking_date) {
-        $query = "INSERT INTO booking (user_id, evenment_id, type, price, booking_date) VALUES (:user_id, :event_id, :type, :price, :booking_date)";
-        $stmt = $this->db->prepare($query);
+    public function createBooking($userId, $eventId, $type, $totalPrice, $booking_date, $qrPath)
+    {
+        $query = "INSERT INTO booking (user_id, evenment_id, type, price, booking_date, qr_code_path) VALUES (:user_id, :event_id, :type, :price, :booking_date, :qr_code_path)";
+
         $params = [
             ':user_id' => $userId,
             ':event_id' => $eventId,
             ':type' => $type,
             ':price' => $totalPrice,
-            ':booking_date'=>$booking_date
+            ':booking_date' => $booking_date,
+            ':qr_code_path' => $qrPath
         ];
-        return $stmt->execute($params);
+
+        $stmt = $this->db->query($query, $params);
+        return $stmt->rowCount() > 0;
     }
 
     // Read a booking by ID
-    public function getBookingById($booking_id) {
+    public function getBookingById($booking_id)
+    {
         $query = "SELECT * FROM bookings WHERE id = :booking_id";
         $stmt = $this->db->prepare($query);
         $stmt->execute([':booking_id' => $booking_id]);
@@ -40,7 +45,8 @@ class ReservationRepository
     }
 
     // Read all bookings for a user
-    public function getUserBookings($user_id) {
+    public function getUserBookings($user_id)
+    {
         $query = "SELECT * FROM bookings WHERE user_id = :user_id";
         $stmt = $this->db->prepare($query);
         $stmt->execute([':user_id' => $user_id]);
@@ -48,7 +54,8 @@ class ReservationRepository
     }
 
     // Update a booking
-    public function updateBooking($booking_id) {
+    public function updateBooking($booking_id)
+    {
         $query = "UPDATE bookings SET user_id = :user_id, event_id = :event_id, type = :type, price = :price, booking_date = :booking_date, status = :status WHERE id = :booking_id";
         $stmt = $this->db->prepare($query);
         $params = [
@@ -64,7 +71,8 @@ class ReservationRepository
     }
 
     // Delete a booking
-    public function deleteBooking($booking_id) {
+    public function deleteBooking($booking_id)
+    {
         $query = "DELETE FROM bookings WHERE id = :booking_id";
         $stmt = $this->db->prepare($query);
         return $stmt->execute([':booking_id' => $booking_id]);
@@ -75,14 +83,26 @@ class ReservationRepository
         $query = "INSERT INTO booking ( user_id, evenment_id, type, price, booking_date)
         VALUES (:user_id, :evenment_id, :type, :price, :booking_date);";
 
-    $stmt = $this->db->prepare($query);
-    $params = [
-        ':user_id' => $this->user_id,
-        ':evenment_id' => $this->evenment_id,
-        ':type' => $this->type,
-        ':price' => $this->price,
-        ':booking_date' => $this->booking_date
-    ];
-    return $stmt->execute($params);
+        $stmt = $this->db->prepare($query);
+        $params = [
+            ':user_id' => $this->user_id,
+            ':evenment_id' => $this->evenment_id,
+            ':type' => $this->type,
+            ':price' => $this->price,
+            ':booking_date' => $this->booking_date
+        ];
+        return $stmt->execute($params);
+    }
+
+    public function getUserTickets($userId)
+    {
+        $query = "SELECT b.*, e.title as event_title, e.date as event_date 
+                FROM booking b
+                JOIN evenments e ON b.evenment_id = e.id
+                WHERE b.user_id = :user_id
+                ORDER BY b.booking_date DESC";
+
+        $stmt = $this->db->query($query, [':user_id' => $userId]);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 }

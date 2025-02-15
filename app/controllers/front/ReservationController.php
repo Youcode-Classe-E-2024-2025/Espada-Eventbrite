@@ -9,17 +9,20 @@ use Stripe\Stripe;
 use Stripe\PaymentIntent;
 use Dotenv\Dotenv;
 
-class ReservationController extends Controller {
+class ReservationController extends Controller
+{
     private $reservationService;
     private $eventService;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->reservationService = new ReservationService();
         $this->eventService = new EventService();
     }
 
-    public function index($id) {
+    public function index($id)
+    {
         $data = $this->eventService->getEventById($id[0]);
         $statis = $this->eventService->getCapacities($id[0]);
 
@@ -29,7 +32,8 @@ class ReservationController extends Controller {
         ]);
     }
 
-    public function getBooking() {
+    public function getBooking()
+    {
         if ($_SERVER["REQUEST_METHOD"] !== "POST") {
             http_response_code(405);
             echo json_encode(['error' => 'Method not allowed']);
@@ -87,5 +91,26 @@ class ReservationController extends Controller {
             http_response_code(500);
             echo json_encode(['error' => 'Payment error: ' . $e->getMessage()]);
         }
+    }
+
+    public function getMyTickets()
+    {
+        $userId = $this->session->get('user')->id;
+        $tickets = $this->reservationService->getUserTickets($userId);
+
+        return $this->render('front/tickets.html.twig', [
+            'tickets' => $tickets
+        ]);
+    }
+
+    public function downloadTicket($ticketId)
+    {
+        $ticket = $this->reservationService->getTicketById($ticketId);
+        $pdf = $this->reservationService->generateTicketPDF($ticket);
+
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: attachment; filename="ticket.pdf"');
+        echo $pdf;
+        exit;
     }
 }

@@ -71,6 +71,9 @@ $router->addRoute('POST', '/tag/create', [App\controllers\back\CategoryTagContro
 $router->addRoute('POST', '/tag/delete/{id}', [App\controllers\back\CategoryTagController::class, 'deleteTag']);
 
 
+$router->addRoute('GET', '/tickets', [App\controllers\front\ReservationController::class, 'getMyTickets']);
+$router->addRoute('GET', '/ticket/download/{id}', [App\controllers\front\ReservationController::class, 'downloadTicket']);
+
 // $router->addRoute('GET', '/auth/login/google', [App\controllers\front\AuthController::class, 'loginWithGoogle']);
 // $router->addRoute('GET', '/auth/google/login', [App\controllers\front\AuthController::class, 'loginWithGoogle']);
 // $router->addRoute('GET', '/auth/google/callback', [App\controllers\front\AuthController::class, 'handleGoogleCallback']);

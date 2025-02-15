@@ -4,3 +4,4 @@ composer.lock
 logs/app.log
 uploads/
 public/uploads/
+public/qrcodes/
