@@ -92,10 +92,15 @@ class UserRepository
     }
 
     // Get all users
-    public function getAll(): array
+    public function getAll($page = 1, $perPage = 4): array
     {
-        $query = "SELECT * FROM users ORDER BY id DESC";
-        $stmt = $this->DB->query($query);
+        $offset = ($page - 1) * $perPage;
+
+        $query = "SELECT * FROM users ORDER BY id DESC LIMIT :limit OFFSET :offset";
+        $stmt = $this->DB->query($query, [
+            ':limit' => $perPage,
+            ':offset' => $offset
+        ]);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
@@ -137,18 +142,20 @@ class UserRepository
     //     return $stmt->fetchAll(PDO::FETCH_OBJ);
     // }
 
-    public function searchUsers($keyword)
+    public function searchUsers($keyword, $page = 1, $limit = 4)
     {
-        $sql = "SELECT * FROM users WHERE username LIKE :keyword or email LIKE :keyword";
-        $stmt = $this->DB->query($sql, ['keyword' => "%$keyword%"]);
+        $offset = ($page - 1) * $limit;
+
+        $sql = "SELECT * FROM users WHERE username LIKE :keyword or email LIKE :keyword LIMIT :limit OFFSET :offset";
+        $stmt = $this->DB->query($sql, ['keyword' => "%$keyword%", ':limit' => $limit, ':offset' => $offset]);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function searchUsersWithFilters($keyword, $roleId, $status)
+    public function searchUsersWithFilters($keyword, $roleId, $status, $page = 1, $perPage = 4)
     {
-        $results = $this->getAll();
+        $results = $this->getAll($page, $perPage);
         if (!empty($keyword)) {
-            $results = $this->searchUsers($keyword);
+            $results = $this->searchUsers($keyword, $page, $perPage);
         }
 
         if (!empty($roleId) || !empty($status)) {
@@ -156,6 +163,16 @@ class UserRepository
         }
 
         return $results;
+    }
+
+    public function getTotalUserSearchResults($keyword)
+    {
+        $sql = "SELECT COUNT(*) as total FROM users 
+            WHERE username LIKE :keyword 
+            OR email LIKE :keyword";
+
+        $result = $this->DB->query($sql, ['keyword' => "%$keyword%"])->fetch(PDO::FETCH_OBJ);
+        return $result->total;
     }
 
     public function filterByRoleAndStatus($roleId, $status)

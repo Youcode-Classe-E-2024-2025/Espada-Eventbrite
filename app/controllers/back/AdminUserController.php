@@ -17,12 +17,26 @@ class AdminUserController extends Controller
 
     public function index()
     {
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $perPage = 4;
+
         $this->logger->info('Fetching all users');
-        $users = $this->userService->getAllUsers();
+
+        $users = $this->userService->getAllUsers($page, $perPage);
+        $totalUsers = $this->userService->getTotalUsers();
+        $totalPages = ceil($totalUsers / $perPage);
+
         $messages = $this->session->get('messages') ?? [];
         $csrfToken = $this->security->generateCsrfToken();
 
-        return $this->render('back/users.html.twig', ['users' => $users, 'messages' => $messages, 'csrf_token' => $csrfToken]);
+        return $this->render('back/users.html.twig', [
+            'users' => $users,
+            'messages' => $messages,
+            'csrf_token' => $csrfToken,
+            'currentPage' => $page,
+            'totalPages' => $totalPages,
+            'totalUsers' => $totalUsers
+        ]);
     }
 
     public function search()
@@ -30,9 +44,14 @@ class AdminUserController extends Controller
         $keyword = isset($_GET['keyword']) ? trim($_GET['keyword']) : '';
         $roleId = isset($_GET['role_id']) ? (int)$_GET['role_id'] : null;
         $status = isset($_GET['status']) ? $_GET['status'] : null;
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $perPage = 4;
 
         $this->logger->info('Searching users with keyword: ' . $keyword);
-        $results = $this->userService->searchFilterUsers($keyword, $roleId, $status);
+        $totalUsers = $this->userService->getTotalUserSearchResults($keyword);
+        $totalPages = ceil($totalUsers / $perPage);
+
+        $results = $this->userService->searchFilterUsers($keyword, $roleId, $status, $page, $perPage);
         $messages = $this->session->get('messages') ?? [];
 
         return $this->render('back/users.html.twig', [
@@ -41,6 +60,9 @@ class AdminUserController extends Controller
             'role_id' => $roleId,
             'status' => $status,
             'messages' => $messages,
+            'currentPage' => $page,
+            'totalPages' => $totalPages,
+            'totalUsers' => $totalUsers
         ]);
     }
 

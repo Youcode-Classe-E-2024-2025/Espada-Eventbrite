@@ -630,3 +630,97 @@
 [2025-02-15 14:21:19] [DEBUG] Rendering template: back/categoryTag.html.twig
 [2025-02-15 14:21:34] [INFO] Fetching all categories and tags
 [2025-02-15 14:21:34] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-15 16:52:19] [INFO] Fetching all events
+[2025-02-15 16:52:19] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 16:52:24] [INFO] Updating event status: 7 to 1
+[2025-02-15 16:52:25] [INFO] Fetching all events
+[2025-02-15 16:52:25] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 16:52:27] [INFO] Updating event status: 7 to 0
+[2025-02-15 16:52:28] [INFO] Fetching all events
+[2025-02-15 16:52:28] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 16:52:30] [INFO] Updating event status: 9 to 2
+[2025-02-15 16:52:31] [INFO] Fetching all events
+[2025-02-15 16:52:31] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 16:52:34] [INFO] Updating event status: 9 to 3
+[2025-02-15 16:52:34] [INFO] Fetching all events
+[2025-02-15 16:52:34] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 16:52:40] [INFO] Fetching all events
+[2025-02-15 16:52:40] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 16:52:43] [INFO] Fetching all events
+[2025-02-15 16:52:43] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 16:52:53] [INFO] Searching events with keyword: a
+[2025-02-15 16:52:53] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 16:59:42] [INFO] Searching events with keyword: a
+[2025-02-15 16:59:42] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 16:59:50] [INFO] Searching events with keyword: a
+[2025-02-15 16:59:50] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 16:59:56] [INFO] Searching events with keyword: a
+[2025-02-15 16:59:56] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 16:59:59] [INFO] Searching events with keyword: a
+[2025-02-15 16:59:59] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 17:01:11] [INFO] Searching events with keyword: a
+[2025-02-15 17:01:11] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 17:01:15] [INFO] Searching events with keyword: a
+[2025-02-15 17:01:15] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 17:01:21] [INFO] Searching events with keyword: a
+[2025-02-15 17:01:21] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 17:02:58] [INFO] Searching events with keyword: a
+[2025-02-15 17:02:58] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 17:05:09] [INFO] Searching events with keyword: a
+[2025-02-15 17:05:09] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 17:05:17] [INFO] Searching events with keyword: a
+[2025-02-15 17:05:17] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 17:05:20] [INFO] Searching events with keyword: a
+[2025-02-15 17:05:20] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 17:05:23] [INFO] Searching events with keyword: a
+[2025-02-15 17:05:23] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 17:05:30] [INFO] Searching events with keyword: admin
+[2025-02-15 17:05:30] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 17:18:56] [INFO] Searching events with keyword: admin
+[2025-02-15 17:18:56] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 17:18:58] [INFO] Fetching all users
+[2025-02-15 17:18:58] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 17:20:33] [INFO] Fetching all users
+[2025-02-15 17:20:33] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 17:20:47] [INFO] Fetching all users
+[2025-02-15 17:20:47] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 17:21:17] [INFO] Fetching all users
+[2025-02-15 17:21:17] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 17:21:47] [INFO] Fetching all users
+[2025-02-15 17:21:47] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 17:22:03] [INFO] Fetching all users
+[2025-02-15 17:22:03] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 17:22:20] [INFO] Fetching all users
+[2025-02-15 17:22:20] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 17:22:24] [INFO] Fetching all users
+[2025-02-15 17:22:24] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 17:22:26] [INFO] Fetching all users
+[2025-02-15 17:22:26] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 17:22:36] [INFO] Fetching all users
+[2025-02-15 17:22:36] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 17:22:43] [INFO] Searching users with keyword: a
+[2025-02-15 17:22:43] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 17:24:13] [INFO] Searching users with keyword: a
+[2025-02-15 17:24:13] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 17:28:41] [INFO] Searching users with keyword: a
+[2025-02-15 17:28:41] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 17:28:46] [INFO] Searching users with keyword: a
+[2025-02-15 17:28:46] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 17:28:49] [INFO] Searching users with keyword: a
+[2025-02-15 17:28:49] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 17:31:03] [INFO] Searching users with keyword: a
+[2025-02-15 17:31:03] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 17:31:11] [INFO] Searching users with keyword: a
+[2025-02-15 17:31:11] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 17:31:57] [INFO] Searching users with keyword: a
+[2025-02-15 17:31:57] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 17:32:02] [INFO] Fetching all users
+[2025-02-15 17:32:02] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 17:32:08] [INFO] Searching users with keyword: a
+[2025-02-15 17:32:08] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 17:32:12] [INFO] Searching users with keyword: a
+[2025-02-15 17:32:12] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 17:32:23] [INFO] Fetching all users
+[2025-02-15 17:32:23] [DEBUG] Rendering template: back/users.html.twig
+[2025-02-15 17:32:29] [INFO] Fetching all events
+[2025-02-15 17:32:29] [DEBUG] Rendering template: back/events.html.twig

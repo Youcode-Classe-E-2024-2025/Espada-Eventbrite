@@ -63,10 +63,16 @@ class EventService
         }
     }
 
-    public function searchEvents(string $keyword, int $page = null, int $limit = null)
+    public function searchEvents(string $keyword, int $page = 1, int $limit = 5)
     {
 
-        return $this->evenmentRepo->searchEvents($keyword);
+        return $this->evenmentRepo->searchEvents($keyword, $page, $limit);
+    }
+
+    public function getTotalSearchResults(string $keyword)
+    {
+
+        return $this->evenmentRepo->getTotalSearchResults($keyword);
     }
 
     public function getEvents()
@@ -142,5 +148,15 @@ class EventService
     public function sortEvents($sort)
     {
         return $this->evenmentRepo->sortEvents($sort);
+    }
+
+    public function getPaginatedEvents($page = 1, $perPage = 5)
+    {
+        return $this->evenmentRepo->getAdminPaginatedEvents($page, $perPage);
+    }
+
+    public function getTotalEvents()
+    {
+        return $this->evenmentRepo->getTotalEvents();
     }
 }

@@ -37,7 +37,7 @@ class UserService
         return null;
     }
 
-    
+
     // Handle user registration
     public function register(array $userData): bool
     {
@@ -114,9 +114,14 @@ class UserService
         return $this->userRepository->getUserByEmail($googleUserData['email']);
     }
 
-    public function searchFilterUsers($keyword, $roleId, $status)
+    public function searchFilterUsers($keyword, $roleId, $status, $page = 1, $limit = 4)
     {
-        return $this->userRepository->searchUsersWithFilters($keyword, $roleId, $status);
+        return $this->userRepository->searchUsersWithFilters($keyword, $roleId, $status, $page, $limit);
+    }
+
+    public function getTotalUserSearchResults($keyword)
+    {
+        return $this->userRepository->getTotalUserSearchResults($keyword);
     }
 
     public function filterUsers($roleId, $status)
@@ -141,9 +146,9 @@ class UserService
         }
     }
 
-    public function getAllUsers()
+    public function getAllUsers($page = 1, $limit = 5)
     {
-        return $this->userRepository->getAll();
+        return $this->userRepository->getAll($page, $limit);
     }
 
     public function getTotalUsers(): int

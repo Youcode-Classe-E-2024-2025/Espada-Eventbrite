@@ -17,26 +17,48 @@ class AdminEventController extends Controller
 
     public function index()
     {
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $perPage = 5;
+
         $this->logger->info('Fetching all events');
-        $events = $this->eventService->getEvents();
+        $events = $this->eventService->getPaginatedEvents($page, $perPage);
+        $totalEvents = $this->eventService->getTotalEvents();
+        $totalPages = ceil($totalEvents / $perPage);
+
         $messages = $this->session->get('messages') ?? [];
         $csrfToken = $this->security->generateCsrfToken();
 
-        return $this->render('back/events.html.twig', ['events' => $events, 'messages' => $messages, 'csrf_token' => $csrfToken]);
+        return $this->render('back/events.html.twig', [
+            'events' => $events,
+            'messages' => $messages,
+            'csrf_token' => $csrfToken,
+            'currentPage' => $page,
+            'totalPages' => $totalPages,
+            'totalEvents' => $totalEvents
+        ]);
     }
 
     public function search()
     {
         $keyword = isset($_GET['keyword']) ? trim($_GET['keyword']) : '';
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $perPage = 5;
+
         $this->logger->info('Searching events with keyword: ' . $keyword);
 
-        $events = $this->eventService->searchEvents($keyword);
+        $events = $this->eventService->searchEvents($keyword, $page, $perPage);
+        $totalEvents = $this->eventService->getTotalSearchResults($keyword);
+        $totalPages = ceil($totalEvents / $perPage);
+
         $messages = $this->session->get('messages') ?? [];
 
         return $this->render('back/events.html.twig', [
             'events' => $events,
             'keyword' => $keyword,
             'messages' => $messages,
+            'currentPage' => $page,
+            'totalPages' => $totalPages,
+            'totalEvents' => $totalEvents
         ]);
     }
 
