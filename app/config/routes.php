@@ -43,7 +43,7 @@ $router->addRoute('GET', '/Organiser/delete/{id}', [App\controllers\front\Organi
 $router->addRoute('GET', '/events/list', [App\controllers\front\EventController::class, 'index']);
 $router->addRoute('GET', '/event/details/{id}', [App\controllers\front\EventController::class, 'eventDetails']);
 $router->addRoute('GET', '/events/booking/{id}', [App\controllers\front\ReservationController::class, 'index']);
-$router->addRoute('POST', '/events/reserv/{id}', [App\controllers\front\ReservationController::class, 'getBooking']);
+$router->addRoute('POST', '/events/reserv', [App\controllers\front\ReservationController::class, 'getBooking']);
 // $router->addRoute('GET', '/events/list/searchByCaty', [App\controllers\front\EventController::class, 'serchByCategory']);
 
 // $router->addRoute('GET', '/Organiser/dash', [App\controllers\front\OrganiserDashController::class, 'index']);
