@@ -9,17 +9,20 @@ use Stripe\Stripe;
 use Stripe\PaymentIntent;
 use Dotenv\Dotenv;
 
-class ReservationController extends Controller {
-    private $ReservationService;
+class ReservationController extends Controller
+{
+    private $reservationService;
     private $eventService;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
-        $this->ReservationService = new ReservationService();
+        $this->reservationService = new ReservationService();
         $this->eventService = new EventService();
     }
 
-    public function index($id) {
+    public function index($id)
+    {
         $data = $this->eventService->getEventById($id[0]);
         $statis = $this->eventService->getCapacities($id[0]);
         $availible = $this->ReservationService->getAvailable($id[0]);
@@ -31,10 +34,11 @@ class ReservationController extends Controller {
         echo $this->view->render("front/event/booking.html.twig", ['data' => $statis, 'event' => $data, 'standard_tickets_available'=> $standard_tickets_available, 'vip_tickets_available'=> $vip_tickets_available, 'gratuit_tickets_available'=> $gratuit_tickets_available]);
     }
 
-    public function getBooking() {
+    public function getBooking()
+    {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Sanitize and validate input data
-            $userId = $this->session->get('user')->id; 
+            $userId = $this->session->get('user')->id;
             $event_id = filter_input(INPUT_POST, 'event_id', FILTER_VALIDATE_INT);
             $vipQuantity = filter_input(INPUT_POST, 'vipQuantity', FILTER_VALIDATE_INT);
             $standardQuantity = filter_input(INPUT_POST, 'standardQuantity', FILTER_VALIDATE_INT);
@@ -50,7 +54,7 @@ class ReservationController extends Controller {
 
             $date = date('d-m-y');
             $booking_date = (new \DateTime($date))->format('Y-m-d H:i:s');
-            
+
             $type = 'VIP'; // You can adjust this logic based on the actual type selected by the user
 
             // Load environment variables for Stripe key
@@ -82,8 +86,8 @@ class ReservationController extends Controller {
                 ]);
 
                 // Insert booking details into the database
-                $this->ReservationService->insertBooking($userId, $event_id, $type, $totalPrice, $booking_date);
-                $this->ReservationService->updateSold($event_id, $vipQuantity, $standardQuantity, $freeQuantity);
+                $this->reservationService->insertBooking($userId, $event_id, $type, $totalPrice, $booking_date);
+                $this->reservationService->updateSold($event_id, $vipQuantity, $standardQuantity, $freeQuantity);
             } catch (\Exception $e) {
                 // Handle any errors with Stripe payment
                 http_response_code(500);
@@ -91,6 +95,30 @@ class ReservationController extends Controller {
             }
         }
     }
+
+
+    public function getMyTickets()
+    {
+        $userId = $this->session->get('user')->id;
+        $tickets = $this->reservationService->getUserTickets($userId);
+
+        return $this->render('front/tickets.html.twig', [
+            'tickets' => $tickets
+        ]);
+    }
+
+    public function downloadTicket($params)
+    {
+        $ticketId = (int)$params[0];
+        $ticket = $this->reservationService->getTicketById($ticketId);
+        $pdf = $this->reservationService->generateTicketPDF($ticket);
+
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: attachment; filename="ticket.pdf"');
+        echo $pdf;
+        exit;
+    }
+}
 
     public function handlePayment() {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
