@@ -68,7 +68,11 @@ class EventController extends Controller
       $tags = $this->eventService->getTags($id[0]);
       $availible = $this->ReservationService->getAvailable($id[0]);
 
-     echo $this->render('front/event/event-detail.html.twig',['event' => $data, 'statistics'=> $statis, 'tags'=> $tags, 'available'=>$availible]);
+      $standard_tickets_available = $availible->standard_tickets_available > 0 ? $availible->standard_tickets_available: 0 ;
+      $gratuit_tickets_available = $availible->gratuit_tickets_available  > 0 ? $availible->gratuit_tickets_available: 0;
+      $vip_tickets_available = $availible->vip_tickets_available  > 0 ? $availible->vip_tickets_available: 0;
+     
+     echo $this->render('front/event/event-detail.html.twig',['event' => $data, 'statistics'=> $statis, 'tags'=> $tags, 'standard_tickets_available'=> $standard_tickets_available, 'vip_tickets_available'=> $vip_tickets_available, 'gratuit_tickets_available'=> $gratuit_tickets_available]);
   }
 
     public function search()

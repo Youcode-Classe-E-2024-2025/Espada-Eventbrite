@@ -2,5 +2,6 @@ vendor/
 composer.lock
 .env
 logs/app.log
+logs/google_oauth.log
 uploads/
 public/uploads/

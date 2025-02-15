@@ -32,6 +32,6 @@ class ReservationService {
     }
 
     public function getAvailable($event_id){
-        $this->capacityRepo->getAvailable($event_id);
+        return $this->capacityRepo->getAvailable($event_id);
     }
 }
