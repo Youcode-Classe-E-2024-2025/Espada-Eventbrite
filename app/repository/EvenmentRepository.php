@@ -513,10 +513,18 @@ class EvenmentRepository
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
-    public function getRecentEvents()
+    public function getRecentEvents($limit)
     {
-        $sql = "SELECT * FROM evenments ORDER BY date DESC LIMIT 2";
-        $stmt = $this->DB->query($sql);
+        $sql = "SELECT e.id as event_id, e.*, u.username as owner, c.*, cat.name as category, cat.icon as icon
+        FROM evenments e 
+        LEFT JOIN capacity c ON e.id = c.evenment_id
+        LEFT JOIN users u ON e.owner_id = u.id
+        LEFT JOIN categories cat ON e.category_id = cat.id
+        ORDER BY e.date DESC LIMIT :limit";
+        $param = [
+            'limit'=> $limit
+        ];
+        $stmt = $this->DB->query($sql,$param);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
