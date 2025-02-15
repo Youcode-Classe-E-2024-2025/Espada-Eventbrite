@@ -448,3 +448,24 @@
 [2025-02-15 11:24:33] [DEBUG] Rendering template: back/categoryTag.html.twig
 [2025-02-15 11:24:45] [INFO] Fetching all categories and tags
 [2025-02-15 11:24:45] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-15 11:31:48] [DEBUG] Rendering template: front/home.html.twig
+[2025-02-15 11:31:51] [DEBUG] Rendering template: front/auth.twig
+[2025-02-15 11:31:58] [INFO] Dashboard index accessed
+[2025-02-15 11:31:58] [INFO] User dashboard accessed with events.
+[2025-02-15 11:31:58] [DEBUG] Rendering template: /front/profile.html.twig
+[2025-02-15 11:36:54] [DEBUG] Rendering template: front/home.html.twig
+[2025-02-15 11:36:56] [DEBUG] Rendering template: front/auth.twig
+[2025-02-15 11:37:01] [INFO] Dashboard index accessed
+[2025-02-15 11:37:01] [INFO] Admin dashboard accessed
+[2025-02-15 11:37:01] [INFO] Fetching stats for dashboard
+[2025-02-15 11:37:01] [INFO] Fetching pending actions for dashboard
+[2025-02-15 11:37:01] [INFO] Fetching recent activities for dashboard
+[2025-02-15 11:37:01] [DEBUG] Rendering template: /back/index.html.twig
+[2025-02-15 11:37:08] [INFO] Fetching all events
+[2025-02-15 11:37:08] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 11:38:36] [INFO] Fetching all events
+[2025-02-15 11:38:36] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 11:41:31] [INFO] Fetching all events
+[2025-02-15 11:41:31] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 11:44:38] [INFO] Fetching all events
+[2025-02-15 11:44:38] [DEBUG] Rendering template: back/events.html.twig
