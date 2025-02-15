@@ -72,12 +72,20 @@
                         <div class="flex items-center justify-between">
                             <h2 class="text-lg font-semibold">Recent Events</h2>
                             <div class="flex items-center gap-2">
-                                <button class="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">
-                                    <i class="fa-solid fa-file-csv mr-2"></i>Export CSV
-                                </button>
-                                <button class="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">
-                                    <i class="fa-solid fa-file-pdf mr-2"></i>Export PDF
-                                </button>
+                                <form action="/organizer/export/csv" method="post">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                                    <button class="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">
+                                        <i class="fa-solid fa-file-csv mr-2"></i>
+                                        <span>Export as CSV</span>
+                                    </button>
+                                </form>
+                                <form action="/organizer/export/pdf" method="post">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                                    <button class="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">
+                                        <i class="fa-solid fa-file-pdf mr-2"></i>
+                                        <span>Export as PDF</span>
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>

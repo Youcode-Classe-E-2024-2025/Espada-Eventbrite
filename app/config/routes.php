@@ -37,6 +37,8 @@ $router->addRoute('GET', '/Organiser/eventTicket/{id}', [App\controllers\front\O
 
 $router->addRoute('GET', '/Organiser/delete/{id}', [App\controllers\front\OrganiserDashController::class, 'delete']);
 
+$router->addRoute('POST', '/organizer/export/csv', [App\controllers\front\OrganizerExportController::class, 'exportCsv']);
+$router->addRoute('POST', '/organizer/export/pdf', [App\controllers\front\OrganizerExportController::class, 'exportPdf']);
 
 // $router->addRoute('GET', '/events/search', [App\controllers\front\EventController::class, 'search']);
 
@@ -72,8 +74,8 @@ $router->addRoute('POST', '/tag/create', [App\controllers\back\CategoryTagContro
 $router->addRoute('POST', '/tag/delete/{id}', [App\controllers\back\CategoryTagController::class, 'deleteTag']);
 
 // routes/web.php
-$router->addRoute('GET','/auth/google', [App\controllers\front\AuthController::class,'googleLogin']);
-$router->addRoute('GET','/auth/google/callback', [App\controllers\front\AuthController::class,'googleCallback']);
+$router->addRoute('GET', '/auth/google', [App\controllers\front\AuthController::class, 'googleLogin']);
+$router->addRoute('GET', '/auth/google/callback', [App\controllers\front\AuthController::class, 'googleCallback']);
 
 $router->addRoute('GET', '/tickets', [App\controllers\front\ReservationController::class, 'getMyTickets']);
 $router->addRoute('GET', '/ticket/download/{id}', [App\controllers\front\ReservationController::class, 'downloadTicket']);

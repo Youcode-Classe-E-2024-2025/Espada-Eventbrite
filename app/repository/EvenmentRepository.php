@@ -600,4 +600,28 @@ class EvenmentRepository
         $result = $this->DB->query($query)->fetch(PDO::FETCH_OBJ);
         return $result->total;
     }
+
+    public function getEventTicketsAndCapacity($eventId)
+    {
+        $sql = "SELECT 
+        e.*,
+        c.name as category,
+        cap.vip_tickets_number,
+        cap.vip_price,
+        cap.vip_tickets_sold,
+        cap.standard_tickets_number,
+        cap.standard_price, 
+        cap.standard_tickets_sold,
+        cap.gratuit_tickets_number,
+        cap.gratuit_tickets_sold,
+        (cap.vip_tickets_number + cap.standard_tickets_number + cap.gratuit_tickets_number) as total_capacity
+    FROM evenments e
+    LEFT JOIN categories c ON e.category_id = c.id
+    LEFT JOIN capacity cap ON e.id = cap.evenment_id
+    LEFT JOIN users u ON e.owner_id = u.id
+    WHERE e.id = :event_id";
+
+        $stmt = $this->DB->query($sql, [':event_id' => $eventId]);
+        return $stmt->fetch(PDO::FETCH_OBJ);
+    }
 }

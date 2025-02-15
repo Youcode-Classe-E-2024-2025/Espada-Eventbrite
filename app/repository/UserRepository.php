@@ -199,14 +199,14 @@ class UserRepository
                     avatar = COALESCE(:avatar, avatar) 
                   WHERE id = :id 
                   RETURNING *";
-        
+
         $stmt = $this->DB->query($query, [
             ':id' => $userId,
             ':google_id' => $data['google_id'],
             ':is_google' => $data['is_google'] ? 1 : 0,
             ':avatar' => $data['avatar'] ?? null
         ]);
-        
+
         return $stmt->fetch(PDO::FETCH_OBJ) ?: null;
     }
 
@@ -218,13 +218,13 @@ class UserRepository
                     avatar = COALESCE(:avatar, avatar) 
                   WHERE id = :id 
                   RETURNING *";
-        
+
         $stmt = $this->DB->query($query, [
             ':id' => $userId,
             ':username' => $data['username'] ?? null,
             ':avatar' => $data['avatar'] ?? null
         ]);
-        
+
         return $stmt->fetch(PDO::FETCH_OBJ) ?: null;
     }
 
@@ -322,5 +322,12 @@ class UserRepository
         $sql = "SELECT * FROM users ORDER BY created_at DESC LIMIT 2";
         $stmt = $this->DB->query($sql);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function getUserById($userId)
+    {
+        $sql = "SELECT * FROM users WHERE id = :id";
+        $stmt = $this->DB->query($sql, ['id' => $userId]);
+        return $stmt->fetch(PDO::FETCH_OBJ);
     }
 }

@@ -159,4 +159,9 @@ class EventService
     {
         return $this->evenmentRepo->getTotalEvents();
     }
+
+    public function getEventTicketsAndCapacity($eventId)
+    {
+        return $this->evenmentRepo->getEventTicketsAndCapacity($eventId);
+    }
 }

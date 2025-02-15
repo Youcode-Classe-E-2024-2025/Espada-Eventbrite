@@ -34,3 +34,5 @@
 [2025-02-15T17:03:11.827460+00:00] google_oauth.INFO: Service Call {"service":"oauth2","resource":"userinfo","method":"get","arguments":[]} []
 [2025-02-15T17:03:11.998560+00:00] google_oauth.INFO: Processing Google User {"google_id":"110241040810351366375","email":"elbarryanwar37@gmail.com","name":"el barry anouar"} []
 [2025-02-15T17:03:12.449932+00:00] google_oauth.INFO: Attempting to create new Google user {"email":"elbarryanwar37@gmail.com","username":"elbarryanouar","password":"b35a1d0bb4a8e5532d120b3969066828","avatar":"https://lh3.googleusercontent.com/a/ACg8ocJQbkVXtnrjnpM6vega8t6TV20jMgzfhEVlB01g9dOPd904giM=s96-c","google_id":"110241040810351366375","is_google":true,"role":2,"role_id":2} []
+[2025-02-15T21:49:48.555914+01:00] google_oauth.ERROR: Missing Google OAuth configuration {"client_id":"missing","client_secret":"missing","redirect_uri":"missing"} []
+[2025-02-15T21:50:28.723965+01:00] google_oauth.DEBUG: Rendering template: front/auth.twig [] []
