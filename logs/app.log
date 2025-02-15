@@ -785,3 +785,69 @@
 [2025-02-15 17:41:35] [INFO] Fetching pending actions for dashboard
 [2025-02-15 17:41:35] [INFO] Fetching recent activities for dashboard
 [2025-02-15 17:41:35] [DEBUG] Rendering template: /back/index.html.twig
+[2025-02-15 17:42:45] [DEBUG] Rendering template: front/home.html.twig
+[2025-02-15 17:43:34] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 17:43:42] [DEBUG] Rendering template: front/home.html.twig
+[2025-02-15 17:43:47] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 17:43:53] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 17:43:58] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 17:44:02] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 17:44:05] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 17:44:07] [DEBUG] Rendering template: front/home.html.twig
+[2025-02-15 17:45:42] [DEBUG] Rendering template: /back/404.html.twig
+[2025-02-15 17:45:47] [DEBUG] Rendering template: front/home.html.twig
+[2025-02-15 17:45:49] [DEBUG] Rendering template: /back/404.html.twig
+[2025-02-15 17:45:52] [DEBUG] Rendering template: front/home.html.twig
+[2025-02-15 17:45:54] [DEBUG] Rendering template: front/auth.twig
+[2025-02-15 17:46:01] [INFO] Dashboard index accessed
+[2025-02-15 17:46:01] [INFO] Organiser dashboard accessed
+[2025-02-15 17:46:01] [DEBUG] Rendering template: front/organiser/dashboard.twig
+[2025-02-15 17:47:18] [DEBUG] Rendering template: front/organiser/dashboard.twig
+[2025-02-15 17:47:39] [DEBUG] Rendering template: front/organiser/createEvent.html.twig
+[2025-02-15 17:47:49] [DEBUG] Rendering template: front/organiser/dashboard.twig
+[2025-02-15 17:48:13] [DEBUG] Rendering template: front/organiser/dashboard.twig
+[2025-02-15 17:48:23] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 17:50:05] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 17:50:23] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 17:50:27] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 17:50:28] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 17:53:56] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 17:53:59] [INFO] Searching events with keyword: 3
+[2025-02-15 17:53:59] [DEBUG] Rendering template: back/events.html.twig
+[2025-02-15 17:54:02] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 17:55:47] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 17:56:15] [INFO] Searching events with keyword: 3
+[2025-02-15 17:56:15] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 17:56:22] [INFO] Searching events with keyword: 
+[2025-02-15 17:56:22] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 17:59:12] [INFO] Searching events with keyword: 
+[2025-02-15 17:59:12] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 17:59:16] [DEBUG] Rendering template: /back/404.html.twig
+[2025-02-15 17:59:23] [DEBUG] Rendering template: /back/404.html.twig
+[2025-02-15 17:59:29] [INFO] Searching events with keyword: 
+[2025-02-15 17:59:29] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 17:59:36] [DEBUG] Rendering template: /back/404.html.twig
+[2025-02-15 17:59:39] [INFO] Searching events with keyword: 
+[2025-02-15 17:59:39] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 17:59:42] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 18:02:14] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 18:03:19] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 18:04:56] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 18:05:01] [DEBUG] Rendering template: /back/404.html.twig
+[2025-02-15 18:05:40] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 18:05:45] [INFO] Searching events with keyword: a
+[2025-02-15 18:05:45] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 18:05:52] [DEBUG] Rendering template: /back/404.html.twig
+[2025-02-15 18:06:06] [INFO] Searching events with keyword: a
+[2025-02-15 18:06:06] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 18:06:15] [DEBUG] Rendering template: /back/404.html.twig
+[2025-02-15 18:06:29] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 18:06:34] [DEBUG] Rendering template: /back/404.html.twig
+[2025-02-15 18:06:41] [DEBUG] Rendering template: /back/404.html.twig
+[2025-02-15 18:06:51] [INFO] Searching events with keyword: a
+[2025-02-15 18:06:51] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 18:06:56] [DEBUG] Rendering template: /back/404.html.twig
+[2025-02-15 18:07:55] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 18:07:58] [DEBUG] Rendering template: /back/404.html.twig
+[2025-02-15 18:08:05] [INFO] Searching events with keyword: a
+[2025-02-15 18:08:05] [DEBUG] Rendering template: front/event/event-list.html.twig

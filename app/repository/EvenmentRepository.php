@@ -407,6 +407,7 @@ LIMIT 2;
             WHERE e.title LIKE :keyword 
             OR e.description LIKE :keyword 
             OR e.lieu LIKE :keyword
+            AND e.validation = 1
             LIMIT :limit OFFSET :offset";
 
         $params = ['keyword' => "%$keyword%", 'limit' => $perPage, 'offset' => $offset];
@@ -418,7 +419,8 @@ LIMIT 2;
         $sql = "SELECT COUNT(*) as total FROM evenments 
             WHERE title LIKE :keyword 
             OR description LIKE :keyword 
-            OR lieu LIKE :keyword";
+            OR lieu LIKE :keyword
+            AND validation = 1";
 
         $result = $this->DB->query($sql, ['keyword' => "%$keyword%"])->fetch(PDO::FETCH_OBJ);
         return $result->total;
@@ -426,7 +428,7 @@ LIMIT 2;
 
     public function totalActiveEvents()
     {
-        $query = "SELECT COUNT(*) as total FROM evenments WHERE validation = 1 AND archived = 0";
+        $query = "SELECT COUNT(*) as total FROM evenments WHERE validation = 0 AND archived = 0";
         $stmt = $this->DB->query($query);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total'];
@@ -477,7 +479,7 @@ LIMIT 2;
                 LEFT JOIN capacity c ON e.id = c.evenment_id
                 LEFT JOIN users u ON e.owner_id = u.id
                 LEFT JOIN categories cat ON e.category_id = cat.id
-                WHERE e.validation = 1 AND e.archived = 0";
+                WHERE e.validation = 0 AND e.archived = 0";
 
         // Prepare parameters array
         $params = [];
@@ -499,8 +501,7 @@ LIMIT 2;
         $params[] = $offset;
 
         // Prepare and execute the statement properly
-        $stmt = $this->DB->getConnection()->prepare($query);
-        $stmt->execute($params);
+        $stmt = $this->DB->query($query, $params);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
