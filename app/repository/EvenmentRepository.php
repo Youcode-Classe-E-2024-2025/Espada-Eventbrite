@@ -519,4 +519,31 @@ class EvenmentRepository
         $stmt = $this->DB->query($sql);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
+
+    public function filterSortEvents($status, $sortBy)
+    {
+        $sql = "SELECT * FROM evenments WHERE 1=1";
+
+        if ($status) {
+            $sql .= " AND validation = :status";
+        }
+
+        switch ($sortBy) {
+            case 'date_asc':
+                $sql .= " ORDER BY date ASC";
+                break;
+            case 'date_desc':
+                $sql .= " ORDER BY date DESC";
+                break;
+            case 'name_asc':
+                $sql .= " ORDER BY name ASC";
+                break;
+            case 'name_desc':
+                $sql .= " ORDER BY name DESC";
+                break;
+        }
+
+        $stmt = $this->DB->query($sql, $status ? ['status' => $status] : []);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
 }

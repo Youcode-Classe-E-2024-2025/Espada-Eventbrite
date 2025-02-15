@@ -65,4 +65,42 @@ document.addEventListener('DOMContentLoaded', () => {
     modal.classList.add('hidden');
   });
 
+
+
+  const input = document.querySelector('#tag-input');
+  const tagify = new Tagify(input, {
+    delimiters: ",",
+    dropdown: {
+      enabled: 0
+    }
+  });
+
+  document.getElementById('tag-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const tags = tagify.value.map(tag => tag.value);
+    console.log('Sending tags:', tags);
+
+    fetch('/tag/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': document.querySelector('input[name="csrf_token"]').value
+      },
+      body: JSON.stringify({
+        tags: tags,
+        csrf_token: document.querySelector('input[name="csrf_token"]').value
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Response:', data);
+        if (data.success) {
+          tagify.removeAllTags();
+          toggleTagModal();
+          window.location.reload();
+        }
+      })
+      .catch(error => console.log('Error:', error));
+  });
+
 });

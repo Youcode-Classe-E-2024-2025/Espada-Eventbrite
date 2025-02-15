@@ -26,9 +26,9 @@ class CategoryTagService
         return $this->tagRepository->getAll();
     }
 
-    public function addTag($title)
+    public function addTags($tags)
     {
-        return $this->tagRepository->create($title);
+        return $this->tagRepository->massInsert($tags);
     }
 
     public function addCategory($title, $icon)
