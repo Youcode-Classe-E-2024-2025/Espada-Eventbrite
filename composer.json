@@ -7,6 +7,10 @@
         "google/apiclient": "2.18",
         "ralouphie/getallheaders": "^3.0",
         "tecnickcom/tcpdf": "^6.8"
+        "google/apiclient": "^2.18",
+        "ralouphie/getallheaders": "*",
+        "tecnickcom/tcpdf": "^6.8",
+        "stripe/stripe-php": "^16.5"
     },
     "autoload": {
         "psr-4": {

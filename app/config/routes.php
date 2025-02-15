@@ -43,7 +43,7 @@ $router->addRoute('GET', '/Organiser/delete/{id}', [App\controllers\front\Organi
 $router->addRoute('GET', '/events/list', [App\controllers\front\EventController::class, 'index']);
 $router->addRoute('GET', '/event/details/{id}', [App\controllers\front\EventController::class, 'eventDetails']);
 $router->addRoute('GET', '/events/booking/{id}', [App\controllers\front\ReservationController::class, 'index']);
-$router->addRoute('POST', '/events/reserv/{id}', [App\controllers\front\ReservationController::class, 'getBooking']);
+$router->addRoute('POST', '/events/reserv', [App\controllers\front\ReservationController::class, 'getBooking']);
 // $router->addRoute('GET', '/events/list/searchByCaty', [App\controllers\front\EventController::class, 'serchByCategory']);
 
 // $router->addRoute('GET', '/Organiser/dash', [App\controllers\front\OrganiserDashController::class, 'index']);
@@ -54,11 +54,12 @@ $router->addRoute('GET', '/admin/events', [App\controllers\back\AdminEventContro
 $router->addRoute('GET', '/admin/events/search', [App\controllers\back\AdminEventController::class, 'search']);
 $router->addRoute('POST', '/admin/events/status', [App\controllers\back\AdminEventController::class, 'updateStatus']);
 $router->addRoute('POST', '/admin/events/delete', [App\controllers\back\AdminEventController::class, 'delete']);
+$router->addRoute('GET', '/admin/events/sort', [App\controllers\back\AdminEventController::class, 'sort']);
+
 $router->addRoute('GET', '/admin/users', [App\controllers\back\AdminUserController::class, 'index']);
 $router->addRoute('GET', '/admin/users/search', [App\controllers\back\AdminUserController::class, 'search']);
 $router->addRoute('GET', '/admin/users/filter', [App\controllers\back\AdminUserController::class, 'filter']);
 $router->addRoute('POST', '/admin/users/status', [App\controllers\back\AdminUserController::class, 'updateStatus']);
-// $router->addRoute('POST', '/admin/users/banUser', [App\controllers\back\AdminUserController::class, 'updateStatus']);
 $router->addRoute('POST', '/admin/export/csv', [App\controllers\back\ExportController::class, 'exportCsv']);
 $router->addRoute('POST', '/admin/export/pdf', [App\controllers\back\ExportController::class, 'exportPdf']);
 

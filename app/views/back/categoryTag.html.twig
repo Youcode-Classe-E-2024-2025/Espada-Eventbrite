@@ -49,6 +49,11 @@
                     {% else %}
                     <div class="space-y-4">
                         {% for category in categories %}
+                            <div class="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50">
+                                <div class="flex items-center space-x-3">
+                                    <i class="fa-solid {{ category.icon }} text-blue-500"></i>
+                                    <span class="font-medium">{{ category.name }}</span>
+                                    <span class="text-sm text-gray-500">({{ category.event_count }} items)</span>
                             <div class="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 transition-colors group">
                                 <div class="flex items-center space-x-4">
                                     <div class="w-10 h-10 flex items-center justify-center rounded-full bg-blue-100">

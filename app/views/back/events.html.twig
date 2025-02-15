@@ -51,43 +51,17 @@
                     </div>
                     <div class="flex space-x-2">
                         <div class="relative">
-                            <button class="p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200 group" id="filterBtn">
-                                <i class="fa-solid fa-filter text-gray-600 group-hover:text-blue-500"></i>
-                            </button>
-
-                            <!-- Filter Popup -->
-                            <div id="filterPopup" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-10">
-                                <div class="p-4 space-y-2">
-                                    <div class="font-medium">Filter by:</div>
-                                    <div class="space-y-1">
-                                        <label class="flex items-center">
-                                            <input type="checkbox" class="mr-2"> Active
-                                        </label>
-                                        <label class="flex items-center">
-                                            <input type="checkbox" class="mr-2"> Pending
-                                        </label>
-                                        <label class="flex items-center">
-                                            <input type="checkbox" class="mr-2"> Cancelled
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="relative">
                             <button class="p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200 group" id="sortBtn">
                                 <i class="fa-solid fa-sort text-gray-600 group-hover:text-blue-500"></i>
                             </button>
-
-                            <!-- Sort Popup -->
                             <div id="sortPopup" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-10">
                                 <div class="p-4 space-y-2">
                                     <div class="font-medium">Sort by:</div>
                                     <div class="space-y-1">
-                                        <button class="w-full text-left hover:bg-gray-100 px-2 py-1 rounded">Date ↑</button>
-                                        <button class="w-full text-left hover:bg-gray-100 px-2 py-1 rounded">Date ↓</button>
-                                        <button class="w-full text-left hover:bg-gray-100 px-2 py-1 rounded">Name A-Z</button>
-                                        <button class="w-full text-left hover:bg-gray-100 px-2 py-1 rounded">Name Z-A</button>
+                                        <button class="w-full text-left hover:bg-gray-100 px-2 py-1 rounded" data-sort="date_asc">Date ↑</button>
+                                        <button class="w-full text-left hover:bg-gray-100 px-2 py-1 rounded" data-sort="date_desc">Date ↓</button>
+                                        <button class="w-full text-left hover:bg-gray-100 px-2 py-1 rounded" data-sort="name_asc">Name A-Z</button>
+                                        <button class="w-full text-left hover:bg-gray-100 px-2 py-1 rounded" data-sort="name_desc">Name Z-A</button>
                                     </div>
                                 </div>
                             </div>

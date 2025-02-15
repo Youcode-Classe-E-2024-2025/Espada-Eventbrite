@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <h4 class="text-xl font-bold mb-2">${event.title}</h4>
                         <p class="text-gray-600 mb-4">${event.description.slice(0, 20)}...</p>
                         <div class="flex items-center justify-between">
-                            <button class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Book Now</button>
+                  <a href="/event/details/${ event.event_id }" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Book Now</a>
                         </div>
                     </div>
                 </div>

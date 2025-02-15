@@ -26,4 +26,12 @@ class ReservationService {
     public function insertBooking($userId, $eventId, $type,  $totalPrice, $booking_date){
         $this->reservationRepository->createBooking($userId, $eventId, $type, $totalPrice , $booking_date);
     }
+
+    public function updateSold($event_id, $new_vip_tickets,$new_standard_tickets,$new_gratuit_tickets){
+        $this->capacityRepo->updateSold($event_id, $new_vip_tickets,$new_standard_tickets,$new_gratuit_tickets);
+    }
+
+    public function getAvailable($event_id){
+        $this->capacityRepo->getAvailable($event_id);
+    }
 }

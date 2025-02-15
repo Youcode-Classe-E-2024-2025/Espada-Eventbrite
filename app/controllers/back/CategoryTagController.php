@@ -19,6 +19,9 @@ class CategoryTagController extends Controller
     {
         $this->logger->info('Fetching all categories and tags');
         $categories = $this->categoryTagService->getAllCategories();
+        foreach ($categories as $category) {
+            $category->event_count = $this->categoryTagService->CategoryEventCount($category->id);
+        }
         $tags = $this->categoryTagService->getAllTags();
         $messages = $this->session->get('messages') ?? [];
         $csrfToken = $this->security->generateCsrfToken();

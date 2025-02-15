@@ -48,4 +48,12 @@ class CategoryRepository
         $stmt = $this->DB->query($sql, [':name' => $name, ':icon' => $icon, ':id' => $id]);
         return $stmt->rowCount() > 0;
     }
+
+    public function getEventCount($id)
+    {
+        $query = "SELECT COUNT(*) as count FROM evenments WHERE category_id = :id";
+        $stmt = $this->DB->query($query, [':id' => $id]);
+        $result = $stmt->fetch(PDO::FETCH_OBJ);
+        return $result->count;
+    }
 }

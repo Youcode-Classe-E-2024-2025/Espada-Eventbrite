@@ -38,7 +38,6 @@ class EvenmentRepository
         );
         if ($res) {
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            var_dump($result);
             // Fetch the ID
             return  $result['id'];  // Ensure it returns an integer
         }
@@ -115,13 +114,12 @@ class EvenmentRepository
 
     public function getMyEvents($id): array
     {
-        $query = "SELECT e.id as event_id, e.*, u.username as owner, c.*, cat.name as category, cat.icon as icon
-        FROM evenments e 
-        LEFT JOIN capacity c ON e.id = c.evenment_id
-        LEFT JOIN users u ON e.owner_id = u.id
-        LEFT JOIN categories cat ON e.category_id = cat.id
-        where u.id = :id
-        ORDER BY e.date DESC limit 2
+        $query = "SELECT *
+FROM evenments e
+JOIN booking b ON e.id = b.evenment_id
+WHERE b.user_id = :id
+ORDER BY b.booking_date DESC
+LIMIT 2;
         ";
         $stmt = $this->DB->query($query, [":id" => $id]);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -528,30 +526,35 @@ class EvenmentRepository
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function filterSortEvents($status, $sortBy)
+    public function sortEvents($sortBy)
     {
-        $sql = "SELECT * FROM evenments WHERE 1=1";
+        $query = "SELECT e.*, 
+            c.total_tickets, c.vip_tickets_sold, c.standard_tickets_sold, 
+            c.gratuit_tickets_sold, c.vip_tickets_number, c.standard_tickets_number,
+            c.gratuit_tickets_number, c.vip_price, c.standard_price,
+            cat.name as category, cat.icon as icon
+            FROM evenments e 
+            LEFT JOIN capacity c ON e.id = c.evenment_id
+            LEFT JOIN categories cat ON e.category_id = cat.id
+            WHERE 1=1";
 
-        if ($status) {
-            $sql .= " AND validation = :status";
+        if (!empty($sortBy)) {
+            switch ($sortBy) {
+                case 'date_asc':
+                    $query .= " ORDER BY date ASC";
+                    break;
+                case 'date_desc':
+                    $query .= " ORDER BY date DESC";
+                    break;
+                case 'name_asc':
+                    $query .= " ORDER BY title ASC";
+                    break;
+                case 'name_desc':
+                    $query .= " ORDER BY title DESC";
+                    break;
+            }
         }
 
-        switch ($sortBy) {
-            case 'date_asc':
-                $sql .= " ORDER BY date ASC";
-                break;
-            case 'date_desc':
-                $sql .= " ORDER BY date DESC";
-                break;
-            case 'name_asc':
-                $sql .= " ORDER BY name ASC";
-                break;
-            case 'name_desc':
-                $sql .= " ORDER BY name DESC";
-                break;
-        }
-
-        $stmt = $this->DB->query($sql, $status ? ['status' => $status] : []);
-        return $stmt->fetchAll(PDO::FETCH_OBJ);
+        return $this->DB->query($query)->fetchAll(PDO::FETCH_OBJ);
     }
 }
