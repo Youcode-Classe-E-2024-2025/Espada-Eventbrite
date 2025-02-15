@@ -25,13 +25,13 @@
                             <p class="text-2xl font-bold" data-price="{{ data.standard_price }}">${{ data.standard_price }}</p>
                             <select class="mt-2 border rounded p-2 ticket-quantity" data-type="standard" onchange="updateQuantities()" {% if standard_tickets_available == 0 %} disabled class="opacity-25" {% endif %}>
                                 <option value="0" selected>0</option>
-                                {% if standard_tickets_available > 1 %}
+                                {% if standard_tickets_available >= 1 %}
                                     <option value="1">1</option>
                                 {% endif %}
-                                {% if standard_tickets_available > 2 %}
+                                {% if standard_tickets_available >= 2 %}
                                     <option value="2">2</option>
                                 {% endif %}
-                                {% if standard_tickets_available > 3 %}
+                                {% if standard_tickets_available >= 3 %}
                                     <option value="3">3</option>
                                 {% endif %}
                             </select>
@@ -52,13 +52,13 @@
                             <p class="text-2xl font-bold" data-price="{{ data.vip_price }}">${{ data.vip_price }}</p>
                             <select class="mt-2 border rounded p-2 ticket-quantity" data-type="vip" onchange="updateQuantities()" {% if vip_tickets_available == 0 %} disabled {% endif %}>
                                 <option value="0" selected>0</option>
-                                {% if vip_tickets_available > 1 %}
+                                {% if vip_tickets_available >= 1 %}
                                     <option value="1">1</option>
                                 {% endif %}
-                                {% if vip_tickets_available > 2 %}
+                                {% if vip_tickets_available >= 2 %}
                                     <option value="2">2</option>
                                 {% endif %}
-                                {% if vip_tickets_available > 3 %}
+                                {% if vip_tickets_available >= 3 %}
                                     <option value="3">3</option>
                                 {% endif %}
                             </select>
@@ -76,13 +76,13 @@
                             <p class="text-2xl font-bold" data-price="0">$0</p>
                             <select class="mt-2 border rounded p-2 ticket-quantity" data-type="free" onchange="updateQuantities()" {% if gratuit_tickets_available == 0 %} disabled class="opacity-50" {% endif %}>
                                 <option value="0" selected>0</option>
-                                {% if gratuit_tickets_available > 1 %}
+                                {% if gratuit_tickets_available >= 1 %}
                                     <option value="1">1</option>
                                 {% endif %}
-                                {% if gratuit_tickets_available > 2 %}
+                                {% if gratuit_tickets_available >= 2 %}
                                     <option value="2">2</option>
                                 {% endif %}
-                                {% if gratuit_tickets_available > 3 %}
+                                {% if gratuit_tickets_available >= 3 %}
                                     <option value="3">3</option>
                                 {% endif %}
                             </select>
