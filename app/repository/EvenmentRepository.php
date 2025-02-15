@@ -517,4 +517,36 @@ LIMIT 2;
         $stmt = $this->DB->query($sql);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
+
+    public function sortEvents($sortBy)
+    {
+        $query = "SELECT e.*, 
+            c.total_tickets, c.vip_tickets_sold, c.standard_tickets_sold, 
+            c.gratuit_tickets_sold, c.vip_tickets_number, c.standard_tickets_number,
+            c.gratuit_tickets_number, c.vip_price, c.standard_price,
+            cat.name as category, cat.icon as icon
+            FROM evenments e 
+            LEFT JOIN capacity c ON e.id = c.evenment_id
+            LEFT JOIN categories cat ON e.category_id = cat.id
+            WHERE 1=1";
+
+        if (!empty($sortBy)) {
+            switch ($sortBy) {
+                case 'date_asc':
+                    $query .= " ORDER BY date ASC";
+                    break;
+                case 'date_desc':
+                    $query .= " ORDER BY date DESC";
+                    break;
+                case 'name_asc':
+                    $query .= " ORDER BY title ASC";
+                    break;
+                case 'name_desc':
+                    $query .= " ORDER BY title DESC";
+                    break;
+            }
+        }
+
+        return $this->DB->query($query)->fetchAll(PDO::FETCH_OBJ);
+    }
 }

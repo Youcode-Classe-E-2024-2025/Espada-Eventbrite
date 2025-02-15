@@ -46,7 +46,7 @@
                                 <div class="flex items-center space-x-3">
                                     <i class="fa-solid {{ category.icon }} text-blue-500"></i>
                                     <span class="font-medium">{{ category.name }}</span>
-                                    <span class="text-sm text-gray-500">(45 items)</span>
+                                    <span class="text-sm text-gray-500">({{ category.event_count }} items)</span>
                                 </div>
                                 <div class="flex space-x-2">
                                     <button class="edit-category-btn p-2 text-blue-500 hover:bg-blue-50 rounded-lg" data-id="{{ category.id }}" data-name="{{ category.name }}" data-icon="{{ category.icon }}">
@@ -131,9 +131,9 @@
                         <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
                         <div>
                             <label for="tag-name" class="block mb-2 text-sm font-medium">Tag Name</label>
-                            <input type="text" id="tag-name" name="tag_title" required 
+                            <input type="text" id="tag-input" name="tags" required 
                                 class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"
-                                placeholder="Enter tag name (e.g., technology)">
+                                placeholder="Enter tags separated by commas">
                         </div>
                         <div class="flex justify-end space-x-4">
                             <button type="button" id="cancel-tag" class="px-4 py-2 border rounded-lg hover:bg-gray-50">Cancel</button>

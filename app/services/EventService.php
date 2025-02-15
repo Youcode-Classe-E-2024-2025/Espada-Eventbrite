@@ -138,4 +138,9 @@ class EventService
     {
         return $this->evenmentRepo->getRecentEvents();
     }
+
+    public function sortEvents($sort)
+    {
+        return $this->evenmentRepo->sortEvents($sort);
+    }
 }

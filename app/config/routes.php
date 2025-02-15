@@ -54,11 +54,12 @@ $router->addRoute('GET', '/admin/events', [App\controllers\back\AdminEventContro
 $router->addRoute('GET', '/admin/events/search', [App\controllers\back\AdminEventController::class, 'search']);
 $router->addRoute('POST', '/admin/events/status', [App\controllers\back\AdminEventController::class, 'updateStatus']);
 $router->addRoute('POST', '/admin/events/delete', [App\controllers\back\AdminEventController::class, 'delete']);
+$router->addRoute('GET', '/admin/events/sort', [App\controllers\back\AdminEventController::class, 'sort']);
+
 $router->addRoute('GET', '/admin/users', [App\controllers\back\AdminUserController::class, 'index']);
 $router->addRoute('GET', '/admin/users/search', [App\controllers\back\AdminUserController::class, 'search']);
 $router->addRoute('GET', '/admin/users/filter', [App\controllers\back\AdminUserController::class, 'filter']);
 $router->addRoute('POST', '/admin/users/status', [App\controllers\back\AdminUserController::class, 'updateStatus']);
-// $router->addRoute('POST', '/admin/users/banUser', [App\controllers\back\AdminUserController::class, 'updateStatus']);
 $router->addRoute('POST', '/admin/export/csv', [App\controllers\back\ExportController::class, 'exportCsv']);
 $router->addRoute('POST', '/admin/export/pdf', [App\controllers\back\ExportController::class, 'exportPdf']);
 
@@ -66,7 +67,7 @@ $router->addRoute('POST', '/admin/export/pdf', [App\controllers\back\ExportContr
 $router->addRoute('POST', '/category/create', [App\controllers\back\CategoryTagController::class, 'addCategory']);
 $router->addRoute('POST', '/category/delete/{id}', [App\controllers\back\CategoryTagController::class, 'deleteCategory']);
 $router->addRoute('POST', '/category/update', [App\controllers\back\CategoryTagController::class, 'updateCategory']);
-$router->addRoute('POST', '/tag/create', [App\controllers\back\CategoryTagController::class, 'addTag']);
+$router->addRoute('POST', '/tag/create', [App\controllers\back\CategoryTagController::class, 'addTags']);
 $router->addRoute('POST', '/tag/delete/{id}', [App\controllers\back\CategoryTagController::class, 'deleteTag']);
 
 

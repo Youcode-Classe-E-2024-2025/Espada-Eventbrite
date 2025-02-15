@@ -26,9 +26,9 @@ class CategoryTagService
         return $this->tagRepository->getAll();
     }
 
-    public function addTag($title)
+    public function addTags($tags)
     {
-        return $this->tagRepository->create($title);
+        return $this->tagRepository->massInsert($tags);
     }
 
     public function addCategory($title, $icon)
@@ -49,5 +49,10 @@ class CategoryTagService
     public function updateCategory($id, $name, $icon)
     {
         return $this->categoryRepository->update($id, $name, $icon);
+    }
+
+    public function CategoryEventCount($categoryId)
+    {
+        return $this->categoryRepository->getEventCount($categoryId);
     }
 }

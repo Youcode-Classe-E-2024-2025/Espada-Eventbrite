@@ -19,6 +19,9 @@ class CategoryTagController extends Controller
     {
         $this->logger->info('Fetching all categories and tags');
         $categories = $this->categoryTagService->getAllCategories();
+        foreach ($categories as $category) {
+            $category->event_count = $this->categoryTagService->CategoryEventCount($category->id);
+        }
         $tags = $this->categoryTagService->getAllTags();
         $messages = $this->session->get('messages') ?? [];
         $csrfToken = $this->security->generateCsrfToken();
@@ -31,26 +34,29 @@ class CategoryTagController extends Controller
         ]);
     }
 
-    public function addTag()
+    public function addTags()
     {
-        $title = $_POST['tag_title'] ?? '';
-        $this->logger->info('Attempting to add tag: ' . $title);
-        $csrfToken = $_POST['csrf_token'] ?? '';
+        try {
+            $data = json_decode(file_get_contents('php://input'), true);
+            $tags = $data['tags'];
+            $csrfToken = $data['csrf_token'] ?? '';
 
-        if (!$this->security->validateCsrfToken($csrfToken)) {
-            $this->session->set('error', 'Invalid CSRF token.');
-            $this->redirect('/admin/categoryTag');
+            if (!$this->security->validateCsrfToken($csrfToken)) {
+                header('Content-Type: application/json');
+                echo json_encode(['success' => false, 'error' => 'Invalid CSRF token']);
+                exit;
+            }
+
+            $result = $this->categoryTagService->addTags($tags);
+
+            header('Content-Type: application/json');
+            echo json_encode(['success' => $result]);
+            exit;
+        } catch (\Exception $e) {
+            header('Content-Type: application/json');
+            echo json_encode(['success' => false, 'error' => $e->getMessage()]);
             exit;
         }
-
-        if (!empty($title)) {
-            $this->categoryTagService->addTag($title);
-            $this->session->set('success', 'Tag added successfully.');
-        } else {
-            $this->session->set('error', 'Tag title cannot be empty.');
-        }
-
-        $this->redirect('/admin/categoryTag');
     }
 
     public function addCategory()
@@ -99,7 +105,6 @@ class CategoryTagController extends Controller
 
         $this->redirect('/admin/categoryTag');
     }
-
 
     public function deleteCategory()
     {
