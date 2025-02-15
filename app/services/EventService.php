@@ -139,8 +139,8 @@ class EventService
         return $this->evenmentRepo->getRecentEvents();
     }
 
-    public function filterSortEvents($filters, $sort)
+    public function sortEvents($sort)
     {
-        return $this->evenmentRepo->filterSortEvents($filters, $sort);
+        return $this->evenmentRepo->sortEvents($sort);
     }
 }

@@ -50,4 +50,9 @@ class CategoryTagService
     {
         return $this->categoryRepository->update($id, $name, $icon);
     }
+
+    public function CategoryEventCount($categoryId)
+    {
+        return $this->categoryRepository->getEventCount($categoryId);
+    }
 }
