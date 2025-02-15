@@ -1,290 +1,272 @@
 {% extends "base.html.twig" %}
 {% block content %}
-                <div id="booking-page" class="max-w-7xl mx-auto px-4 py-8">
-                    <div id="event-header" class="mb-10">
-                        <h1 class="text-4xl font-bold mb-4">{{ event.title }}</h1>
-                        <div class="flex items-center gap-4 text-gray-600">
-                            <span class="flex items-center"><i class="fa-regular fa-calendar mr-2"></i>{{event.date}}</span>
-                            <span class="flex items-center"><i class="fa-solid fa-location-dot mr-2"></i>{{event.lieu}}</span>
+<div id="booking-page" class="max-w-7xl mx-auto px-4 py-8">
+    <div id="event-header" class="mb-10">
+        <h1 class="text-4xl font-bold mb-4">{{ event.title }}</h1>
+        <div class="flex items-center gap-4 text-gray-600">
+            <span class="flex items-center"><i class="fa-regular fa-calendar mr-2"></i>{{event.date}}</span>
+            <span class="flex items-center"><i class="fa-solid fa-location-dot mr-2"></i>{{event.lieu}}</span>
+        </div>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+        <div id="ticket-options" class="md:col-span-2 space-y-6">
+            <div class="bg-white rounded-xl shadow-sm border p-6">
+                <h2 class="text-2xl font-bold mb-6">Select Your Ticket</h2>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between p-4 border rounded-lg hover:border-blue-500 cursor-pointer">
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-lg">Standard Access</h3>
+                            <p class="text-gray-600">Basic conference access</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-2xl font-bold" data-price="{{ data.standard_price }}">${{ data.standard_price }}</p>
+                            <select class="mt-2 border rounded p-2 ticket-quantity" data-type="standard" onchange="updateQuantities()">
+                                <option value="0" selected>0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="grid md:grid-cols-3 gap-8">
-                        <div id="ticket-options" class="md:col-span-2 space-y-6">
-                            <div class="bg-white rounded-xl shadow-sm border p-6">
-                                <h2 class="text-2xl font-bold mb-6">Select Your Ticket</h2>
-                                <div class="space-y-4">
-                                    <div class="flex items-center justify-between p-4 border rounded-lg hover:border-blue-500 cursor-pointer">
-                                        <div class="flex-1">
-                                            <h3 class="font-semibold text-lg">Standard Access</h3>
-                                            <p class="text-gray-600">Basic conference access</p>
-                                        </div>
-                                        <div class="text-right">
-                                            <p class="text-2xl font-bold" data-price="{{ data.standard_price }}">${{ data.standard_price }}</p>
-                                            <select class="mt-2 border rounded p-2 ticket-quantity" data-type="standard" onchange="updateQuantities()">
-                                                <option value="0" selected>0</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center justify-between p-4 border rounded-lg hover:border-blue-500 cursor-pointer bg-blue-50">
-                                        <div class="flex-1">
-                                            <div class="flex items-center gap-2">
-                                                <h3 class="font-semibold text-lg">VIP Access</h3>
-                                                <span class="bg-blue-500 text-white text-xs px-2 py-1 rounded">BEST VALUE</span>
-                                            </div>
-                                            <p class="text-gray-600">Premium seating + Workshop access</p>
-                                        </div>
-                                        <div class="text-right">
-                                            <p class="text-2xl font-bold" data-price="{{ data.vip_price }}">${{ data.vip_price }}</p>
-                                            <select class="mt-2 border rounded p-2 ticket-quantity" data-type="vip" onchange="updateQuantities()">
-                                                <option value="0" selected>0</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center justify-between p-4 border rounded-lg hover:border-blue-500 cursor-pointer">
-                                        <div class="flex-1">
-                                            <h3 class="font-semibold text-lg">Free</h3>
-                                            <p class="text-gray-600">Limited time offer</p>
-                                            <span class="text-red-500 text-sm">Sold Out</span>
-                                            
-                                        </div>
-                                         <div class="text-right">
-                                            <p class="text-2xl font-bold" data-price="0">$0</p>
-                                            <select class="mt-2 border rounded p-2 ticket-quantity" data-type="free" onchange="updateQuantities()">
-                                                <option value="0" selected>0</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="flex items-center justify-between p-4 border rounded-lg hover:border-blue-500 cursor-pointer bg-blue-50">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2">
+                                <h3 class="font-semibold text-lg">VIP Access</h3>
+                                <span class="bg-blue-500 text-white text-xs px-2 py-1 rounded">BEST VALUE</span>
                             </div>
-                            <div id="payment-section" class="bg-white rounded-xl shadow-sm border p-6">
-                                <h2 class="text-2xl font-bold mb-6">Payment Details</h2>
-                                <div class="space-y-4">
-                                    <div class="flex gap-4">
-                                        <button class="flex-1 py-3 border rounded-lg hover:bg-gray-50">
-                                            <i class="fa-brands fa-cc-stripe text-2xl"></i>
-                                        </button>
-                                        <button class="flex-1 py-3 border rounded-lg hover:bg-gray-50">
-                                            <i class="fa-brands fa-paypal text-2xl"></i>
-                                        </button>
-                                    </div>
-                                    <div class="grid grid-cols-2 gap-4">
-                                        <input type="text" placeholder="Card Number" class="col-span-2 border rounded-lg p-3">
-                                        <input type="text" placeholder="MM/YY" class="border rounded-lg p-3">
-                                        <input type="text" placeholder="CVC" class="border rounded-lg p-3">
-                                    </div>
-                                </div>
-                            </div>
+                            <p class="text-gray-600">Premium seating + Workshop access</p>
                         </div>
-                        <div id="order-summary" class="bg-white rounded-xl shadow-sm border p-6 h-fit">
-                            <form action="/events/reserv" method="POST" id="booking-form">
-                            <input name="event_id" class="hidden" value=" {{ event.event_id }} ">
-                            <input type="hidden" name="vipQuantity" id="vipQuantity" value="0">
-                            <input type="hidden" name="standardQuantity" id="standardQuantity" value="0">
-                            <input type="hidden" name="freeQuantity" id="freeQuantity" value="0">
-                            <input type="hidden" name="totalPrice" id="totalPrice" value="0">
-                                <h2 class="text-2xl font-bold mb-6">Order Summary</h2>
-                                <div class="space-y-4">
-                                    <div class="flex justify-between">
-                                        <span>VIP Access (x0)</span>
-                                        <span>$0.00</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span>Standard Access (x0)</span>
-                                        <span>$0.00</span>
-                                    </div>
-                                     <div class="flex justify-between">
-                                            <span>Free Access (x$0)</span>
-                                            <span>$0.00</span>
-                                    </div>
-                                    <div class="flex justify-between text-sm text-gray-600">
-                                        <span>Processing Fee</span>
-                                        <span>$5.99</span>
-                                    </div>
-                                    <div class="border-t pt-4">
-                                        <div class="flex justify-between font-bold text-lg">
-                                            <span>Total</span>
-                                            <span id="total-price">$5.99</span>
-                                        </div>
-                                        <button type="submit" class="w-full bg-blue-600 text-white py-4 rounded-lg font-semibold hover:bg-blue-700">
-                                            Complete Booking
-                                        </button>
-                                        <p class="text-xs text-gray-500 text-center">By completing this booking you agree to our terms of service and cancellation policy</p>
-                                    </div>
-                                </div>
-                            </form>
+                        <div class="text-right">
+                            <p class="text-2xl font-bold" data-price="{{ data.vip_price }}">${{ data.vip_price }}</p>
+                            <select class="mt-2 border rounded p-2 ticket-quantity" data-type="vip" onchange="updateQuantities()">
+                                <option value="0" selected>0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
                         </div>
                     </div>
-                    <div id="cancellation-policy" class="mt-12 bg-gray-50 rounded-xl p-6">
-                        <h3 class="text-xl font-bold mb-4">Cancellation Policy</h3>
-                        <div class="grid md:grid-cols-3 gap-6">
-                            <div class="flex items-start gap-3">
-                                <i class="fa-regular fa-calendar-xmark text-blue-600 text-xl mt-1"></i>
-                                <div>
-                                    <h4 class="font-semibold">Full Refund</h4>
-                                    <p class="text-gray-600 text-sm">Cancel up to 7 days before the event</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <i class="fa-solid fa-receipt text-blue-600 text-xl mt-1"></i>
-                                <div>
-                                    <h4 class="font-semibold">Partial Refund</h4>
-                                    <p class="text-gray-600 text-sm">50% refund between 7-3 days before the event</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <i class="fa-solid fa-ban text-blue-600 text-xl mt-1"></i>
-                                <div>
-                                    <h4 class="font-semibold">No Refund</h4>
-                                    <p class="text-gray-600 text-sm">No refund for cancellations less than 3 days before</p>
-                                </div>
-                            </div>
+                    <div class="flex items-center justify-between p-4 border rounded-lg hover:border-blue-500 cursor-pointer">
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-lg">Free</h3>
+                            <p class="text-gray-600">Limited time offer</p>
+                            <span class="text-red-500 text-sm">Sold Out</span>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-2xl font-bold" data-price="0">$0</p>
+                            <select class="mt-2 border rounded p-2 ticket-quantity" data-type="free" onchange="updateQuantities()">
+                                <option value="0" selected>0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
                         </div>
                     </div>
                 </div>
-                <script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                        const ticketQuantities = document.querySelectorAll('.ticket-quantity');
-                        const totalPriceElement = document.getElementById('total-price');
-                        const orderSummary = document.getElementById('order-summary');
-                        const totalPriceInput = document.getElementById('totalPrice');
+            </div>
+            <div id="payment-section" class="bg-white rounded-xl shadow-sm border p-6">
+                <h2 class="text-2xl font-bold mb-6">Payment Details</h2>
+                <div class="space-y-4">
+                    <div class="flex gap-4">
+                        <button class="flex-1 py-3 border rounded-lg hover:bg-gray-50">
+                            <i class="fa-brands fa-cc-stripe text-2xl"></i>
+                        </button>
+                        <button class="flex-1 py-3 border rounded-lg hover:bg-gray-50">
+                            <i class="fa-brands fa-paypal text-2xl"></i>
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="text" placeholder="Card Number" class="col-span-2 border rounded-lg p-3" id="cardNumber">
+                        <input type="text" placeholder="MM/YY" class="border rounded-lg p-3" id="expDate">
+                        <input type="text" placeholder="CVC" class="border rounded-lg p-3" id="cvc">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="order-summary" class="bg-white rounded-xl shadow-sm border p-6 h-fit">
+            <form action="/events/reserv" method="POST" id="booking-form">
+                <input name="event_id" class="hidden" value=" {{ event.event_id }} ">
+                <input type="hidden" name="vipQuantity" id="vipQuantity" value="0">
+                <input type="hidden" name="standardQuantity" id="standardQuantity" value="0">
+                <input type="hidden" name="freeQuantity" id="freeQuantity" value="0">
+                <input type="hidden" name="totalPrice" id="totalPrice" value="0">
+                <h2 class="text-2xl font-bold mb-6">Order Summary</h2>
+                <div class="space-y-4">
+                    <div class="flex justify-between">
+                        <span>VIP Access (x0)</span>
+                        <span>$0.00</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Standard Access (x0)</span>
+                        <span>$0.00</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Free Access (x0)</span>
+                        <span>$0.00</span>
+                    </div>
+                    <div class="flex justify-between text-sm text-gray-600">
+                        <span>Processing Fee</span>
+                        <span>$5.99</span>
+                    </div>
+                    <div class="border-t pt-4">
+                        <div class="flex justify-between font-bold text-lg">
+                            <span>Total</span>
+                            <span id="total-price">$5.99</span>
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 text-white py-4 rounded-lg font-semibold hover:bg-blue-700">
+                            Complete Booking
+                        </button>
+                        <p class="text-xs text-gray-500 text-center">By completing this booking you agree to our terms of service and cancellation policy</p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="cancellation-policy" class="mt-12 bg-gray-50 rounded-xl p-6">
+        <h3 class="text-xl font-bold mb-4">Cancellation Policy</h3>
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="flex items-start gap-3">
+                <i class="fa-regular fa-calendar-xmark text-blue-600 text-xl mt-1"></i>
+                <div>
+                    <h4 class="font-semibold">Full Refund</h4>
+                    <p class="text-gray-600 text-sm">Cancel up to 7 days before the event</p>
+                </div>
+            </div>
+            <div class="flex items-start gap-3">
+                <i class="fa-solid fa-receipt text-blue-600 text-xl mt-1"></i>
+                <div>
+                    <h4 class="font-semibold">Partial Refund</h4>
+                    <p class="text-gray-600 text-sm">50% refund between 7-3 days before the event</p>
+                </div>
+            </div>
+            <div class="flex items-start gap-3">
+                <i class="fa-solid fa-ban text-blue-600 text-xl mt-1"></i>
+                <div>
+                    <h4 class="font-semibold">No Refund</h4>
+                    <p class="text-gray-600 text-sm">No refund for cancellations less than 3 days before</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-                        // Initialize quantities
-                        let vipQuantity = 0;
-                        let standardQuantity = 0;
-                        let freeQuantity = 0;
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ticketQuantities = document.querySelectorAll('.ticket-quantity');
+        const totalPriceElement = document.getElementById('total-price');
+        const orderSummary = document.getElementById('order-summary');
+        const totalPriceInput = document.getElementById('totalPrice');
 
-                        ticketQuantities.forEach(select => {
-                            select.addEventListener('change', updateTotalPrice);
-                        });
+        // Initialize quantities
+        let vipQuantity = 0;
+        let standardQuantity = 0;
+        let freeQuantity = 0;
 
-                        function updateTotalPrice() {
-                            let total = 0;
-                            let vipQuantity = 0;
-                            let standardQuantity = 0;
-                            let freeQuantity = 0;
+        ticketQuantities.forEach(select => {
+            select.addEventListener('change', updateTotalPrice);
+        });
 
-                            ticketQuantities.forEach(select => {
-                                // Ensure we are correctly retrieving the price attribute
-                                const priceAttr = select.previousElementSibling.getAttribute('data-price');
-                                if (!priceAttr) {
-                                    console.error("Missing data-price attribute for:", select.previousElementSibling);
-                                    return; // Skip this iteration if data-price is missing
-                                }
+        function updateTotalPrice() {
+            let total = 0;
+            let vipQuantity = 0;
+            let standardQuantity = 0;
+            let freeQuantity = 0;
 
-                                const price = parseFloat(priceAttr);
-                                const quantity = parseInt(select.value) || 0; // Ensure a valid number
+            ticketQuantities.forEach(select => {
+                const priceAttr = select.previousElementSibling.getAttribute('data-price');
+                if (!priceAttr) {
+                    console.error("Missing data-price attribute for:", select.previousElementSibling);
+                    return;
+                }
 
-                                if (!isNaN(price) && quantity > 0) {
-                                    total += price * quantity;
-                                }
+                const price = parseFloat(priceAttr);
+                const quantity = parseInt(select.value) || 0;
 
-                                if (select.getAttribute('data-type') === 'vip') {
-                                    vipQuantity = quantity;
-                                } else if (select.getAttribute('data-type') === 'standard') {
-                                    standardQuantity = quantity;
-                                } else if (select.getAttribute('data-type') === 'free') {
-                                    freeQuantity = quantity;
-                                }
-                            });
+                if (!isNaN(price) && quantity > 0) {
+                    total += price * quantity;
+                }
 
-                            total += 5.99; // Adding processing fee
-                            totalPriceElement.textContent = '$' + total.toFixed(2);
-                            totalPriceInput.value = total.toFixed(2);
+                if (select.getAttribute('data-type') === 'vip') {
+                    vipQuantity = quantity;
+                } else if (select.getAttribute('data-type') === 'standard') {
+                    standardQuantity = quantity;
+                } else if (select.getAttribute('data-type') === 'free') {
+                    freeQuantity = quantity;
+                }
+            });
 
-                            // Debugging to check values
-                            console.log("VIP Quantity:", vipQuantity);
-                            console.log("Standard Quantity:", standardQuantity);
-                            console.log("Free Quantity:", freeQuantity);
-                            console.log("Total Price:", total);
+            total += 5.99; // Processing fee
+            totalPriceElement.textContent = '$' + total.toFixed(2);
+            totalPriceInput.value = total.toFixed(2);
 
-                            // Update order summary
-                            orderSummary.innerHTML = `
-                                <form action="/events/reserv" method="POST" id="booking-form">
-                                    <h2 class='text-2xl font-bold mb-6'>Order Summary</h2>
-                                    <div class='space-y-4'>
-                                        <input name="event_id" class="hidden" value="{{ event.event_id }}">
-                                        <div class='flex justify-between'>
-                                            <span>VIP Access (x${vipQuantity})</span>
-                                            <span>$${(vipQuantity * (isNaN(parseFloat(ticketQuantities[1]?.previousElementSibling?.getAttribute('data-price'))) ? 0 : parseFloat(ticketQuantities[1].previousElementSibling.getAttribute('data-price')))).toFixed(2)}</span>
-                                        </div>
-                                        <div class='flex justify-between'>
-                                            <span>Standard Access (x${standardQuantity})</span>
-                                            <span>$${(standardQuantity * (isNaN(parseFloat(ticketQuantities[0]?.previousElementSibling?.getAttribute('data-price'))) ? 0 : parseFloat(ticketQuantities[0].previousElementSibling.getAttribute('data-price')))).toFixed(2)}</span>
-                                        </div>
-                                        <div class='flex justify-between'>
-                                            <span>Free Access (x${freeQuantity})</span>
-                                            <span>$${(freeQuantity * (isNaN(parseFloat(ticketQuantities[2]?.previousElementSibling?.getAttribute('data-price'))) ? 0 : parseFloat(ticketQuantities[2].previousElementSibling.getAttribute('data-price')))).toFixed(2)}</span>
-                                        </div>
-                                        <div class='flex justify-between text-sm text-gray-600'>
-                                            <span>Processing Fee</span>
-                                            <span>$5.99</span>
-                                        </div>
-                                        <div class='border-t pt-4'>
-                                            <div class='flex justify-between font-bold text-lg'>
-                                                <span>Total</span>
-                                                <span id='total-price'>$${total.toFixed(2)}</span>
-                                            </div>
-                                        </div>
-                                        <input type="hidden" name="vipQuantity" id="vipQuantity" value="${vipQuantity}">
-                                        <input type="hidden" name="standardQuantity" id="standardQuantity" value="${standardQuantity}">
-                                        <input type="hidden" name="freeQuantity" id="freeQuantity" value="${freeQuantity}">
-                                        <input type="hidden" name="totalPrice" id="totalPrice" value="${total.toFixed(2)}">
-                                        <button type="submit" class="w-full bg-blue-600 text-white py-4 rounded-lg font-semibold hover:bg-blue-700">
-                                            Complete Booking
-                                        </button>
-                                        <p class="text-xs text-gray-500 text-center">By completing this booking you agree to our terms of service and cancellation policy</p>
-                                    </div>
-                                </form>
-                            `;
-                        }
-                    });
-
-                    const stripe = Stripe('pk_test_XXXXXXXXXXXXXXXXXXXXXXXX'); // Replace with your test publishable key
-
-const form = document.getElementById('payment-form');
-form.addEventListener('submit', async (event) => {
-    event.preventDefault();
-
-    const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-            card: cardElement,
-        },
+            // Update order summary
+            orderSummary.innerHTML = `
+                <form action="/events/reserv" method="POST" id="booking-form">
+                    <h2 class='text-2xl font-bold mb-6'>Order Summary</h2>
+                    <div class='space-y-4'>
+                        <input name="event_id" class="hidden" value="{{ event.event_id }}">
+                        <div class='flex justify-between'>
+                            <span>VIP Access (x${vipQuantity})</span>
+                            <span>$${(vipQuantity * parseFloat(ticketQuantities[1].previousElementSibling.getAttribute('data-price'))).toFixed(2)}</span>
+                        </div>
+                        <div class='flex justify-between'>
+                            <span>Standard Access (x${standardQuantity})</span>
+                            <span>$${(standardQuantity * parseFloat(ticketQuantities[0].previousElementSibling.getAttribute('data-price'))).toFixed(2)}</span>
+                        </div>
+                        <div class='flex justify-between'>
+                            <span>Free Access (x${freeQuantity})</span>
+                            <span>$${(freeQuantity * parseFloat(ticketQuantities[2].previousElementSibling.getAttribute('data-price'))).toFixed(2)}</span>
+                        </div>
+                        <div class='flex justify-between text-sm text-gray-600'>
+                            <span>Processing Fee</span>
+                            <span>$5.99</span>
+                        </div>
+                        <div class='border-t pt-4'>
+                            <div class='flex justify-between font-bold text-lg'>
+                                <span>Total</span>
+                                <span id='total-price'>$${total.toFixed(2)}</span>
+                            </div>
+                        </div>
+                        <input type="hidden" name="vipQuantity" id="vipQuantity" value="${vipQuantity}">
+                        <input type="hidden" name="standardQuantity" id="standardQuantity" value="${standardQuantity}">
+                        <input type="hidden" name="freeQuantity" id="freeQuantity" value="${freeQuantity}">
+                        <input type="hidden" name="totalPrice" id="totalPrice" value="${total.toFixed(2)}">
+                        <button type="submit" class="w-full bg-blue-600 text-white py-4 rounded-lg font-semibold hover:bg-blue-700">
+                            Complete Booking
+                        </button>
+                        <p class="text-xs text-gray-500 text-center">By completing this booking you agree to our terms of service and cancellation policy</p>
+                    </div>
+                </form>
+            `;
+        }
     });
 
-    if (error) {
-        console.error('Payment failed:', error.message);
-    } else {
-        console.log('Payment succeeded:', paymentIntent);
-        alert('Payment successful!');
-    }
-});
-                </script>
-                <script>
-                    function updateQuantities() {
-                        const vipQuantity = document.querySelector('select[data-type="vip"]').value;
-                        const standardQuantity = document.querySelector('select[data-type="standard"]').value;
-                        const freeQuantity = document.querySelector('select[data-type="free"]').value;
+    // Stripe payment handler
+    const stripe = Stripe('pk_test_51Qsl4eC6cEMis3ndGKhwOZkrKCag6MwDwrNlN5zskvncOoE5d8FJdAmgMZGCW1xSwRlJYJnRAelFZVx1pKiDpqsx00DCwHuhZ7'); // Your Stripe public key
+    const elements = stripe.elements();
+    const cardElement = elements.create('card');
+    cardElement.mount('#card-element');
 
-                        document.getElementById('vipQuantity').value = vipQuantity;
-                        document.getElementById('standardQuantity').value = standardQuantity;
-                        document.getElementById('freeQuantity').value = freeQuantity;
-                    }
-                </script>
-               <div>
-    <label for="ticketQuantity">Number of Tickets:</label>
-    <input type="number" id="ticketQuantity" value="1" min="1">
-    <span id="ticketPrice">Price per Ticket: $<span id="priceValue">20</span></span>
-</div>
-<div>
-    <h3>Total Price: $<span id="totalPrice">20</span></h3>
-</div>
+    const form = document.getElementById('booking-form');
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const clientSecret = form.dataset.clientSecret;
+
+        const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: cardElement,
+            },
+        });
+
+        if (error) {
+            document.getElementById('card-errors').textContent = error.message;
+        } else {
+            if (paymentIntent.status === 'succeeded') {
+                console.log('Payment succeeded:', paymentIntent);
+                alert('Payment successful!');
+            }
+        }
+    });
+</script>
 {% endblock %}
