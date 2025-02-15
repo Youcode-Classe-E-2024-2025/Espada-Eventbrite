@@ -3,6 +3,7 @@ composer.lock
 .env
 logs/app.log
 logs/google_oauth.log
+logs/
 uploads/
 public/uploads/
 public/qrcodes/
