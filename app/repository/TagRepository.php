@@ -5,7 +5,8 @@ namespace App\repository;
 use App\core\Database;
 use PDO;
 
-class TagRepository {
+class TagRepository
+{
     private Database $DB;
 
     public function __construct()
@@ -25,5 +26,30 @@ class TagRepository {
         $query = "SELECT * FROM tags";
         $stmt = $this->DB->query($query);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function create($title)
+    {
+        try {
+            $sql = "INSERT INTO tags (title) VALUES (:title)";
+
+            var_dump('Executing query: ' . $sql);
+            var_dump('With title: ' . $title);
+
+            $stmt = $this->DB->query($sql, ['title' => $title]);
+            var_dump('Query executed');
+
+            return $stmt->rowCount() >  0;
+        } catch (\PDOException $e) {
+            var_dump('Error: ' . $e->getMessage());
+            throw $e;
+        }
+    }
+
+    public function delete($id)
+    {
+        $sql = "DELETE FROM tags WHERE id = :id";
+        $stmt = $this->DB->query($sql, ['id' => $id]);
+        return $stmt->rowCount() > 0;
     }
 }
