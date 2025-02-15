@@ -63,10 +63,16 @@ class EventService
         }
     }
 
-    public function searchEvents(string $keyword, int $page = null, int $limit = null)
+    public function searchEvents(string $keyword, int $page = 1, int $limit = 5)
     {
 
-        return $this->evenmentRepo->searchEvents($keyword);
+        return $this->evenmentRepo->searchEvents($keyword, $page, $limit);
+    }
+
+    public function getTotalSearchResults(string $keyword)
+    {
+
+        return $this->evenmentRepo->getTotalSearchResults($keyword);
     }
 
     public function getEvents()
@@ -134,13 +140,28 @@ class EventService
     {
         return $this->evenmentRepo->getMyEvents($id);
     }
-    public function getRecentEvents()
+    public function getRecentEvents($limit = 2)
     {
-        return $this->evenmentRepo->getRecentEvents();
+        return $this->evenmentRepo->getRecentEvents($limit);
     }
 
     public function sortEvents($sort)
     {
         return $this->evenmentRepo->sortEvents($sort);
+    }
+
+    public function getPaginatedEvents($page = 1, $perPage = 5)
+    {
+        return $this->evenmentRepo->getAdminPaginatedEvents($page, $perPage);
+    }
+
+    public function getTotalEvents()
+    {
+        return $this->evenmentRepo->getTotalEvents();
+    }
+
+    public function getEventTicketsAndCapacity($eventId)
+    {
+        return $this->evenmentRepo->getEventTicketsAndCapacity($eventId);
     }
 }

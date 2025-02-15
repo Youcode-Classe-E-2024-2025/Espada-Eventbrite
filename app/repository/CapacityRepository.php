@@ -51,7 +51,7 @@ class CapacityRepository {
 FROM
     capacity
 WHERE
-    evenment_id = :event_id;";
+    evenment_id = :event_id";
 
      $stmt = $this->DB->query($query, [
                                             ":event_id" => $event_id

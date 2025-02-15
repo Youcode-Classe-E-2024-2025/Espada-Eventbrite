@@ -44,12 +44,10 @@
         <div id="users-controls" class="flex justify-between items-center mb-6">
             <div class="flex space-x-4">
                 <form action="/admin/users/search" method="get" class="relative">
-                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
                     <input type="text" name="keyword" placeholder="Search users..." class="pl-10 pr-4 py-2 border rounded-lg w-64">
                     <i class="fa-solid fa-search absolute left-3 top-3 text-gray-400"></i>
                 </form>
                 <form action="/admin/users/filter" method="get" class="flex space-x-4">
-                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
                     <select name="role_id" class="border rounded-lg px-4 py-2">
                         <option value="">All Roles</option>
                         <option value="3">Admin</option>
@@ -211,14 +209,31 @@
                 </tbody>
             </table>
         </div>
-        <div id="pagination" class="flex justify-between items-center mt-6">
-            <p class="text-sm text-gray-500">Showing 1 to 3 of 100 entries</p>
-            <div class="flex space-x-2">
-                <button class="px-3 py-1 border rounded hover:bg-gray-50">Previous</button>
-                <button class="px-3 py-1 border rounded bg-blue-500 text-white">1</button>
-                <button class="px-3 py-1 border rounded hover:bg-gray-50">2</button>
-                <button class="px-3 py-1 border rounded hover:bg-gray-50">3</button>
-                <button class="px-3 py-1 border rounded hover:bg-gray-50">Next</button>
-            </div>
-        </div>
+        <div id="pagination" class="flex justify-between items-center bg-white p-4 rounded-xl shadow">
+                    <div class="text-gray-600">
+                        {% if totalUsers > 0 %}
+                            Showing {{ (currentPage - 1) * 4 + 1 }} to {{ min(currentPage * 4, totalUsers) }} of {{ totalUsers }} users
+                        {% else %}
+                            No users found
+                        {% endif %}
+                    </div>
+                    <div class="flex space-x-2">
+                        {% if currentPage > 1 %}
+                            <a href="?page={{ currentPage - 1 }}{% if keyword is defined and keyword is not empty %}&keyword={{ keyword }}{% endif %}" 
+                            class="px-3 py-1 border rounded-lg hover:bg-gray-50">Previous</a>
+                        {% endif %}
+                        
+                        {% for i in 1..totalPages %}
+                            <a href="?page={{ i }}{% if keyword is defined and keyword is not empty %}&keyword={{ keyword }}{% endif %}"
+                            class="px-3 py-1 {% if i == currentPage %}bg-blue-500 text-white{% else %}border hover:bg-gray-50{% endif %} rounded-lg">
+                                {{ i }}
+                            </a>
+                        {% endfor %}
+                        
+                        {% if currentPage < totalPages %}
+                            <a href="?page={{ currentPage + 1 }}{% if keyword is defined and keyword is not empty %}&keyword={{ keyword }}{% endif %}" 
+                            class="px-3 py-1 border rounded-lg hover:bg-gray-50">Next</a>
+                        {% endif %}
+                    </div>
+                </div>
 {% endblock %}

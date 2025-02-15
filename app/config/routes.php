@@ -37,6 +37,8 @@ $router->addRoute('GET', '/Organiser/eventTicket/{id}', [App\controllers\front\O
 
 $router->addRoute('GET', '/Organiser/delete/{id}', [App\controllers\front\OrganiserDashController::class, 'delete']);
 
+$router->addRoute('POST', '/organizer/export/csv', [App\controllers\front\OrganizerExportController::class, 'exportCsv']);
+$router->addRoute('POST', '/organizer/export/pdf', [App\controllers\front\OrganizerExportController::class, 'exportPdf']);
 
 // $router->addRoute('GET', '/events/search', [App\controllers\front\EventController::class, 'search']);
 
@@ -44,10 +46,13 @@ $router->addRoute('GET', '/events/list', [App\controllers\front\EventController:
 $router->addRoute('GET', '/event/details/{id}', [App\controllers\front\EventController::class, 'eventDetails']);
 $router->addRoute('GET', '/events/booking/{id}', [App\controllers\front\ReservationController::class, 'index']);
 $router->addRoute('POST', '/events/reserv', [App\controllers\front\ReservationController::class, 'getBooking']);
+$router->addRoute('GET', '/events/search', [App\controllers\front\EventController::class, 'search']);
 // $router->addRoute('GET', '/events/list/searchByCaty', [App\controllers\front\EventController::class, 'serchByCategory']);
 
 // $router->addRoute('GET', '/Organiser/dash', [App\controllers\front\OrganiserDashController::class, 'index']);
 $router->addRoute('GET', '/reservation', [App\controllers\front\ReservationController::class, 'index']);
+$router->addRoute('POST', '/handle/payment', [App\controllers\front\ReservationController::class, 'handlePayment']);
+
 
 
 $router->addRoute('GET', '/admin/events', [App\controllers\back\AdminEventController::class, 'index']);
@@ -70,9 +75,14 @@ $router->addRoute('POST', '/category/update', [App\controllers\back\CategoryTagC
 $router->addRoute('POST', '/tag/create', [App\controllers\back\CategoryTagController::class, 'addTags']);
 $router->addRoute('POST', '/tag/delete/{id}', [App\controllers\back\CategoryTagController::class, 'deleteTag']);
 
+
 // routes/web.php
-$router->addRoute('GET','/auth/google', [App\controllers\front\AuthController::class,'googleLogin']);
-$router->addRoute('GET','/auth/google/callback', [App\controllers\front\AuthController::class,'googleCallback']);
+$router->addRoute('GET', '/auth/google', [App\controllers\front\AuthController::class, 'googleLogin']);
+$router->addRoute('GET', '/auth/google/callback', [App\controllers\front\AuthController::class, 'googleCallback']);
+
+$router->addRoute('GET', '/tickets', [App\controllers\front\ReservationController::class, 'getMyTickets']);
+$router->addRoute('GET', '/ticket/download/{id}', [App\controllers\front\ReservationController::class, 'downloadTicket']);
+
 
 // $router->addRoute('GET', '/auth/login/google', [App\controllers\front\AuthController::class, 'loginWithGoogle']);
 // $router->addRoute('GET', '/auth/google/login', [App\controllers\front\AuthController::class, 'loginWithGoogle']);

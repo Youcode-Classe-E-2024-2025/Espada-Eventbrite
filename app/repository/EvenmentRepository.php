@@ -115,11 +115,11 @@ class EvenmentRepository
     public function getMyEvents($id): array
     {
         $query = "SELECT *
-FROM evenments e
-JOIN booking b ON e.id = b.evenment_id
-WHERE b.user_id = :id
-ORDER BY b.booking_date DESC
-LIMIT 2;
+            FROM evenments e
+            JOIN booking b ON e.id = b.evenment_id
+            WHERE b.user_id = :id
+            ORDER BY b.booking_date DESC
+            LIMIT 2;
         ";
         $stmt = $this->DB->query($query, [":id" => $id]);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -390,8 +390,10 @@ LIMIT 2;
         return $stmt3->rowCount() > 0;
     }
 
-    public function searchEvents($keyword)
+    public function searchEvents($keyword, $page = 1, $perPage = 5)
     {
+        $offset = ($page - 1) * $perPage;
+
         $sql = "SELECT e.*, 
             c.total_tickets,
             c.vip_tickets_sold,
@@ -404,15 +406,29 @@ LIMIT 2;
             LEFT JOIN categories cat ON e.category_id = cat.id
             WHERE e.title LIKE :keyword 
             OR e.description LIKE :keyword 
-            OR e.lieu LIKE :keyword";
+            OR e.lieu LIKE :keyword
+            AND e.validation = 0
+            LIMIT :limit OFFSET :offset";
 
-        $params = ['keyword' => "%$keyword%"];
+        $params = ['keyword' => "%$keyword%", 'limit' => $perPage, 'offset' => $offset];
         return $this->DB->query($sql, $params)->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function getTotalSearchResults($keyword)
+    {
+        $sql = "SELECT COUNT(*) as total FROM evenments 
+            WHERE title LIKE :keyword 
+            OR description LIKE :keyword 
+            OR lieu LIKE :keyword
+            AND validation = 1";
+
+        $result = $this->DB->query($sql, ['keyword' => "%$keyword%"])->fetch(PDO::FETCH_OBJ);
+        return $result->total;
     }
 
     public function totalActiveEvents()
     {
-        $query = "SELECT COUNT(*) as total FROM evenments WHERE validation = 1 AND archived = 0";
+        $query = "SELECT COUNT(*) as total FROM evenments WHERE validation = 0 AND archived = 0";
         $stmt = $this->DB->query($query);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total'];
@@ -463,7 +479,7 @@ LIMIT 2;
                 LEFT JOIN capacity c ON e.id = c.evenment_id
                 LEFT JOIN users u ON e.owner_id = u.id
                 LEFT JOIN categories cat ON e.category_id = cat.id
-                WHERE e.validation = 1 AND e.archived = 0";
+                WHERE e.validation = 0 AND e.archived = 0";
 
         // Prepare parameters array
         $params = [];
@@ -485,8 +501,7 @@ LIMIT 2;
         $params[] = $offset;
 
         // Prepare and execute the statement properly
-        $stmt = $this->DB->getConnection()->prepare($query);
-        $stmt->execute($params);
+        $stmt = $this->DB->query($query, $params);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
@@ -506,7 +521,8 @@ LIMIT 2;
         LEFT JOIN categories cat ON e.category_id = cat.id
         where e.id= :id
         ORDER BY e.date DESC
-        ";
+        LIMIT 4";
+
         $stmt = $this->DB->query($query, ["id" => $id]);
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
@@ -520,9 +536,9 @@ LIMIT 2;
         LEFT JOIN categories cat ON e.category_id = cat.id
         ORDER BY e.date DESC LIMIT :limit";
         $param = [
-            'limit'=> $limit
+            'limit' => $limit
         ];
-        $stmt = $this->DB->query($sql,$param);
+        $stmt = $this->DB->query($sql, $param);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
@@ -556,5 +572,56 @@ LIMIT 2;
         }
 
         return $this->DB->query($query)->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function getAdminPaginatedEvents($page = 1, $perPage = 5)
+    {
+        $offset = ($page - 1) * $perPage;
+
+        $query = "SELECT e.id as event_id, e.*, u.username as owner, c.*, cat.name as category, cat.icon as icon
+        FROM evenments e 
+        LEFT JOIN capacity c ON e.id = c.evenment_id
+        LEFT JOIN users u ON e.owner_id = u.id
+        LEFT JOIN categories cat ON e.category_id = cat.id
+        ORDER BY e.date
+        LIMIT :limit OFFSET :offset";
+
+        $stmt = $this->DB->query($query, [
+            'limit' => $perPage,
+            'offset' => $offset
+        ]);
+
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function getTotalEvents()
+    {
+        $query = "SELECT COUNT(*) as total FROM evenments";
+        $result = $this->DB->query($query)->fetch(PDO::FETCH_OBJ);
+        return $result->total;
+    }
+
+    public function getEventTicketsAndCapacity($eventId)
+    {
+        $sql = "SELECT 
+        e.*,
+        c.name as category,
+        cap.vip_tickets_number,
+        cap.vip_price,
+        cap.vip_tickets_sold,
+        cap.standard_tickets_number,
+        cap.standard_price, 
+        cap.standard_tickets_sold,
+        cap.gratuit_tickets_number,
+        cap.gratuit_tickets_sold,
+        (cap.vip_tickets_number + cap.standard_tickets_number + cap.gratuit_tickets_number) as total_capacity
+    FROM evenments e
+    LEFT JOIN categories c ON e.category_id = c.id
+    LEFT JOIN capacity cap ON e.id = cap.evenment_id
+    LEFT JOIN users u ON e.owner_id = u.id
+    WHERE e.id = :event_id";
+
+        $stmt = $this->DB->query($sql, [':event_id' => $eventId]);
+        return $stmt->fetch(PDO::FETCH_OBJ);
     }
 }
