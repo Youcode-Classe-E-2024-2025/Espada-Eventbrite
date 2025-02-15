@@ -39,6 +39,7 @@ class EventController extends Controller
     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $limit = 2; // Events per page
 
+
     $events = $this->evenmentRepository->getPaginatedEvents($page, $limit, $categories);
     $totalEvents = $this->evenmentRepository->totalActiveEvents();
     $totalPages = ceil($totalEvents / $limit);
@@ -48,7 +49,7 @@ class EventController extends Controller
       'totalEvents' => $totalEvents,
       'currentPage' => $page,
       'totalPages' => $totalPages,
-      'categories' => $categories
+      'categories' => $categories,
     ];
 
     if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
@@ -80,6 +81,8 @@ class EventController extends Controller
 
     $this->logger->info('Searching events with keyword: ' . $keyword);
 
+    $categories = $this->categoryRepo->getAll();
+
     $events = $this->eventService->searchEvents($keyword, $page, $perPage);
     $totalEvents = $this->eventService->getTotalSearchResults($keyword);
     $totalPages = ceil($totalEvents / $perPage);
@@ -92,7 +95,8 @@ class EventController extends Controller
       'messages' => $messages,
       'currentPage' => $page,
       'totalPages' => $totalPages,
-      'totalEvents' => $totalEvents
+      'totalEvents' => $totalEvents,
+      'categories' => $categories,
     ]);
   }
 }

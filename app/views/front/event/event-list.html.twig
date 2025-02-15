@@ -53,10 +53,12 @@
               <div class="flex items-center gap-4">
                 <div class="flex items-center gap-2">
                   <span class="text-sm text-gray-600">Sort by:</span>
-                  <select class="border rounded-lg px-3 py-2">
-                    <option>Date</option>
-                    <option>Popularity</option>
-                  </select>
+                  <select id="filter" class="border rounded-lg px-4 py-2" onchange="this.form.submit()">
+                    <option value="">Sort by</option>
+                    <option value="newest" {% if filter == 'newest' %}selected{% endif %}>Newest First</option>
+                    <option value="oldest" {% if filter == 'oldest' %}selected{% endif %}>Oldest First</option>
+                    <option value="popular" {% if filter == 'popular' %}selected{% endif %}>Most Popular</option>
+                </select>
                 </div>
               </div>
             </div>
@@ -90,9 +92,9 @@
           </div>
           
           <div class="mt-8 flex items-center justify-between">
-            <div class="text-sm text-gray-600">
+            {# <div class="text-sm text-gray-600">
               Showing {{ ((currentPage - 1) * 2) + 1 }}-{{ min(currentPage * 2, totalEvents) }} of {{totalEvents}} events
-            </div>
+            </div> #}
             <div class="flex gap-2" id="pagination-controls">
               <button class="px-4 py-2 border rounded-lg hover:bg-gray-100 disabled:opacity-50" 
                       id="prev-page" 

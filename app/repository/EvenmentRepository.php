@@ -115,11 +115,11 @@ class EvenmentRepository
     public function getMyEvents($id): array
     {
         $query = "SELECT *
-FROM evenments e
-JOIN booking b ON e.id = b.evenment_id
-WHERE b.user_id = :id
-ORDER BY b.booking_date DESC
-LIMIT 2;
+            FROM evenments e
+            JOIN booking b ON e.id = b.evenment_id
+            WHERE b.user_id = :id
+            ORDER BY b.booking_date DESC
+            LIMIT 2;
         ";
         $stmt = $this->DB->query($query, [":id" => $id]);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -407,7 +407,7 @@ LIMIT 2;
             WHERE e.title LIKE :keyword 
             OR e.description LIKE :keyword 
             OR e.lieu LIKE :keyword
-            AND e.validation = 1
+            AND e.validation = 0
             LIMIT :limit OFFSET :offset";
 
         $params = ['keyword' => "%$keyword%", 'limit' => $perPage, 'offset' => $offset];
