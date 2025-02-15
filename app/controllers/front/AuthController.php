@@ -5,7 +5,7 @@ namespace App\controllers\front;
 use App\services\UserService;
 use App\core\Controller;
 use App\core\View;
-use App\Core\Request;
+use App\core\request;
 // use App\core\Validator;
 use Google\Client;
 use Google\Service\Oauth2;
@@ -17,7 +17,7 @@ class AuthController extends Controller
 {
     private UserService $userService;
     private Client $client;
-    private Request $request;
+    private request $request;
     protected Logger $logger;
     // private  $validator;
 
@@ -25,7 +25,7 @@ class AuthController extends Controller
     {
         parent::__construct();
         $this->userService = new UserService();
-        $this->request = new Request();
+        $this->request = new request();
         
         // Create a logger
         $this->logger = new Logger('google_oauth');

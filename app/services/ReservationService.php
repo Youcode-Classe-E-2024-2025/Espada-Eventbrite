@@ -51,9 +51,10 @@ class ReservationService
         $this->capacityRepo->updateSold($event_id, $new_vip_tickets, $new_standard_tickets, $new_gratuit_tickets);
     }
 
-    public function getAvailable($event_id)
-    {
-        $this->capacityRepo->getAvailable($event_id);
+
+    public function getAvailable($event_id){
+        return $this->capacityRepo->getAvailable($event_id);
+
     }
 
     private function generateQRCode($data)

@@ -52,6 +52,7 @@ class EventController extends Controller
       'categories' => $categories,
     ];
 
+
     if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
       // Return JSON for AJAX requests
       header('Content-Type: application/json');
@@ -59,7 +60,12 @@ class EventController extends Controller
       exit;
     }
 
-    echo $this->render('front/event/event-list.html.twig', $data);
+      $standard_tickets_available = $availible->standard_tickets_available > 0 ? $availible->standard_tickets_available: 0 ;
+      $gratuit_tickets_available = $availible->gratuit_tickets_available  > 0 ? $availible->gratuit_tickets_available: 0;
+      $vip_tickets_available = $availible->vip_tickets_available  > 0 ? $availible->vip_tickets_available: 0;
+     
+     echo $this->render('front/event/event-detail.html.twig',['event' => $data, 'statistics'=> $statis, 'tags'=> $tags, 'standard_tickets_available'=> $standard_tickets_available, 'vip_tickets_available'=> $vip_tickets_available, 'gratuit_tickets_available'=> $gratuit_tickets_available]);
+
   }
 
 
