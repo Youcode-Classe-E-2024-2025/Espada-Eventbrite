@@ -7,7 +7,8 @@ use App\core\View;
 use App\services\EventService;
 use App\services\StatService;
 use App\services\CreateService;
-
+use App\services\NotifData ; 
+use App\services\WebSocketNotifier; 
 
 class OrganiserDashController extends Controller
 {
@@ -15,6 +16,8 @@ class OrganiserDashController extends Controller
     protected EventService $evsdn;
     protected StatService $statServ;
     protected CreateService $tagCatego;
+    protected WebSocketNotifier $notifier;
+    protected NotifData $notiD;
     public int $id;
 
     public function __construct()
@@ -24,6 +27,9 @@ class OrganiserDashController extends Controller
         $this->statServ = new StatService();
         $this->tagCatego = new CreateService();
         $this->id = $this->session->get('user')->id;
+        parent::__construct();
+        $this->notifier = WebSocketNotifier::getInstance();
+        $this->notiD = new NotifData() ;
     }
 
 
@@ -105,12 +111,15 @@ class OrganiserDashController extends Controller
     {
         $intValeur = (int) $id[0];
 
-        $this->statServ->deleteE($intValeur);
+
+       echo $this->notiD->getEventBookingsUsers($id);
+   die;
+        // $this->statServ->deleteE($intValeur);
+
+        //  $this->notifier->sendNotification();
 
 
-
-
-        header("Location: /Organiser/dash");
+        // header("Location: /Organiser/dash");
     }
 
 
