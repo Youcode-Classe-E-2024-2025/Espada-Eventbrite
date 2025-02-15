@@ -5,3 +5,4 @@ logs/app.log
 logs/google_oauth.log
 uploads/
 public/uploads/
+public/qrcodes/

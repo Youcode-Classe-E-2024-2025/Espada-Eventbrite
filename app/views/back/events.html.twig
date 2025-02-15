@@ -152,15 +152,31 @@
                 </div>
                 <div id="pagination" class="flex justify-between items-center bg-white p-4 rounded-xl shadow">
                     <div class="text-gray-600">
-                        Showing 1 to 3 of 24 events
+                        {% if totalEvents > 0 %}
+                            Showing {{ (currentPage - 1) * 5 + 1 }} to {{ min(currentPage * 5, totalEvents) }} of {{ totalEvents }} events
+                        {% else %}
+                            No events found
+                        {% endif %}
                     </div>
                     <div class="flex space-x-2">
-                        <button class="px-3 py-1 border rounded-lg hover:bg-gray-50">Previous</button>
-                        <button class="px-3 py-1 bg-blue-500 text-white rounded-lg">1</button>
-                        <button class="px-3 py-1 border rounded-lg hover:bg-gray-50">2</button>
-                        <button class="px-3 py-1 border rounded-lg hover:bg-gray-50">3</button>
-                        <button class="px-3 py-1 border rounded-lg hover:bg-gray-50">Next</button>
+                        {% if currentPage > 1 %}
+                            <a href="?page={{ currentPage - 1 }}{% if keyword is defined and keyword is not empty %}&keyword={{ keyword }}{% endif %}" 
+                            class="px-3 py-1 border rounded-lg hover:bg-gray-50">Previous</a>
+                        {% endif %}
+                        
+                        {% for i in 1..totalPages %}
+                            <a href="?page={{ i }}{% if keyword is defined and keyword is not empty %}&keyword={{ keyword }}{% endif %}"
+                            class="px-3 py-1 {% if i == currentPage %}bg-blue-500 text-white{% else %}border hover:bg-gray-50{% endif %} rounded-lg">
+                                {{ i }}
+                            </a>
+                        {% endfor %}
+                        
+                        {% if currentPage < totalPages %}
+                            <a href="?page={{ currentPage + 1 }}{% if keyword is defined and keyword is not empty %}&keyword={{ keyword }}{% endif %}" 
+                            class="px-3 py-1 border rounded-lg hover:bg-gray-50">Next</a>
+                        {% endif %}
                     </div>
+                </div>
 {% endblock %}
 {% block scripts %}<script src="/assets/script/events.js"></script> {% endblock %}
                   
