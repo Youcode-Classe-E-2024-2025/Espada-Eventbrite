@@ -8,7 +8,8 @@
         "ralouphie/getallheaders": "^3.0",
         "tecnickcom/tcpdf": "^6.8",
         "stripe/stripe-php": "^16.5",
-        "endroid/qr-code": "*"
+        "endroid/qr-code": "*",
+        "monolog/monolog": "^3.8"
     },
     "autoload": {
         "psr-4": {

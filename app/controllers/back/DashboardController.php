@@ -26,12 +26,20 @@ class DashboardController extends Controller
         $messages = $this->session->get('messages') ?? [];
         $csrfToken = $this->security->generateCsrfToken();
 
-        if ($_SESSION['user']->role_id == 1) {
+        // Safely get role_id from session user
+        $userRole = is_object($_SESSION['user']) 
+            ? $_SESSION['user']->role_id 
+            : $_SESSION['user']['role_id'] ?? null;
+
+        if ($userRole == 1) {
             $this->logger->info('Organiser dashboard accessed');
-            // echo $this->render("/front/organiser/dashboard.twig", ['messages' => $messages, 'csrf_token' => $csrfToken]);
             echo $this->redirect('/Organiser/dash');
-        } else if ($_SESSION['user']->role_id == 2) {
-            $id = $this->session->get('user')->id;
+        } else if ($userRole == 2) {
+            // Safely get user id from session
+            $id = is_object($_SESSION['user']) 
+                ? $_SESSION['user']->id 
+                : $_SESSION['user']['id'] ?? null;
+
             $data = $this->eventService->getMyEvent($id);
 
             // Ensure $data has at least two elements
@@ -53,12 +61,12 @@ class DashboardController extends Controller
                     "csrf_token" => $csrfToken
                 ]);
             }
-        } else if ($_SESSION['user']->role_id == 3) {
+        } else if ($userRole == 3) {
             $this->logger->info('Admin dashboard accessed');
             $stats = $this->getStats();
             $pendingActions = $this->getPendingActions();
             $recentActivities = $this->getRecentActivities();
-            // var_dump( $pendingActions );
+            
             echo $this->render('/back/index.html.twig', [
                 'stats' => $stats,
                 'pendingActions' => $pendingActions,
