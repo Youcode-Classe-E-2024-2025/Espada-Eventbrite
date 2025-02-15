@@ -1,6 +1,6 @@
 <?php
-namespace App\Core;
-class Request {
+namespace App\core;
+class request {
     public function get(string $key, $default = null) {
         return $_GET[$key] ?? $default;
     }
