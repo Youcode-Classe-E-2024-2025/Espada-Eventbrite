@@ -17,20 +17,26 @@ class AdminEventController extends Controller
 
     public function index()
     {
+        $this->logger->info('Fetching all events');
         $events = $this->eventService->getEvents();
+        $messages = $this->session->get('messages') ?? [];
+        $csrfToken = $this->security->generateCsrfToken();
 
-        return $this->render('back/events.html.twig', ['events' => $events]);
+        return $this->render('back/events.html.twig', ['events' => $events, 'messages' => $messages, 'csrf_token' => $csrfToken]);
     }
 
     public function search()
     {
         $keyword = isset($_GET['keyword']) ? trim($_GET['keyword']) : '';
+        $this->logger->info('Searching events with keyword: ' . $keyword);
 
         $events = $this->eventService->searchEvents($keyword);
+        $messages = $this->session->get('messages') ?? [];
 
         return $this->render('back/events.html.twig', [
             'events' => $events,
             'keyword' => $keyword,
+            'messages' => $messages,
         ]);
     }
 
@@ -38,12 +44,22 @@ class AdminEventController extends Controller
     {
         $eventId = isset($_POST['event_id']) ? (int)$_POST['event_id'] : null;
         $status = isset($_POST['status']) ? (int)$_POST['status'] : null;
-        // var_dump($eventId);
-        // var_dump($status);
-        // exit;
+        $csrfToken = $_POST['csrf_token'] ?? '';
+
+        if (!$this->security->validateCsrfToken($csrfToken)) {
+            $this->logger->error('Invalid CSRF token.');
+            $this->session->set('error', 'Invalid CSRF token.');
+            $this->redirect('/admin/events');
+            exit;
+        }
+
         if ($eventId && isset($status)) {
+            $this->logger->info('Updating event status: ' . $eventId . ' to ' . $status);
             $this->eventService->updateEventStatus($eventId, $status);
             // $this->redirect('/admin/events');
+        } else {
+            $this->logger->error('Failed to update event status.');
+            $this->session->set('error', 'Failed to update event status.');
         }
 
         $this->redirect('/admin/events');
@@ -53,58 +69,35 @@ class AdminEventController extends Controller
     public function delete()
     {
         $eventId = isset($_POST['event_id']) ? (int)$_POST['event_id'] : null;
-        if ($eventId) {
-            $this->eventService->deleteEvent($eventId);
+        $csrfToken = $_POST['csrf_token'] ?? '';
+
+        if (!$this->security->validateCsrfToken($csrfToken)) {
+            $this->logger->error('Invalid CSRF token.');
+            $this->session->set('error', 'Invalid CSRF token.');
+            $this->redirect('/admin/events');
+            exit;
         }
+
+        if ($eventId) {
+            $this->logger->info('Deleting event: ' . $eventId);
+            $this->eventService->deleteEvent($eventId);
+        } else {
+            $this->logger->error('Failed to delete event.');
+            $this->session->set('error', 'Failed to delete event.');
+        }
+
         $this->redirect('/admin/events');
     }
 
-    // private function getStats()
-    // {
-    //     $totalUsers = $this->userService->getTotalUsers();
-    //     $activeEvents = $this->eventService->getTotalActiveEvents();
-    //     $ticketsSold = $this->eventService->getTotalTicketsSold();
-    //     $revenue = $this->eventService->getTotalRevenue();
+    public function filter()
+    {
+        $status = $_GET['status'] ?? '';
+        $sortBy = $_GET['sort'] ?? '';
 
-    //     $stats = [
-    //         'totalUsers' => $totalUsers,
-    //         'activeEvents' => $activeEvents,
-    //         'ticketsSold' => $ticketsSold,
-    //         'revenue' => $revenue
-    //     ];
+        $events = $this->eventService->filterSortEvents($status, $sortBy);
 
-    //     // var_dump($totalUsers, $activeEvents, $ticketsSold, $revenue);
-    //     // die();
-
-    //     return $stats;
-    // }
-
-
-    // public function filter()
-    // {
-    //     $roleId = isset($_GET['role_id']) ? (int)$_GET['role_id'] : null;
-    //     $status = isset($_GET['status']) ? (int)$_GET['status'] : null;
-
-    //     $results = $this->userService->filterUsers($roleId, $status);
-
-    //     return $this->render('back/users.html.twig', [
-    //         'users' => $results,
-    //         'role_id' => $roleId,
-    //         'status' => $status
-    //     ]);
-    // }
-
-    // public function updateStatus()
-    // {
-    //     $userId = isset($_POST['user_id']) ? (int)$_POST['user_id'] : null;
-    //     $status = isset($_POST['status']) ? (int)$_POST['status'] : null;
-
-    //     if ($userId && isset($status)) {
-    //         $this->userService->updateUserStatus($userId, $status);
-    //         $this->redirect('/admin/users');
-    //     }
-
-    //     // $this->redirect('/back/users');
-    //     exit;
-    // }
+        header('Content-Type: application/json');
+        echo json_encode(['events' => $events]);
+        exit;
+    }
 }

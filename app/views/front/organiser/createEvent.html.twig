@@ -7,27 +7,24 @@
                 <h1 class="text-3xl font-bold text-gray-900">Create New Event</h1>
                 <p class="text-gray-600 mt-2">Fill in the details below to create your event</p>
             </div>
-            <form id="event-form" class="space-y-8">
+            <form id="event-form" action="/Organiser/create" class="space-y-8" enctype="multipart/form-data" method ="POST">
                 <div class="space-y-6">
                     <h2 class="text-xl font-semibold text-gray-900 border-b pb-2">Basic Information</h2>
                     <div class="grid grid-cols-1 gap-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Event Title</label>
-                            <input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="Enter event title" required>
+                            <input type="text" name="title" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="Enter event title" required>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Description</label>
-                            <textarea rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="Describe your event" required></textarea>
+                            <textarea rows="4" name ="description" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="Describe your event" required></textarea>
                         </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Start Date & Time</label>
-                                <input type="datetime-local" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
+                                <input type="datetime-local" name ="date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
                             </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">End Date & Time</label>
-                                <input type="datetime-local" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
-                            </div>
+                          
                         </div>
                     </div>
                 </div>
@@ -35,7 +32,7 @@
                     <h2 class="text-xl font-semibold text-gray-900 border-b pb-2">Location</h2>
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Location</label>
-                        <input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="Event location" required>
+                        <input type="text"  name="location" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="Event location" required>
                     </div>
                 </div>
                 <div class="space-y-6">
@@ -43,122 +40,253 @@
                     <div class="space-y-4">
                         <div class="bg-gray-50 p-4 rounded-lg">
                             <div class="flex items-center justify-between mb-4">
-                                <h3 class="text-lg font-medium text-gray-900">VIP Tickets</h3>
-                                <div class="flex items-center">
-                                    <label class="block text-sm font-medium text-gray-700 mr-2">Enable</label>
-                                    <input type="checkbox" class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                </div>
+                                <h3 class="text-lg font-medium text-gray-900">total Tickets</h3>
+                               
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">Capacity</label>
-                                    <input type="number" min="0" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="Number of tickets">
+                                    <input type="number" name="total_num" min="0" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="Number of tickets">
+                                </div>
+                               
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Early Bird Discount (%)</label>
+                                    <input type="number" name='discount' min="0" max="100" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="0">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-medium text-gray-900">VIP Tickets</h3>
+                              
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Capacity</label>
+                                    <input type="number" min="0" name="vip_num" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="Number of tickets">
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">Price ($)</label>
-                                    <input type="number" min="0" step="0.01" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="0.00">
+                                    <input type="number" min="0" name="vip_price" step="0.01" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="0.00">
                                 </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700">Early Bird Discount (%)</label>
-                                    <input type="number" min="0" max="100" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="0">
-                                </div>
+                              
                             </div>
                         </div>
                         <div class="bg-gray-50 p-4 rounded-lg">
                             <div class="flex items-center justify-between mb-4">
                                 <h3 class="text-lg font-medium text-gray-900">Regular Tickets</h3>
-                                <div class="flex items-center">
-                                    <label class="block text-sm font-medium text-gray-700 mr-2">Enable</label>
-                                    <input type="checkbox" class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                </div>
+                                
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">Capacity</label>
-                                    <input type="number" min="0" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="Number of tickets">
+                                    <input type="number" min="0" name="Regular_num" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="Number of tickets">
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">Price ($)</label>
-                                    <input type="number" min="0" step="0.01" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="0.00">
+                                    <input type="number" min="0" name="Regular_price" step="0.01" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="0.00">
                                 </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700">Early Bird Discount (%)</label>
-                                    <input type="number" min="0" max="100" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="0">
-                                </div>
+                             
                             </div>
                         </div>
                         <div class="bg-gray-50 p-4 rounded-lg">
                             <div class="flex items-center justify-between mb-4">
                                 <h3 class="text-lg font-medium text-gray-900">Student Tickets</h3>
-                                <div class="flex items-center">
-                                    <label class="block text-sm font-medium text-gray-700 mr-2">Enable</label>
-                                    <input type="checkbox" class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                </div>
+                               
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">Capacity</label>
-                                    <input type="number" min="0" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="Number of tickets">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700">Price ($)</label>
-                                    <input type="number" min="0" step="0.01" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="0.00">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700">Early Bird Discount (%)</label>
-                                    <input type="number" min="0" max="100" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="0">
-                                </div>
+                                    <input type="number" min="0" name="student_num" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="Number of tickets">
+                                </div> 
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="space-y-6">
-                    <h2 class="text-xl font-semibold text-gray-900 border-b pb-2">Media</h2>
-                    <div class="space-y-4">
-                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
-                            <div class="space-y-2">
-                                <i class="fa-solid fa-cloud-arrow-up text-3xl text-gray-400"></i>
-                                <div class="text-sm text-gray-600">
-                                    <label class="relative cursor-pointer rounded-md font-medium text-blue-600 hover:text-blue-500">
-                                        <span>Upload event images</span>
-                                        <input type="file" class="sr-only" multiple accept="image/*">
-                                    </label>
-                                    <p class="pl-1">or drag and drop</p>
-                                </div>
-                                <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
-                            </div>
-                        </div>
-                    </div>
+               <div class="space-y-6">
+    <h2 class="text-xl font-semibold text-gray-900 border-b pb-2">Media</h2>
+    {# <div class="space-y-4">
+        <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+            <div class="space-y-2">
+                <i class="fa-solid fa-cloud-arrow-up text-3xl text-gray-400"></i>
+                <div class="text-sm text-gray-600">
+                    <label class="relative cursor-pointer rounded-md font-medium text-blue-600 hover:text-blue-500">
+                        <span>Upload event images</span>
+                        <input type="file" name="image" class="sr-only" multiple accept="image/*" id="image-upload">
+                    </label>
+                    <p class="pl-1">or drag and drop</p>
                 </div>
+                <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+            </div>
+
+            <!-- Preview section for the image -->
+            <div id="image-preview" class="mt-4 hidden">
+                <p class="text-green-600 text-sm" id="upload-message">Image uploaded successfully!</p>
+                <img id="image-preview-img" src="" alt="Image Preview" class="max-w-xs mx-auto mt-2 rounded-lg">
+            </div>
+        </div>
+    </div> #}
+    <div class="space-y-4">
+    <!-- Image Upload Section -->
+    <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+        <div class="space-y-2">
+            <i class="fa-solid fa-cloud-arrow-up text-3xl text-gray-400"></i>
+            <div class="text-sm text-gray-600">
+                <label class="relative cursor-pointer rounded-md font-medium text-blue-600 hover:text-blue-500">
+                    <span>Upload event images</span>
+                    <input type="file" name="image" class="sr-only" multiple accept="image/*" id="image-upload">
+                </label>
+                <p class="pl-1">or drag and drop</p>
+            </div>
+            <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+        </div>
+        <div id="image-preview" class="mt-4 hidden">
+            <p class="text-green-600 text-sm" id="image-upload-message">Image uploaded successfully!</p>
+            <img id="image-preview-img" src="" alt="Image Preview" class="max-w-xs mx-auto mt-2 rounded-lg">
+        </div>
+    </div>
+
+    <!-- Video Upload Section -->
+    <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+        <div class="space-y-2">
+            <i class="fa-solid fa-video text-3xl text-gray-400"></i>
+            <div class="text-sm text-gray-600">
+                <label class="relative cursor-pointer rounded-md font-medium text-blue-600 hover:text-blue-500">
+                    <span>Upload event video</span>
+                    <input type="file" name="video" class="sr-only" accept="video/*" id="video-upload">
+                </label>
+                <p class="pl-1">or drag and drop</p>
+            </div>
+            <p class="text-xs text-gray-500">MP4, AVI, MOV up to 50MB</p>
+        </div>
+        <div id="video-preview" class="mt-4 hidden">
+            <p class="text-green-600 text-sm" id="video-upload-message">Video uploaded successfully!</p>
+            <video id="video-preview-vid" controls class="max-w-xs mx-auto mt-2 rounded-lg"></video>
+        </div>
+    </div>
+</div>
+
+</div>
                 <div class="space-y-6">
                     <h2 class="text-xl font-semibold text-gray-900 border-b pb-2">Categories & Tags</h2>
                     <div class="grid grid-cols-1 gap-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Category</label>
-                            <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                <option>Conference</option>
-                                <option>Workshop</option>
-                                <option>Seminar</option>
-                                <option>Networking</option>
-                                <option>Other</option>
+                            <select  name="categorie" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                              
+    {% for event in data.categos %}
+        <option value={{ event.id }}>{{ event.name }}</option>
+    {% endfor %}
                             </select>
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Tags</label>
-                            <input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="Add tags separated by commas">
+                         <div>
+                            <label class="block text-sm font-medium text-gray-700">type</label>
+                            <select name="type" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                <option value="public">public </option>
+                                <option value="private">private</option>
+                                
+                            </select>
                         </div>
+                 <div>
+    <label class="block text-sm font-medium text-gray-700">Tags</label>
+
+    <!-- Multi-select dropdown -->
+    <select id="tagsSelect" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+        {% for event in data.tags %}
+            <option value="{{ event.id}}, {{ event.title }}">{{ event.title }}</option>
+        {% endfor %}
+    </select>
+
+    <!-- Display selected tags dynamically -->
+    <div id="selectedTagsContainer" class="mt-2 flex flex-wrap gap-2"></div>
+
+    <!-- Hidden input to store selected values (for form submission) -->
+    <input type="hidden" id="saveselecedTags" name="tags">
+</div>
+
                     </div>
                 </div>
                 <div class="flex justify-end space-x-4 pt-6 border-t">
-                    <button type="button" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50">
-                        Save as Draft
+                    <button type="submit" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50">
+                        create
                     </button>
-                    <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700">
-                        Submit for Approval
-                    </button>
+                  
                 </div>
             </form>
         </div>
     </div>
 </div>
+{% endblock %}
+{% block scripts %}
+<script>
+   
+
+    document.getElementById('image-upload').addEventListener('change', function(event) {
+        const file = event.target.files[0]; // Get the first selected file
+
+        if (file) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const previewImage = document.getElementById('image-preview-img');
+                const previewSection = document.getElementById('image-preview');
+                const uploadMessage = document.getElementById('upload-message');
+
+                previewImage.src = e.target.result; // Set the image source to the file
+                previewSection.classList.remove('hidden'); // Show the preview section
+                uploadMessage.textContent = 'Image uploaded successfully!'; // Update the message
+            };
+            
+            reader.readAsDataURL(file); // Read the file as a data URL (image preview)
+        }
+    });
+  document.addEventListener("DOMContentLoaded", function () {
+        var select = document.getElementById('tagsSelect');
+        var input = document.getElementById('saveselecedTags');
+        var container = document.getElementById('selectedTagsContainer');
+        var selectedTags = new Set();
+
+        function updateInputValue() {
+            input.value = Array.from(selectedTags).join(", "); // Update the hidden input field
+        }
+
+        function createTagElement(tag) {
+            var span = document.createElement("span");
+            span.textContent = tag;
+            span.className = "bg-blue-500 text-white px-2 py-1 rounded-md cursor-pointer";
+            span.addEventListener("click", function () {
+                selectedTags.delete(tag); // Remove from Set
+                container.removeChild(span); // Remove from display
+                updateInputValue();
+            });
+            return span;
+        }
+
+        select.addEventListener('change', function () {
+            let selectedValue = select.value.split(',');
+
+            if (selectedValue && !selectedTags.has(selectedValue)) {
+                selectedTags.add(selectedValue[0]);
+                container.appendChild(createTagElement(selectedValue[1]));
+                updateInputValue();
+            }
+        });
+    });
+     document.addEventListener("DOMContentLoaded", function () {
+        var videoInput = document.getElementById("video-upload");
+        var videoPreviewContainer = document.getElementById("video-preview");
+        var videoPreview = document.getElementById("video-preview-vid");
+
+        videoInput.addEventListener("change", function () {
+            var file = this.files[0];
+
+            if (file) {
+                var fileURL = URL.createObjectURL(file);
+                videoPreview.src = fileURL;
+                videoPreviewContainer.classList.remove("hidden");
+            }
+        });
+    });
+</script>
+
 {% endblock %}
