@@ -1,4 +1,4 @@
-..[2025-02-14 12:52:22] [DEBUG] Rendering template: /back/404.html.twig
+[2025-02-14 12:52:22] [DEBUG] Rendering template: /back/404.html.twig
 [2025-02-14 12:52:26] [INFO] Dashboard index accessed
 [2025-02-14 12:52:26] [INFO] Admin dashboard accessed
 [2025-02-14 12:52:26] [INFO] Fetching stats for dashboard
@@ -915,3 +915,109 @@
 [2025-02-15 18:58:09] [DEBUG] Rendering template: front/event/event-list.html.twig
 [2025-02-15 19:00:52] [DEBUG] Rendering template: front/event/event-list.html.twig
 [2025-02-15 19:01:04] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 20:44:52] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 20:44:55] [DEBUG] Rendering template: front/home.html.twig
+[2025-02-15 20:44:57] [DEBUG] Rendering template: front/auth.twig
+[2025-02-15 20:45:02] [INFO] Dashboard index accessed
+[2025-02-15 20:45:02] [DEBUG] Not enough events found for user dashboard.
+[2025-02-15 20:45:02] [DEBUG] Rendering template: /front/profile.html.twig
+[2025-02-15 20:45:23] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 20:45:27] [DEBUG] Rendering template: front/event/event-detail.html.twig
+[2025-02-15 21:01:11] [DEBUG] Rendering template: front/event/event-detail.html.twig
+[2025-02-15 21:01:13] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 21:01:15] [DEBUG] Rendering template: /back/404.html.twig
+[2025-02-15 21:02:26] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 21:02:29] [INFO] Dashboard index accessed
+[2025-02-15 21:02:29] [DEBUG] Not enough events found for user dashboard.
+[2025-02-15 21:02:29] [DEBUG] Rendering template: /front/profile.html.twig
+[2025-02-15 21:02:33] [DEBUG] Rendering template: front/tickets.html.twig
+[2025-02-15 21:03:01] [DEBUG] Rendering template: front/tickets.html.twig
+[2025-02-15 21:03:54] [DEBUG] Rendering template: front/tickets.html.twig
+[2025-02-15 21:05:17] [DEBUG] Rendering template: front/tickets.html.twig
+[2025-02-15 21:07:12] [DEBUG] Rendering template: front/tickets.html.twig
+[2025-02-15 21:08:55] [DEBUG] Rendering template: front/tickets.html.twig
+[2025-02-15 15:02:50] [DEBUG] Rendering template: front/auth.twig
+[2025-02-15 15:02:55] [DEBUG] Rendering template: front/home.html.twig
+[2025-02-15 15:03:03] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 15:03:11] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 15:03:18] [DEBUG] Rendering template: front/auth.twig
+[2025-02-15 15:03:24] [DEBUG] Rendering template: front/event/event-list.html.twig
+[2025-02-15 15:03:27] [DEBUG] Rendering template: front/home.html.twig
+[2025-02-15 15:03:28] [DEBUG] Rendering template: front/auth.twig
+[2025-02-15 15:50:24] [DEBUG] Rendering template: front/auth.twig
+[2025-02-15 15:50:32] [INFO] Dashboard index accessed
+[2025-02-15 15:50:32] [INFO] Organiser dashboard accessed
+[2025-02-15 15:50:34] [DEBUG] Rendering template: front/organiser/dashboard.twig
+[2025-02-15 15:50:47] [DEBUG] Rendering template: front/home.html.twig
+[2025-02-15 15:50:51] [DEBUG] Rendering template: front/home.html.twig
+[2025-02-15 15:50:53] [DEBUG] Rendering template: front/auth.twig
+[2025-02-15 15:56:00] [DEBUG] Rendering template: front/auth.twig
+[2025-02-15 16:00:30] [DEBUG] Rendering template: front/home.html.twig
+[2025-02-15 16:02:14] [DEBUG] Rendering template: front/home.html.twig
+[2025-02-15 16:03:40] [DEBUG] Rendering template: front/home.html.twig
+[2025-02-15 16:03:54] [DEBUG] Rendering template: front/home.html.twig
+[2025-02-15T16:08:07.199939+00:00] app.DEBUG: Rendering template: front/home.html.twig [] []
+[2025-02-15 16:14:01] [DEBUG] Rendering template: front/home.html.twig
+[2025-02-15T16:31:46.915737+00:00] app.DEBUG: Rendering template: /back/404.html.twig [] []
+[2025-02-15T16:39:15.817024+00:00] app.DEBUG: Rendering template: front/home.html.twig [] []
+[2025-02-15T16:43:40.375271+00:00] app.INFO: Dashboard index accessed [] []
+[2025-02-15T16:43:40.378531+00:00] app.ERROR: Invalid role for dashboard access [] []
+[2025-02-15T16:43:40.378612+00:00] app.DEBUG: Rendering template: /back/404.html.twig [] []
+[2025-02-15T16:46:18.559658+00:00] app.INFO: Dashboard index accessed [] []
+[2025-02-15T16:46:18.560996+00:00] app.ERROR: Invalid role for dashboard access [] []
+[2025-02-15T16:46:18.561032+00:00] app.DEBUG: Rendering template: /back/404.html.twig [] []
+[2025-02-15T16:46:27.945254+00:00] app.INFO: Dashboard index accessed [] []
+[2025-02-15T16:46:27.946437+00:00] app.ERROR: Invalid role for dashboard access [] []
+[2025-02-15T16:46:27.946477+00:00] app.DEBUG: Rendering template: /back/404.html.twig [] []
+[2025-02-15T16:50:28.130010+00:00] app.INFO: Dashboard index accessed [] []
+[2025-02-15T16:50:28.131839+00:00] app.ERROR: Invalid role for dashboard access [] []
+[2025-02-15T16:50:28.131878+00:00] app.DEBUG: Rendering template: /back/404.html.twig [] []
+[2025-02-15T16:50:32.482521+00:00] app.DEBUG: Rendering template: front/home.html.twig [] []
+[2025-02-15T16:50:39.779886+00:00] app.DEBUG: Rendering template: front/home.html.twig [] []
+[2025-02-15T16:50:44.106833+00:00] app.DEBUG: Rendering template: front/event/event-list.html.twig [] []
+[2025-02-15T16:50:53.628117+00:00] app.DEBUG: Rendering template: front/home.html.twig [] []
+[2025-02-15T16:52:02.524207+00:00] app.INFO: Dashboard index accessed [] []
+[2025-02-15T16:52:02.525641+00:00] app.ERROR: Invalid role for dashboard access [] []
+[2025-02-15T16:52:02.525679+00:00] app.DEBUG: Rendering template: /back/404.html.twig [] []
+[2025-02-15T16:57:48.088600+00:00] app.INFO: Dashboard index accessed [] []
+[2025-02-15T16:57:48.090563+00:00] app.ERROR: Invalid role for dashboard access [] []
+[2025-02-15T16:57:48.090623+00:00] app.DEBUG: Rendering template: /back/404.html.twig [] []
+[2025-02-15T17:01:18.187725+00:00] app.INFO: Dashboard index accessed [] []
+[2025-02-15T17:01:18.189153+00:00] app.ERROR: Invalid role for dashboard access [] []
+[2025-02-15T17:01:18.189205+00:00] app.DEBUG: Rendering template: /back/404.html.twig [] []
+[2025-02-15T17:01:25.579634+00:00] app.DEBUG: Rendering template: front/home.html.twig [] []
+[2025-02-15T17:01:33.843584+00:00] app.DEBUG: Rendering template: front/event/event-list.html.twig [] []
+[2025-02-15T17:02:11.702729+00:00] app.DEBUG: Rendering template: front/event/event-list.html.twig [] []
+[2025-02-15T17:02:14.648180+00:00] app.DEBUG: Rendering template: front/home.html.twig [] []
+[2025-02-15T17:02:17.386946+00:00] app.DEBUG: Rendering template: front/home.html.twig [] []
+[2025-02-15T17:02:30.133751+00:00] app.INFO: Dashboard index accessed [] []
+[2025-02-15T17:02:30.768496+00:00] app.DEBUG: Not enough events found for user dashboard. [] []
+[2025-02-15T17:02:30.768585+00:00] app.DEBUG: Rendering template: /front/profile.html.twig [] []
+[2025-02-15T17:03:00.873016+00:00] app.DEBUG: Rendering template: front/home.html.twig [] []
+[2025-02-15T17:03:15.266292+00:00] app.INFO: Dashboard index accessed [] []
+[2025-02-15T17:03:16.054036+00:00] app.DEBUG: Not enough events found for user dashboard. [] []
+[2025-02-15T17:03:16.054138+00:00] app.DEBUG: Rendering template: /front/profile.html.twig [] []
+[2025-02-15T17:03:25.065406+00:00] app.DEBUG: Rendering template: front/home.html.twig [] []
+[2025-02-15T17:03:30.252012+00:00] app.DEBUG: Rendering template: /back/404.html.twig [] []
+[2025-02-15T17:04:44.667613+00:00] app.DEBUG: Rendering template: front/home.html.twig [] []
+[2025-02-15T17:05:15.979150+00:00] app.DEBUG: Rendering template: front/home.html.twig [] []
+[2025-02-15T17:05:20.095609+00:00] app.INFO: Dashboard index accessed [] []
+[2025-02-15T17:05:20.099683+00:00] app.DEBUG: Not enough events found for user dashboard. [] []
+[2025-02-15T17:05:20.099758+00:00] app.DEBUG: Rendering template: /front/profile.html.twig [] []
+[2025-02-15T17:05:26.535162+00:00] app.DEBUG: Rendering template: front/home.html.twig [] []
+[2025-02-15T21:21:16.368555+01:00] app.DEBUG: Rendering template: front/event/event-list.html.twig [] []
+[2025-02-15T21:21:22.064764+01:00] app.DEBUG: Rendering template: front/event/event-detail.html.twig [] []
+[2025-02-15T21:25:21.716808+01:00] app.DEBUG: Rendering template: front/event/event-detail.html.twig [] []
+[2025-02-15T21:25:25.230937+01:00] app.INFO: Dashboard index accessed [] []
+[2025-02-15T21:25:25.253741+01:00] app.DEBUG: Not enough events found for user dashboard. [] []
+[2025-02-15T21:25:25.253926+01:00] app.DEBUG: Rendering template: /front/profile.html.twig [] []
+[2025-02-15T21:25:29.176635+01:00] app.DEBUG: Rendering template: front/tickets.html.twig [] []
+[2025-02-15T21:30:07.101229+01:00] app.DEBUG: Rendering template: front/tickets.html.twig [] []
+[2025-02-15T21:30:10.123826+01:00] app.DEBUG: Rendering template: front/tickets.html.twig [] []
+[2025-02-15T21:32:39.218907+01:00] app.DEBUG: Rendering template: front/tickets.html.twig [] []
+[2025-02-15T21:33:54.021712+01:00] app.DEBUG: Rendering template: front/tickets.html.twig [] []
+[2025-02-15T21:35:23.619642+01:00] app.DEBUG: Rendering template: front/tickets.html.twig [] []
+[2025-02-15T21:35:25.726793+01:00] app.DEBUG: Rendering template: front/tickets.html.twig [] []
+[2025-02-15T21:36:28.117834+01:00] app.DEBUG: Rendering template: front/tickets.html.twig [] []
+[2025-02-15T21:36:29.915863+01:00] app.DEBUG: Rendering template: front/tickets.html.twig [] []
+[2025-02-15T21:38:15.443694+01:00] app.DEBUG: Rendering template: front/tickets.html.twig [] []
