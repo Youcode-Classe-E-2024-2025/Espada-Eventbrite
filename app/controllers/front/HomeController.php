@@ -18,16 +18,9 @@ class HomeController extends controller
   }
   public function index()
   {
-    $response = file_get_contents('https://restcountries.com/v3.1/all');
-    if ($response === FALSE) {
-      die('error to fetch data');
-    }
-    $locations = json_decode($response, true);
-    // var_dump($locations);
-    $events = $this->evenmentRepository->getAll();
+    $events = $this->evenmentRepository->getRecentEvents(3);
     $data = [
-      'events' => $events,
-      'locations' => $locations
+      'events' => $events
     ];
     echo $this->render('front/home.html.twig', $data);
   }
