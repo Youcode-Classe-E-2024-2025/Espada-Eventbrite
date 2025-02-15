@@ -2,7 +2,9 @@
     <div class="container mx-auto px-4 py-4">
         <div class="flex items-center justify-between">
             <div class="flex items-center space-x-8">
-                <h1 class="text-2xl font-bold text-indigo-600">ESPADA</h1>
+                <a href="/" class="flex items-center space-x-3">
+                    <img src="/assets/logo/espada.svg" alt="Espada Logo" class="h-10 w-auto">
+                </a>
                 <nav class="hidden md:flex space-x-6">
                     <a href="/" class="text-gray-700 hover:text-indigo-600 cursor-pointer">Home</a>
                     {% if session.get('user') %}

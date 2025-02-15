@@ -321,3 +321,25 @@
 [2025-02-15 12:48:11] [INFO] Attempting to add category: Basil Mcdaniel
 [2025-02-15 12:48:12] [INFO] Fetching all categories and tags
 [2025-02-15 12:48:12] [DEBUG] Rendering template: back/categoryTag.html.twig
+[2025-02-15 12:55:22] [INFO] Dashboard index accessed
+[2025-02-15 12:55:22] [INFO] Admin dashboard accessed
+[2025-02-15 12:55:22] [INFO] Fetching stats for dashboard
+[2025-02-15 12:55:23] [INFO] Fetching pending actions for dashboard
+[2025-02-15 12:55:23] [INFO] Fetching recent activities for dashboard
+[2025-02-15 12:55:23] [DEBUG] Rendering template: /back/index.html.twig
+[2025-02-15 12:58:23] [INFO] Dashboard index accessed
+[2025-02-15 12:58:23] [INFO] Admin dashboard accessed
+[2025-02-15 12:58:23] [INFO] Fetching stats for dashboard
+[2025-02-15 12:58:23] [INFO] Fetching pending actions for dashboard
+[2025-02-15 12:58:23] [INFO] Fetching recent activities for dashboard
+[2025-02-15 12:58:23] [DEBUG] Rendering template: /back/index.html.twig
+[2025-02-15 13:06:00] [INFO] Dashboard index accessed
+[2025-02-15 13:06:00] [INFO] Admin dashboard accessed
+[2025-02-15 13:06:00] [INFO] Fetching stats for dashboard
+[2025-02-15 13:06:00] [INFO] Fetching pending actions for dashboard
+[2025-02-15 13:06:00] [INFO] Fetching recent activities for dashboard
+[2025-02-15 13:06:00] [DEBUG] Rendering template: /back/index.html.twig
+[2025-02-15 13:06:04] [DEBUG] Rendering template: front/home.html.twig
+[2025-02-15 13:06:20] [DEBUG] Rendering template: front/home.html.twig
+[2025-02-15 13:06:36] [DEBUG] Rendering template: front/home.html.twig
+[2025-02-15 13:08:08] [DEBUG] Rendering template: front/home.html.twig
