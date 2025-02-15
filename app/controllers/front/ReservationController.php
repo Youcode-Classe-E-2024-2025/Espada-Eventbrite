@@ -23,13 +23,15 @@ class ReservationController extends Controller{
     }
     public function getBooking() {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $userId = $this->session->get('user')->id; 
+
             $event_id = $_POST['event_id'];
             $vipQuantity = $_POST['vipQuantity'];
             $standardQuantity = $_POST['standardQuantity'];
+            
             $freeQuantity = $_POST['freeQuantity'];
             $totalPrice = $_POST['totalPrice'];
-    
-            $userId = $this->session->get('user')->id; 
+
             $date = date('d-m-y');
 
             $booking_date = (new \DateTime($date))->format('Y-m-d H:i:s');

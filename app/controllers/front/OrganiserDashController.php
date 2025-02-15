@@ -43,9 +43,8 @@ class OrganiserDashController extends Controller
 
 
 
+
         echo $this->render('front/organiser/dashboard.twig', ['data' => $data]);
-        // var_dump($this->id);
-        // var_dump($data);
     }
 
 
@@ -308,11 +307,11 @@ if (isset($_FILES['video']) && $_FILES['video']['error'] === UPLOAD_ERR_OK) {
             'early_bird_discount' => $discount
         ];
         $tagIds = explode(",",$tags);
-
+        
 
             $this->evsdn->createEvent($evenmentData, $capacityData, $tagIds);
 
-
+ 
         header("Location: /Organiser/dash");
 
         // echo  '<br>fvef<br>';

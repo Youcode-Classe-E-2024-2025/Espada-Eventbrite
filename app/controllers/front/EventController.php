@@ -67,8 +67,7 @@ class EventController extends Controller
       $statis = $this->eventService->getCapacities($id[0]);
       $tags = $this->eventService->getTags($id[0]);
       $availible = $this->ReservationService->getAvailable($id[0]);
-      var_dump($availible);
-      die();
+
      echo $this->render('front/event/event-detail.html.twig',['event' => $data, 'statistics'=> $statis, 'tags'=> $tags, 'available'=>$availible]);
   }
 
