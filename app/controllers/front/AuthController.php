@@ -23,12 +23,17 @@ class AuthController extends Controller
     {
         parent::__construct();
         $this->userService = new UserService();
-        // $this->validator = new Validator();
     }
 
     public function index(): void
     {
-        echo $this->render('front/auth.twig', []);
+           
+        if(!empty($this->session->get('user'))){
+            $this->redirect('/');
+        }else{
+            echo $this->render('front/auth.twig', []);
+        }
+        
     }
 
     // Handle user login

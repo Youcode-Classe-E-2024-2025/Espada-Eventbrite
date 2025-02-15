@@ -89,52 +89,14 @@ class AdminEventController extends Controller
         $this->redirect('/admin/events');
     }
 
-    // private function getStats()
-    // {
-    //     $totalUsers = $this->userService->getTotalUsers();
-    //     $activeEvents = $this->eventService->getTotalActiveEvents();
-    //     $ticketsSold = $this->eventService->getTotalTicketsSold();
-    //     $revenue = $this->eventService->getTotalRevenue();
+    public function sort()
+    {
+        $sortBy = $_GET['sort'] ?? '';
 
-    //     $stats = [
-    //         'totalUsers' => $totalUsers,
-    //         'activeEvents' => $activeEvents,
-    //         'ticketsSold' => $ticketsSold,
-    //         'revenue' => $revenue
-    //     ];
+        $events = $this->eventService->sortEvents($sortBy);
 
-    //     // var_dump($totalUsers, $activeEvents, $ticketsSold, $revenue);
-    //     // die();
-
-    //     return $stats;
-    // }
-
-
-    // public function filter()
-    // {
-    //     $roleId = isset($_GET['role_id']) ? (int)$_GET['role_id'] : null;
-    //     $status = isset($_GET['status']) ? (int)$_GET['status'] : null;
-
-    //     $results = $this->userService->filterUsers($roleId, $status);
-
-    //     return $this->render('back/users.html.twig', [
-    //         'users' => $results,
-    //         'role_id' => $roleId,
-    //         'status' => $status
-    //     ]);
-    // }
-
-    // public function updateStatus()
-    // {
-    //     $userId = isset($_POST['user_id']) ? (int)$_POST['user_id'] : null;
-    //     $status = isset($_POST['status']) ? (int)$_POST['status'] : null;
-
-    //     if ($userId && isset($status)) {
-    //         $this->userService->updateUserStatus($userId, $status);
-    //         $this->redirect('/admin/users');
-    //     }
-
-    //     // $this->redirect('/back/users');
-    //     exit;
-    // }
+        header('Content-Type: application/json');
+        echo json_encode(['events' => $events]);
+        exit;
+    }
 }

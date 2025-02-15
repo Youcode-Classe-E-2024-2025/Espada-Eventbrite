@@ -50,12 +50,23 @@
                         </form>
                     </div>
                     <div class="flex space-x-2">
-                        <button class="p-2 hover:bg-gray-100 rounded-lg">
-                            <i class="fa-solid fa-filter text-gray-600"></i>
-                        </button>
-                        <button class="p-2 hover:bg-gray-100 rounded-lg">
-                            <i class="fa-solid fa-sort text-gray-600"></i>
-                        </button>
+                        <div class="relative">
+                            <button class="p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200 group" id="sortBtn">
+                                <i class="fa-solid fa-sort text-gray-600 group-hover:text-blue-500"></i>
+                            </button>
+                            <div id="sortPopup" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-10">
+                                <div class="p-4 space-y-2">
+                                    <div class="font-medium">Sort by:</div>
+                                    <div class="space-y-1">
+                                        <button class="w-full text-left hover:bg-gray-100 px-2 py-1 rounded" data-sort="date_asc">Date ↑</button>
+                                        <button class="w-full text-left hover:bg-gray-100 px-2 py-1 rounded" data-sort="date_desc">Date ↓</button>
+                                        <button class="w-full text-left hover:bg-gray-100 px-2 py-1 rounded" data-sort="name_asc">Name A-Z</button>
+                                        <button class="w-full text-left hover:bg-gray-100 px-2 py-1 rounded" data-sort="name_desc">Name Z-A</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div id="events-grid" class="grid grid-cols-1 gap-4 mb-8">
@@ -118,7 +129,7 @@
                                                 <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
                                                 <input type="hidden" name="event_id" value="{{ event.event_id }}">
                                                 <input type="hidden" name="status" value="2">
-                                                <button type="submit" class="p-2 text-gray-500 hover:text-red-500 rounded-lg" title="Archive Event">
+                                                <button type="submit" class="p-2 text-gray-500 hover:text-yellow-500 rounded-lg" title="Archive Event">
                                                     <i class="fa-solid fa-box-archive"></i>
                                                 </button>
                                             </form>
@@ -151,4 +162,5 @@
                         <button class="px-3 py-1 border rounded-lg hover:bg-gray-50">Next</button>
                     </div>
 {% endblock %}
+{% block scripts %}<script src="/assets/script/events.js"></script> {% endblock %}
                   

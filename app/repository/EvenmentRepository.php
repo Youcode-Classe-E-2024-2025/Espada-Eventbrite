@@ -31,14 +31,13 @@ class EvenmentRepository
                 ":category_id" => $evenmentData['category_id'],
                 ":date" => $evenmentData['date'],
                 ":type" => $evenmentData['type'],
-                ":video_path"=>$evenmentData['video_path']
+                ":video_path" => $evenmentData['video_path']
 
             ]
 
         );
         if ($res) {
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            var_dump($result);
             // Fetch the ID
             return  $result['id'];  // Ensure it returns an integer
         }
@@ -46,11 +45,9 @@ class EvenmentRepository
         return false;
     }
 
-
-
     public function update(int $eventId, array $evenmentData)
-{
-    $query = "UPDATE evenments 
+    {
+        $query = "UPDATE evenments 
               SET title = :title, 
                   description = :description, 
                   visual_content = :visual_content, 
@@ -58,32 +55,19 @@ class EvenmentRepository
                  
               WHERE id = :eventId";
 
-    $stmt = $this->DB->getConnection()->prepare($query);
-    
-    $res = $stmt->execute([
-        ":title" => $evenmentData['title'],
-        ":description" => $evenmentData['description'],
-        ":visual_content" => $evenmentData['visual_content'],
-        "::video_path" => $evenmentData[':video_path'],
-      
-        ":eventId" => $eventId 
-    ]);
+        $stmt = $this->DB->getConnection()->prepare($query);
 
-    return $res && $stmt->rowCount() > 0; 
-}
+        $res = $stmt->execute([
+            ":title" => $evenmentData['title'],
+            ":description" => $evenmentData['description'],
+            ":visual_content" => $evenmentData['visual_content'],
+            "::video_path" => $evenmentData[':video_path'],
 
+            ":eventId" => $eventId
+        ]);
 
-
-
-
-
-
-
-
-
-
-
-
+        return $res && $stmt->rowCount() > 0;
+    }
 
     public function validate(int $evenmentId)
     {
@@ -122,27 +106,24 @@ class EvenmentRepository
         LEFT JOIN capacity c ON e.id = c.evenment_id
         LEFT JOIN users u ON e.owner_id = u.id
         LEFT JOIN categories cat ON e.category_id = cat.id
-        ORDER BY e.date DESC LIMIT 3
+        ORDER BY e.date DESC
         ";
         $stmt = $this->DB->query($query);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-
     public function getMyEvents($id): array
     {
-        $query = "SELECT e.id as event_id, e.*, u.username as owner, c.*, cat.name as category, cat.icon as icon
-        FROM evenments e 
-        LEFT JOIN capacity c ON e.id = c.evenment_id
-        LEFT JOIN users u ON e.owner_id = u.id
-        LEFT JOIN categories cat ON e.category_id = cat.id
-        where u.id = :id
-        ORDER BY e.date DESC limit 2
+        $query = "SELECT *
+FROM evenments e
+JOIN booking b ON e.id = b.evenment_id
+WHERE b.user_id = :id
+ORDER BY b.booking_date DESC
+LIMIT 2;
         ";
         $stmt = $this->DB->query($query, [":id" => $id]);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
-
 
     //     public function getOrganiserEvent($id): array {
     //         $query = 
@@ -206,33 +187,30 @@ class EvenmentRepository
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
     // public function ticketsStaT
-
-
     public function ticketsStaT(int $owner_id): array
     {
         $sql = "
             SELECT                  
-    -- Total Tickets: Sum of total tickets for all events owned by the user
-    COALESCE(SUM(c.total_tickets), 0) AS Total_Tickets, 
+            -- Total Tickets: Sum of total tickets for all events owned by the user
+            COALESCE(SUM(c.total_tickets), 0) AS Total_Tickets, 
 
-    -- Available Tickets: Total tickets minus all sold tickets
-    COALESCE(SUM(c.total_tickets - (c.vip_tickets_sold + c.standard_tickets_sold + c.gratuit_tickets_sold)), 0) AS Available_Tickets,
+            -- Available Tickets: Total tickets minus all sold tickets
+            COALESCE(SUM(c.total_tickets - (c.vip_tickets_sold + c.standard_tickets_sold + c.gratuit_tickets_sold)), 0) AS Available_Tickets,
 
-    -- Sold Tickets: Count of sold tickets (can still rely on 'capacity' if needed)
-    COALESCE(SUM(c.vip_tickets_sold + c.standard_tickets_sold + c.gratuit_tickets_sold), 0) AS Sold_Tickets,
+            -- Sold Tickets: Count of sold tickets (can still rely on 'capacity' if needed)
+            COALESCE(SUM(c.vip_tickets_sold + c.standard_tickets_sold + c.gratuit_tickets_sold), 0) AS Sold_Tickets,
 
-    -- Refunds: Count of refunded (canceled) tickets from the 'booking' table
-    COALESCE(COUNT(b.id) FILTER (WHERE b.canceled = 1), 0) AS Refund_Tickets
+            -- Refunds: Count of refunded (canceled) tickets from the 'booking' table
+            COALESCE(COUNT(b.id) FILTER (WHERE b.canceled = 1), 0) AS Refund_Tickets
 
-FROM evenments e
-LEFT JOIN capacity c ON e.id = c.evenment_id
-LEFT JOIN booking b ON e.id = b.evenment_id
+            FROM evenments e
+            LEFT JOIN capacity c ON e.id = c.evenment_id
+            LEFT JOIN booking b ON e.id = b.evenment_id
 
-WHERE e.owner_id = :owner_id;
+            WHERE e.owner_id = :owner_id;
 
-        ";
+                    ";
 
         $stmt = $this->DB->getConnection()->prepare($sql);
         $stmt->bindParam(':owner_id', $owner_id, PDO::PARAM_INT);
@@ -240,10 +218,6 @@ WHERE e.owner_id = :owner_id;
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
-
-
-
 
     public function getOwnerStatistics(int $owner_id): array
     {
@@ -268,10 +242,6 @@ WHERE e.owner_id = :owner_id;
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-
-
-
-
     // public function getClient(int $owner_id ,int $even_id): array {
     //     $sql = "SELECT 
     //                 u.username AS user_name,
@@ -294,6 +264,7 @@ WHERE e.owner_id = :owner_id;
 
     //     return ['p' => $result]; // Return an array with 'p' as the key (or change to a different name)
     // }
+
 
     public function getClient(int $owner_id, int $even_id = 0): array
     {
@@ -333,12 +304,6 @@ WHERE e.owner_id = :owner_id;
         return $result;  // Return the fetched results
     }
 
-
-
-
-
-
-
     // Function to get all events for a user
     function getUserEvents($user_id)
     {
@@ -370,10 +335,6 @@ WHERE e.owner_id = :owner_id;
             return [];
         }
     }
-    
-    
-    
-    
 
     public function getEventsales($owner, $even)
     {
@@ -492,6 +453,7 @@ WHERE e.owner_id = :owner_id;
 
     //     return $stmt->fetchAll(PDO::FETCH_OBJ);
     // }
+
     public function getPaginatedEvents(int $page = 1, int $limit = 2, array $categories = []): array
     {
         $offset = ($page - 1) * $limit;
@@ -535,7 +497,6 @@ WHERE e.owner_id = :owner_id;
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-
     public function getById($id)
     {
         $query = "SELECT e.id as event_id, e.*, u.username as owner, c.*, cat.name as category, cat.icon as icon
@@ -550,10 +511,50 @@ WHERE e.owner_id = :owner_id;
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
-    public function getRecentEvents()
+    public function getRecentEvents($limit)
     {
-        $sql = "SELECT * FROM evenments ORDER BY date DESC LIMIT 2";
-        $stmt = $this->DB->query($sql);
+        $sql = "SELECT e.id as event_id, e.*, u.username as owner, c.*, cat.name as category, cat.icon as icon
+        FROM evenments e 
+        LEFT JOIN capacity c ON e.id = c.evenment_id
+        LEFT JOIN users u ON e.owner_id = u.id
+        LEFT JOIN categories cat ON e.category_id = cat.id
+        ORDER BY e.date DESC LIMIT :limit";
+        $param = [
+            'limit'=> $limit
+        ];
+        $stmt = $this->DB->query($sql,$param);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function sortEvents($sortBy)
+    {
+        $query = "SELECT e.*, 
+            c.total_tickets, c.vip_tickets_sold, c.standard_tickets_sold, 
+            c.gratuit_tickets_sold, c.vip_tickets_number, c.standard_tickets_number,
+            c.gratuit_tickets_number, c.vip_price, c.standard_price,
+            cat.name as category, cat.icon as icon
+            FROM evenments e 
+            LEFT JOIN capacity c ON e.id = c.evenment_id
+            LEFT JOIN categories cat ON e.category_id = cat.id
+            WHERE 1=1";
+
+        if (!empty($sortBy)) {
+            switch ($sortBy) {
+                case 'date_asc':
+                    $query .= " ORDER BY date ASC";
+                    break;
+                case 'date_desc':
+                    $query .= " ORDER BY date DESC";
+                    break;
+                case 'name_asc':
+                    $query .= " ORDER BY title ASC";
+                    break;
+                case 'name_desc':
+                    $query .= " ORDER BY title DESC";
+                    break;
+            }
+        }
+
+        return $this->DB->query($query)->fetchAll(PDO::FETCH_OBJ);
     }
 }
