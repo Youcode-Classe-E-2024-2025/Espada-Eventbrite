@@ -26,8 +26,28 @@ class CategoryTagService
         return $this->tagRepository->getAll();
     }
 
-    public function addTag($title)
+    public function addTags($tags)
     {
-        return $this->tagRepository->create(['title' => $title]);
+        return $this->tagRepository->massInsert($tags);
+    }
+
+    public function addCategory($title, $icon)
+    {
+        return $this->categoryRepository->create($title, $icon);
+    }
+
+    public function deleteCategory($id)
+    {
+        return $this->categoryRepository->delete($id);
+    }
+
+    public function deleteTag($id)
+    {
+        return $this->tagRepository->delete($id);
+    }
+
+    public function updateCategory($id, $name, $icon)
+    {
+        return $this->categoryRepository->update($id, $name, $icon);
     }
 }
