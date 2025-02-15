@@ -34,3 +34,7 @@
 [2025-02-15T17:03:11.827460+00:00] google_oauth.INFO: Service Call {"service":"oauth2","resource":"userinfo","method":"get","arguments":[]} []
 [2025-02-15T17:03:11.998560+00:00] google_oauth.INFO: Processing Google User {"google_id":"110241040810351366375","email":"elbarryanwar37@gmail.com","name":"el barry anouar"} []
 [2025-02-15T17:03:12.449932+00:00] google_oauth.INFO: Attempting to create new Google user {"email":"elbarryanwar37@gmail.com","username":"elbarryanouar","password":"b35a1d0bb4a8e5532d120b3969066828","avatar":"https://lh3.googleusercontent.com/a/ACg8ocJQbkVXtnrjnpM6vega8t6TV20jMgzfhEVlB01g9dOPd904giM=s96-c","google_id":"110241040810351366375","is_google":true,"role":2,"role_id":2} []
+[2025-02-15T19:38:46.104347+00:00] google_oauth.DEBUG: Rendering template: front/auth.twig [] []
+[2025-02-15T19:39:01.627959+00:00] google_oauth.INFO: Service Call {"service":"oauth2","resource":"userinfo","method":"get","arguments":[]} []
+[2025-02-15T19:39:02.032570+00:00] google_oauth.INFO: Processing Google User {"google_id":"103568536453481738489","email":"pipatoto509@gmail.com","name":"Pipa toto"} []
+[2025-02-15T19:39:02.836180+00:00] google_oauth.INFO: Attempting to create new Google user {"email":"pipatoto509@gmail.com","username":"pipatoto","password":"a381b643772e7fda892584aa2f84ecbf","avatar":"https://lh3.googleusercontent.com/a/ACg8ocIIUOQGx3tktYHyP5CYgCpUnI-Tg4ZJh5_CggoWxhHWN-N0jQ=s96-c","google_id":"103568536453481738489","is_google":true,"role":2,"role_id":2} []

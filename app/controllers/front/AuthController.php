@@ -239,10 +239,6 @@ class AuthController extends Controller
         } catch (\Exception $e) {
             // Comprehensive error logging
             error_log('Google Callback Error: ' . $e->getMessage());
-            var_dump($e->getMessage());
-            die();
-            // User-friendly error handling
-       
             header('Location: /login');
             exit();
         }
