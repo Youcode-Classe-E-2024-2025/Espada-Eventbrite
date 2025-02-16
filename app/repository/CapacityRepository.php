@@ -62,7 +62,7 @@ WHERE
     public function getEventStatistics($evenment_id)
     {
         $query = "SELECT 
-                    c.total_tickets,
+                    ( c.gratuit_tickets_number +  c.vip_tickets_number + c.standard_tickets_number  ) as total_tickets,
                     (COALESCE(c.vip_tickets_sold, 0) + COALESCE(c.standard_tickets_sold, 0) + COALESCE(c.gratuit_tickets_sold, 0)) AS tickets_sold,
                     (c.total_tickets - (COALESCE(c.vip_tickets_sold, 0) + COALESCE(c.standard_tickets_sold, 0) + COALESCE(c.gratuit_tickets_sold, 0))) AS tickets_available,
                     c.vip_price,

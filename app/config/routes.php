@@ -52,6 +52,7 @@ $router->addRoute('GET', '/events/search', [App\controllers\front\EventControlle
 // $router->addRoute('GET', '/Organiser/dash', [App\controllers\front\OrganiserDashController::class, 'index']);
 $router->addRoute('GET', '/reservation', [App\controllers\front\ReservationController::class, 'index']);
 $router->addRoute('POST', '/handle/payment', [App\controllers\front\ReservationController::class, 'handlePayment']);
+$router->addRoute('POST', '/profile/update', [App\controllers\front\ProfileController::class, 'updateUser']);
 
 
 

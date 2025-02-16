@@ -172,9 +172,9 @@ class UserService
         return $this->userRepository->getRecentUsers();
     }
 
-    public function updateUser(int $userId, string $name, string $avatar)
+    public function updateUser(int $userId, string $name)
     {
-        return $this->userRepository->updateUser($userId, $name, $avatar);
+        return $this->userRepository->updateUser($userId, $name);
     }
 
     // Find user by username
