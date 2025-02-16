@@ -248,18 +248,19 @@ class OrganiserDashController extends Controller
             // Video upload handling
             if (isset($_FILES['video']) && $_FILES['video']['error'] === UPLOAD_ERR_OK) {
                 $video = $_FILES['video'];
-
                 // Absolute path to the upload directory
                 $uploadDir = 'uploads/videos/';
-
+                
                 // Ensure the upload directory exists
                 if (!is_dir($uploadDir)) {
                     mkdir($uploadDir, 0777, true);
                 }
-
+                
+                
                 // Sanitize file name
                 $fileName = uniqid() . "_" . basename($video['name']);
                 $videoPath = $uploadDir . $fileName;
+               
 
                 // Allowed video types
                 $allowedTypes = ['video/mp4', 'video/avi', 'video/quicktime', 'video/mov'];
@@ -296,6 +297,7 @@ class OrganiserDashController extends Controller
                 'date' => $date,
                 'type' => $type
             ];
+          
             $capacityData = [
                 'total_tickets' => $total_num,
                 'vip_tickets_number' => $vip_num,
