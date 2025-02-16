@@ -118,21 +118,29 @@
             <div class="bg-white rounded-xl shadow-sm p-6">
                 <div class="flex justify-between items-center mb-6">
                     <h3 class="text-lg font-semibold">Reserved Tickets</h3>
-                    <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    <a href="/tickets" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
                         <i class="fa-solid fa-qrcode mr-2"></i>View All Tickets
-                    </button>
+                    </a>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div class="border rounded-lg p-4">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h4 class="font-medium">Tech Conference 2025</h4>
-                                <p class="text-sm text-gray-600">VIP Pass</p>
-                                <p class="text-sm text-gray-600 mt-2">March 15, 2025 • 9:00 AM</p>
+                    {% for ticket in tickets %}
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <div class="flex justify-between">
+                                <div>
+                                    <h3 class="text-lg font-semibold">{{ ticket.event_title }}</h3>
+                                    <p class="text-gray-600">{{ ticket.type }}</p>
+                                    <p class="text-gray-500">{{ ticket.booking_date|date('d M Y') }}</p>
+                                    <p class="text-green-600 font-medium">${{ ticket.price }}</p>
+                                </div>
+                                <img src="{{ ticket.qr_code_path }}" alt="Ticket QR Code" class="w-24 h-24">
                             </div>
-                            <i class="fa-solid fa-qrcode text-2xl text-gray-400"></i>
+                            <div class="mt-4 flex justify-end space-x-2">
+                                <a href="/ticket/download/{{ ticket.id }}" class="text-blue-600 hover:text-blue-800">
+                                    <i class="fa-solid fa-download"></i> Download Ticket
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    {% endfor %}
                     <div class="border rounded-lg p-4">
                         <div class="flex justify-between items-start">
                             <div>

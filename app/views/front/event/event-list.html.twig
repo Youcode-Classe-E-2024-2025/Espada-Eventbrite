@@ -45,17 +45,20 @@
         <div class="flex-1">
           <div class="bg-white rounded-lg p-4 shadow-sm mb-6">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-              <div class="relative flex-1">
-                <i class="fa-solid fa-search absolute left-3 top-3 text-gray-400"></i>
-                <input type="text" placeholder="Search events..." class="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
-              </div>
+              
+              <form action="/events/search" method="get" class="relative">
+                            <input type="text" name="keyword" placeholder="Search events..." class="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+                            <i class="fa-solid fa-search absolute left-3 top-3 text-gray-400"></i>
+                        </form>
               <div class="flex items-center gap-4">
                 <div class="flex items-center gap-2">
                   <span class="text-sm text-gray-600">Sort by:</span>
-                  <select class="border rounded-lg px-3 py-2">
-                    <option>Date</option>
-                    <option>Popularity</option>
-                  </select>
+                  <select id="filter" class="border rounded-lg px-4 py-2" onchange="this.form.submit()">
+                    <option value="">Sort by</option>
+                    <option value="newest" {% if filter == 'newest' %}selected{% endif %}>Newest First</option>
+                    <option value="oldest" {% if filter == 'oldest' %}selected{% endif %}>Oldest First</option>
+                    <option value="popular" {% if filter == 'popular' %}selected{% endif %}>Most Popular</option>
+                </select>
                 </div>
               </div>
             </div>
@@ -65,7 +68,7 @@
           {% for event in events  %}
             <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
               <div class="relative">
-                <img class="w-full h-48 object-cover" src="{{event.visual_content}}" alt="tech conference">
+                <img class="w-full h-48 object-cover" src="../../../{{event.visual_content}}" alt="tech conference">
                 <span class="absolute top-4 right-4 bg-gray-500 text-white px-3 py-1 rounded-full text-sm">
                     <i class="fa-solid {{event.icon}} mr-1"></i>{{event.category}}
                 </span>
@@ -79,18 +82,21 @@
                 </div>
                 <h4 class="text-xl font-bold mb-2">{{event.title}}</h4>
                 <p class="text-gray-600 mb-4">{{event.description|striptags|slice(0, 20)}}...</p>
-                <div class="flex items-center justify-between">
-                  <a href="/event/details/{{ event.event_id }}" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Book Now</a>
-                </div>
+                {% if event.owner_id != session.get('user').id %}
+                  <div class="flex items-center justify-between">
+                    <a href="/event/details/{{ event.event_id }}" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Book Now</a>
+                  </div>
+                {% endif %}
               </div>
             </div>
             {% endfor %}
 
           </div>
+          
           <div class="mt-8 flex items-center justify-between">
-            <div class="text-sm text-gray-600">
+            {# <div class="text-sm text-gray-600">
               Showing {{ ((currentPage - 1) * 2) + 1 }}-{{ min(currentPage * 2, totalEvents) }} of {{totalEvents}} events
-            </div>
+            </div> #}
             <div class="flex gap-2" id="pagination-controls">
               <button class="px-4 py-2 border rounded-lg hover:bg-gray-100 disabled:opacity-50" 
                       id="prev-page" 
