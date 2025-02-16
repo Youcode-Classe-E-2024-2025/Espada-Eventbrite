@@ -117,11 +117,12 @@ class EvenmentRepository
     public function getMyEvents($id): array
     {
         $query = "SELECT *
-            FROM evenments e
-            JOIN booking b ON e.id = b.evenment_id
-            WHERE b.user_id = :id
-            ORDER BY b.booking_date DESC
-            LIMIT 2;
+FROM evenments e
+JOIN booking b ON e.id = b.evenment_id
+WHERE b.user_id = :id
+GROUP BY e.id , b.id
+ORDER BY b.booking_date DESC
+LIMIT 2
         ";
         $stmt = $this->DB->query($query, [":id" => $id]);
         return $stmt->fetchAll(PDO::FETCH_OBJ);

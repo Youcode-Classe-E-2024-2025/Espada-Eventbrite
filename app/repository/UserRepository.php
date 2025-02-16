@@ -165,13 +165,12 @@ class UserRepository
     }
 
     // Update user (only name and avatar URL)
-    public function updateUser(int $userId, string $name, string $avatar)
+    public function updateUser(int $userId, string $name)
     {
-        $query = "UPDATE users SET username = :username, avatar = :avatar WHERE id = :id";
+        $query = "UPDATE users SET username = :username WHERE id = :id";
         $stmt = $this->DB->getConnection()->prepare($query);
         return $stmt->execute([
             'username' => $name,
-            'avatar' => $avatar,
             'id' => $userId,
         ]);
     }

@@ -29,7 +29,7 @@
               <div class="text-sm text-gray-600">Tickets Sold</div>
             </div>
             <div class="bg-white p-4 rounded-lg text-center">
-              <div class="text-2xl font-bold text-indigo-600">{{ statistics.tickets_available}}</div>
+              <div class="text-2xl font-bold text-indigo-600">{{available.vip_tickets_available + available.standard_tickets_available + available.gratuit_tickets_available}}</div>
               <div class="text-sm text-gray-600">Available</div>
             </div>
             <div class="bg-white p-4 rounded-lg text-center">
@@ -88,7 +88,7 @@
         <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:border-indigo-600 transition">
           <div class="flex justify-between items-center mb-4">
             <h3 class="font-bold text-xl">VIP</h3>
-            <span class="text-indigo-600 font-bold">${{statistics.gratuit_tickets_number}}</span>
+            <span class="text-indigo-600 font-bold">${{statistics.vip_price}}</span>
           </div>
           <div class="mb-4">
             <div class="flex justify-between text-sm text-gray-600 mb-2">
@@ -148,7 +148,7 @@
                 </div>
                 <div>
                   <p class="font-medium">Available Tickets</p>
-                  <p class="text-gray-600">{{statistics.available_tickets}}</p>
+                  <p class="text-gray-600">{{available.vip_tickets_available + available.standard_tickets_available + available.gratuit_tickets_available}}</p>
                 </div>
               </div>
             </div>

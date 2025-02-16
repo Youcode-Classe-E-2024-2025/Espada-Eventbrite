@@ -9,7 +9,7 @@ use App\services\UserService;
 class ProfileController extends Controller
 {
 
-    protected StatService $userService;
+    protected UserService $userService;
 
     public function __construct()
     {
@@ -17,7 +17,11 @@ class ProfileController extends Controller
         $this->userService = new UserService();
     }
     public function updateUser(){
+        $id = $this->session->get('user')->id;
+        $name = $_POST['fullname'];  
+        $this->session->get('user')->username = $name;
 
-        
+        $this->userService->updateUser($id,$name);
+        $this->redirect('/dashboard');
     }
 }
