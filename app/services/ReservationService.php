@@ -38,7 +38,9 @@ class ReservationService
             'ticket_id' => $ticketId,
             'event_id' => $eventId,
             'user_id' => $userId,
-            'type' => $type
+            'type' => $type,
+            'price' => $totalPrice,
+            'date' => $booking_date
         ];
 
         $qrPath = $this->generateQRCode($qrData);
@@ -52,21 +54,29 @@ class ReservationService
     }
 
 
-    public function getAvailable($event_id){
+    public function getAvailable($event_id)
+    {
         return $this->capacityRepo->getAvailable($event_id);
-
     }
 
     private function generateQRCode($data)
     {
+
         $qrCode = new QrCode(json_encode($data));
         $writer = new PngWriter();
-        $result = $writer->write($qrCode);
 
-        $path = '/var/www/Espada-Eventbrite/public/assets/qrcodes/' . $data['ticket_id'] . '.png';
-        $result->saveToFile($path);
+        $qrCodeResult = $writer->write($qrCode);
 
-        return $path;
+        $qrFileName = $data['ticket_id'] . '.png';
+        $qrPath = __DIR__ . '/../../public/assets/qrcodes/' . $qrFileName;
+
+        if (!file_exists(__DIR__ . '/../../public/assets/qrcodes/')) {
+            mkdir(__DIR__ . '/../../public/assets/qrcodes/', 0777, true);
+        }
+
+        $qrCodeResult->saveToFile($qrPath);
+
+        return $qrFileName;
     }
 
     public function getUserTickets($userId)

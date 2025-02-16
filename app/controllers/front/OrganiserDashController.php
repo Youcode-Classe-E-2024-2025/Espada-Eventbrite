@@ -145,7 +145,7 @@ class OrganiserDashController extends Controller
             $video = $_FILES['video'];
 
             // Absolute path to the upload directory
-            $uploadDir = '/home/hamza/Desktop/collab/Espada-Eventbrite/uploads/videos/';
+            $uploadDir = 'uploads/videos/';
 
             // Ensure the upload directory exists
             if (!is_dir($uploadDir)) {

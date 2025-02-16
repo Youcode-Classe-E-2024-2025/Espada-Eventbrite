@@ -101,11 +101,9 @@ class AuthController extends Controller
         echo $view->render('front/auth.twig', ['messege' => 'password or email are wrong ']);
     }
 
-    public function register(): void
+    public function register()
     {
         $requestData = $this->getJsonInput();
-
-
 
         $rules = [
             'email' => ['required', 'email'],

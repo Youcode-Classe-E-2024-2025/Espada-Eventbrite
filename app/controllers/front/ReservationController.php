@@ -27,11 +27,11 @@ class ReservationController extends Controller
         $statis = $this->eventService->getCapacities($id[0]);
         $availible = $this->reservationService->getAvailable($id[0]);
 
-        $standard_tickets_available = $availible->standard_tickets_available > 0 ? $availible->standard_tickets_available: 0 ;
-        $gratuit_tickets_available = $availible->gratuit_tickets_available  > 0 ? $availible->gratuit_tickets_available: 0;
-        $vip_tickets_available = $availible->vip_tickets_available  > 0 ? $availible->vip_tickets_available: 0;
+        $standard_tickets_available = $availible->standard_tickets_available > 0 ? $availible->standard_tickets_available : 0;
+        $gratuit_tickets_available = $availible->gratuit_tickets_available  > 0 ? $availible->gratuit_tickets_available : 0;
+        $vip_tickets_available = $availible->vip_tickets_available  > 0 ? $availible->vip_tickets_available : 0;
 
-        echo $this->view->render("front/event/booking.html.twig", ['data' => $statis, 'event' => $data, 'standard_tickets_available'=> $standard_tickets_available, 'vip_tickets_available'=> $vip_tickets_available, 'gratuit_tickets_available'=> $gratuit_tickets_available]);
+        echo $this->view->render("front/event/booking.html.twig", ['data' => $statis, 'event' => $data, 'standard_tickets_available' => $standard_tickets_available, 'vip_tickets_available' => $vip_tickets_available, 'gratuit_tickets_available' => $gratuit_tickets_available]);
     }
 
     public function getBooking()
@@ -120,15 +120,16 @@ class ReservationController extends Controller
     }
 
 
-    public function handlePayment() {
+    public function handlePayment()
+    {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $userId = $this->session->get('user')->id; 
+            $userId = $this->session->get('user')->id;
             $event_id = filter_input(INPUT_POST, 'event_id', FILTER_VALIDATE_INT);
             $vipQuantity = filter_input(INPUT_POST, 'vipQuantity', FILTER_VALIDATE_INT);
             $standardQuantity = filter_input(INPUT_POST, 'standardQuantity', FILTER_VALIDATE_INT);
             $freeQuantity = filter_input(INPUT_POST, 'freeQuantity', FILTER_VALIDATE_INT);
-            $vipPrice = $_POST['vipPrice']; 
-            $standardPrice = $_POST['standardPrice']; 
+            $vipPrice = $_POST['vipPrice'];
+            $standardPrice = $_POST['standardPrice'];
             $totalPrice = 0;
 
             // Array to hold ticket details
@@ -215,7 +216,6 @@ class ReservationController extends Controller
 
                 header("Location: " . $session->url);
                 exit();
-        
             } catch (\Exception $e) {
                 // Handle any errors with Stripe payment
                 http_response_code(500);
