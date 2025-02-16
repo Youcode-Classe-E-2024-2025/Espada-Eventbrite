@@ -104,7 +104,7 @@ class AuthController extends Controller
     public function register(): void
     {
         $requestData = $this->getJsonInput();
-
+        
 
 
         $rules = [
@@ -128,7 +128,7 @@ class AuthController extends Controller
         }
 
         // Hash the password
-        $requestData['password'] = password_hash($requestData['password'], PASSWORD_BCRYPT);
+        $requestData['password'] = password_hash($requestData['password'], PASSWORD_DEFAULT);
         unset($requestData['confirm_password']); // Remove confirm_password before storing
 
         // Attempt to register the user

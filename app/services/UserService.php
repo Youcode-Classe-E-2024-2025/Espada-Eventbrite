@@ -55,8 +55,6 @@ class UserService
         // Add role_id to user data
         $userData['role_id'] = $roles[$userData['role']] ?? null;
 
-        // Hash the password
-        $userData['password'] = password_hash($userData['password'], PASSWORD_DEFAULT);
 
         // Attempt to create user
         $createdUser = $this->userRepository->createUser($userData);
