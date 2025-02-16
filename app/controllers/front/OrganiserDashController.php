@@ -106,15 +106,17 @@ class OrganiserDashController extends Controller
     public function delete($id)
     {
         $intValeur = (int) $id[0];
+        // $this->notifier->connect();
 
-
-       echo $this->notiD->getEventBookingsUsers($id);
-   die;
+     $res =$this->notiD->getEventBookingsUsers($intValeur);
+     var_dump($res);
         // $this->statServ->deleteE($intValeur);
+        $userIds = explode(',', trim($res[0]['user_ids'], '{}'));
 
-        //  $this->notifier->sendNotification();
 
+         $this->notifier->send($res[0]['event_name'] , 'cancel' , $userIds);
 
+     die;
         // header("Location: /Organiser/dash");
     }
 

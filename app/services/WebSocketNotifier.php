@@ -1,61 +1,61 @@
 <?php
+namespace App\Services;
 
-namespace App\services;
+use WebSocket\Client;
+use Exception;
 
+class WebSocketNotifier {
+    private static $instance = null;
+    private $client;
+    private $host;
+    private $port;
 
-class WebSocketNotifier
-{
-    private static ?WebSocketNotifier $instance = null;
-    private string $host;
-    private int $port;
-    private $socket;
-
-    private function __construct(string $host = 'localhost', int $port = 3009)
-    {
+    private function __construct(string $host = 'localhost', int $port = 3009) {
         $this->host = $host;
         $this->port = $port;
         $this->connect();
     }
 
-    public static function getInstance(): WebSocketNotifier
-    {
+    public static function getInstance(): self {
         if (self::$instance === null) {
-            self::$instance = new WebSocketNotifier();
+            self::$instance = new self();
         }
         return self::$instance;
     }
 
-    private function connect(): void
-    {
-        $this->socket = fsockopen($this->host, $this->port, $errno, $errstr, 30);
-        if (!$this->socket) {
-            error_log("WebSocket connection failed: $errstr ($errno)");
+    private function connect(): bool {
+        try {
+            $this->client = new Client("ws://{$this->host}:{$this->port}");
+            return true;
+        } catch (Exception $e) {
+            error_log("WebSocket connection failed: " . $e->getMessage());
+            return false;
         }
     }
 
-    public function sendNotification(string $eventName, string $action, array $userIds): bool
-    {
-        if (!$this->socket) {
-            $this->connect(); // Try to reconnect if needed
-            if (!$this->socket) {
-                return false;
-            }
+    public function send(string $eventName, string $action, array $userIds): bool {
+        if (!$this->client) {
+            throw new Exception("Not connected to WebSocket server");
         }
 
-        $message = json_encode([
-            'event_name' => $eventName,
+        $data = [
             'action' => $action,
-            'users' => $userIds
-        ]);
+            'event_name' => $eventName,
+            'user_ids' => $userIds
+        ];
 
-        fwrite($this->socket, $message);
-        return true;
+        try {
+            $this->client->send(json_encode($data));
+            return true;
+        } catch (Exception $e) {
+            error_log("Error sending WebSocket message: " . $e->getMessage());
+            return false;
+        }
     }
 
-    public function __destruct()
-    {
-        if ($this->socket) {
-            fclose($this->socket);
+    public function close(): void {
+        if ($this->client) {
+            $this->client->close();
         }
     }
 }

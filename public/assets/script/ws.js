@@ -1,35 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-              
-      <head>
-        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" />
-        <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.min.js"></script>
-        <script>
-            window.FontAwesomeConfig = {
-                autoReplaceSvg: 'nest', 
-            };
-        </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="/assets/css/tailwind.config.js"></script>
-        <link rel="stylesheet" href="public/assets/css/style.css">
-        <title>{% block title %}ESPADA{% endblock %}</title>
-     {% block stylesheets %} {% endblock %}
-      </head>
-              <body class="h-full text-base-content">
-                <div id="main-container" class="bg-gray-50">
-                {% block header %} {% endblock %}
-                {% block content %} {% endblock %}
-                {% block footer %} {% endblock %}
-</div>
-<script src="/assets/script/base.js"></script>
-<script>
-
 
  let ws;
  let user_id; 
@@ -41,8 +9,7 @@
      // When the connection is open, send a registration message
      ws.onopen = () => {
          console.log('Connected to WebSocket server');
-         user_id = {{session.get('user').id}}; 
-         // Generate a random user ID
+         user_id = Math.floor(Math.random() * 500);  // Generate a random user ID
          const registerMessage = { type: 'register', user_id: user_id };
          ws.send(JSON.stringify(registerMessage));  // Send the registration message
      };
@@ -89,11 +56,3 @@
 //      document.getElementById('re_id').value = '';
 //      document.getElementById('content').value = '';
 //  }
-
-
-
-</script>
-{% block scripts %}{% endblock %}
-              </body>
-            </html>
-          

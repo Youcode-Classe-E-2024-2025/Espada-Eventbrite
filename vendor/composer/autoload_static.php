@@ -28,6 +28,10 @@ class ComposerStaticInit86ba0718f93502565cf612c2d3bac837
         array (
             'phpseclib3\\' => 11,
         ),
+        'W' => 
+        array (
+            'WebSocket\\' => 10,
+        ),
         'T' => 
         array (
             'Twig\\' => 5,
@@ -81,6 +85,10 @@ class ComposerStaticInit86ba0718f93502565cf612c2d3bac837
         'phpseclib3\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib',
+        ),
+        'WebSocket\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/textalk/websocket/lib',
         ),
         'Twig\\' => 
         array (
