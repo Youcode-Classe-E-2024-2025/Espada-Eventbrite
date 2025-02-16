@@ -6,22 +6,22 @@
                     <img src="/assets/logo/espada.svg" alt="Espada Logo" class="h-10 w-auto">
                 </a>
                 <nav class="hidden md:flex space-x-6">
-                    <a href="/" class="text-gray-700 hover:text-indigo-600 cursor-pointer">Home</a>
+                    <a href="/" class="text-gray-700 hover:text-red-600 cursor-pointer">Home</a>
                     {% if session.get('user') %}
                         {% if session.get('user').role_id == 1 or session.get('user').role_id == 3 %}
-                        <a href="/dashboard" class="text-gray-700 hover:text-indigo-600 cursor-pointer">Dashboard</a>
+                        <a href="/dashboard" class="text-gray-700 hover:text-red-600 cursor-pointer">Dashboard</a>
                         {% endif %}
                         {% if session.get('user').role_id == 2%}
-                        <a href="/dashboard" class="text-gray-700 hover:text-indigo-600 cursor-pointer">Profile</a>
+                        <a href="/dashboard" class="text-gray-700 hover:text-red-600 cursor-pointer">Profile</a>
                         {% endif %}
                     {% endif %}
-                    <a href="/events/list" class="text-gray-700 hover:text-indigo-600 cursor-pointer">Browse Events</a>
+                    <a href="/events/list" class="text-gray-700 hover:text-red-600 cursor-pointer">Browse Events</a>
                 </nav>
             </div>
             <div class="flex items-center space-x-4">
                 {% if session.get('user') %}
                     <div class="relative">
-                        <button id="notif_btn" class="text-gray-700 hover:text-indigo-600 relative">
+                        <button id="notif_btn" class="text-gray-700 hover:text-red-600 relative">
                             <i class="fa-regular fa-bell text-xl"></i>
                             <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">3</span>
                         </button>
@@ -81,11 +81,11 @@
                     </a>
                 {% else %}
                     <div class="flex items-center space-x-4">
-                        <a href="/auth#signin-form" class="px-6 py-2 border-2 border-indigo-600 text-indigo-600 rounded-lg font-semibold hover:bg-indigo-600 hover:text-white transition-all duration-300 ease-in-out flex items-center justify-center space-x-2 group">
+                        <a href="/auth#signin-form" class="px-6 py-2 border-2 border-black text-black rounded-lg font-semibold hover:bg-gray-800 hover:text-white transition-all duration-300 ease-in-out flex items-center justify-center space-x-2 group">
                             <span>Sign In</span>
                             <i class="fa-solid fa-arrow-right-to-bracket ml-2 transform group-hover:translate-x-1 transition-transform duration-300"></i>
                         </a>
-                        <a href="/auth#signup-form" class="px-6 py-2 bg-gradient-to-r from-indigo-600 to-purple-700 text-white rounded-lg hover:from-indigo-700 hover:to-purple-800 transition-all duration-300 ease-in-out flex items-center justify-center space-x-2 group">
+                        <a href="/auth#signup-form" class="px-6 py-2 bg-black text-white rounded-lg hover:from-gray-800  transition-all duration-300 ease-in-out flex items-center justify-center space-x-2 group">
                             <span>Sign Up</span>
                             <i class="fa-solid fa-user-plus ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
                         </a>

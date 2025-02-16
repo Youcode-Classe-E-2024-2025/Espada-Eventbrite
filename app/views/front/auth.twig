@@ -2,18 +2,17 @@
 {% block header %} {% include "layouts/header.html.twig" %}  {% endblock %}
 {% block content %}
   <div id="auth-wrapper" class="flex min-h-[800px] w-full bg-gray-50">
-    <div class="hidden lg:flex lg:w-1/2 bg-indigo-600 p-12 items-center justify-center">
+    <div class="hidden lg:flex lg:w-1/2 bg-black p-12 items-center justify-center">
       <div class="max-w-xl">
-        <img class="w-full h-auto mb-8" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/9766f825e1-8bc288754cd21c7bbba9.png" alt="modern illustration of people collaborating online, minimal style, soft colors, professional" >
-        <h2 class="text-4xl font-bold text-white mb-4">Welcome to EventHub</h2>
+        <img class="w-full h-auto mb-8" src="/assets/imges/login.png" >
         <p class="text-indigo-100 text-lg">Connect, organize, and participate in events that matter to you.</p>
       </div>
     </div>
     <div class="w-full lg:w-1/2 flex items-center justify-center p-6">
       <div class="w-full max-w-md space-y-8">
         <div class="flex space-x-4 border-b border-gray-200">
-          <button onclick="toggleForm('signin')" id="signin-tab" class="px-4 py-2 text-sm font-medium text-indigo-600 border-b-2 border-indigo-600">Sign In</button>
-          <button onclick="toggleForm('signup')" id="signup-tab" class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700">Sign Up</button>
+          <button onclick="toggleForm('signin')" id="signin-tab" class="px-4 py-2 text-sm font-medium text-black border-b-2 border-black">Sign In</button>
+          <button onclick="toggleForm('signup')" id="signup-tab" class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800">Sign Up</button>
         </div>
         <h1 class="text-red-500">{{ messege }}</h1>
 
@@ -38,9 +37,9 @@
               <input type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
               <label class="ml-2 text-sm text-gray-600">Remember me</label>
             </div>
-            <span class="text-sm text-indigo-600 hover:text-indigo-500 cursor-pointer">Forgot password?</span>
+            <span class="text-sm text-green-600 hover:text-green-500 cursor-pointer">Forgot password?</span>
           </div>
-          <button class="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-200">
+          <button class="w-full bg-black text-white py-2 px-4 rounded-lg hover:bg-gray-800 focus:ring-4 focus:ring-indigo-200">
             Sign in
           </button>
           <div class="relative">
@@ -63,7 +62,7 @@
           </div>
           <div class="text-center text-sm text-gray-600">
             Don't have an account? 
-            <span onclick="toggleForm('signup')" class="text-indigo-600 hover:text-indigo-500 cursor-pointer">Sign up</span>
+            <span onclick="toggleForm('signup')" class="text-green-600 hover:text-green-500 cursor-pointer">Sign up</span>
           </div>
         </form>
 
@@ -103,9 +102,9 @@
           </div>
           <div class="flex items-center">
             <input type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-            <label class="ml-2 text-sm text-gray-600">I agree to the <span class="text-indigo-600 cursor-pointer">Terms of Service</span> and <span class="text-indigo-600 cursor-pointer">Privacy Policy</span></label>
+            <label class="ml-2 text-sm text-gray-600">I agree to the <span class="text-green-600 cursor-pointer">Terms of Service</span> and <span class="text-green-600 cursor-pointer">Privacy Policy</span></label>
           </div>
-          <button class="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-200">
+          <button class="w-full bg-black text-white py-2 px-4 rounded-lg hover:bg-gray-800 focus:ring-4 focus:ring-green-200">
             Create Account
           </button>
           <div class="relative">
@@ -128,7 +127,7 @@
           </div>
           <div class="text-center text-sm text-gray-600">
             Already have an account? 
-            <span onclick="toggleForm('signin')" class="text-indigo-600 hover:text-indigo-500 cursor-pointer">Sign in</span>
+            <span onclick="toggleForm('signin')" class="text-green-600 hover:text-green-500 cursor-pointer">Sign in</span>
           </div>
         </form>
       </div>
@@ -198,15 +197,15 @@
       signinTab.classList.remove('text-indigo-600', 'border-b-2', 'border-indigo-600');
       signinTab.classList.add('text-gray-500');
       signupTab.classList.remove('text-gray-500');
-      signupTab.classList.add('text-indigo-600', 'border-b-2', 'border-indigo-600');
+      signupTab.classList.add('text-black', 'border-b-2', 'border-black');
       window.location.hash = 'signup-form';
     } else {
       signupForm.classList.add('hidden');
       signinForm.classList.remove('hidden');
       signupTab.classList.remove('text-indigo-600', 'border-b-2', 'border-indigo-600');
-      signupTab.classList.add('text-gray-500');
+      signupTab.classList.add('text-black');
       signinTab.classList.remove('text-gray-500');
-      signinTab.classList.add('text-indigo-600', 'border-b-2', 'border-indigo-600');
+      signinTab.classList.add('text-black', 'border-b-2', 'border-black');
       window.location.hash = 'signin-form';
     }
   }

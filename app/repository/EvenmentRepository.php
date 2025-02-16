@@ -476,12 +476,12 @@ class EvenmentRepository
     {
         $offset = ($page - 1) * $limit;
 
-        $query = "SELECT e.id as event_id, e.*, u.username as owner, c.*, cat.name as category, cat.icon as icon
+        $query = "SELECT e.id as event_id, e.*, u.username as owner, c.*, cat.name as category_name, cat.icon as icon
                 FROM evenments e 
                 LEFT JOIN capacity c ON e.id = c.evenment_id
                 LEFT JOIN users u ON e.owner_id = u.id
                 LEFT JOIN categories cat ON e.category_id = cat.id
-                WHERE e.validation = 0 AND e.archived = 0";
+                WHERE e.validation = 1 AND e.archived = 0";
 
         // Prepare parameters array
         $params = [];
