@@ -479,7 +479,7 @@ class EvenmentRepository
                 LEFT JOIN capacity c ON e.id = c.evenment_id
                 LEFT JOIN users u ON e.owner_id = u.id
                 LEFT JOIN categories cat ON e.category_id = cat.id
-                WHERE e.validation = 0 AND e.archived = 0";
+                WHERE e.validation = 1 AND e.archived = 0";
 
         // Prepare parameters array
         $params = [];
