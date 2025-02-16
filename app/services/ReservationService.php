@@ -79,7 +79,7 @@ class ReservationService
         return $qrFileName;
     }
 
-    public function getUserTickets($userId)
+    public function getUserTickets($userId, $limit = null)
     {
         $query = "SELECT b.*, e.title as event_title, e.date as event_date 
               FROM booking b
@@ -87,7 +87,7 @@ class ReservationService
               WHERE b.user_id = :user_id
               ORDER BY b.booking_date DESC";
 
-        return $this->reservationRepository->getUserTickets($userId);
+        return $this->reservationRepository->getUserTickets($userId, $limit);
     }
 
     public function generateTicketPDF($ticketData)

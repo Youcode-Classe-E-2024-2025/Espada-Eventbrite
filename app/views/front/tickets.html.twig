@@ -12,7 +12,7 @@
     
     <div class="space-y-6">
         {% for ticket in tickets %}
-            <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+            <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 {% if ticket.event_date < 'now'|date('Y-m-d') %}bg-gray-100 opacity-60 cursor-not-allowed select-none{% endif %}">
                 <div class="p-8">
                     <div class="flex justify-between items-center">
                         <div class="flex items-center gap-8">
@@ -29,16 +29,22 @@
                                     <i class="far fa-calendar-alt mr-2"></i>
                                     <span>{{ ticket.event_date|date('F d, Y') }}</span>
                                 </div>
+                                {% if ticket.event_date < 'now'|date('Y-m-d') %}
+                                        <div class="mt-2 inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-red-200 text-red-500">
+                                            Passed
+                                        </div>
+                                    {% endif %}
                             </div>
                         </div>
-                        
-                        <div class="flex items-center gap-4">
-                            <a href="/ticket/download/{{ ticket.id }}" 
-                               class="flex items-center px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors duration-200">
-                                <i class="fas fa-download mr-2"></i>
-                                Download Ticket
-                            </a>
-                        </div>
+                        {% if ticket.event_date >= 'now'|date('Y-m-d') %}
+                            <div class="flex items-center gap-4">
+                                <a href="/ticket/download/{{ ticket.id }}" 
+                                class="flex items-center px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors duration-200">
+                                    <i class="fas fa-download mr-2"></i>
+                                    Download Ticket
+                                </a>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

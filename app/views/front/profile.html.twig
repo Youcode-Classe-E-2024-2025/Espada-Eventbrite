@@ -48,14 +48,7 @@
                 <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-lg font-semibold">My Events</h3>
-                        <div class="flex space-x-2">
-                            <button class="px-4 py-2 text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100">
-                                <i class="fa-solid fa-filter mr-2"></i>Filter
-                            </button>
-                            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                                <i class="fa-solid fa-plus mr-2"></i>Create Event
-                            </button>
-                        </div>
+                        
                     </div>
                     <div class="space-y-4">
                         <div class="border rounded-lg p-4">
@@ -124,33 +117,25 @@
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {% for ticket in tickets %}
-                        <div class="bg-white rounded-lg shadow-md p-6">
-                            <div class="flex justify-between">
+                        <div class="border rounded-lg p-4 {% if ticket.event_date < 'now'|date('Y-m-d') %}bg-gray-100 opacity-60 cursor-not-allowed select-none{% endif %}">
+                            <div class="flex justify-between items-start">
                                 <div>
-                                    <h3 class="text-lg font-semibold">{{ ticket.event_title }}</h3>
-                                    <p class="text-gray-600">{{ ticket.type }}</p>
-                                    <p class="text-gray-500">{{ ticket.booking_date|date('d M Y') }}</p>
-                                    <p class="text-green-600 font-medium">${{ ticket.price }}</p>
+                                    <h4 class="font-medium">{{ ticket.event_title }}</h4>
+                                    <p class="text-sm text-gray-600">{{ ticket.type }}</p>
+                                    <p class="text-sm text-gray-600 mt-2">{{ ticket.event_date|date('F j, Y • g:i A') }}</p>
+                                    {% if ticket.event_date < 'now'|date('Y-m-d') %}
+                                        <div class="mt-2 inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-red-200 text-red-500">
+                                            Passed
+                                        </div>
+                                    {% endif %}
                                 </div>
-                                <img src="{{ ticket.qr_code_path }}" alt="Ticket QR Code" class="w-24 h-24">
-                            </div>
-                            <div class="mt-4 flex justify-end space-x-2">
-                                <a href="/ticket/download/{{ ticket.id }}" class="text-blue-600 hover:text-blue-800">
-                                    <i class="fa-solid fa-download"></i> Download Ticket
+                                <a href="/ticket/download/{{ ticket.id }}">
+                                    <i class="fa-solid fa-qrcode text-2xl text-gray-400 hover:text-indigo-700 transition-colors duration-200"></i>
                                 </a>
                             </div>
                         </div>
                     {% endfor %}
-                    <div class="border rounded-lg p-4">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h4 class="font-medium">Music Festival</h4>
-                                <p class="text-sm text-gray-600">General Admission</p>
-                                <p class="text-sm text-gray-600 mt-2">April 5, 2025 • 7:00 PM</p>
-                            </div>
-                            <i class="fa-solid fa-qrcode text-2xl text-gray-400"></i>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>

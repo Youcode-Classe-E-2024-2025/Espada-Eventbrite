@@ -93,15 +93,24 @@ class ReservationRepository
         return $stmt->execute($params);
     }
 
-    public function getUserTickets($userId)
+    public function getUserTickets($userId, $limit = null)
     {
-        $query = "SELECT b.*, e.title as event_title, e.date as event_date 
+        $query = "SELECT b.*, e.title as event_title, e.date as event_date, e.lieu as event_location,
+                e.type as ticket_type, b.price as ticket_price, b.booking_date, b.qr_code_path
                 FROM booking b
                 JOIN evenments e ON b.evenment_id = e.id
                 WHERE b.user_id = :user_id
                 ORDER BY b.booking_date DESC";
 
-        $stmt = $this->db->query($query, [':user_id' => $userId]);
+        $params = [':user_id' => $userId];
+
+        if ($limit !== null) {
+            $query .= " LIMIT :limit";
+            $params[':limit'] = $limit;
+        }
+
+
+        $stmt = $this->db->query($query, $params);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 }
