@@ -9,3 +9,4 @@
 [2025-02-16T00:39:16.605311+00:00] google_oauth.DEBUG: Rendering template: front/auth.twig [] []
 [2025-02-16T00:41:54.892945+00:00] google_oauth.DEBUG: Rendering template: front/auth.twig [] []
 [2025-02-16T00:42:39.220228+00:00] google_oauth.DEBUG: Rendering template: front/auth.twig [] []
+[2025-02-16T11:20:24.806022+01:00] google_oauth.DEBUG: Rendering template: front/auth.twig [] []
