@@ -17,7 +17,7 @@
                 <div class="bg-white rounded-xl shadow-sm p-6">
                     <div class="text-center mb-6">
                         <div class="relative inline-block">
-                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Profile" class="w-24 h-24 rounded-full mx-auto">
+                            <img src="{{ session.get('user').avatar }}" alt="Profile" class="w-24 h-24 rounded-full mx-auto">
                             <button class="absolute bottom-0 right-0 bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700">
                                 <i class="fa-solid fa-camera"></i>
                             </button>
@@ -48,14 +48,7 @@
                 <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-lg font-semibold">My Events</h3>
-                        <div class="flex space-x-2">
-                            <button class="px-4 py-2 text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100">
-                                <i class="fa-solid fa-filter mr-2"></i>Filter
-                            </button>
-                            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                                <i class="fa-solid fa-plus mr-2"></i>Create Event
-                            </button>
-                        </div>
+                        
                     </div>
                     <div class="space-y-4">
                         <div class="border rounded-lg p-4">
@@ -118,31 +111,34 @@
             <div class="bg-white rounded-xl shadow-sm p-6">
                 <div class="flex justify-between items-center mb-6">
                     <h3 class="text-lg font-semibold">Reserved Tickets</h3>
-                    <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    <a href="/tickets" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
                         <i class="fa-solid fa-qrcode mr-2"></i>View All Tickets
-                    </button>
+                    </a>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div class="border rounded-lg p-4">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h4 class="font-medium">Tech Conference 2025</h4>
-                                <p class="text-sm text-gray-600">VIP Pass</p>
-                                <p class="text-sm text-gray-600 mt-2">March 15, 2025 • 9:00 AM</p>
+                    {% for ticket in tickets %}
+                        <div class="border rounded-lg p-4 {% if ticket.event_date < 'now'|date('Y-m-d') %}bg-gray-100 opacity-60 cursor-not-allowed select-none{% endif %}">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h4 class="font-medium">{{ ticket.event_title }}</h4>
+                                    <p class="text-sm text-gray-600">{{ ticket.type }}</p>
+                                    <p class="text-sm text-gray-600 mt-2">{{ ticket.event_date|date('F j, Y • g:i A') }}</p>
+                                    {% if ticket.event_date < 'now'|date('Y-m-d') %}
+                                        <div class="mt-2 inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-red-200 text-red-500">
+                                            Passed
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <a {% if ticket.event_date >= 'now'|date('Y-m-d') %} href="/ticket/download/{{ ticket.id }}" {% endif %}>
+                                    <i class="fa-solid fa-qrcode text-2xl text-gray-400 hover:text-indigo-700 transition-colors duration-200"></i>
+                                </a>
                             </div>
-                            <i class="fa-solid fa-qrcode text-2xl text-gray-400"></i>
                         </div>
-                    </div>
-                    <div class="border rounded-lg p-4">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h4 class="font-medium">Music Festival</h4>
-                                <p class="text-sm text-gray-600">General Admission</p>
-                                <p class="text-sm text-gray-600 mt-2">April 5, 2025 • 7:00 PM</p>
-                            </div>
-                            <i class="fa-solid fa-qrcode text-2xl text-gray-400"></i>
-                        </div>
-                    </div>
+                    {% endfor %}
+<<<<<<< HEAD
+                    
+=======
+>>>>>>> main
                 </div>
             </div>
         </div>

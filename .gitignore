@@ -1,4 +1,9 @@
 vendor/
 composer.lock
 .env
-/uploads
+logs/app.log
+logs/google_oauth.log
+logs/
+uploads/
+public/uploads/
+public/qrcodes/

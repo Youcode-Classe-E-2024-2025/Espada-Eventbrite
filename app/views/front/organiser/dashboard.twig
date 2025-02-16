@@ -4,10 +4,10 @@
     <div class="flex-1 p-4 space-y-4">
        
         {# /Organiser/createEve #}
-        <nav class="space-y-1">
+        <nav class="space-y-4">
         
-         <a href="/Organiser/createEve" class="fw-full bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2">
-                <i class="fa-solid fa-chart-line w-5"></i>
+         <a href="/Organiser/createEve" class="fw-full bg-black text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2">
+                <i class="fa-solid fa-pen w-5"></i>
                 <span>Create New Event</span>
             </a>
             <a href="/Organiser/dash" class="flex items-center gap-3 px-3 py-2 text-gray-900 bg-gray-100 rounded-lg">
@@ -57,7 +57,11 @@
                             <h3 class="text-sm font-medium text-gray-500">Total Sales</h3>
                             <i class="fa-solid fa-dollar-sign text-blue-600"></i>
                         </div>
-                        <p class="text-2xl font-semibold mt-2">${{data.stat.total_sales}}</p>
+                        <p class="text-2xl font-semibold mt-2">${% if data.stat.total_sales is defined and data.stat.total_sales is not null %}
+    {{ data.stat.total_sales }}
+{% else %}
+    0
+{% endif %}</p>
                     </div>
                     <div class="bg-white p-6 rounded-xl border border-gray-200">
                         <div class="flex items-center justify-between">
@@ -72,12 +76,20 @@
                         <div class="flex items-center justify-between">
                             <h2 class="text-lg font-semibold">Recent Events</h2>
                             <div class="flex items-center gap-2">
-                                <button class="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">
-                                    <i class="fa-solid fa-file-csv mr-2"></i>Export CSV
-                                </button>
-                                <button class="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">
-                                    <i class="fa-solid fa-file-pdf mr-2"></i>Export PDF
-                                </button>
+                                <form action="/organizer/export/csv" method="post">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                                    <button class="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">
+                                        <i class="fa-solid fa-file-csv mr-2"></i>
+                                        <span>Export as CSV</span>
+                                    </button>
+                                </form>
+                                <form action="/organizer/export/pdf" method="post">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                                    <button class="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">
+                                        <i class="fa-solid fa-file-pdf mr-2"></i>
+                                        <span>Export as PDF</span>
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -108,7 +120,7 @@
             </td>
             <td class="px-6 py-4 text-sm text-gray-500">{{ event.event_date }}</td>
             <td class="px-6 py-4">
-    {% if event.status == 1 %}
+    {% if event.status == 0 %}
         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span>
     {% else %}
         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Pending</span>

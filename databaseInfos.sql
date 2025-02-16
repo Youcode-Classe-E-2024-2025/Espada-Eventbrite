@@ -93,6 +93,9 @@ CREATE TABLE booking (
     type VARCHAR(50) NOT NULL,
     price FLOAT NOT NULL,
     booking_date DATE NOT NULL,
+    qr_code_path VARCHAR(255),
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (evenment_id) REFERENCES evenments(id) ON DELETE CASCADE
 );
+ADD COLUMN google_id VARCHAR(255) NULL,
+ADD COLUMN is_google BOOLEAN DEFAULT FALSE;

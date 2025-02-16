@@ -1,0 +1,171 @@
+{# views/back/reports.html.twig #}
+{% extends "back/dashboard.html.twig"%}
+
+{% block aside %} 
+<aside id="sidebar" class="w-64 bg-gray-900 text-white h-full fixed left-0">
+        <div class="p-4">
+            <div class="flex items-center space-x-2 mb-6">
+                <i class="fa-solid fa-bolt text-yellow-400 text-2xl"></i>
+                <span class="text-xl font-bold">AdminPanel</span>
+            </div>
+            <nav class="space-y-2">
+                <a href="/dashboard" class="flex items-center space-x-2 bg-gray-800 p-3 rounded-lg">
+                    <i class="fa-solid fa-gauge-high"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="/admin/users" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Users</span>
+                </a>
+                <a href="/admin/events" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span>Events</span>
+                </a>
+                <a href="/admin/categoryTag" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
+                    <i class="fa-solid fa-comments"></i>
+                    <span>categories&tags</span>
+                </a>
+                <a href="/admin/reports" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Reports</span>
+                </a>
+            </nav>
+        </div>
+    </aside>
+{% endblock %}
+
+{% block mainContent %}
+        <div class="grid grid-cols-2 gap-6">
+            <div class="bg-white rounded-xl shadow-sm p-6 h-[400px]">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-lg font-semibold text-gray-800">Users Growth</h2>
+                    <span class="text-sm border rounded-lg px-2 py-1">Last 6 months</span>
+                </div>
+                <div class="h-[300px]">
+                    <canvas id="usersChart"></canvas>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm p-6 h-[400px]">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-lg font-semibold text-gray-800">Events by Category</h2>
+                    <div class="text-sm text-gray-500">Total: {{ stats.activeEvents }}</div>
+                </div>
+                <div class="h-[300px]">
+                    <canvas id="eventsChart"></canvas>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm p-6 h-[400px]">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-lg font-semibold text-gray-800">Ticket Sales Distribution</h2>
+                    <div class="text-sm text-gray-500">Total: {{ stats.ticketsSold }}</div>
+                </div>
+                <div class="h-[300px]">
+                    <canvas id="ticketsChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+    {% block scripts %}
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+
+            console.log('Categories:', {{ categories|json_encode|raw }});
+            console.log('Event Data:', {{ eventData|json_encode|raw }});
+
+
+            function generateRandomColors(count) {
+                const colors = [];
+                for (let i = 0; i < count; i++) {
+                    const hue = (i * 137.508) % 360;
+                    colors.push(`hsl(${hue}, 70%, 60%)`);
+                }
+                return colors;
+            }
+
+            const chartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                height: 300,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            font: {
+                                size: 12,
+                                family: "'Inter', sans-serif"
+                            }
+                        }
+                    }
+                }
+            };
+
+            // Users Growth Chart
+            new Chart(document.getElementById('usersChart'), {
+                type: 'line',
+                data: {
+                    labels: {{ dates|json_encode|raw }},
+                    datasets: [{
+                        label: 'New Users',
+                        data: {{ userData|json_encode|raw }},
+                        borderColor: '#3B82F6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    ...chartOptions,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { display: false }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+
+            // Events Distribution Chart
+            new Chart(document.getElementById('eventsChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: {{ categories|json_encode|raw }},
+                    datasets: [{
+                        data: {{ eventData|json_encode|raw }},
+                        backgroundColor: generateRandomColors({{ categories|length }}),
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    ...chartOptions,
+                    cutout: '75%'
+                }
+            });
+
+            // Tickets Chart
+            new Chart(document.getElementById('ticketsChart'), {
+                type: 'pie',
+                data: {
+                    labels: ['VIP', 'Standard', 'Free'],
+                    datasets: [{
+                        data: {{ ticketData|json_encode|raw }},
+                        backgroundColor: [
+                            '#F59E0B', '#3B82F6', '#8B5CF6'
+                        ],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: chartOptions
+            });
+
+        </script>
+    {% endblock %}

@@ -26,22 +26,82 @@ class UserRepository
     }
 
 
-    public function createUser($userData): bool
+    public function getDefaultRole(): int
     {
+        try {
+            // Check if default role exists
+            $query = "SELECT id FROM role WHERE name = 'user'";
+            $stmt = $this->DB->query($query);
+            $existingRole = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $query = "INSERT INTO users (role_id, email, password, username, avatar, banned, archived) 
-                  VALUES (:role_id, :email, :password, :username, :avatar, 0, 0)";
+            if ($existingRole) {
+                return $existingRole['id'];
+            }
 
-        $stmt = $this->DB->query($query, [
-            ':role_id' => $userData['role_id'],
-            ':email' => $userData['email'],
-            ':password' => $userData['password'],
-            ':username' => $userData['username'],
-            ':avatar' => $userData['avatar'],
-        ]);
+            // Create default 'user' role if not exists
+            $insertQuery = "INSERT INTO role (name) VALUES ('user') RETURNING id";
+            $stmt = $this->DB->query($insertQuery);
+            $newRole = $stmt->fetch(PDO::FETCH_ASSOC);
 
+            return $newRole['id'];
+        } catch (\PDOException $e) {
+            error_log('Role Creation Error: ' . $e->getMessage());
+            throw $e;
+        }
+    }
 
-        return true;
+    public function createUser($userData): ?object
+    {
+        try {
+            // If no role specified, get default role
+            if (!isset($userData['role_id']) || $userData['role_id'] === 0) {
+                $userData['role_id'] = $this->getDefaultRole();
+            }
+
+            // Prepare the query with all possible fields
+            $query = "INSERT INTO users (
+                role_id, 
+                email, 
+                password, 
+                username, 
+                avatar, 
+                banned, 
+                archived, 
+                google_id, 
+                is_google
+            ) VALUES (
+                :role_id, 
+                :email, 
+                :password, 
+                :username, 
+                :avatar, 
+                0, 
+                0, 
+                :google_id, 
+                :is_google
+            ) RETURNING *";
+
+            // Prepare parameters
+            $params = [
+                ':role_id' => $userData['role_id'],
+                ':email' => $userData['email'],
+                ':password' => $userData['password'],
+                ':username' => $userData['username'],
+                ':avatar' => $userData['avatar'] ?? null,
+                ':google_id' => $userData['google_id'] ?? null,
+                ':is_google' => isset($userData['is_google']) 
+                    ? ($userData['is_google'] ? 1 : 0) 
+                    : 0  // Default to 0 if not set
+            ];
+
+            // Execute query and return the created user
+            $stmt = $this->DB->query($query, $params);
+            return $stmt->fetch(PDO::FETCH_OBJ) ?: null;
+        } catch (\PDOException $e) {
+            // Log the specific database error
+            error_log('User Creation Error: ' . $e->getMessage());
+            return null;
+        }
     }
 
 
@@ -92,10 +152,15 @@ class UserRepository
     }
 
     // Get all users
-    public function getAll(): array
+    public function getAll($page = 1, $perPage = 4): array
     {
-        $query = "SELECT * FROM users ORDER BY id DESC";
-        $stmt = $this->DB->query($query);
+        $offset = ($page - 1) * $perPage;
+
+        $query = "SELECT * FROM users ORDER BY id DESC LIMIT :limit OFFSET :offset";
+        $stmt = $this->DB->query($query, [
+            ':limit' => $perPage,
+            ':offset' => $offset
+        ]);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
@@ -109,6 +174,60 @@ class UserRepository
             'avatar' => $avatar,
             'id' => $userId,
         ]);
+    }
+
+    // Get user by username
+    public function getUserByUsername(string $username): ?object
+    {
+        $query = "SELECT * FROM users WHERE username = :username";
+        $stmt = $this->DB->query($query, [':username' => $username]);
+        return $stmt->fetch(PDO::FETCH_OBJ) ?: null;
+    }
+
+    // Get user by Google ID
+    public function getUserByGoogleId(string $googleId): ?object
+    {
+        $query = "SELECT * FROM users WHERE google_id = :google_id";
+        $stmt = $this->DB->query($query, [':google_id' => $googleId]);
+        return $stmt->fetch(PDO::FETCH_OBJ) ?: null;
+    }
+
+    // Update user with Google ID
+    public function updateUserGoogleId(int $userId, array $data): ?object
+    {
+        $query = "UPDATE users SET 
+                    google_id = :google_id, 
+                    is_google = :is_google, 
+                    avatar = COALESCE(:avatar, avatar) 
+                  WHERE id = :id 
+                  RETURNING *";
+
+        $stmt = $this->DB->query($query, [
+            ':id' => $userId,
+            ':google_id' => $data['google_id'],
+            ':is_google' => $data['is_google'] ? 1 : 0,
+            ':avatar' => $data['avatar'] ?? null
+        ]);
+
+        return $stmt->fetch(PDO::FETCH_OBJ) ?: null;
+    }
+
+    // Update user information
+    public function updateUserInfo(int $userId, array $data): ?object
+    {
+        $query = "UPDATE users SET 
+                    username = COALESCE(:username, username), 
+                    avatar = COALESCE(:avatar, avatar) 
+                  WHERE id = :id 
+                  RETURNING *";
+
+        $stmt = $this->DB->query($query, [
+            ':id' => $userId,
+            ':username' => $data['username'] ?? null,
+            ':avatar' => $data['avatar'] ?? null
+        ]);
+
+        return $stmt->fetch(PDO::FETCH_OBJ) ?: null;
     }
 
     // public function filterByRole(int $roleId)
@@ -137,18 +256,20 @@ class UserRepository
     //     return $stmt->fetchAll(PDO::FETCH_OBJ);
     // }
 
-    public function searchUsers($keyword)
+    public function searchUsers($keyword, $page = 1, $limit = 4)
     {
-        $sql = "SELECT * FROM users WHERE username LIKE :keyword or email LIKE :keyword";
-        $stmt = $this->DB->query($sql, ['keyword' => "%$keyword%"]);
+        $offset = ($page - 1) * $limit;
+
+        $sql = "SELECT * FROM users WHERE username LIKE :keyword or email LIKE :keyword LIMIT :limit OFFSET :offset";
+        $stmt = $this->DB->query($sql, ['keyword' => "%$keyword%", ':limit' => $limit, ':offset' => $offset]);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function searchUsersWithFilters($keyword, $roleId, $status)
+    public function searchUsersWithFilters($keyword, $roleId, $status, $page = 1, $perPage = 4)
     {
-        $results = $this->getAll();
+        $results = $this->getAll($page, $perPage);
         if (!empty($keyword)) {
-            $results = $this->searchUsers($keyword);
+            $results = $this->searchUsers($keyword, $page, $perPage);
         }
 
         if (!empty($roleId) || !empty($status)) {
@@ -156,6 +277,16 @@ class UserRepository
         }
 
         return $results;
+    }
+
+    public function getTotalUserSearchResults($keyword)
+    {
+        $sql = "SELECT COUNT(*) as total FROM users 
+            WHERE username LIKE :keyword 
+            OR email LIKE :keyword";
+
+        $result = $this->DB->query($sql, ['keyword' => "%$keyword%"])->fetch(PDO::FETCH_OBJ);
+        return $result->total;
     }
 
     public function filterByRoleAndStatus($roleId, $status)
@@ -193,5 +324,24 @@ class UserRepository
         $sql = "SELECT * FROM users ORDER BY created_at DESC LIMIT 2";
         $stmt = $this->DB->query($sql);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function getUserById($userId)
+    {
+        $sql = "SELECT * FROM users WHERE id = :id";
+        $stmt = $this->DB->query($sql, ['id' => $userId]);
+        return $stmt->fetch(PDO::FETCH_OBJ);
+    }
+
+    public function getUserGrowthLastSixMonths()
+    {
+        $query = "SELECT COUNT(*) as count 
+              FROM users 
+              WHERE created_at >= NOW() - INTERVAL '6 months'
+              GROUP BY DATE_TRUNC('month', created_at) 
+              ORDER BY DATE_TRUNC('month', created_at)";
+
+        $stmt = $this->DB->query($query);
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 }

@@ -4,8 +4,8 @@
     <div id="event-header" class="mb-10">
         <h1 class="text-4xl font-bold mb-4">{{ event.title }}</h1>
         <div class="flex items-center gap-4 text-gray-600">
-            <span class="flex items-center"><i class="fa-regular fa-calendar mr-2"></i>{{event.date}}</span>
-            <span class="flex items-center"><i class="fa-solid fa-location-dot mr-2"></i>{{event.lieu}}</span>
+            <span class="flex items-center"><i class="fa-regular fa-calendar mr-2"></i>{{ event.date }}</span>
+            <span class="flex items-center"><i class="fa-solid fa-location-dot mr-2"></i>{{ event.lieu }}</span>
         </div>
     </div>
     <div class="grid md:grid-cols-3 gap-8">
@@ -13,79 +13,90 @@
             <div class="bg-white rounded-xl shadow-sm border p-6">
                 <h2 class="text-2xl font-bold mb-6">Select Your Ticket</h2>
                 <div class="space-y-4">
-                    <div class="flex items-center justify-between p-4 border rounded-lg hover:border-blue-500 cursor-pointer">
+                    <div class="flex items-center justify-between p-4 border rounded-lg hover:border-blue-500 cursor-pointer {% if standard_tickets_available == 0 %} opacity-50 {% endif %}">
                         <div class="flex-1">
                             <h3 class="font-semibold text-lg">Standard Access</h3>
                             <p class="text-gray-600">Basic conference access</p>
+                            {% if standard_tickets_available == 0 %}
+                                <span class="text-red-500 text-sm">Sold Out</span>
+                            {% endif %}
                         </div>
                         <div class="text-right">
                             <p class="text-2xl font-bold" data-price="{{ data.standard_price }}">${{ data.standard_price }}</p>
-                            <select class="mt-2 border rounded p-2 ticket-quantity" data-type="standard" onchange="updateQuantities()">
+                            <select class="mt-2 border rounded p-2 ticket-quantity" data-type="standard" onchange="updateQuantities()" {% if standard_tickets_available == 0 %} disabled class="opacity-25" {% endif %}>
                                 <option value="0" selected>0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
+                                {% if standard_tickets_available >= 1 %}
+                                    <option value="1">1</option>
+                                {% endif %}
+                                {% if standard_tickets_available >= 2 %}
+                                    <option value="2">2</option>
+                                {% endif %}
+                                {% if standard_tickets_available >= 3 %}
+                                    <option value="3">3</option>
+                                {% endif %}
                             </select>
                         </div>
                     </div>
-                    <div class="flex items-center justify-between p-4 border rounded-lg hover:border-blue-500 cursor-pointer bg-blue-50">
+                    <div class="flex items-center justify-between p-4 border rounded-lg hover:border-blue-500 cursor-pointer {% if vip_tickets_available == 0 %} opacity-50 {% endif %}">
                         <div class="flex-1">
                             <div class="flex items-center gap-2">
                                 <h3 class="font-semibold text-lg">VIP Access</h3>
                                 <span class="bg-blue-500 text-white text-xs px-2 py-1 rounded">BEST VALUE</span>
                             </div>
                             <p class="text-gray-600">Premium seating + Workshop access</p>
+                            {% if vip_tickets_available == 0 %}
+                                <span class="text-red-500 text-sm">Sold Out</span>
+                            {% endif %}
                         </div>
                         <div class="text-right">
                             <p class="text-2xl font-bold" data-price="{{ data.vip_price }}">${{ data.vip_price }}</p>
-                            <select class="mt-2 border rounded p-2 ticket-quantity" data-type="vip" onchange="updateQuantities()">
+                            <select class="mt-2 border rounded p-2 ticket-quantity" data-type="vip" onchange="updateQuantities()" {% if vip_tickets_available == 0 %} disabled {% endif %}>
                                 <option value="0" selected>0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
+                                {% if vip_tickets_available >= 1 %}
+                                    <option value="1">1</option>
+                                {% endif %}
+                                {% if vip_tickets_available >= 2 %}
+                                    <option value="2">2</option>
+                                {% endif %}
+                                {% if vip_tickets_available >= 3 %}
+                                    <option value="3">3</option>
+                                {% endif %}
                             </select>
                         </div>
                     </div>
-                    <div class="flex items-center justify-between p-4 border rounded-lg hover:border-blue-500 cursor-pointer">
+                    <div class="flex items-center justify-between p-4 border rounded-lg hover:border-blue-500 cursor-pointer {% if gratuit_tickets_available == 0 %} opacity-50 {% endif %}">
                         <div class="flex-1">
                             <h3 class="font-semibold text-lg">Free</h3>
                             <p class="text-gray-600">Limited time offer</p>
-                            <span class="text-red-500 text-sm">Sold Out</span>
+                            {% if gratuit_tickets_available == 0 %}
+                                <span class="text-red-500 text-sm">Sold Out</span>
+                            {% endif %}
                         </div>
                         <div class="text-right">
                             <p class="text-2xl font-bold" data-price="0">$0</p>
-                            <select class="mt-2 border rounded p-2 ticket-quantity" data-type="free" onchange="updateQuantities()">
+                            <select class="mt-2 border rounded p-2 ticket-quantity" data-type="free" onchange="updateQuantities()" {% if gratuit_tickets_available == 0 %} disabled class="opacity-50" {% endif %}>
                                 <option value="0" selected>0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
+                                {% if gratuit_tickets_available >= 1 %}
+                                    <option value="1">1</option>
+                                {% endif %}
+                                {% if gratuit_tickets_available >= 2 %}
+                                    <option value="2">2</option>
+                                {% endif %}
+                                {% if gratuit_tickets_available >= 3 %}
+                                    <option value="3">3</option>
+                                {% endif %}
                             </select>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div id="payment-section" class="bg-white rounded-xl shadow-sm border p-6">
-                <h2 class="text-2xl font-bold mb-6">Payment Details</h2>
-                <div class="space-y-4">
-                    <div class="flex gap-4">
-                        <button class="flex-1 py-3 border rounded-lg hover:bg-gray-50">
-                            <i class="fa-brands fa-cc-stripe text-2xl"></i>
-                        </button>
-                        <button class="flex-1 py-3 border rounded-lg hover:bg-gray-50">
-                            <i class="fa-brands fa-paypal text-2xl"></i>
-                        </button>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <input type="text" placeholder="Card Number" class="col-span-2 border rounded-lg p-3" id="cardNumber">
-                        <input type="text" placeholder="MM/YY" class="border rounded-lg p-3" id="expDate">
-                        <input type="text" placeholder="CVC" class="border rounded-lg p-3" id="cvc">
                     </div>
                 </div>
             </div>
         </div>
         <div id="order-summary" class="bg-white rounded-xl shadow-sm border p-6 h-fit">
-            <form action="/events/reserv" method="POST" id="booking-form">
-                <input name="event_id" class="hidden" value=" {{ event.event_id }} ">
+            <form action="/handle/payment" method="POST" id="booking-form">
+                <input name="event_id" class="hidden" value="{{ event.event_id }}">
+                <input type="hidden" name="vipPrice" id="vipPrice" value="{{ data.vip_price }}">
+                <input type="hidden" name="standardPrice" id="standardPrice" value="{{ data.standard_price }}">
+                <input type="hidden" name="freePrice" id="freePrice" value="0">
                 <input type="hidden" name="vipQuantity" id="vipQuantity" value="0">
                 <input type="hidden" name="standardQuantity" id="standardQuantity" value="0">
                 <input type="hidden" name="freeQuantity" id="freeQuantity" value="0">
@@ -201,10 +212,17 @@
 
             // Update order summary
             orderSummary.innerHTML = `
-                <form action="/events/reserv" method="POST" id="booking-form">
+                <form action="/handle/payment" method="POST" id="booking-form">
                     <h2 class='text-2xl font-bold mb-6'>Order Summary</h2>
                     <div class='space-y-4'>
-                        <input name="event_id" class="hidden" value="{{ event.event_id }}">
+                        <input name="event_id" class="hidden" value=" {{ event.event_id }} ">
+                        <input type="hidden" name="vipPrice" id="vipPrice" value="{{ data.vip_price }}">
+                        <input type="hidden" name="standardPrice" id="standardPrice" value="{{ data.standard_price }}">
+                        <input type="hidden" name="freePrice" id="freePrice" value="0">
+                        <input type="hidden" name="vipQuantity" id="vipQuantity" value="0">
+                        <input type="hidden" name="standardQuantity" id="standardQuantity" value="0">
+                        <input type="hidden" name="freeQuantity" id="freeQuantity" value="0">
+                        <input type="hidden" name="totalPrice" id="totalPrice" value="0">
                         <div class='flex justify-between'>
                             <span>VIP Access (x${vipQuantity})</span>
                             <span>$${(vipQuantity * parseFloat(ticketQuantities[1].previousElementSibling.getAttribute('data-price'))).toFixed(2)}</span>
@@ -242,7 +260,7 @@
     });
 
     // Stripe payment handler
-    const stripe = Stripe('pk_test_51Qsl4eC6cEMis3ndGKhwOZkrKCag6MwDwrNlN5zskvncOoE5d8FJdAmgMZGCW1xSwRlJYJnRAelFZVx1pKiDpqsx00DCwHuhZ7'); // Your Stripe public key
+    const stripe = Stripe('pk_test_51Qsl4eC6cEMis3ndGKhwOZkrKCag6MwDwrNlN5zskvncOoE5d8FJdAmgMZGCW1xSwRlJYJnRAelFZVx1pKiDpqsx00DCwHuhZ7');
     const elements = stripe.elements();
     const cardElement = elements.create('card');
     cardElement.mount('#card-element');

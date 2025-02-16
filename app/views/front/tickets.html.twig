@@ -1,0 +1,57 @@
+{% extends "base.html.twig" %}
+{% block header %} {% include "layouts/header.html.twig" %}  {% endblock %}
+
+
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="mb-8">
+        <h2 class="text-3xl font-bold text-gray-800">My Tickets</h2>
+        <p class="text-gray-600 mt-2">Manage and download your event tickets</p>
+    </div>
+    
+    <div class="space-y-6">
+        {% for ticket in tickets %}
+            <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 {% if ticket.event_date < 'now'|date('Y-m-d') %}bg-gray-100 opacity-60 cursor-not-allowed select-none{% endif %}">
+                <div class="p-8">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center gap-8">
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <img src="{{ ticket.qr_code_path }}" alt="Ticket QR" class="w-32 h-32">
+                            </div>
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2">
+                                    <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">{{ ticket.type }}</span>
+                                    <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">${{ ticket.price }}</span>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-800">{{ ticket.event_title }}</h3>
+                                <div class="flex items-center text-gray-600">
+                                    <i class="far fa-calendar-alt mr-2"></i>
+                                    <span>{{ ticket.event_date|date('F d, Y') }}</span>
+                                </div>
+                                {% if ticket.event_date < 'now'|date('Y-m-d') %}
+                                        <div class="mt-2 inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-red-200 text-red-500">
+                                            Passed
+                                        </div>
+                                    {% endif %}
+                            </div>
+                        </div>
+                        {% if ticket.event_date >= 'now'|date('Y-m-d') %}
+                            <div class="flex items-center gap-4">
+                                <a href="/ticket/download/{{ ticket.id }}" 
+                                class="flex items-center px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors duration-200">
+                                    <i class="fas fa-download mr-2"></i>
+                                    Download Ticket
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+
+{% block footer %} {% include "layouts/footer.html.twig" %}  {% endblock %}
