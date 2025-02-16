@@ -143,7 +143,7 @@ class DashboardController extends Controller
     {
         $this->logger->info('Fetching recent activities for dashboard');
         $recentUsers = $this->userService->getRecentUsers();
-        $recentEvents = $this->eventService->getRecentEvents();
+        $recentEvents = $this->eventService->getRecentEvents($limit = 2);
         // $recentComments = $this->eventService->getRecentComments();
 
         return [
