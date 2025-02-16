@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
             eventsContainer.innerHTML = data.events.map(event => `
                 <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
                     <div class="relative">
-                        <img class="w-full h-48 object-cover" src="${event.visual_content}" alt="tech conference">
+                        <img class="w-full h-48 object-cover" src="../../../${event.visual_content}" alt="tech conference">
                         <span class="absolute top-4 right-4 bg-gray-500 text-white px-3 py-1 rounded-full text-sm">
                             <i class="fa-solid ${event.icon} mr-1"></i>${event.category}
                         </span>
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <h4 class="text-xl font-bold mb-2">${event.title}</h4>
                         <p class="text-gray-600 mb-4">${event.description.slice(0, 20)}...</p>
                         <div class="flex items-center justify-between">
-                  <a href="/event/details/${ event.event_id }" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Book Now</a>
+                  <a href="/event/details/${ event.event_id }" class="px-4 py-2 bg-black text-white rounded-lg hover:bg-indigo-700">Book Now</a>
                         </div>
                     </div>
                 </div>
