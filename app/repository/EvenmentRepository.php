@@ -624,4 +624,55 @@ class EvenmentRepository
         $stmt = $this->DB->query($sql, [':event_id' => $eventId]);
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
+
+    public function getEventCountByCategory()
+    {
+        $query = "SELECT c.name, COALESCE(COUNT(e.id), 0) as count 
+              FROM categories c 
+              LEFT JOIN evenments e ON c.id = e.category_id 
+              GROUP BY c.id, c.name 
+              ORDER BY c.name";
+
+        $stmt = $this->DB->query($query);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+
+
+    public function getMonthlyRevenue()
+    {
+        $query = "SELECT SUM(price) as revenue 
+              FROM booking 
+              WHERE booking_date >= NOW() - INTERVAL '6 months'
+              GROUP BY DATE_TRUNC('month', booking_date) 
+              ORDER BY DATE_TRUNC('month', booking_date)";
+
+        $stmt = $this->DB->query($query);
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    public function getTicketTypeDistribution()
+    {
+        $query = "SELECT COUNT(*) as count 
+              FROM booking 
+              GROUP BY type 
+              ORDER BY type";
+        $stmt = $this->DB->query($query);
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    public function countActiveEvents()
+    {
+        $query = "SELECT COUNT(*) FROM evenments WHERE date >= CURRENT_DATE";
+        $stmt = $this->DB->query($query);
+        return $stmt->fetchColumn();
+    }
+
+    public function countTotalTicketsSold()
+    {
+        $query = "SELECT SUM(vip_tickets_sold + standard_tickets_sold + gratuit_tickets_sold) 
+              FROM evenments";
+        $stmt = $this->DB->query($query);
+        return $stmt->fetchColumn() ?: 0;
+    }
 }

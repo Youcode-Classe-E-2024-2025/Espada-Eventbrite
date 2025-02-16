@@ -168,16 +168,16 @@ class UserService
     // {
     //     return $this->userRepository->getPendingUsers();
     // }
-    
+
     public function getRecentUsers()
     {
         return $this->userRepository->getRecentUsers();
     }
 
     public function updateUser(int $userId, string $name, string $avatar)
-{
-    return $this->userRepository->updateUser($userId, $name, $avatar);
-}
+    {
+        return $this->userRepository->updateUser($userId, $name, $avatar);
+    }
 
     // Find user by username
     public function findByUsername(string $username): ?array
@@ -220,9 +220,9 @@ class UserService
         $roles = ['organizer' => 1, 'participant' => 2, 'admin' => 3];
 
         // Ensure role_id is set, defaulting to participant (2)
-        $userData['role_id'] = $userData['role_id'] 
-            ?? $userData['role_id'] 
-            ?? $roles[$userData['role'] ?? 'participant'] 
+        $userData['role_id'] = $userData['role_id']
+            ?? $userData['role_id']
+            ?? $roles[$userData['role'] ?? 'participant']
             ?? 2;
 
         // Remove 'role' key to match repository method
@@ -254,7 +254,7 @@ class UserService
 
         // Attempt to create user
         $createdUser = $this->userRepository->createUser($userData);
-        
+
         if (!$createdUser) {
             error_log('User creation failed: Database insertion error');
             return null;
@@ -269,5 +269,10 @@ class UserService
     {
         $user = $this->userRepository->getUserByEmail($email);
         return $user ? (array) $user : null;
+    }
+
+    public function getUserGrowthData()
+    {
+        return $this->userRepository->getUserGrowthLastSixMonths();
     }
 }
