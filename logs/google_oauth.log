@@ -37,3 +37,6 @@
 [2025-02-16T11:07:34.498757+00:00] google_oauth.DEBUG: Rendering template: front/auth.twig [] []
 [2025-02-16T11:07:57.377028+00:00] google_oauth.INFO: Service Call {"service":"oauth2","resource":"userinfo","method":"get","arguments":[]} []
 [2025-02-16T11:07:57.618820+00:00] google_oauth.INFO: Processing Google User {"google_id":"103568536453481738489","email":"pipatoto509@gmail.com","name":"Pipa toto"} []
+[2025-02-16T11:27:33.331609+00:00] google_oauth.DEBUG: Rendering template: front/auth.twig [] []
+[2025-02-16T11:27:47.281044+00:00] google_oauth.DEBUG: Rendering template: front/auth.twig [] []
+[2025-02-16T11:29:53.520314+00:00] google_oauth.DEBUG: Rendering template: front/auth.twig [] []

@@ -80,3 +80,5 @@
 [2025-02-16T11:08:00.643626+00:00] app.INFO: Dashboard index accessed [] []
 [2025-02-16T11:08:01.139700+00:00] app.DEBUG: Not enough events found for user dashboard. [] []
 [2025-02-16T11:08:01.139918+00:00] app.DEBUG: Rendering template: /front/profile.html.twig [] []
+[2025-02-16T11:19:59.304620+00:00] app.DEBUG: Rendering template: front/home.html.twig [] []
+[2025-02-16T11:27:29.935090+00:00] app.DEBUG: Rendering template: front/home.html.twig [] []
