@@ -46,15 +46,15 @@ class DashboardController extends Controller
                 ? $_SESSION['user']->id
                 : $_SESSION['user']['id'] ?? null;
 
-            $data = $this->eventService->getMyEvent($id);
+            $data = $this->eventService->getMyEvent($id) ?  $this->eventService->getMyEvent($id)  : ['find' => 0];
+            // var_dump($data);
+            // die();
             $tickets = $this->reservationService->getUserTickets($id, $limit = 3);
-
             // Ensure $data has at least two elements
             if (count($data) >= 2) {
                 $this->logger->info('User profile accessed with events.');
                 echo $this->render("/front/profile.html.twig", [
-                    "event1" => $data[0],
-                    "event2" => $data[1],
+                    "event" => $data,
                     "messages" => $messages,
                     "csrf_token" => $csrfToken,
                     "tickets" => $tickets,
@@ -64,7 +64,6 @@ class DashboardController extends Controller
                 $this->logger->debug('Not enough events found for user profile.');
                 echo $this->render("/front/profile.html.twig", [
                     "event1" => null,
-                    "event2" => null,
                     "messages" => $messages,
                     "csrf_token" => $csrfToken,
                     "tickets" => null,
