@@ -11,6 +11,7 @@
               <div>
                 <label class="text-sm font-medium text-gray-700 block mb-2">Event Type</label>
                <form action="/events/list" class="space-y-2" method="GET">
+               {% if categories is not empty %}
     {% for category in categories %}
     <label class="flex items-center gap-3 p-2.5 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors group">
         <div class="relative flex">
@@ -29,6 +30,12 @@
         <i class="{{category.icon}} text-gray-500 group-hover:text-gray-700"></i>
     </label>
     {% endfor %}
+       {% else %}
+    <div class="text-center text-gray-500 py-4">
+        <p>No categories available at the moment</p>
+        <i class="fa-solid fa-folder-open text-2xl block mt-2"></i>
+    </div>
+{% endif %}
     
     <button type="submit" class="px-4 py-2 bg-black hover:bg-gray-800 text-white text-sm font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 inline-flex items-center gap-2">
         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -65,6 +72,7 @@
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="events-container">
+          {% if events is not empty %}
           {% for event in events  %}
             <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
               <div class="relative">
@@ -90,6 +98,18 @@
               </div>
             </div>
             {% endfor %}
+            {% else %}
+    <div class="col-span-full text-center py-12 bg-white rounded-xl shadow-sm">
+        <i class="fa-solid fa-calendar-times text-4xl text-gray-400 mb-4 block"></i>
+        <h3 class="text-xl font-semibold text-gray-600 mb-2">No Events Found</h3>
+        <p class="text-gray-500">There are currently no events matching your search criteria.</p>
+        <div class="mt-6">
+            <a href="/events/list" class="px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors">
+                Reset Filters
+            </a>
+        </div>
+    </div>
+{% endif %}
 
           </div>
           

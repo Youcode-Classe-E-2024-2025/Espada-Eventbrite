@@ -23,6 +23,14 @@ class ReservationController extends Controller
 
     public function index($id)
     {
+         // Check if user is logged in
+    if (!isset($_SESSION['user'])) {
+        // Redirect to login page with a message
+        $_SESSION['reservation_redirect'] = "/event/details/" . $id[0];
+        header('Location: /auth#signin-form');
+        exit();
+    }
+
         $data = $this->eventService->getEventById($id[0]);
         $statis = $this->eventService->getCapacities($id[0]);
         $availible = $this->reservationService->getAvailable($id[0]);
