@@ -5,11 +5,15 @@ namespace App\controllers\back;
 use App\core\Controller;
 use App\services\EventService;
 use App\services\UserService;
+use App\services\ReservationService;
+use App\services\CategoryTagService;
 
 class DashboardController extends Controller
 {
     private EventService $eventService;
     private UserService $userService;
+    private ReservationService $reservationService;
+    private CategoryTagService $categoryTagService;
 
     public function __construct()
     {
@@ -17,6 +21,8 @@ class DashboardController extends Controller
         parent::__construct();
         $this->eventService = new EventService();
         $this->userService = new UserService();
+        $this->reservationService = new ReservationService();
+        $this->categoryTagService = new CategoryTagService();
     }
 
     public function index()
@@ -27,8 +33,8 @@ class DashboardController extends Controller
         $csrfToken = $this->security->generateCsrfToken();
 
         // Safely get role_id from session user
-        $userRole = is_object($_SESSION['user']) 
-            ? $_SESSION['user']->role_id 
+        $userRole = is_object($_SESSION['user'])
+            ? $_SESSION['user']->role_id
             : $_SESSION['user']['role_id'] ?? null;
 
         if ($userRole == 1) {
@@ -36,29 +42,32 @@ class DashboardController extends Controller
             echo $this->redirect('/Organiser/dash');
         } else if ($userRole == 2) {
             // Safely get user id from session
-            $id = is_object($_SESSION['user']) 
-                ? $_SESSION['user']->id 
+            $id = is_object($_SESSION['user'])
+                ? $_SESSION['user']->id
                 : $_SESSION['user']['id'] ?? null;
 
             $data = $this->eventService->getMyEvent($id);
+            $tickets = $this->reservationService->getUserTickets($id, $limit = 3);
 
             // Ensure $data has at least two elements
             if (count($data) >= 2) {
-                $this->logger->info('User dashboard accessed with events.');
+                $this->logger->info('User profile accessed with events.');
                 echo $this->render("/front/profile.html.twig", [
                     "event1" => $data[0],
                     "event2" => $data[1],
                     "messages" => $messages,
-                    "csrf_token" => $csrfToken
+                    "csrf_token" => $csrfToken,
+                    "tickets" => $tickets,
                 ]);
             } else {
                 // Handle the case where $data doesn't have enough elements
-                $this->logger->debug('Not enough events found for user dashboard.');
+                $this->logger->debug('Not enough events found for user profile.');
                 echo $this->render("/front/profile.html.twig", [
                     "event1" => null,
                     "event2" => null,
                     "messages" => $messages,
-                    "csrf_token" => $csrfToken
+                    "csrf_token" => $csrfToken,
+                    "tickets" => null,
                 ]);
             }
         } else if ($userRole == 3) {
@@ -66,7 +75,7 @@ class DashboardController extends Controller
             $stats = $this->getStats();
             $pendingActions = $this->getPendingActions();
             $recentActivities = $this->getRecentActivities();
-            
+
             echo $this->render('/back/index.html.twig', [
                 'stats' => $stats,
                 'pendingActions' => $pendingActions,
@@ -151,5 +160,40 @@ class DashboardController extends Controller
             'recentEvents' => $recentEvents
             // 'reportedComments' => $recentComments
         ];
+    }
+
+    public function reports()
+    {
+        $basicStats = [
+            'stats' => [
+                'activeEvents' => $this->eventService->totalActiveEvents(),
+                'ticketsSold' => $this->eventService->getTotalTicketsSold()
+            ]
+        ];
+
+        $categoryData = $this->eventService->getEventsByCategory();
+        // var_dump($categoryData);
+
+        $categories = array_map(function ($cat) {
+            return $cat->name;
+        }, $categoryData);
+        $eventData = array_map(function ($cat) {
+            return (int)$cat->count;
+        }, $categoryData);
+
+        // var_dump($categories);
+        // var_dump($eventData);
+
+        $chartData = [
+            'dates' => $this->eventService->getLastSixMonths(),
+            'userData' => $this->userService->getUserGrowthData(),
+            'categories' => $categories,
+            'eventData' => $eventData,
+            'months' => $this->eventService->getRevenueMonths(),
+            'revenueData' => $this->eventService->getMonthlyRevenue(),
+            'ticketData' => $this->eventService->getTicketTypeDistribution()
+        ];
+
+        return $this->render('back/reports.html.twig', array_merge($basicStats, $chartData));
     }
 }

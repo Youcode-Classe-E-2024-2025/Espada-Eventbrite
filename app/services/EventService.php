@@ -168,4 +168,38 @@ class EventService
     {
         return $this->evenmentRepo->getEventTicketsAndCapacity($eventId);
     }
+
+    public function getLastSixMonths()
+    {
+        $months = [];
+        for ($i = 5; $i >= 0; $i--) {
+            $months[] = date('M', strtotime("-$i months"));
+        }
+        return $months;
+    }
+
+    public function getEventsByCategory()
+    {
+        return $this->evenmentRepo->getEventCountByCategory();
+    }
+
+    public function getRevenueMonths()
+    {
+        return $this->getLastSixMonths();
+    }
+
+    public function getMonthlyRevenue()
+    {
+        return $this->evenmentRepo->getMonthlyRevenue();
+    }
+
+    public function getTicketTypeDistribution()
+    {
+        return $this->evenmentRepo->getTicketTypeDistribution();
+    }
+
+    public function totalActiveEvents()
+    {
+        return $this->evenmentRepo->countActiveEvents();
+    }
 }
