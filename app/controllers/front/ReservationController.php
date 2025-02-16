@@ -25,7 +25,7 @@ class ReservationController extends Controller
     {
         $data = $this->eventService->getEventById($id[0]);
         $statis = $this->eventService->getCapacities($id[0]);
-        $availible = $this->ReservationService->getAvailable($id[0]);
+        $availible = $this->reservationService->getAvailable($id[0]);
 
         $standard_tickets_available = $availible->standard_tickets_available > 0 ? $availible->standard_tickets_available: 0 ;
         $gratuit_tickets_available = $availible->gratuit_tickets_available  > 0 ? $availible->gratuit_tickets_available: 0;
@@ -118,7 +118,7 @@ class ReservationController extends Controller
         echo $pdf;
         exit;
     }
-}
+
 
     public function handlePayment() {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -190,9 +190,9 @@ class ReservationController extends Controller
 
                 // Insert each ticket into the database
                 foreach ($tickets as $ticket) {
-                    $this->ReservationService->insertBooking($userId, $event_id, $ticket['type'], $ticket['price'], $booking_date);
+                    $this->reservationService->insertBooking($userId, $event_id, $ticket['type'], $ticket['price'], $booking_date);
                 }
-                $this->ReservationService->updateSold($event_id, $vipQuantity, $standardQuantity, $freeQuantity);
+                $this->reservationService->updateSold($event_id, $vipQuantity, $standardQuantity, $freeQuantity);
                 // Create a PaymentIntent with the calculated total price (in cents)
                 \Stripe\Stripe::setApiKey('sk_test_51Qsl4eC6cEMis3nd6veqKeIyZpo2ap2AeE8An8uSWjW9nWGmMTdNt8dIPpxjtA4ZVre7Z7hYUlucjO52zcYIwpPB00fnOgtUFe');
 

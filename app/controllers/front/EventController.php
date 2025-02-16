@@ -5,14 +5,14 @@ namespace App\controllers\front;
 use App\core\Controller;
 use App\services\EventService;
 use App\repository\EvenmentRepository;
-use App\repository\CategoryRepository;
+use App\services\CategoryTagService;
 use App\services\ReservationService;
 
 class EventController extends Controller
 {
   private EventService $eventService;
   private EvenmentRepository $evenmentRepository;
-  private CategoryRepository $categoryRepo;
+  private CategoryTagService $categoryRepo;
   private ReservationService $ReservationService;
 
   public function __construct()
@@ -20,7 +20,7 @@ class EventController extends Controller
     parent::__construct();
     $this->eventService = new EventService();
     $this->evenmentRepository = new EvenmentRepository();
-    $this->categoryRepo = new CategoryRepository();
+    $this->categoryRepo = new CategoryTagService();
     $this->ReservationService = new ReservationService();
   }
 
@@ -38,34 +38,25 @@ class EventController extends Controller
     }
     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $limit = 2; // Events per page
+    $events = $this->eventService->getPaginatedEvents($page, $limit, $categories);
 
-
-    $events = $this->evenmentRepository->getPaginatedEvents($page, $limit, $categories);
-    $totalEvents = $this->evenmentRepository->totalActiveEvents();
+    $totalEvents = $this->eventService->getTotalEvents();
     $totalPages = ceil($totalEvents / $limit);
-    $categories = $this->categoryRepo->getAll();
+    $categories = $this->categoryRepo->getAllCategories();
     $data = [
       'events' => $events,
       'totalEvents' => $totalEvents,
       'currentPage' => $page,
       'totalPages' => $totalPages,
-      'categories' => $categories,
+      'categories' => $categories
     ];
-
-
     if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
       // Return JSON for AJAX requests
       header('Content-Type: application/json');
       echo json_encode($data);
       exit;
     }
-
-      $standard_tickets_available = $availible->standard_tickets_available > 0 ? $availible->standard_tickets_available: 0 ;
-      $gratuit_tickets_available = $availible->gratuit_tickets_available  > 0 ? $availible->gratuit_tickets_available: 0;
-      $vip_tickets_available = $availible->vip_tickets_available  > 0 ? $availible->vip_tickets_available: 0;
-     
-     echo $this->render('front/event/event-detail.html.twig',['event' => $data, 'statistics'=> $statis, 'tags'=> $tags, 'standard_tickets_available'=> $standard_tickets_available, 'vip_tickets_available'=> $vip_tickets_available, 'gratuit_tickets_available'=> $gratuit_tickets_available]);
-
+    echo $this->render('front/event/event-list.html.twig', $data);
   }
 
 

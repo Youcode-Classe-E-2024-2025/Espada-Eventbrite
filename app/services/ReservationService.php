@@ -63,7 +63,7 @@ class ReservationService
         $writer = new PngWriter();
         $result = $writer->write($qrCode);
 
-        $path = 'public/assets/qrcodes/' . $data['ticket_id'] . '.png';
+        $path = '/var/www/Espada-Eventbrite/public/assets/qrcodes/' . $data['ticket_id'] . '.png';
         $result->saveToFile($path);
 
         return $path;
