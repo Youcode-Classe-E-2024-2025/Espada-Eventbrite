@@ -16,7 +16,9 @@ class EvenmentRepository
     }
 
     public function create(array $evenmentData)
+    
     {
+      
         $query = "INSERT INTO evenments (title, description, visual_content, lieu, validation, archived, owner_id, category_id, date, type ,video_path)
                   VALUES (:title, :description, :visual_content, :lieu, 1, 0, :owner_id, :category_id, :date, :type , :video_path) RETURNING id";
         $stmt = $this->DB->getConnection()->prepare($query);

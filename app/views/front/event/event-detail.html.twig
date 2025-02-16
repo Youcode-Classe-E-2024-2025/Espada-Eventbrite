@@ -38,9 +38,11 @@
             </div>
           </div>
         </div>
-        <div class="rounded-xl overflow-hidden">
-<video class="w-full h-[400px] object-cover" src="/uploads/videos/\x75706c6f6164732f766964656f732f363761666164303735663663365f53637265656e636173742046726f6d20323032352d30322d31342030362d32332d34382e6d7034.mp4" controls alt="modern tech conference hall with people networking, professional event photography style"></video>        </div>
-      </div>
+       <div class="rounded-xl overflow-hidden">
+    <video class="w-full h-[400px] object-cover" controls autoplay>
+        <source src="../../../{{ event.video_path }}" type="video/mp4" alt="modern tech conference hall with people networking, professional event photography style">
+    </video>  
+</div>
     </section>
     <section id="ticket-options" class="mb-12 mx-12">
       <h2 class="text-2xl font-bold mb-6">Select Your Ticket</h2>
@@ -53,7 +55,7 @@
           <div class="mb-4">
             <div class="flex justify-between text-sm text-gray-600 mb-2">
               <span>Available</span>
-              <span>{{gratuit_tickets_available}} tickets left</span>
+              <span>{{available.gratuit_tickets_available}} tickets left</span>
             </div>
           </div>
           <ul class="space-y-3 mb-6">
@@ -72,7 +74,7 @@
           <div class="mb-4">
             <div class="flex justify-between text-sm text-gray-600 mb-2">
               <span>Available</span>
-              <span>{{standard_tickets_available}} tickets left</span>
+              <span>{{available.standard_tickets_available}} tickets left</span>
             </div>
           </div>
           <ul class="space-y-3 mb-6">
@@ -91,7 +93,7 @@
           <div class="mb-4">
             <div class="flex justify-between text-sm text-gray-600 mb-2">
               <span>Available</span>
-              <span>{{ vip_tickets_available }} tickets left</span>
+              <span>{{ available.vip_tickets_available }} tickets left</span>
             </div>
           </div>
           <ul class="space-y-3 mb-6">
