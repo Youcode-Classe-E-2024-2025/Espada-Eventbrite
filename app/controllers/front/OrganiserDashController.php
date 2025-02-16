@@ -47,7 +47,7 @@ class OrganiserDashController extends Controller
 
         $csrfToken = $this->security->generateCsrfToken();
         $notif=$this->getNotif($this->id);
-        var_dump($notif);
+        // var_dump($notif);
         echo $this->render('front/organiser/dashboard.twig', ['data' => $data, 'csrf_token' => $csrfToken , 'notif'=> $notif]);
     }
 
@@ -111,7 +111,7 @@ class OrganiserDashController extends Controller
         // $this->notifier->connect();
 
      $res =$this->notiD->getEventBookingsUsers($intValeur);
-     var_dump($res);
+    //  var_dump($res);
         // $this->statServ->deleteE($intValeur);
         $userIds = explode(',', trim($res[0]['user_ids'], '{}'));
 

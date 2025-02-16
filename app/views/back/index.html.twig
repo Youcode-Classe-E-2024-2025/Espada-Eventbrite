@@ -145,4 +145,70 @@
                 </form>
             </div>
         </div>
+        <script>
+
+  let not =document.getElementById('notifCont');
+ 
+    let ws;
+let user_id;
+
+ws = new WebSocket('ws://localhost:3009'); 
+
+ws.onopen = () => {
+    console.log('Connected to WebSocket server');
+    user_id = {{ session.get('user').id }};  // Ensure session data is properly injected
+
+    const registerMessage = { type: 'register', user_id: user_id };
+    ws.send(JSON.stringify(registerMessage));  
+};
+
+ws.onmessage = (event) => {
+    try {
+        const data = JSON.parse(event.data);
+
+        // Log only the action and event_name if they exist
+        if (data.action && data.event_name) {
+            console.log(`Action: ${data.action}, Event Name: ${data.event_name}`);
+          let notifCont = document.getElementById('notifCont');
+
+            // Create a new notification element
+            let newNotification = `
+                <div class="p-4 border-b border-gray-100 hover:bg-gray-50">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            <span class="inline-block p-2 rounded-full bg-blue-100 text-blue-600">
+                                <i class="fa-solid fa-ticket text-lg"></i>
+                            </span>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm font-medium text-gray-900">${data.event_name}</p>
+                            <p class="text-sm text-gray-500">${data.action} - ${data.event_name}</p>
+                            <p class="mt-1 text-xs text-gray-400">Just now</p>
+                        </div>
+                    </div>
+                </div>`;
+
+            // Append new notification at the top
+            notifCont.insertAdjacentHTML('afterbegin', newNotification);
+        } else {
+            console.log('Received:', data);
+        }
+        // Display message in the messageArea
+        document.getElementById('messageArea').innerText = JSON.stringify(data, null, 2);
+        
+    } catch (error) {
+        console.error('Error parsing WebSocket message:', error);
+    }
+};
+
+ws.onclose = () => {
+    console.log('Disconnected from WebSocket server');
+};
+
+// Handle WebSocket errors
+ws.onerror = (error) => {
+    console.error('WebSocket error:', error);
+};
+
+</script>
 {% endblock %}
