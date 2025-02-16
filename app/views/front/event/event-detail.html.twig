@@ -5,7 +5,9 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div class="space-y-4">
           <div class="flex space-x-3">
-            <span class="inline-block px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">{{ event.category }}</span>
+            <span class="right-4 bg-gray-500 text-white px-3 py-1 rounded-full text-sm">
+                    <i class="fa-solid {{event.icon}} mr-1"></i>{{event.category}}
+                </span>
             {% for tag in tags %}
               <span class="inline-block px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">{{ tag.title }}</span>
             {% endfor %}
@@ -25,15 +27,15 @@
           </div>
           <div class="grid grid-cols-3 gap-4 pt-4">
             <div class="bg-white p-4 rounded-lg text-center">
-              <div class="text-2xl font-bold text-indigo-600">{{statistics.tickets_sold}}</div>
+              <div class="text-2xl font-bold text-gray-600">{{statistics.tickets_sold}}</div>
               <div class="text-sm text-gray-600">Tickets Sold</div>
             </div>
             <div class="bg-white p-4 rounded-lg text-center">
-              <div class="text-2xl font-bold text-indigo-600">{{available.vip_tickets_available + available.standard_tickets_available + available.gratuit_tickets_available}}</div>
+              <div class="text-2xl font-bold text-gray-600">{{ statistics.tickets_available}}</div>
               <div class="text-sm text-gray-600">Available</div>
             </div>
             <div class="bg-white p-4 rounded-lg text-center">
-              <div class="text-2xl font-bold text-indigo-600">{{statistics.total_tickets }}</div>
+              <div class="text-2xl font-bold text-gray-600">{{statistics.total_tickets }}</div>
               <div class="text-sm text-gray-600">Total Capacity</div>
             </div>
           </div>
@@ -47,10 +49,10 @@
     <section id="ticket-options" class="mb-12 mx-12">
       <h2 class="text-2xl font-bold mb-6">Select Your Ticket</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:border-indigo-600 transition">
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:border-green-600 transition">
           <div class="flex justify-between items-center mb-4">
             <h3 class="font-bold text-xl">Free</h3>
-            <span class="text-indigo-600 font-bold">$0</span>
+            <span class="text-green-600 font-bold">$0</span>
           </div>
           <div class="mb-4">
             <div class="flex justify-between text-sm text-gray-600 mb-2">
@@ -63,13 +65,13 @@
             <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Conference materials</li>
             <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Coffee breaks</li>
           </ul>
-<a href="/events/booking/{{ event.event_id }}" class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 text-center block">
+<a href="/events/booking/{{ event.event_id }}" class="w-full bg-black text-white py-2 rounded-lg hover:bg-geay-800 text-center block">
     Select Ticket
 </a>        </div>
-        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:border-indigo-600 transition">
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:border-green-600 transition">
           <div class="flex justify-between items-center mb-4">
             <h3 class="font-bold text-xl">Regular</h3>
-            <span class="text-indigo-600 font-bold">${{statistics.standard_price}}</span>
+            <span class="text-green-600 font-bold">${{statistics.standard_price}}</span>
           </div>
           <div class="mb-4">
             <div class="flex justify-between text-sm text-gray-600 mb-2">
@@ -82,13 +84,13 @@
             <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Lunch included</li>
             <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Networking event</li>
           </ul>
-<a href="/events/booking/{{ event.event_id }}" class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 text-center block">
+<a href="/events/booking/{{ event.event_id }}" class="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 text-center block">
     Select Ticket
 </a>        </div>
-        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:border-indigo-600 transition">
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:border-green-600 transition">
           <div class="flex justify-between items-center mb-4">
             <h3 class="font-bold text-xl">VIP</h3>
-            <span class="text-indigo-600 font-bold">${{statistics.vip_price}}</span>
+            <span class="text-green-600 font-bold">${{statistics.gratuit_tickets_number}}</span>
           </div>
           <div class="mb-4">
             <div class="flex justify-between text-sm text-gray-600 mb-2">
@@ -101,7 +103,7 @@
             <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> VIP lounge access</li>
             <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Speaker dinner</li>
           </ul>
-<a href="/events/booking/{{ event.event_id }}" class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 text-center block">
+<a href="/events/booking/{{ event.event_id }}" class="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 text-center block">
     Select Ticket
 </a>        </div>
       </div>
@@ -116,10 +118,10 @@
           <div>
             <h3 class="text-xl font-bold mb-4">What to Expect</h3>
             <ul class="space-y-3">
-              <li class="flex items-center"><i class="fa-solid fa-microphone text-indigo-600 mr-3"></i> Keynote speakers</li>
-              <li class="flex items-center"><i class="fa-solid fa-users text-indigo-600 mr-3"></i> Interactive workshops</li>
-              <li class="flex items-center"><i class="fa-solid fa-rocket text-indigo-600 mr-3"></i> Startup showcase</li>
-              <li class="flex items-center"><i class="fa-solid fa-handshake text-indigo-600 mr-3"></i> Networking sessions</li>
+              <li class="flex items-center"><i class="fa-solid fa-microphone text-green-600 mr-3"></i> Keynote speakers</li>
+              <li class="flex items-center"><i class="fa-solid fa-users text-green-600 mr-3"></i> Interactive workshops</li>
+              <li class="flex items-center"><i class="fa-solid fa-rocket text-green-600 mr-3"></i> Startup showcase</li>
+              <li class="flex items-center"><i class="fa-solid fa-handshake text-green-600 mr-3"></i> Networking sessions</li>
             </ul>
           </div>
         </div>

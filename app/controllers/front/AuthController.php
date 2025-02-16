@@ -92,7 +92,20 @@ class AuthController extends Controller
 
         $user = $this->userService->loginuser($requestData['email'], $requestData['password']);
         if ($user) {
-            $this->session->set('user', $user);
+           
+             // for reservation redirect
+             if (isset($_SESSION['reservation_redirect'])) {
+                $redirectUrl = $_SESSION['reservation_redirect'];
+                
+                
+                if (strpos($redirectUrl, '/event/details/') === 0) {
+                    unset($_SESSION['reservation_redirect']);
+                    $this->session->set('user', $user);
+                    header("Location: $redirectUrl");
+                    exit();
+                }
+            }
+    $this->session->set('user', $user);
             header('Location: /dashboard');
             die();
         }
@@ -104,8 +117,6 @@ class AuthController extends Controller
     public function register()
     {
         $requestData = $this->getJsonInput();
-        
-
 
         $rules = [
             'email' => ['required', 'email'],
@@ -128,7 +139,7 @@ class AuthController extends Controller
         }
 
         // Hash the password
-        $requestData['password'] = password_hash($requestData['password'], PASSWORD_DEFAULT);
+        $requestData['password'] = password_hash($requestData['password'], PASSWORD_BCRYPT);
         unset($requestData['confirm_password']); // Remove confirm_password before storing
 
         // Attempt to register the user
@@ -229,10 +240,20 @@ class AuthController extends Controller
             ]);
             
             if ($user) {
-                // Set user session
-                $this->session->set('user', $user);
-                header('Location: /dashboard');
-                exit();
+                    // for reservation redirect
+                    $this->session->set('user', $user);
+    
+                    // for reservation redirect
+                    if (isset($_SESSION['reservation_redirect'])) {
+                        $redirectUrl = $_SESSION['reservation_redirect'];
+                        
+                        // Validate the redirect URL
+                        if (strpos($redirectUrl, '/event/details/') === 0) {
+                            unset($_SESSION['reservation_redirect']);
+                            header("Location: $redirectUrl");
+                            exit();
+                        }
+                    }
             } else {
                 throw new \Exception('Unable to create or find user');
             }
