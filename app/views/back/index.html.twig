@@ -23,7 +23,7 @@
                     <i class="fa-solid fa-comments"></i>
                     <span>categories&tags</span>
                 </a>
-                <a href="#" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
+                <a href="/admin/reports" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
                     <i class="fa-solid fa-chart-pie"></i>
                     <span>Reports</span>
                 </a>
@@ -34,7 +34,7 @@
 {% block mainContent %}   
 <div id="stats-grid" class="grid grid-cols-4 gap-6 mb-8">
             <div class="bg-white p-6 rounded-xl shadow">
-                <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center justify-between mb-4 ">
                     <h3 class="text-gray-500">Total Users</h3>
                     <i class="fa-solid fa-users text-blue-500 text-xl"></i>
                 </div>
@@ -121,27 +121,6 @@
                             </div>
                         </div>
                     {% endfor %}
-                    {# {% for user in pendingActions.pendingUsers %}
-                        <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg">
-                            <div class="flex items-center space-x-4">
-                                <div class="bg-orange-100 p-2 rounded-lg">
-                                    <i class="fa-solid fa-user-shield text-orange-500"></i>
-                                </div>
-                                <div>
-                                    <p class="font-medium">User Verification</p>
-                                    <p class="text-sm text-gray-500">Event organizer application</p>
-                                </div>
-                            </div>
-                            <div class="flex space-x-2">
-                                <button class="p-2 text-green-500 hover:bg-green-50 rounded-lg">
-                                    <i class="fa-solid fa-check"></i>
-                                </button>
-                                <button class="p-2 text-red-500 hover:bg-red-50 rounded-lg">
-                                    <i class="fa-solid fa-xmark"></i>
-                                </button>
-                            </div>
-                        </div>
-                    {% endfor %} #}
                 </div>
             </div>
         </div>
