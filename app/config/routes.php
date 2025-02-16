@@ -68,12 +68,14 @@ $router->addRoute('POST', '/admin/users/status', [App\controllers\back\AdminUser
 $router->addRoute('POST', '/admin/export/csv', [App\controllers\back\ExportController::class, 'exportCsv']);
 $router->addRoute('POST', '/admin/export/pdf', [App\controllers\back\ExportController::class, 'exportPdf']);
 
-
 $router->addRoute('POST', '/category/create', [App\controllers\back\CategoryTagController::class, 'addCategory']);
 $router->addRoute('POST', '/category/delete/{id}', [App\controllers\back\CategoryTagController::class, 'deleteCategory']);
 $router->addRoute('POST', '/category/update', [App\controllers\back\CategoryTagController::class, 'updateCategory']);
 $router->addRoute('POST', '/tag/create', [App\controllers\back\CategoryTagController::class, 'addTags']);
 $router->addRoute('POST', '/tag/delete/{id}', [App\controllers\back\CategoryTagController::class, 'deleteTag']);
+
+$router->addRoute('GET', '/admin/reports', [App\controllers\back\DashboardController::class, 'reports']);
+
 
 
 // routes/web.php

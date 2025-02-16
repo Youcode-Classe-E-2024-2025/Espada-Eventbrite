@@ -330,4 +330,16 @@ class UserRepository
         $stmt = $this->DB->query($sql, ['id' => $userId]);
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
+
+    public function getUserGrowthLastSixMonths()
+    {
+        $query = "SELECT COUNT(*) as count 
+              FROM users 
+              WHERE created_at >= NOW() - INTERVAL '6 months'
+              GROUP BY DATE_TRUNC('month', created_at) 
+              ORDER BY DATE_TRUNC('month', created_at)";
+
+        $stmt = $this->DB->query($query);
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
 }

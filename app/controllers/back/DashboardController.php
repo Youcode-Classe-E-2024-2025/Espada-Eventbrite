@@ -6,12 +6,14 @@ use App\core\Controller;
 use App\services\EventService;
 use App\services\UserService;
 use App\services\ReservationService;
+use App\services\CategoryTagService;
 
 class DashboardController extends Controller
 {
     private EventService $eventService;
     private UserService $userService;
     private ReservationService $reservationService;
+    private CategoryTagService $categoryTagService;
 
     public function __construct()
     {
@@ -20,6 +22,7 @@ class DashboardController extends Controller
         $this->eventService = new EventService();
         $this->userService = new UserService();
         $this->reservationService = new ReservationService();
+        $this->categoryTagService = new CategoryTagService();
     }
 
     public function index()
@@ -157,5 +160,40 @@ class DashboardController extends Controller
             'recentEvents' => $recentEvents
             // 'reportedComments' => $recentComments
         ];
+    }
+
+    public function reports()
+    {
+        $basicStats = [
+            'stats' => [
+                'activeEvents' => $this->eventService->totalActiveEvents(),
+                'ticketsSold' => $this->eventService->getTotalTicketsSold()
+            ]
+        ];
+
+        $categoryData = $this->eventService->getEventsByCategory();
+        // var_dump($categoryData);
+
+        $categories = array_map(function ($cat) {
+            return $cat->name;
+        }, $categoryData);
+        $eventData = array_map(function ($cat) {
+            return (int)$cat->count;
+        }, $categoryData);
+
+        // var_dump($categories);
+        // var_dump($eventData);
+
+        $chartData = [
+            'dates' => $this->eventService->getLastSixMonths(),
+            'userData' => $this->userService->getUserGrowthData(),
+            'categories' => $categories,
+            'eventData' => $eventData,
+            'months' => $this->eventService->getRevenueMonths(),
+            'revenueData' => $this->eventService->getMonthlyRevenue(),
+            'ticketData' => $this->eventService->getTicketTypeDistribution()
+        ];
+
+        return $this->render('back/reports.html.twig', array_merge($basicStats, $chartData));
     }
 }

@@ -129,7 +129,7 @@
                                         </div>
                                     {% endif %}
                                 </div>
-                                <a href="/ticket/download/{{ ticket.id }}">
+                                <a {% if ticket.event_date >= 'now'|date('Y-m-d') %} href="/ticket/download/{{ ticket.id }}" {% endif %}>
                                     <i class="fa-solid fa-qrcode text-2xl text-gray-400 hover:text-indigo-700 transition-colors duration-200"></i>
                                 </a>
                             </div>
