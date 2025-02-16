@@ -1,0 +1,239 @@
+  {% extends "back/dashboard.html.twig"%}
+{% block aside %} 
+       <aside id="sidebar" class="w-64 bg-gray-900 text-white h-full fixed left-0">
+        <div class="p-4">
+            <div class="flex items-center space-x-2 mb-6">
+                <i class="fa-solid fa-bolt text-yellow-400 text-2xl"></i>
+                <span class="text-xl font-bold">AdminPanel</span>
+            </div>
+            <nav class="space-y-2">
+                <a href="/dashboard" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
+                    <i class="fa-solid fa-gauge-high"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="/admin/users" class="flex items-center space-x-2 bg-gray-800 p-3 rounded-lg">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Users</span>
+                </a>
+                <a href="/admin/events" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span>Events</span>
+                </a>
+                <a href="/admin/categoryTag" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
+                    <i class="fa-solid fa-comments"></i>
+                    <span>categories&tags</span>
+                </a>
+                <a href="#" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Reports</span>
+                </a>
+            </nav>
+        </div>
+       </aside>
+    {% endblock %}
+{% block mainContent %}
+
+        {% if messages is defined %}
+            {% for type, message in messages %}
+                <div class="alert alert-{{ type }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <div id="users-controls" class="flex justify-between items-center mb-6">
+            <div class="flex space-x-4">
+                <form action="/admin/users/search" method="get" class="relative">
+                    <input type="text" name="keyword" placeholder="Search users..." class="pl-10 pr-4 py-2 border rounded-lg w-64">
+                    <i class="fa-solid fa-search absolute left-3 top-3 text-gray-400"></i>
+                </form>
+                <form action="/admin/users/filter" method="get" class="flex space-x-4">
+                    <select name="role_id" class="border rounded-lg px-4 py-2">
+                        <option value="">All Roles</option>
+                        <option value="3">Admin</option>
+                        <option value="1">Organizer</option>
+                        <option value="2">User</option>
+                    </select>
+                    
+                    <select name="status" class="border rounded-lg px-4 py-2">
+                        <option value="">All Status</option>
+                        <option value="0">Active</option>
+                        <option value="1">Banned</option>
+                        <option value="2">Archived</option>
+                    </select>
+
+                    <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+                        Apply Filters
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div id="users-table" class="bg-white rounded-xl shadow overflow-hidden">
+            <table class="w-full">
+                <thead class="bg-gray-50 border-b">
+                    <tr>
+                        <th class="px-6 py-4 text-left text-sm font-medium text-gray-500">User</th>
+                        <th class="px-6 py-4 text-left text-sm font-medium text-gray-500">Role</th>
+                        <th class="px-6 py-4 text-left text-sm font-medium text-gray-500">Status</th>
+                        <th class="px-6 py-4 text-left text-sm font-medium text-gray-500">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    {% for user in users %}
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center space-x-3">
+                                    <img src="{{ user.avatar }}" class="w-8 h-8 rounded-full">
+                                    <div>
+                                        <p class="font-medium">{{ user.username }}</p>
+                                        <p class="text-sm text-gray-500">{{ user.email }}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4">
+                                {% if user.role_id == 3 %}
+                                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm">Admin</span>
+                                {% elseif user.role_id == 1 %}
+                                    <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded-full text-sm">Organizer</span>
+                                {% else %}
+                                    <span class="bg-gray-100 text-gray-800 px-2 py-1 rounded-full text-sm">User</span>
+                                {% endif %}
+                            </td>
+                            <td class="px-6 py-4">
+                                {% if user.banned == 1 %}
+                                    <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-sm">Banned</span>
+                                {% endif %}
+                                {% if user.archived == 1 %}
+                                    <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-sm">Archived</span>
+                                {% endif %}
+                                {% if user.banned == 0 and user.archived == 0 %}
+                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm">Active</span>
+                                {% endif %}
+                            </td>
+                            <td class="px-6 py-4">
+                                {% if user.role_id != 3 %}
+                                    <div class="flex space-x-2">
+                                        {% if user.banned == 0 %}
+                                            <form action="/admin/users/status" method="POST" class="inline">
+                                                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                                                <input type="hidden" name="user_id" value="{{ user.id }}">
+                                                <input type="hidden" name="status" value="1">
+                                                <button type="submit" class="text-gray-400 hover:text-red-500" title="Ban User">
+                                                    <i class="fa-solid fa-ban"></i>
+                                                </button>
+                                            </form>
+                                        {% else %}
+                                            <form action="/admin/users/status" method="POST" class="inline">
+                                                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                                                <input type="hidden" name="user_id" value="{{ user.id }}">
+                                                <input type="hidden" name="status" value="0">
+                                                <button type="submit" class="text-gray-400 hover:text-green-500" title="Activate User">
+                                                    <i class="fa-solid fa-check"></i>
+                                                </button>
+                                            </form>
+                                        {% endif %}
+                                        {% if user.archived == 0 %}
+                                            <form action="/admin/users/status" method="POST" class="inline">
+                                                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                                                <input type="hidden" name="user_id" value="{{ user.id }}">
+                                                <input type="hidden" name="status" value="2">
+                                                <button type="submit" class="text-gray-400 hover:text-yellow-500" title="Archive User">
+                                                    <i class="fa-solid fa-box-archive"></i>
+                                                </button>
+                                            </form>
+                                        {% else %}
+                                            <form action="/admin/users/status" method="POST" class="inline">
+                                                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                                                <input type="hidden" name="user_id" value="{{ user.id }}">
+                                                <input type="hidden" name="status" value="3">
+                                                <button type="submit" class="text-gray-400 hover:text-red-500" title="Remove from Archive">
+                                                    <i class="fa-solid fa-box-open"></i>
+                                                </button>
+                                            </form>
+                                        {% endif %}
+                                        {# <button class="text-gray-400 hover:text-red-500"><i class="fa-solid fa-trash"></i></button> #}
+                                    </div>
+                                {% endif %}
+
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    {# <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4">
+                            <div class="flex items-center space-x-3">
+                                <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg" class="w-8 h-8 rounded-full">
+                                <div>
+                                    <p class="font-medium">Michael Smith</p>
+                                    <p class="text-sm text-gray-500">michael@example.com</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded-full text-sm">Moderator</span>
+                        </td>
+                        <td class="px-6 py-4">
+                            <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-sm">Pending</span>
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-500">1 hour ago</td>
+                        <td class="px-6 py-4">
+                            <div class="flex space-x-2">
+                                <button class="text-gray-400 hover:text-blue-500"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button class="text-gray-400 hover:text-red-500"><i class="fa-solid fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4">
+                            <div class="flex items-center space-x-3">
+                                <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-4.jpg" class="w-8 h-8 rounded-full">
+                                <div>
+                                    <p class="font-medium">Emily Brown</p>
+                                    <p class="text-sm text-gray-500">emily@example.com</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <span class="bg-gray-100 text-gray-800 px-2 py-1 rounded-full text-sm">User</span>
+                        </td>
+                        <td class="px-6 py-4">
+                            <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-sm">Suspended</span>
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-500">2 days ago</td>
+                        <td class="px-6 py-4">
+                            <div class="flex space-x-2">
+                                <button class="text-gray-400 hover:text-blue-500"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button class="text-gray-400 hover:text-red-500"><i class="fa-solid fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr> #}
+                </tbody>
+            </table>
+        </div>
+        <div id="pagination" class="flex justify-between items-center bg-white p-4 rounded-xl shadow">
+                    <div class="text-gray-600">
+                        {% if totalUsers > 0 %}
+                            Showing {{ (currentPage - 1) * 4 + 1 }} to {{ min(currentPage * 4, totalUsers) }} of {{ totalUsers }} users
+                        {% else %}
+                            No users found
+                        {% endif %}
+                    </div>
+                    <div class="flex space-x-2">
+                        {% if currentPage > 1 %}
+                            <a href="?page={{ currentPage - 1 }}{% if keyword is defined and keyword is not empty %}&keyword={{ keyword }}{% endif %}" 
+                            class="px-3 py-1 border rounded-lg hover:bg-gray-50">Previous</a>
+                        {% endif %}
+                        
+                        {% for i in 1..totalPages %}
+                            <a href="?page={{ i }}{% if keyword is defined and keyword is not empty %}&keyword={{ keyword }}{% endif %}"
+                            class="px-3 py-1 {% if i == currentPage %}bg-blue-500 text-white{% else %}border hover:bg-gray-50{% endif %} rounded-lg">
+                                {{ i }}
+                            </a>
+                        {% endfor %}
+                        
+                        {% if currentPage < totalPages %}
+                            <a href="?page={{ currentPage + 1 }}{% if keyword is defined and keyword is not empty %}&keyword={{ keyword }}{% endif %}" 
+                            class="px-3 py-1 border rounded-lg hover:bg-gray-50">Next</a>
+                        {% endif %}
+                    </div>
+                </div>
+{% endblock %}

@@ -1,18 +1,27 @@
 <?php
+
 namespace app\controllers\front;
-use App\core\View;
 
-use App\core\Session;
-use App\core\Database;
+use App\core\Controller;
+use App\services\EventService;
+use App\repository\EvenmentRepository;
 
-class HomeController extends View{
-
-    private $db;
-    public function index(){
-          $s =new Session();
-          $res=$s->get('user');
-          echo $res->email;
-        
-    }
+class HomeController extends controller
+{
+  private EventService $eventService;
+  private EvenmentRepository $evenmentRepository;
+  public function __construct()
+  {
+    parent::__construct();
+    $this->eventService = new EventService();
+    $this->evenmentRepository = new EvenmentRepository();
+  }
+  public function index()
+  {
+    $events = $this->evenmentRepository->getRecentEvents(3);
+    $data = [
+      'events' => $events
+    ];
+    echo $this->render('front/home.html.twig', $data);
+  }
 }
-?>

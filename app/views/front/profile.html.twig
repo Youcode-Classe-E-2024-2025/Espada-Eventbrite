@@ -1,53 +1,42 @@
 {% extends "base.html.twig" %}
+{% block header %} {% include "layouts/header.html.twig" %}  {% endblock %}
 {% block content %}
-<div id="profile-page" class="bg-gray-50">
-    <header id="header" class="bg-white border-b">
-        <div class="container mx-auto px-4 py-4">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-8">
-                    <h1 class="text-xl font-semibold">My Profile</h1>
-                    <nav class="hidden md:flex space-x-6">
-                        <span  class="text-gray-600 hover:text-gray-900 cursor-pointer">Dashboard</span>
-                        <span  class="text-blue-600 font-medium cursor-pointer">Profile</span>
-                        <span  class="text-gray-600 hover:text-gray-900 cursor-pointer">Events</span>
-                        <span  class="text-gray-600 hover:text-gray-900 cursor-pointer">Settings</span>
-                    </nav>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <button class="text-gray-600 hover:text-gray-900">
-                        <i class="fa-regular fa-bell text-xl"></i>
-                    </button>
-                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Profile" class="w-10 h-10 rounded-full">
-                </div>
+
+{% if messages is defined %}
+        {% for type, message in messages %}
+            <div class="alert alert-{{ type }}">
+                {{ message }}
             </div>
-        </div>
-    </header>
+        {% endfor %}
+    {% endif %}
+    
+<div id="profile-page" class="bg-gray-50">
     <main class="container mx-auto px-4 py-8">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div id="personal-info" class="md:col-span-1">
+            <div id="personal-info" class="md:col-span-1 my-auto">
                 <div class="bg-white rounded-xl shadow-sm p-6">
                     <div class="text-center mb-6">
                         <div class="relative inline-block">
-                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Profile" class="w-24 h-24 rounded-full mx-auto">
+                            <img src="../../../{{ session.get('user').avatar }}" alt="Profile" class="w-24 h-24 rounded-full mx-auto">
                             <button class="absolute bottom-0 right-0 bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700">
                                 <i class="fa-solid fa-camera"></i>
                             </button>
                         </div>
-                        <h2 class="mt-4 text-xl font-semibold">John Doe</h2>
+                        <h2 class="mt-4 text-xl font-semibold">{{ session.get('user').username }}</h2>
                         <p class="text-gray-600">Event Organizer</p>
                     </div>
-                    <form class="space-y-4">
+                    <form method="POST" action="/profile/update" class="space-y-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                            <input type="text" class="w-full px-3 py-2 border rounded-lg" value="John Doe">
+                            <input type="text" class="w-full px-3 py-2 border rounded-lg" value=' {{ session.get('user').username }}'>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                            <input type="email" class="w-full px-3 py-2 border rounded-lg" value="john@example.com">
+                            <input type="email" class="w-full px-3 py-2 border rounded-lg" value="{{ session.get('user').email }}" readonly>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
-                            <input type="tel" class="w-full px-3 py-2 border rounded-lg" value="+1 234 567 890">
+                            {# <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                            <input type="tel" class="w-full px-3 py-2 border rounded-lg" value="{{session.get('user').password}}"> #}
                         </div>
                         <button class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
                             Save Changes
@@ -76,8 +65,8 @@
                                         <i class="fa-solid fa-calendar-days text-blue-600 text-xl"></i>
                                     </div>
                                     <div>
-                                        <h4 class="font-medium">Tech Conference 2025</h4>
-                                        <p class="text-sm text-gray-600">March 15, 2025 • 9:00 AM</p>
+                                        <h4 class="font-medium">{{ event1.title}}</h4>
+                                        <p class="text-sm text-gray-600">{{ event1.date }}</p>
                                     </div>
                                 </div>
                                 <span class="px-3 py-1 bg-green-50 text-green-600 rounded-full text-sm">Active</span>
@@ -90,8 +79,8 @@
                                         <i class="fa-solid fa-music text-blue-600 text-xl"></i>
                                     </div>
                                     <div>
-                                        <h4 class="font-medium">Music Festival</h4>
-                                        <p class="text-sm text-gray-600">April 5, 2025 • 7:00 PM</p>
+                                        <h4 class="font-medium">{{ event2.title}}</h4>
+                                        <p class="text-sm text-gray-600">{{ event2.date }}</p>
                                     </div>
                                 </div>
                                 <span class="px-3 py-1 bg-gray-50 text-gray-600 rounded-full text-sm">Past</span>
@@ -129,21 +118,29 @@
             <div class="bg-white rounded-xl shadow-sm p-6">
                 <div class="flex justify-between items-center mb-6">
                     <h3 class="text-lg font-semibold">Reserved Tickets</h3>
-                    <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    <a href="/tickets" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
                         <i class="fa-solid fa-qrcode mr-2"></i>View All Tickets
-                    </button>
+                    </a>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div class="border rounded-lg p-4">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h4 class="font-medium">Tech Conference 2025</h4>
-                                <p class="text-sm text-gray-600">VIP Pass</p>
-                                <p class="text-sm text-gray-600 mt-2">March 15, 2025 • 9:00 AM</p>
+                    {% for ticket in tickets %}
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <div class="flex justify-between">
+                                <div>
+                                    <h3 class="text-lg font-semibold">{{ ticket.event_title }}</h3>
+                                    <p class="text-gray-600">{{ ticket.type }}</p>
+                                    <p class="text-gray-500">{{ ticket.booking_date|date('d M Y') }}</p>
+                                    <p class="text-green-600 font-medium">${{ ticket.price }}</p>
+                                </div>
+                                <img src="{{ ticket.qr_code_path }}" alt="Ticket QR Code" class="w-24 h-24">
                             </div>
-                            <i class="fa-solid fa-qrcode text-2xl text-gray-400"></i>
+                            <div class="mt-4 flex justify-end space-x-2">
+                                <a href="/ticket/download/{{ ticket.id }}" class="text-blue-600 hover:text-blue-800">
+                                    <i class="fa-solid fa-download"></i> Download Ticket
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    {% endfor %}
                     <div class="border rounded-lg p-4">
                         <div class="flex justify-between items-start">
                             <div>
@@ -160,4 +157,4 @@
     </main>
 </div>
 {% endblock %}
-          
+{% block footer %} {% include "layouts/footer.html.twig" %}  {% endblock %}

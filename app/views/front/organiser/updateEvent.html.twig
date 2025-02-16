@@ -1,0 +1,170 @@
+{% extends "base.html.twig"%}
+{% block content %}
+ <div id="edit-event-page" class="bg-gray-50 p-6">
+    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-sm">
+        <div class="p-8">
+            <div class="mb-8 flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900">Edit Event</h1>
+                    <p class="text-gray-600 mt-2">Update your event details below</p>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span class="px-3 py-1 text-sm bg-yellow-100 text-yellow-800 rounded-full">Draft</span>
+                    <span class="text-sm text-gray-500">Last edited: Jan 15, 2025</span>
+                </div>
+            </div>
+            <form id="edit-event-form" class="space-y-8">
+                <div class="space-y-6">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-xl font-semibold text-gray-900 border-b pb-2">Basic Information</h2>
+                        <button type="button" class="text-sm text-blue-600 hover:text-blue-700">
+                            <i class="fa-solid fa-clock-rotate-left mr-1"></i> View History
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-1 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Event Title</label>
+                            <input type="text" value="Tech Conference 2025" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Description</label>
+                            <textarea rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>Join us for the biggest tech conference of 2025...</textarea>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Start Date & Time</label>
+                                <input type="datetime-local" value="2025-03-15T09:00" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">End Date & Time</label>
+                                <input type="datetime-local" value="2025-03-17T18:00" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <h2 class="text-xl font-semibold text-gray-900 border-b pb-2">Location</h2>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Location</label>
+                        <input type="text" value="Convention Center, New York" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-xl font-semibold text-gray-900 border-b pb-2">Ticket Types & Capacity</h2>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-sm text-gray-500">Total Tickets Sold: 234</span>
+                            <button type="button" class="text-sm text-blue-600 hover:text-blue-700">
+                                <i class="fa-solid fa-chart-line mr-1"></i> View Sales
+                            </button>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="flex items-center justify-between mb-4">
+                                <div>
+                                    <h3 class="text-lg font-medium text-gray-900">VIP Tickets</h3>
+                                    <p class="text-sm text-gray-500">45 sold out of 100</p>
+                                </div>
+                                <div class="flex items-center">
+                                    <label class="block text-sm font-medium text-gray-700 mr-2">Enable</label>
+                                    <input type="checkbox" checked class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Capacity</label>
+                                    <input type="number" value="100" min="45" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Price ($)</label>
+                                    <input type="number" value="299.99" min="0" step="0.01" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Early Bird Discount (%)</label>
+                                    <input type="number" value="15" min="0" max="100" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="flex items-center justify-between mb-4">
+                                <div>
+                                    <h3 class="text-lg font-medium text-gray-900">Regular Tickets</h3>
+                                    <p class="text-sm text-gray-500">156 sold out of 500</p>
+                                </div>
+                                <div class="flex items-center">
+                                    <label class="block text-sm font-medium text-gray-700 mr-2">Enable</label>
+                                    <input type="checkbox" checked class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Capacity</label>
+                                    <input type="number" value="500" min="156" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Price ($)</label>
+                                    <input type="number" value="149.99" min="0" step="0.01" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Early Bird Discount (%)</label>
+                                    <input type="number" value="10" min="0" max="100" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <h2 class="text-xl font-semibold text-gray-900 border-b pb-2">Current Media</h2>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="relative group">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" class="w-full h-32 object-cover rounded-lg">
+                            <div class="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-50 transition-all rounded-lg hidden group-hover:flex items-center justify-center">
+                                <button type="button" class="text-white">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center flex flex-col items-center justify-center">
+                            <i class="fa-solid fa-plus text-2xl text-gray-400 mb-2"></i>
+                            <span class="text-sm text-gray-600">Add More Images</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <h2 class="text-xl font-semibold text-gray-900 border-b pb-2">Categories & Tags</h2>
+                    <div class="grid grid-cols-1 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Category</label>
+                            <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                <option selected>Conference</option>
+                                <option>Workshop</option>
+                                <option>Seminar</option>
+                                <option>Networking</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Tags</label>
+                            <input type="text" value="tech, innovation, networking, 2025" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center space-x-4 pt-6 border-t">
+                    <button type="button" class="px-4 py-2 text-sm font-medium text-red-600 hover:text-red-700">
+                        <i class="fa-solid fa-trash-can mr-1"></i> Delete Event
+                    </button>
+                    <div class="flex space-x-4">
+                        <button type="button" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50">
+                            Preview Changes
+                        </button>
+                        <button type="submit" class="px-6 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700">
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,123 @@
+{% extends "base.html.twig" %}
+{% block header %} {% include "layouts/header.html.twig" %}  {% endblock %}
+{% block content %}
+  <section id="browse-events" class="py-4">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row gap-8">
+        <div class="w-full md:w-64 space-y-6">
+          <div class="bg-white rounded-lg p-4 shadow-sm">
+            <h3 class="font-bold text-lg mb-4">Filters</h3>
+            <div class="space-y-4">
+              <div>
+                <label class="text-sm font-medium text-gray-700 block mb-2">Event Type</label>
+               <form action="/events/list" class="space-y-2" method="GET">
+    {% for category in categories %}
+    <label class="flex items-center gap-3 p-2.5 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors group">
+        <div class="relative flex">
+            <input type="checkbox" name="categories[]" value="{{category.id}}" class="peer sr-only" />
+            <div class="w-5 h-5 border-2 border-gray-300 rounded transition-colors peer-checked:border-indigo-600 peer-checked:bg-indigo-600 flex items-center justify-center">
+                <svg class="w-3.5 h-3.5 text-white hidden peer-checked:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </div>
+        </div>
+        
+        <span class="text-sm font-medium text-gray-700 group-hover:text-gray-900">
+            {{category.name}}
+        </span>
+        
+        <i class="{{category.icon}} text-gray-500 group-hover:text-gray-700"></i>
+    </label>
+    {% endfor %}
+    
+    <button type="submit" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 inline-flex items-center gap-2">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        Search
+    </button>
+</form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex-1">
+          <div class="bg-white rounded-lg p-4 shadow-sm mb-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              
+              <form action="/events/search" method="get" class="relative">
+                            <input type="text" name="keyword" placeholder="Search events..." class="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+                            <i class="fa-solid fa-search absolute left-3 top-3 text-gray-400"></i>
+                        </form>
+              <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2">
+                  <span class="text-sm text-gray-600">Sort by:</span>
+                  <select id="filter" class="border rounded-lg px-4 py-2" onchange="this.form.submit()">
+                    <option value="">Sort by</option>
+                    <option value="newest" {% if filter == 'newest' %}selected{% endif %}>Newest First</option>
+                    <option value="oldest" {% if filter == 'oldest' %}selected{% endif %}>Oldest First</option>
+                    <option value="popular" {% if filter == 'popular' %}selected{% endif %}>Most Popular</option>
+                </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="events-container">
+          {% for event in events  %}
+            <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+              <div class="relative">
+                <img class="w-full h-48 object-cover" src="../../../{{event.visual_content}}" alt="tech conference">
+                <span class="absolute top-4 right-4 bg-gray-500 text-white px-3 py-1 rounded-full text-sm">
+                    <i class="fa-solid {{event.icon}} mr-1"></i>{{event.category}}
+                </span>
+              </div>
+              <div class="p-6">
+                <div class="flex items-center text-sm text-gray-500 mb-2">
+                  <i class="fa-regular fa-calendar mr-2"></i>
+                  <span>{{event.date|date("F j, Y")}}</span>
+                  <i class="fa-solid fa-location-dot ml-4 mr-2"></i>
+                  <span>{{event.lieu}}</span>
+                </div>
+                <h4 class="text-xl font-bold mb-2">{{event.title}}</h4>
+                <p class="text-gray-600 mb-4">{{event.description|striptags|slice(0, 20)}}...</p>
+                {% if event.owner_id != session.get('user').id %}
+                  <div class="flex items-center justify-between">
+                    <a href="/event/details/{{ event.event_id }}" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Book Now</a>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+            {% endfor %}
+
+          </div>
+          
+          <div class="mt-8 flex items-center justify-between">
+            {# <div class="text-sm text-gray-600">
+              Showing {{ ((currentPage - 1) * 2) + 1 }}-{{ min(currentPage * 2, totalEvents) }} of {{totalEvents}} events
+            </div> #}
+            <div class="flex gap-2" id="pagination-controls">
+              <button class="px-4 py-2 border rounded-lg hover:bg-gray-100 disabled:opacity-50" 
+                      id="prev-page" 
+                      {% if currentPage == 1 %}disabled{% endif %}
+                      data-page="{{ currentPage - 1 }}">
+                Previous
+              </button>
+              <button class="px-4 py-2 border rounded-lg hover:bg-gray-100 disabled:opacity-50" 
+                      id="next-page"
+                      {% if currentPage == totalPages %}disabled{% endif %}
+                      data-page="{{ currentPage + 1 }}">
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endblock %}
+{% block footer %} {% include "layouts/footer.html.twig" %}  {% endblock %}
+{% block scripts %}
+  <script src="/assets/script/pagination.js"></script>
+{% endblock %}

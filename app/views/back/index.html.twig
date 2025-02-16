@@ -1,0 +1,169 @@
+{% extends "back/dashboard.html.twig"%}
+{% block aside %} 
+<aside id="sidebar" class="w-64 bg-gray-900 text-white h-full fixed left-0">
+        <div class="p-4">
+            <div class="flex items-center space-x-2 mb-6">
+                <i class="fa-solid fa-bolt text-yellow-400 text-2xl"></i>
+                <span class="text-xl font-bold">AdminPanel</span>
+            </div>
+            <nav class="space-y-2">
+                <a href="/dashboard" class="flex items-center space-x-2 bg-gray-800 p-3 rounded-lg">
+                    <i class="fa-solid fa-gauge-high"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="/admin/users" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Users</span>
+                </a>
+                <a href="/admin/events" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span>Events</span>
+                </a>
+                <a href="/admin/categoryTag" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
+                    <i class="fa-solid fa-comments"></i>
+                    <span>categories&tags</span>
+                </a>
+                <a href="#" class="flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Reports</span>
+                </a>
+            </nav>
+        </div>
+    </aside>
+{% endblock %}
+{% block mainContent %}   
+<div id="stats-grid" class="grid grid-cols-4 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-xl shadow">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-gray-500">Total Users</h3>
+                    <i class="fa-solid fa-users text-blue-500 text-xl"></i>
+                </div>
+                <p class="text-2xl font-bold">{{ stats.totalUsers }}</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-gray-500">Active Events</h3>
+                    <i class="fa-solid fa-calendar text-purple-500 text-xl"></i>
+                </div>
+                <p class="text-2xl font-bold">{{ stats.activeEvents }}</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-gray-500">Tickets Sold</h3>
+                    <i class="fa-solid fa-ticket text-orange-500 text-xl"></i>
+                </div>
+                <p class="text-2xl font-bold">{{ stats.ticketsSold }}</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-gray-500">Revenue</h3>
+                    <i class="fa-solid fa-dollar-sign text-green-500 text-xl"></i>
+                </div>
+                <p class="text-2xl font-bold">{{ stats.revenue }}</p>
+            </div>
+        </div>
+        <div id="activity-section" class="grid grid-cols-2 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-xl shadow">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold">Recent Activity</h2>
+                </div>
+                <div class="space-y-4">
+                    {% for user in recentActivities.recentUsers %}
+                        <div class="flex items-center space-x-6 p-3 hover:bg-gray-50 rounded-lg">
+                            <div class="bg-blue-100 p-2 rounded-lg">
+                                <i class="fa-solid fa-user-plus text-blue-500"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium">New user registration</p>
+                                <p class="text-sm text-gray-500">{{ user.username }} joined the platform</p>
+                            </div>
+                            <span class="text-sm text-gray-400 ml-auto">{{ user.created_at | date("d M H:i") }}</span>
+                        </div>
+                    {% endfor %}
+                    {% for event in recentActivities.recentEvents %}
+                        <div class="flex items-center space-x-4 p-3 hover:bg-gray-50 rounded-lg">
+                            <div class="bg-green-100 p-2 rounded-lg">
+                                <i class="fa-solid fa-calendar-plus text-green-500"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium">New event created</p>
+                                <p class="text-sm text-gray-500">{{ event.title }}</p>
+                            </div>
+                            <span class="text-sm text-gray-400 ml-auto">{{ event.date | date("d M H:i") }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold">Pending Actions</h2>
+                </div>
+                <div class="space-y-4">
+                    {% for event in pendingActions.pendingEvents %}
+                        <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg">
+                            <div class="flex items-center space-x-4">
+                                <div class="bg-yellow-100 p-2 rounded-lg">
+                                    <i class="fa-solid fa-clock text-yellow-500"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Event Approval Required</p>
+                                    <p class="text-sm text-gray-500">{{ event.title }}</p>
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <form action="/admin/events/status" method="POST">
+                                    <input type="hidden" name="event_id" value="{{ event.id }}">
+                                    <input type="hidden" name="status" value="1">
+                                    <button type="submit"class="p-2 text-green-500 hover:bg-green-50 rounded-lg">
+                                        <i class="fa-solid fa-check"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {# {% for user in pendingActions.pendingUsers %}
+                        <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg">
+                            <div class="flex items-center space-x-4">
+                                <div class="bg-orange-100 p-2 rounded-lg">
+                                    <i class="fa-solid fa-user-shield text-orange-500"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">User Verification</p>
+                                    <p class="text-sm text-gray-500">Event organizer application</p>
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="p-2 text-green-500 hover:bg-green-50 rounded-lg">
+                                    <i class="fa-solid fa-check"></i>
+                                </button>
+                                <button class="p-2 text-red-500 hover:bg-red-50 rounded-lg">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
+                        </div>
+                    {% endfor %} #}
+                </div>
+            </div>
+        </div>
+        <div id="export-section" class="bg-white p-6 rounded-xl shadow">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold">Data Export</h2>
+            </div>
+            <div class="flex space-x-4">
+                <form action="/admin/export/csv" method="post">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                    <button class="flex items-center space-x-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+                        <i class="fa-solid fa-file-csv"></i>
+                        <span>Export as CSV</span>
+                    </button>
+                </form>
+                <form action="/admin/export/pdf" method="post">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                    <button class="flex items-center space-x-2 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
+                        <i class="fa-solid fa-file-pdf"></i>
+                        <span>Export as PDF</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+{% endblock %}

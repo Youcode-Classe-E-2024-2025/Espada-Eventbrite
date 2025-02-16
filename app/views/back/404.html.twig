@@ -1,0 +1,24 @@
+{% extends "base.html.twig" %}
+{% block content %}
+                <div id="error-404" class="flex items-center justify-center p-8">
+  <div class="text-center max-w-2xl mx-auto">
+    <div class="mb-8">
+      <img class="w-96 h-96 mx-auto" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/e1ccfc9861-120a234dc6706ed10600.png" alt="3D illustration of a lost astronaut floating in space, cute and friendly style, soft colors" >
+    </div>
+    <h1 class="text-6xl font-bold text-gray-900 mb-4">Oops!</h1>
+    <h2 class="text-3xl text-gray-700 mb-6">Page Not Found</h2>
+    <p class="text-gray-600 text-lg mb-8">
+      The page you're looking for seems to have wandered off into space. Don't worry, you can always head back home!
+    </p>
+    <div class="space-y-4">
+      <a href="/" class="inline-flex items-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition duration-200">
+        <i class="fa-solid fa-house mr-2"></i>
+        Return Home
+      </a>
+      <div class="text-gray-500 mt-4">
+        Error Code: 404
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

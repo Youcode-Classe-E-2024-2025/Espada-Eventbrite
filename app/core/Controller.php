@@ -1,6 +1,10 @@
 <?php
 
-namespace App\Core;
+namespace App\core;
+
+use Google\Service\BeyondCorp\Resource\V;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 abstract class Controller
 {
@@ -8,6 +12,8 @@ abstract class Controller
     protected $view;
     protected $security;
     protected $session;
+    protected $validator;
+    protected Logger $logger;
 
     public function __construct()
     {
@@ -15,9 +21,18 @@ abstract class Controller
         $this->view = new View();
         $this->security = new Security();
         $this->session = new Session();
+        $this->validator = new Validator();
+
+        // Initialize base logger
+        $this->logger = new Logger('app');
+        $this->logger->pushHandler(
+            new StreamHandler(
+                __DIR__ . '/../../logs/app.log', 
+                Logger::DEBUG
+            )
+        );
     }
 
-    
     /**
      * Renders a view template with provided data
      * 
@@ -28,11 +43,19 @@ abstract class Controller
     protected function render(string $template, array $data = [])
     {
         $data['session'] = new Session();
+        $this->logger->debug("Rendering template: {$template}");
         return $this->view->render($template, $data);
     }
 
-    protected function redirect($url) {
+    protected function redirect($url)
+    {
         header('Location: ' . $url);
         exit();
+    }
+
+    // Optional: Centralized logging method
+    protected function log($message, $level = Logger::INFO)
+    {
+        $this->logger->log($level, $message);
     }
 }
