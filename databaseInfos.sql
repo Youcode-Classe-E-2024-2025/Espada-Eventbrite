@@ -82,3 +82,10 @@ CREATE TABLE envenment_tag (
     FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE,
     FOREIGN KEY (envenment_id) REFERENCES evenments(id) ON DELETE CASCADE
 );
+CREATE TABLE notification (
+    id SERIAL PRIMARY KEY,
+    from_id INTEGER NOT NULL,
+    to_id INTEGER NOT NULL,
+    action VARCHAR(255) NOT NULL,
+    message TEXT NOT NULL,checked int default 0 
+    );

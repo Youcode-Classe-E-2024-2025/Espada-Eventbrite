@@ -16,7 +16,7 @@ class OrganiserDashController extends Controller
     protected EventService $evsdn;
     protected StatService $statServ;
     protected CreateService $tagCatego;
-    protected WebSocketNotifier $notifier;
+    // protected WebSocketNotifier $notifier;
     protected NotifData $notiD;
     public int $id;
 
@@ -28,7 +28,6 @@ class OrganiserDashController extends Controller
         $this->tagCatego = new CreateService();
         $this->id = $this->session->get('user')->id;
         parent::__construct();
-        $this->notifier = WebSocketNotifier::getInstance();
         $this->notiD = new NotifData() ;
     }
 
@@ -47,9 +46,9 @@ class OrganiserDashController extends Controller
         $data = $this->statServ->getOwnerStatistic($intValeur);
 
         $csrfToken = $this->security->generateCsrfToken();
-
-
-        echo $this->render('front/organiser/dashboard.twig', ['data' => $data, 'csrf_token' => $csrfToken]);
+        $notif=$this->getNotif($this->id);
+        var_dump($notif);
+        echo $this->render('front/organiser/dashboard.twig', ['data' => $data, 'csrf_token' => $csrfToken , 'notif'=> $notif]);
     }
 
 
@@ -101,8 +100,9 @@ class OrganiserDashController extends Controller
         $data = $this->statServ->ticketsStaTs($intValeur);
 
         // var_dump($data);
+        $notif=$this->getNotif($this->id);
 
-        echo $this->render('front/organiser/tickets.html.twig', ['data' => $data]);
+        echo $this->render('front/organiser/tickets.html.twig', ['data' => $data,'notif'=> $notif ] );
     }
 
     public function delete($id)
@@ -319,6 +319,11 @@ class OrganiserDashController extends Controller
                 'early_bird_discount' => $discount
             ];
             $tagIds = explode(",", $tags);
+
+            // var_dump($evenmentData);
+            
+            // var_dump($capacityData);
+            // die;
 
 
             $this->evsdn->createEvent($evenmentData, $capacityData, $tagIds);

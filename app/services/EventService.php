@@ -46,6 +46,7 @@ class EventService
             // $eventId = $this->evenmentRepo->getLastInsertedId();
 
             // Step 2: Insert the capacity data for the created event
+            var_dump($res);
             $capacityData['evenment_id'] = $res;
             if (!$this->capacityRepo->create($capacityData)) {
                 return false; // Capacity creation failed
@@ -202,4 +203,10 @@ class EventService
     {
         return $this->evenmentRepo->countActiveEvents();
     }
+
+    public function getOwnerIdByEventID($id)
+    {
+        return $this->evenmentRepo->countActiveEvents($id);
+    }
+
 }

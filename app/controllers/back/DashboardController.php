@@ -75,13 +75,15 @@ class DashboardController extends Controller
             $stats = $this->getStats();
             $pendingActions = $this->getPendingActions();
             $recentActivities = $this->getRecentActivities();
-
+            $notif=$this->getNotif($_SESSION['user']->id);
+            // var_dump($notif);
             echo $this->render('/back/index.html.twig', [
                 'stats' => $stats,
                 'pendingActions' => $pendingActions,
                 'recentActivities' => $recentActivities,
                 "messages" => $messages,
-                "csrf_token" => $csrfToken
+                "csrf_token" => $csrfToken,
+                'notif' =>$notif
             ]);
         } else {
             $this->logger->error('Invalid role for dashboard access');

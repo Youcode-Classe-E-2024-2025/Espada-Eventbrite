@@ -5,12 +5,16 @@ namespace App\services;
 use App\repository\CapacityRepository;
 use App\repository\EvenmentTagRepository;
 use App\repository\EvenmentRepository;
-use App\repository\ReservationRepository; // Ensure this is included
+
+use App\services\NotificationService;
+use App\repository\ReservationRepository; 
 use App\models\Event;
 use App\core\Database;
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
 use TCPDF;
+
+use App\services\WebSocketNotifier;
 
 
 class ReservationService
@@ -18,20 +22,31 @@ class ReservationService
     private CapacityRepository $capacityRepo;
     private EvenmentTagRepository $evenmentTagRepo;
     private EvenmentRepository $eventRepository;
-    private ReservationRepository $reservationRepository; // Change this line
+    private ReservationRepository $reservationRepository; 
+    private $notif ; 
+
     private Event $event;
+    protected WebSocketNotifier $ws;
 
     public function __construct()
     {
         $this->capacityRepo = new CapacityRepository();
         $this->evenmentTagRepo = new EvenmentTagRepository();
         $this->event = new Event();
-        $this->reservationRepository = new ReservationRepository(); // Change this line
+        $this->notif = new NotificationService();
+        $this->reservationRepository = new ReservationRepository(); 
         $this->eventRepository = new EvenmentRepository();
+        $this->ws= WebSocketNotifier::getInstance();
     }
 
     public function insertBooking($userId, $eventId, $type,  $totalPrice, $booking_date)
     {
+
+        $res = $this->eventRepository->getOwnerIdByEventID($eventId) ;
+                $dataNo=['from_id'=>$userId ,'to_id' =>$res ,'action' => 'booking' ,'message'=> 'new booking has been detected'];
+                
+                 $this->notif->sendNotification($dataNo);
+                 $this->ws->send($this->eventRepository->getNEventID($eventId), 'new booking has been detected ' , $res);
         $ticketId = uniqid('TICKET-');
 
         $qrData = [

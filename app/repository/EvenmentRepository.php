@@ -4,15 +4,26 @@ namespace App\repository;
 
 use App\core\Database;
 use App\models\Event;
+use App\services\NotificationService;
+
+use App\services\WebSocketNotifier;
 use PDO;
 
 class EvenmentRepository
 {
     private Database $DB;
+    private NotificationService $notif ;
+
+    protected WebSocketNotifier $ws;
 
     public function __construct()
     {
         $this->DB = new Database();
+        $this->notif=new NotificationService();
+
+        $this->ws = WebSocketNotifier::getInstance();
+        
+        
     }
 
     public function create(array $evenmentData)
@@ -40,7 +51,18 @@ class EvenmentRepository
         );
         if ($res) {
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            // Fetch the ID
+            $data=[
+                "from_id" =>$evenmentData['owner_id'] ,
+                "to_id" => 3,
+                "action" => 'create',
+                "message" =>'new event has been ceated'
+            ];
+          
+
+            $this->notif->sendNotification($data);
+
+            $this->ws->send($evenmentData['title'] , 'new event been created' , '3');
+            
             return  $result['id'];  // Ensure it returns an integer
         }
 
@@ -175,7 +197,7 @@ class EvenmentRepository
                 e.date AS event_date,
                 e.lieu as lieu ,
                 e.validation AS status,
-                (SELECT SUM(b.price) 
+                (SELECT count(b.id) 
                  FROM booking b 
                  WHERE b.evenment_id = e.id) AS sales
             FROM evenments e
@@ -227,7 +249,7 @@ class EvenmentRepository
             SELECT 
                 (SELECT COUNT(*) FROM evenments WHERE owner_id = :owner_id) AS total_events,
                 (SELECT COUNT(*) FROM evenments WHERE owner_id = :owner_id AND validation = 1 AND archived = 0) AS active_events,
-                (SELECT SUM(b.price) 
+                (SELECT sum(b.price) 
                  FROM booking b 
                  INNER JOIN evenments e ON b.evenment_id = e.id 
                  WHERE e.owner_id = :owner_id AND e.validation = 1 AND e.archived = 0) AS total_sales,
@@ -353,12 +375,12 @@ class EvenmentRepository
                 FROM booking b
                 JOIN evenments e ON b.evenment_id = e.id
                 JOIN users u ON b.user_id = u.id
-                WHERE e.owner_id = :user_id AND e.id = :eve_id;
+                WHERE  e.id = :eve_id;
 
             ";
 
         $stmt = $this->DB->getConnection()->prepare($sql);
-        $stmt->bindParam(':user_id', $owner, PDO::PARAM_INT);
+        // $stmt->bindParam(':user_id', $owner, PDO::PARAM_INT);
         $stmt->bindParam(':eve_id', $even, PDO::PARAM_INT);
         $stmt->execute();
 
@@ -677,4 +699,28 @@ class EvenmentRepository
         $stmt = $this->DB->query($query);
         return $stmt->fetchColumn() ?: 0;
     }
+
+
+
+    public function getOwnerIdByEventID($id)
+    {
+        $query = "SELECT e.owner_id as Id
+              FROM evenments e
+               WHERE e.id = $id;
+              ";
+        $stmt = $this->DB->query($query);
+        return $stmt->fetchColumn() ?: 0;
+    }
+    public function getNEventID($id)
+    {
+        $query = "SELECT e.title as t
+              FROM evenments e
+               WHERE e.id = $id;
+              ";
+        $stmt = $this->DB->query($query);
+        return $stmt->fetchColumn() ?: 0;
+    }
+
+
+   
 }

@@ -5,6 +5,7 @@ namespace App\controllers\front;
 use App\services\ReservationService;
 use App\services\EventService;
 use App\core\Controller;
+// use App\services\NotificationService;
 use Stripe\Stripe;
 use Stripe\PaymentIntent;
 use Dotenv\Dotenv;
@@ -13,12 +14,15 @@ class ReservationController extends Controller
 {
     private $reservationService;
     private $eventService;
-
+    // private NotificationService $notif ;
     public function __construct()
     {
         parent::__construct();
         $this->reservationService = new ReservationService();
         $this->eventService = new EventService();
+// use App\services\NotificationService;
+        // $this->notif = new NotificationService();
+
     }
 
     public function index($id)
@@ -87,6 +91,9 @@ class ReservationController extends Controller
 
                 // Insert booking details into the database
                 $this->reservationService->insertBooking($userId, $event_id, $type, $totalPrice, $booking_date);
+
+               
+                
                 $this->reservationService->updateSold($event_id, $vipQuantity, $standardQuantity, $freeQuantity);
             } catch (\Exception $e) {
                 // Handle any errors with Stripe payment

@@ -3,8 +3,11 @@
 namespace App\core;
 
 use Google\Service\BeyondCorp\Resource\V;
+use App\services\NotificationService;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+use App\services\WebSocketNotifier;
+
 
 abstract class Controller
 {
@@ -14,6 +17,9 @@ abstract class Controller
     protected $session;
     protected $validator;
     protected Logger $logger;
+    protected $notif ; 
+    protected WebSocketNotifier $ws;
+
 
     public function __construct()
     {
@@ -22,6 +28,11 @@ abstract class Controller
         $this->security = new Security();
         $this->session = new Session();
         $this->validator = new Validator();
+        $this->ws = WebSocketNotifier::getInstance();
+
+
+
+        $this->notif = new NotificationService();
 
         // Initialize base logger
         $this->logger = new Logger('app');
@@ -58,4 +69,16 @@ abstract class Controller
     {
         $this->logger->log($level, $message);
     }
+
+    protected function getNotif($id){
+
+       $res = $this->notif->getUserNotifications($id);
+
+
+
+       return $res ; 
+
+    }
+
+
 }

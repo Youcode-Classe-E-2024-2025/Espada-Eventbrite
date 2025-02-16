@@ -53,6 +53,7 @@ class AdminUserController extends Controller
 
         $results = $this->userService->searchFilterUsers($keyword, $roleId, $status, $page, $perPage);
         $messages = $this->session->get('messages') ?? [];
+       
 
         return $this->render('back/users.html.twig', [
             'users' => $results,
@@ -62,7 +63,8 @@ class AdminUserController extends Controller
             'messages' => $messages,
             'currentPage' => $page,
             'totalPages' => $totalPages,
-            'totalUsers' => $totalUsers
+            'totalUsers' => $totalUsers,
+           
         ]);
     }
 
@@ -75,12 +77,14 @@ class AdminUserController extends Controller
 
         $results = $this->userService->filterUsers($roleId, $status);
         $messages = $this->session->get('messages') ?? [];
+       
 
         return $this->render('back/users.html.twig', [
             'users' => $results,
             'role_id' => $roleId,
             'status' => $status,
             'messages' => $messages,
+           
         ]);
     }
 

@@ -33,15 +33,15 @@ class WebSocketNotifier {
         }
     }
 
-    public function send(string $eventName, string $action, array $userIds): bool {
+    public function send(string $userName, string $action, string $userId): bool {
         if (!$this->client) {
             throw new Exception("Not connected to WebSocket server");
         }
 
         $data = [
             'action' => $action,
-            'event_name' => $eventName,
-            'user_ids' => $userIds
+            'event_name' => $userName,
+            'user_ids' => $userId
         ];
 
         try {
