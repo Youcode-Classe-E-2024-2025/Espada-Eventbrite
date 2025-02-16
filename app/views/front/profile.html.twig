@@ -17,7 +17,7 @@
                 <div class="bg-white rounded-xl shadow-sm p-6">
                     <div class="text-center mb-6">
                         <div class="relative inline-block">
-                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Profile" class="w-24 h-24 rounded-full mx-auto">
+                            <img src="{{ session.get('user').avatar }}" alt="Profile" class="w-24 h-24 rounded-full mx-auto">
                             <button class="absolute bottom-0 right-0 bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700">
                                 <i class="fa-solid fa-camera"></i>
                             </button>
@@ -135,7 +135,10 @@
                             </div>
                         </div>
                     {% endfor %}
+<<<<<<< HEAD
                     
+=======
+>>>>>>> main
                 </div>
             </div>
         </div>

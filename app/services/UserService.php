@@ -60,6 +60,7 @@ class UserService
 
         // Attempt to create user
         $createdUser = $this->userRepository->createUser($userData);
+      
 
         // Return true if user was created successfully, false otherwise
         return $createdUser !== null;
