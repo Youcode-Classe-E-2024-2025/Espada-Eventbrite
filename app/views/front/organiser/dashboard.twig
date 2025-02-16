@@ -4,10 +4,10 @@
     <div class="flex-1 p-4 space-y-4">
        
         {# /Organiser/createEve #}
-        <nav class="space-y-1">
+        <nav class="space-y-4">
         
-         <a href="/Organiser/createEve" class="fw-full bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2">
-                <i class="fa-solid fa-chart-line w-5"></i>
+         <a href="/Organiser/createEve" class="fw-full bg-black text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2">
+                <i class="fa-solid fa-pen w-5"></i>
                 <span>Create New Event</span>
             </a>
             <a href="/Organiser/dash" class="flex items-center gap-3 px-3 py-2 text-gray-900 bg-gray-100 rounded-lg">
@@ -57,7 +57,11 @@
                             <h3 class="text-sm font-medium text-gray-500">Total Sales</h3>
                             <i class="fa-solid fa-dollar-sign text-blue-600"></i>
                         </div>
-                        <p class="text-2xl font-semibold mt-2">${{data.stat.total_sales}}</p>
+                        <p class="text-2xl font-semibold mt-2">${% if data.stat.total_sales is defined and data.stat.total_sales is not null %}
+    {{ data.stat.total_sales }}
+{% else %}
+    0
+{% endif %}</p>
                     </div>
                     <div class="bg-white p-6 rounded-xl border border-gray-200">
                         <div class="flex items-center justify-between">

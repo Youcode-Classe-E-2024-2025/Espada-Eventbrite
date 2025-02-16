@@ -89,7 +89,9 @@ class UserRepository
                 ':username' => $userData['username'],
                 ':avatar' => $userData['avatar'] ?? null,
                 ':google_id' => $userData['google_id'] ?? null,
-                ':is_google' => $userData['is_google'] ? 1 : 0
+                ':is_google' => isset($userData['is_google']) 
+                    ? ($userData['is_google'] ? 1 : 0) 
+                    : 0  // Default to 0 if not set
             ];
 
             // Execute query and return the created user

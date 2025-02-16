@@ -154,6 +154,10 @@ class EventService
     {
         return $this->evenmentRepo->getAdminPaginatedEvents($page, $perPage);
     }
+    public function getPaginatedEventsHome($page = 1,$limit = 2,$categories = [])
+    {
+        return $this->evenmentRepo->getPaginatedEvents($page,$limit,$categories);
+    }
 
     public function getTotalEvents()
     {

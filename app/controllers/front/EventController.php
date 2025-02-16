@@ -38,8 +38,7 @@ class EventController extends Controller
     }
     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $limit = 2; // Events per page
-    $events = $this->eventService->getPaginatedEvents($page, $limit, $categories);
-
+    $events = $this->eventService->getPaginatedEventsHome($page, $limit, $categories);
     $totalEvents = $this->eventService->getTotalEvents();
     $totalPages = ceil($totalEvents / $limit);
     $categories = $this->categoryRepo->getAllCategories();
@@ -78,7 +77,7 @@ class EventController extends Controller
 
     $this->logger->info('Searching events with keyword: ' . $keyword);
 
-    $categories = $this->categoryRepo->getAll();
+    $categories = $this->categoryRepo->getAllCategories();
 
     $events = $this->eventService->searchEvents($keyword, $page, $perPage);
     $totalEvents = $this->eventService->getTotalSearchResults($keyword);

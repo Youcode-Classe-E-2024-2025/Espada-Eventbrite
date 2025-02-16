@@ -3,7 +3,11 @@
         'name' => 'mvc/app',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
+<<<<<<< HEAD
+        'reference' => '81314a3e6abcb295242a793fafb21adc913eac1c',
+=======
         'reference' => 'da4b31c3ced4933ea29bce65b80a80111c8c977d',
+>>>>>>> main
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -29,9 +33,9 @@
             'dev_requirement' => false,
         ),
         'endroid/qr-code' => array(
-            'pretty_version' => '6.0.3',
-            'version' => '6.0.3.0',
-            'reference' => 'bdbb06e767efe9abe3c00461662b4059a6cd0b55',
+            'pretty_version' => '5.1.0',
+            'version' => '5.1.0.0',
+            'reference' => '393fec6c4cbdc1bd65570ac9d245704428010122',
             'type' => 'library',
             'install_path' => __DIR__ . '/../endroid/qr-code',
             'aliases' => array(),
@@ -121,7 +125,11 @@
         'mvc/app' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
+<<<<<<< HEAD
+            'reference' => '81314a3e6abcb295242a793fafb21adc913eac1c',
+=======
             'reference' => 'da4b31c3ced4933ea29bce65b80a80111c8c977d',
+>>>>>>> main
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
