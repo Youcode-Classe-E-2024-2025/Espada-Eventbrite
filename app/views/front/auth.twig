@@ -14,7 +14,7 @@
           <button onclick="toggleForm('signin')" id="signin-tab" class="px-4 py-2 text-sm font-medium text-black border-b-2 border-black">Sign In</button>
           <button onclick="toggleForm('signup')" id="signup-tab" class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800">Sign Up</button>
         </div>
-        <h1>{{ messege }}</h1>
+        <h1 class="text-red-500">{{ messege }}</h1>
 
         {% if app.request.query.get('error') == 'google_auth_failed' %}
           <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">

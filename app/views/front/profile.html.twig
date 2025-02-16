@@ -17,7 +17,7 @@
                 <div class="bg-white rounded-xl shadow-sm p-6">
                     <div class="text-center mb-6">
                         <div class="relative inline-block">
-                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Profile" class="w-24 h-24 rounded-full mx-auto">
+                            <img src="{{ session.get('user').avatar }}" alt="Profile" class="w-24 h-24 rounded-full mx-auto">
                             <button class="absolute bottom-0 right-0 bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700">
                                 <i class="fa-solid fa-camera"></i>
                             </button>
@@ -141,16 +141,6 @@
                             </div>
                         </div>
                     {% endfor %}
-                    <div class="border rounded-lg p-4">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h4 class="font-medium">Music Festival</h4>
-                                <p class="text-sm text-gray-600">General Admission</p>
-                                <p class="text-sm text-gray-600 mt-2">April 5, 2025 • 7:00 PM</p>
-                            </div>
-                            <i class="fa-solid fa-qrcode text-2xl text-gray-400"></i>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
